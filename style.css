@@ -257,3 +257,9 @@ label {
     color:grey; 
     width:300px;
 }
+
+#caption {
+    position: relative;
+    left: 20px;
+    text-align: left;
+}
