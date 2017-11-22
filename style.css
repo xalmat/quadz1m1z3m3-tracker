@@ -251,3 +251,9 @@ label {
 .opened{
     background-color: rgb(127,127,127);
 }
+
+#credits {
+    text-align: center; 
+    color:grey; 
+    width:300px;
+}
