@@ -234,6 +234,12 @@ function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
     }
 }
 
+const unknownPrize = 0;
+const greenPendant = 1;
+const badPendant = 2;
+const blueCrystal = 3;
+const redCrystal = 4;
+
 // define dungeon chests
 const dungeons = [];
 
@@ -2084,7 +2090,7 @@ dungeons[10] = {
         else if (logic === 'glitchless') {
             let crystalCount = 0;
             for (let k = 0; k < 10; k++) {
-                if ((trackerData.prizes[k] === 4 || trackerData.prizes[k] === 3) && trackerData.items["boss" + k] === 2) {
+                if ((trackerData.prizes[k] === redCrystal || trackerData.prizes[k] === blueCrystal) && trackerData.items["boss" + k] === 2) {
                     crystalCount++;
                     if (crystalCount === 7) {
                         break;
@@ -2903,7 +2909,7 @@ chests[25] = {
     isAvailable: function () {
         const availability = new Availability();
         for (let k = 0; k < 10; k++) {
-            if (trackerData.prizes[k] === 1 && trackerData.items["boss" + k] === 2) {
+            if (trackerData.prizes[k] === greenPendant && trackerData.items["boss" + k] === 2) {
                 availability.glitchless = "available";
                 break;
             }
@@ -4104,7 +4110,7 @@ chests[61] = {
         // Crystal check
         let crystalCount = 0;
         for (let k = 0; k < 10; k++) {
-            if (trackerData.prizes[k] === 4 && trackerData.items["boss" + k] === 2) {
+            if (trackerData.prizes[k] === redCrystal && trackerData.items["boss" + k] === 2) {
                 crystalCount++;
                 if (crystalCount === 2) {
                     break;
@@ -4167,7 +4173,7 @@ chests[62] = {
         const availability = new Availability();
         let pendantCount = 0;
         for (let k = 0; k < 10; k++) {
-            if ((trackerData.prizes[k] === 1 || trackerData.prizes[k] === 2) && trackerData.items["boss" + k] === 2) {
+            if ((trackerData.prizes[k] === badPendant || trackerData.prizes[k] === greenPendant) && trackerData.items["boss" + k] === 2) {
                 pendantCount++;
                 if (pendantCount === 3) {
                     break;
