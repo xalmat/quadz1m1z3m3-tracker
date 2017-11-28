@@ -699,7 +699,7 @@ Vue.component('tracker-cell', {
       this.clickChest(-1);
     },
     clickPrize: function(amt) {
-      var newPrize = (this.trackerData.prizes[this.bossNum] + amt + 5) % 5;
+      var newPrize = (this.trackerData.prizes[this.bossNum] + amt + 4) % 4;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
       this.trackerData.prizes.splice(this.bossNum, 1, newPrize);
       updateAll(); 

@@ -234,11 +234,10 @@ function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
     }
 }
 
-const unknownPrize = 0;
-const greenPendant = 1;
+const blueCrystal = 0;
+const redCrystal = 1;
 const badPendant = 2;
-const blueCrystal = 3;
-const redCrystal = 4;
+const greenPendant = 3;
 
 // define dungeon chests
 const dungeons = [];
