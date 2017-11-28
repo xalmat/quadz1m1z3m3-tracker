@@ -673,9 +673,10 @@ Vue.component('tracker-cell', {
     clickCellBack: function(e) {
       this.clickCell(-1);
     },
-    clickMedallion: function(amt) {         
+    clickMedallion: function(amt) {
+      var newMedallion = (this.trackerData.medallions[this.bossNum] + amt + 4) % 4;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
-      this.trackerData.medallions.splice(this.bossNum, 1, (this.trackerData.medallions[this.bossNum] + amt + 4) % 4);
+      this.trackerData.medallions.splice(this.bossNum, 1, newMedallion);
       updateAll();
     },
     clickMedallionForward: function(e) {
@@ -698,8 +699,9 @@ Vue.component('tracker-cell', {
       this.clickChest(-1);
     },
     clickPrize: function(amt) {
+      var newPrize = (this.trackerData.prizes[this.bossNum] + amt + 5) % 5;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
-      this.trackerData.prizes.splice(this.bossNum, 1, (this.trackerData.prizes[this.bossNum] + amt + 5) % 5);
+      this.trackerData.prizes.splice(this.bossNum, 1, newPrize);
       updateAll(); 
     },
     clickPrizeForward: function(e) {
