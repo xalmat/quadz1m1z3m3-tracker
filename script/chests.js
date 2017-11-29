@@ -3982,13 +3982,17 @@ chests[54] = {
 };
 
 chests[55] = {
-    name: "Escape Sewer (4) <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
+    name: "Sewer Cracked Wall (3) <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
     x: "26.8%",
     y: "32.4%",
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        availability.glitchless = 'available';
+        if (!trackerOptions.openmode || trackerData.items.lantern || canLiftRocks()) {
+            availability.glitchless = 'available';
+        } else {
+            availability.glitchless = 'unavailable';
+        }        
         return availability;
     }
 };
@@ -4206,6 +4210,22 @@ chests[63] = {
         else if (trackerData.items.boots) {
             availability.glitchless = 'glitchavailable';
         }
+        return availability;
+    }
+};
+
+chests[64] = {
+    name: "Sewer Dark Cross",
+    x: "26.8%",
+    y: "38%",
+    isOpened: false,
+    isAvailable: function () {
+        const availability = new Availability();
+        if (!trackerOptions.openmode || trackerData.items.lantern) {
+            availability.glitchless = 'available';
+        } else {
+            availability.glitchless = 'unavailable';
+        }        
         return availability;
     }
 };

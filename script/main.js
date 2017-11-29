@@ -5,6 +5,7 @@ var trackerOptions = {
   showmedals: true,
   showlabels: true,
   mapLogic: 'glitchless',
+  openmode: false,
   editmode: false,
   selected: {}
 };
@@ -33,7 +34,7 @@ function getCookie() {
     return JSON.parse(str);
 }
 
-var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'chest', 'prize', 'medal', 'label', 'items'];
+var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'openmode', 'chest', 'prize', 'medal', 'label', 'items'];
 var cookieDefault = {
     ts:94,
     map:1,
@@ -41,6 +42,7 @@ var cookieDefault = {
     mZoom:50,
     mOrien:0,
     mapLogic:'glitchless',
+    openmode:0,
     mPos:0,
     chest:1,
     prize:1,
@@ -76,7 +78,9 @@ function setConfigObject(configobj) {
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
     document.querySelector('input[value="' + (configobj.mapLogic || 'glitchless') + '"]').click();
-
+    
+    document.getElementsByName('openmode')[0].checked = !!configobj.openmode;
+    document.getElementsByName('openmode')[0].onchange();    
     document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
     document.getElementsByName('showcrystal')[0].checked = !!configobj.prize;
@@ -136,6 +140,7 @@ function getConfigObject() {
     configobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
     configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
 
+    configobj.openmode = document.getElementsByName('openmode')[0].checked ? 1 : 0;
     configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
     configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
     configobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
@@ -262,6 +267,12 @@ function setMapOrientation(H) {
             }
         }
     }
+    saveCookie();
+}
+
+function setOpenMode(sender) {
+    trackerOptions.openmode = sender.checked;
+    refreshMap();
     saveCookie();
 }
 
