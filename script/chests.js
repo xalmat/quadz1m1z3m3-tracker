@@ -666,11 +666,8 @@ dungeons[3] = {
                     availability.glitchless = 'partial';
                 }
             }
-            else if (trackerData.items.lantern) {
-                availability.glitchless = 'partial';
-            }
             else {
-                availability.glitchless = 'glitchpartial';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', true, false)) {
@@ -688,11 +685,8 @@ dungeons[3] = {
                     availability.owGlitches = 'partial';
                 }
             }
-            else if (trackerData.items.lantern) {
-                availability.owGlitches = 'partial';
-            }
             else {
-                availability.owGlitches = 'glitchpartial';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
