@@ -159,24 +159,24 @@ function toggleChest(x){
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
-    document.getElementById(x).style.backgroundImage = "url(images/highlighted.png)";
+    document.getElementById(x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
     document.getElementById("caption").innerHTML = chests[x].name;
 }
 
 function unhighlight(x){
-    document.getElementById(x).style.backgroundImage = "url(images/poi.png)";
-    document.getElementById("caption").innerHTML = "&nbsp;";
+    document.getElementById(x).style.backgroundImage = "url(" + build_img_url("poi") + ")";
+//    document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/highlighted.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
     document.getElementById("caption").innerHTML = dungeons[x].name;
 }
 
 function unhighlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/poi.png)";
-    document.getElementById("caption").innerHTML = "&nbsp;";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("poi") + ")";
+//    document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
 function showChest(sender) {
@@ -352,7 +352,7 @@ function refreshMapMedallion(d) {
         dungeonName = "Misery Mire";
     else
         dungeonName = "Turtle Rock";
-    dungeons[d].name = dungeonName + " <img src='images/medallion"+trackerData.medallions[d]+".png' class='mini'><img src='images/lantern.png' class='mini'>";
+    dungeons[d].name = dungeonName + " " + mini("medallion" + trackerData.medallions[d]) + mini("lantern");
 }
 
 function refreshChests() {
@@ -434,7 +434,7 @@ function populateMapdiv() {
     // Initialize all chests on the map
     for(k=0; k<chests.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+        s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.style.color = 'black';
         s.id = k;
         s.onclick = new Function('toggleChest('+k+')');
@@ -452,7 +452,7 @@ function populateMapdiv() {
     // Dungeon bosses & chests
     for(k=0; k<dungeons.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/' + dungeons[k].image + ')';
+        s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
         s.id = 'bossMap' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -462,7 +462,7 @@ function populateMapdiv() {
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+        s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.id = 'dungeon' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -493,15 +493,16 @@ function populateItemconfig() {
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if((typeof trackerData.items[key]) === "boolean"){
-            rowitem.style.backgroundImage = "url(images/" + key + ".png)";
+            rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
         }
         else if(key.indexOf("heart") === 0){
-            rowitem.style.backgroundImage = "url(images/" + key + ".png)";
+            rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
         }
-        else{
-            rowitem.style.backgroundImage = "url(images/" + key + itemsMax[key] + ".png)";
+		else {
+            rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
         }
         if(key.indexOf("boss") === 0){
+            rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
             rowitem.innerText = dungeons[key.substring(4)].label;
         }
         row.appendChild(rowitem);
@@ -618,34 +619,34 @@ Vue.component('tracker-cell', {
     },
     backgroundImage: function() {
       if(this.itemName === 'blank') {
-        return this.trackerOptions.editmode ? 'url(images/blank.png)' :'none';
+        return this.trackerOptions.editmode ? 'url(' + build_img_url("blank") + ')' : 'none';
       }
       else if((typeof this.itemValue) === "boolean") {
-        return 'url(images/' + this.itemName + '.png)';
+        return 'url(' + build_img_url(this.itemName) + ')';
       }
       else if(this.textCounter !== null) {
-        return 'url(images/' + this.itemName + '.png)';
+        return 'url(' + build_img_url(this.itemName) + ')';
       }
-      return 'url(images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0')) + '.png)';
+      return 'url(' + build_img_url(this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0'))) + ')';
     },
     isActive: function() {
       return this.trackerOptions.editmode || this.itemValue;
     },
     chestImage: function() {
       if(this.bossNum && this.trackerOptions && this.trackerOptions.showchests) {
-        return "url(images/chest" + this.trackerData.dungeonchests[this.bossNum] + ".png)";
+        return "url(" + build_img_url("chest" + this.trackerData.dungeonchests[this.bossNum]) + ")";
       }
       return null;
     },
     prizeImage: function() {
       if(this.bossNum && this.bossNum !== "10" && this.trackerOptions && this.trackerOptions.showprizes) {
-        return "url(images/dungeon" + this.trackerData.prizes[this.bossNum] + ".png)";
+        return "url(" + build_img_url("dungeon" + this.trackerData.prizes[this.bossNum]) + ")";
       }
       return null;
     },
     medallionImage: function() {
       if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions && this.trackerOptions.showmedals) {
-        return "url(images/medallion" + this.trackerData.medallions[this.bossNum] + ".png)";
+        return "url(" + build_img_url("medallion" + this.trackerData.medallions[this.bossNum]) + ")";
       }
       return null;
     }

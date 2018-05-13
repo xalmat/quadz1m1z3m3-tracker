@@ -234,11 +234,6 @@ function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
     }
 }
 
-const blueCrystal = 0;
-const redCrystal = 1;
-const badPendant = 2;
-const greenPendant = 3;
-
 // define dungeon chests
 const dungeons = [];
 
@@ -247,7 +242,6 @@ dungeons[0] = {
     label: "EP",
     x: "46.8%",
     y: "38.8%",
-    image: "boss02.png",
     isBeatable: function() {
         const availability = new Availability();
         if (trackerData.items.bow) {
@@ -288,7 +282,6 @@ dungeons[1] = {
     label: "DP",
     x: "3.8%",
     y: "78.4%",
-    image: "boss12.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return trackerData.items.book
@@ -437,7 +430,6 @@ dungeons[2] = {
     label: "ToH",
     x: "31.0%",
     y: "5.5%",
-    image: "boss22.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return trackerData.items.boots
@@ -599,11 +591,10 @@ dungeons[2] = {
 };
 
 dungeons[3] = {
-    name: "Palace of Darkness <img src='images/lantern.png' class='mini'>",
+    name: "Palace of Darkness " + mini("lantern"),
     label: "PoD",
     x: "97.0%",
     y: "40.0%",
-    image: "boss32.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return (glitchedLinkInDarkWorld() && canEnterNorthEastDarkWorld('majorGlitches', agahnimCheck, allowOutOfLogicGlitches))
@@ -739,11 +730,10 @@ dungeons[3] = {
 };
 
 dungeons[4] = {
-    name: "Swamp Palace <img src='images/mirror.png' class='mini'>",
+    name: "Swamp Palace " + mini("mirror"),
     label: "SP",
     x: "73.5%",
     y: "91.0%",
-    image: "boss42.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return dungeons[8].canEnter('majorGlitches', agahnimCheck, allowOutOfLogicGlitches)
@@ -905,7 +895,6 @@ dungeons[5] = {
     label: "SW",
     x: "53.3%",
     y: "5.4%",
-    image: "boss52.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches' || logic === 'owGlitches') {
             return canEnterNorthWestDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches);
@@ -1034,7 +1023,6 @@ dungeons[6] = {
     label: "TT",
     x: "56.4%",
     y: "47.9%",
-    image: "boss62.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return glitchedLinkInDarkWorld() && canEnterNorthWestDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches);
@@ -1167,7 +1155,6 @@ dungeons[7] = {
     label: "IP",
     x: "89.8%",
     y: "85.8%",
-    image: "boss72.png",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return canLiftDarkRocks()
@@ -1353,11 +1340,10 @@ dungeons[7] = {
 };
 
 dungeons[8] = {
-    name: "Misery Mire <img src='images/medallion0.png' class='mini'><img src='images/lantern.png' class='mini'>",
+    name: "Misery Mire " + mini("medallion0") + mini("lantern"),
     label: "MM",
     x: "55.8%",
     y: "82.9%",
-    image: "boss82.png",
     hasMedallion: function () {
         return (trackerData.medallions[8] === 1 && trackerData.items.bombos)
                 || (trackerData.medallions[8] === 2 && trackerData.items.ether)
@@ -1651,11 +1637,10 @@ dungeons[8] = {
 };
 
 dungeons[9] = {
-    name: "Turtle Rock <img src='images/medallion0.png' class='mini'><img src='images/lantern.png' class='mini'>",
+    name: "Turtle Rock " + mini("medallion0") + mini("lantern"),
     label: "TR",
     x: "96.9%",
     y: "7.0%",
-    image: "boss92.png",
     hasMedallion: function () {
         return (trackerData.medallions[9] === 1 && trackerData.items.bombos)
                 || (trackerData.medallions[9] === 2 && trackerData.items.ether)
@@ -2072,7 +2057,6 @@ dungeons[10] = {
     label: "GT",
     x: "77.0%",
     y: "5.5%",
-    image: "boss102.png",
     canEnter: function (logic, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
             return canEnterWestDeathMountain(logic, allowOutOfLogicGlitches);
@@ -2268,7 +2252,7 @@ dungeons[10] = {
 const chests = [];
 
 chests[0] = {
-    name: "King's Tomb <img src='images/boots.png' class='mini'> + <img src='images/glove2.png' class='mini'>/<img src='images/mirror.png' class='mini'>",
+    name: "King's Tomb " + mini("boots") + ' + ' + mini("glove2") + '/' + mini("mirror"),
     x: "30.8%",
     y: "29.6%",
     isOpened: false,
@@ -2354,7 +2338,7 @@ chests[3] = {
 };
 
 chests[4] = {
-    name: "Mimic Cave (<img src='images/mirror.png' class='mini'> outside of Turtle Rock)(Yellow = <img src='images/medallion0.png' class='mini'> unknown OR possible w/out <img src='images/firerod.png' class='mini'>)",
+    name: "Mimic Cave (" + mini("mirror") + " outside of Turtle Rock)(Yellow = " + mini("medallion0") + " unknown OR possible w/out " + mini("firerod") + ")",
     x: "42.6%",
     y: "9.3%",
     isOpened: false,
@@ -2407,7 +2391,7 @@ chests[5] = {
 };
 
 chests[6] = {
-    name: "Chicken House <img src='images/bomb.png' class='mini'>",
+    name: "Chicken House " + mini("bomb"),
     x: "4.4%",
     y: "54.2%",
     isOpened: false,
@@ -2419,7 +2403,7 @@ chests[6] = {
 };
 
 chests[7] = {
-    name: "Bombable Hut <img src='images/bomb.png' class='mini'>",
+    name: "Bombable Hut " + mini("bomb"),
     x: "55.4%",
     y: "57.8%",
     isOpened: false,
@@ -2499,7 +2483,7 @@ chests[8] = {
 };
 
 chests[9] = {
-    name: "Aginah's Cave <img src='images/bomb.png' class='mini'>",
+    name: "Aginah's Cave " + mini("bomb"),
     x: "10.0%",
     y: "82.6%",
     isOpened: false,
@@ -2550,7 +2534,7 @@ chests[10] = {
 };
 
 chests[11] = {
-    name: "DW Death Mountain (2) : Don't need <img src='images/moonpearl.png' class='mini'>",
+    name: "DW Death Mountain (2) : Don't need " + mini("moonpearl"),
     x: "92.8%",
     y: "14.7%",
     isOpened: false,
@@ -2581,7 +2565,7 @@ chests[11] = {
 };
 
 chests[12] = {
-    name: "Sahasrahla's Hut (3) <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
+    name: "Sahasrahla's Hut (3) " + mini("bomb") + '/' + mini("boots"),
     x: "40.7%",
     y: "41.4%",
     isOpened: false,
@@ -2645,7 +2629,7 @@ chests[13] = {
 };
 
 chests[14] = {
-    name: "Kakariko Well (4 + <img src='images/bomb.png' class='mini'>)",
+    name: "Kakariko Well (4 + " + mini("bomb") + ")",
     x: "1.7%",
     y: "41.0%",
     isOpened: false,
@@ -2657,7 +2641,7 @@ chests[14] = {
 };
 
 chests[15] = {
-    name: "Thieves' Hut (4 + <img src='images/bomb.png' class='mini'>)",
+    name: "Thieves' Hut (4 + " + mini("bomb") + ")",
     x: "6.4%",
     y: "41.0%",
     isOpened: false,
@@ -2669,7 +2653,7 @@ chests[15] = {
 };
 
 chests[16] = {
-    name: "Hype Cave! <img src='images/bomb.png' class='mini'> (NPC + 4 <img src='images/bomb.png' class='mini'>)",
+    name: "Hype Cave! " + mini("bomb") + " (NPC + 4 " + mini("bomb") + ")",
     x: "80.0%",
     y: "77.1%",
     isOpened: false,
@@ -2711,7 +2695,7 @@ chests[16] = {
 };
 
 chests[17] = {
-    name: "Death Mountain East (5 + 2 <img src='images/bomb.png' class='mini'>)",
+    name: "Death Mountain East (5 + 2 " + mini("bomb") + ")",
     x: "41.4%",
     y: "17.1%",
     isOpened: false,
@@ -2740,7 +2724,7 @@ chests[17] = {
 };
 
 chests[18] = {
-    name: "West of Sanctuary <img src='images/boots.png' class='mini'>",
+    name: "West of Sanctuary " + mini("boots"),
     x: "19.5%",
     y: "29.3%",
     isOpened: false,
@@ -2754,7 +2738,7 @@ chests[18] = {
 };
 
 chests[19] = {
-    name: "Minimoldorm Cave (NPC + 4) <img src='images/bomb.png' class='mini'>",
+    name: "Minimoldorm Cave (NPC + 4) " + mini("bomb"),
     x: "32.6%",
     y: "93.4%",
     isOpened: false,
@@ -2766,7 +2750,7 @@ chests[19] = {
 };
 
 chests[20] = {
-    name: "Ice Rod Cave <img src='images/bomb.png' class='mini'>",
+    name: "Ice Rod Cave " + mini("bomb"),
     x: "44.7%",
     y: "76.9%",
     isOpened: false,
@@ -2778,7 +2762,7 @@ chests[20] = {
 };
 
 chests[21] = {
-    name: "Cave Under Rock (bottom chest) <img src='images/hookshot.png' class='mini'>/<img src='images/boots.png' class='mini'>",
+    name: "Cave Under Rock (bottom chest) " + mini("hookshot") + "/" + mini("boots"),
     x: "91.6%",
     y: "8.6%",
     isOpened: false,
@@ -2812,7 +2796,7 @@ chests[21] = {
 };
 
 chests[22] = {
-    name: "Cave Under Rock (3 top chests) <img src='images/hookshot.png' class='mini'>",
+    name: "Cave Under Rock (3 top chests) " + mini("hookshot"),
     x: "91.6%",
     y: "3.4%",
     isOpened: false,
@@ -2895,7 +2879,7 @@ chests[24] = {
 };
 
 chests[25] = {
-    name: "Sahasrahla <img src='images/pendant0.png' class='mini'>",
+    name: "Sahasrahla " + mini("pendant0"),
     x: "40.7%",
     y: "46.7%",
     isOpened: false,
@@ -2954,7 +2938,7 @@ chests[26] = {
 };
 
 chests[27] = {
-    name: "Bug Kid <img src='images/bottle0.png' class='mini'>",
+    name: "Bug Kid " + mini("bottle0"),
     x: "7.8%",
     y: "52.1%",
     isOpened: false,
@@ -3028,7 +3012,7 @@ chests[28] = {
 };
 
 chests[29] = {
-    name: "Fugitive under the bridge <img src='images/flippers.png' class='mini'>",
+    name: "Fugitive under the bridge " + mini("flippers"),
     x: "35.4%",
     y: "69.7%",
     isOpened: false,
@@ -3046,7 +3030,7 @@ chests[29] = {
 };
 
 chests[30] = {
-    name: "Ether Tablet <img src='images/sword2.png' class='mini'><img src='images/book.png' class='mini'>",
+    name: "Ether Tablet " + mini("sword2") + mini("book"),
     x: "21.0%",
     y: "3.0%",
     isOpened: false,
@@ -3123,7 +3107,7 @@ chests[30] = {
 };
 
 chests[31] = {
-    name: "Bombos Tablet <img src='images/mirror.png' class='mini'><img src='images/sword2.png' class='mini'><img src='images/book.png' class='mini'>",
+    name: "Bombos Tablet " + mini("mirror") + mini("sword2") + mini("book"),
     x: "11.0%",
     y: "92.2%",
     isOpened: false,
@@ -3282,7 +3266,7 @@ chests[34] = {
 };
 
 chests[35] = {
-    name: "Witch: Give her <img src='images/mushroom.png' class='mini'>",
+    name: "Witch: Give her " + mini("mushroom"),
     x: "40.8%",
     y: "32.5%",
     isOpened: false,
@@ -3308,7 +3292,7 @@ chests[36] = {
 };
 
 chests[37] = {
-    name: "Lumberjack Tree <img src='images/agahnim1.png' class='mini'><img src='images/boots.png' class='mini'>",
+    name: "Lumberjack Tree " + mini("agahnim1") + mini("boots"),
     x: "15.1%",
     y: "7.6%",
     isOpened: false,
@@ -3360,7 +3344,7 @@ chests[38] = {
 };
 
 chests[39] = {
-    name: "South of Grove <img src='images/mirror.png' class='mini'>",
+    name: "South of Grove " + mini("mirror"),
     x: "14.1%",
     y: "84.1%",
     isOpened: false,
@@ -3407,7 +3391,7 @@ chests[39] = {
 };
 
 chests[40] = {
-    name: "Graveyard Cliff Cave <img src='images/mirror.png' class='mini'>",
+    name: "Graveyard Cliff Cave " + mini("mirror"),
     x: "28.1%",
     y: "27.0%",
     isOpened: false,
@@ -3448,7 +3432,7 @@ chests[40] = {
 };
 
 chests[41] = {
-    name: "Checkerboard Cave <img src='images/mirror.png' class='mini'>",
+    name: "Checkerboard Cave " + mini("mirror"),
     x: "8.8%",
     y: "77.3%",
     isOpened: false,
@@ -3487,7 +3471,7 @@ chests[41] = {
 };
 
 chests[42] = {
-    name: "<img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'><img src='images/hammer.png' class='mini'>!!!!!!!!",
+    name: mini("hammer").repeat(8) + "!".repeat(8),
     x: "65.8%",
     y: "60.1%",
     isOpened: false,
@@ -3534,7 +3518,7 @@ chests[42] = {
 };
 
 chests[43] = {
-    name: "Library <img src='images/boots.png' class='mini'>",
+    name: "Library " + mini("boots"),
     x: "7.7%",
     y: "65.9%",
     isOpened: false,
@@ -3563,7 +3547,7 @@ chests[44] = {
 };
 
 chests[45] = {
-    name: "Spectacle Rock <img src='images/mirror.png' class='mini'>",
+    name: "Spectacle Rock " + mini("mirror"),
     x: "25.4%",
     y: "8.5%",
     isOpened: false,
@@ -3622,7 +3606,7 @@ chests[45] = {
 };
 
 chests[46] = {
-    name: "Floating Island <img src='images/mirror.png' class='mini'>",
+    name: "Floating Island " + mini("mirror"),
     x: "40.2%",
     y: "3.0%",
     isOpened: false,
@@ -3701,7 +3685,7 @@ chests[46] = {
 };
 
 chests[47] = {
-    name: "Race Minigame <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
+    name: "Race Minigame " + mini("bomb") + "/" + mini("boots"),
     x: "1.8%",
     y: "69.8%",
     isOpened: false,
@@ -3713,7 +3697,7 @@ chests[47] = {
 };
 
 chests[48] = {
-    name: "Desert West Ledge <img src='images/book.png' class='mini'>/<img src='images/mirror.png' class='mini'>",
+    name: "Desert West Ledge " + mini("book") + "/" + mini("mirror"),
     x: "1.5%",
     y: "91.0%",
     isOpened: false,
@@ -3748,7 +3732,7 @@ chests[48] = {
 };
 
 chests[49] = {
-    name: "Lake Hylia Island <img src='images/mirror.png' class='mini'>",
+    name: "Lake Hylia Island " + mini("mirror"),
     x: "36.1%",
     y: "82.9%",
     isOpened: false,
@@ -3799,7 +3783,7 @@ chests[49] = {
 };
 
 chests[50] = {
-    name: "Bumper Cave <img src='images/cape.png' class='mini'>",
+    name: "Bumper Cave " + mini("cape"),
     x: "67.1%",
     y: "15.2%",
     isOpened: false,
@@ -3936,7 +3920,7 @@ chests[52] = {
 };
 
 chests[53] = {
-    name: "Zora River Ledge <img src='images/flippers.png' class='mini'>",
+    name: "Zora River Ledge " + mini("flippers"),
     x: "47.5%",
     y: "17.3%",
     isOpened: false,
@@ -3962,7 +3946,7 @@ chests[53] = {
 };
 
 chests[54] = {
-    name: "Buried Item <img src='images/shovel.png' class='mini'>",
+    name: "Buried Item " + mini("shovel"),
     x: "14.4%",
     y: "66.2%",
     isOpened: false,
@@ -3976,7 +3960,7 @@ chests[54] = {
 };
 
 chests[55] = {
-    name: "Sewer Cracked Wall (3) <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
+    name: "Sewer Cracked Wall (3) " + mini("bomb") + "/" + mini("boots"),
     x: "26.8%",
     y: "32.4%",
     isOpened: false,
@@ -3986,7 +3970,7 @@ chests[55] = {
             availability.glitchless = 'available';
         } else {
             availability.glitchless = 'unavailable';
-        }        
+        }
         return availability;
     }
 };
@@ -4028,7 +4012,7 @@ chests[58] = {
 };
 
 chests[59] = {
-    name: "Mad Batter <img src='images/hammer.png' class='mini'>/<img src='images/mirror.png' class='mini'> + <img src='images/powder.png' class='mini'>",
+    name: "Mad Batter " + mini("hammer") + "/" + mini("boots") + " + " + mini("powder"),
     x: "16.0%",
     y: "58.0%",
     isOpened: false,
@@ -4054,7 +4038,7 @@ chests[59] = {
 };
 
 chests[60] = {
-    name: "Take the frog home (<img src='images/mirror.png' class='mini'> or save and quit)",
+    name: "Take the frog home (" + mini("mirror") + " or save and quit)",
     x: "15.2%",
     y: "51.8%",
     isOpened: false,
@@ -4098,7 +4082,7 @@ chests[60] = {
 };
 
 chests[61] = {
-    name: "Fat Fairy: Buy OJ bomb from Dark Link's House after <img src='images/crystal0.png' class='mini'>5 <img src='images/crystal0.png' class='mini'>6 (2 items)",
+    name: "Fat Fairy: Buy OJ bomb from Dark Link's House after " + mini("redCrystal") + "5 " + mini("redCrystal") + "6 (2 items)",
     x: "73.5%",
     y: "48.5%",
     isOpened: false,
@@ -4162,7 +4146,7 @@ chests[61] = {
 };
 
 chests[62] = {
-    name: "Master Sword Pedestal <img src='images/pendant0.png' class='mini'><img src='images/pendant1.png' class='mini'><img src='images/pendant2.png' class='mini'> (can check with <img src='images/book.png' class='mini'>)",
+    name: "Master Sword Pedestal " + mini("pendant0") + mini("pendant1") + mini("pendant2") + " (can check with " + mini("book") + ")",
     x: "2.5%",
     y: "3.2%",
     isOpened: false,
@@ -4188,7 +4172,7 @@ chests[62] = {
 };
 
 chests[63] = {
-    name: "Waterfall of the Wishing (2)  <img src='images/flippers.png' class='mini'>",
+    name: "Waterfall of the Wishing (2) " + mini("flippers"),
     x: "44.9%",
     y: "14.7%",
     isOpened: false,
