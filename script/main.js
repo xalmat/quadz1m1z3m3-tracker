@@ -537,6 +537,7 @@ function useTourneyConfig() {
 
 function initTracker() {
     //createItemTracker(document.getElementById('itemdiv'));
+    document.body.classList.add(selectedGame);
     populateMapdiv();
     populateItemconfig();
 

@@ -74,7 +74,11 @@ function build_img_url(item) {
 		category = "misc";
 	}
 
-	var url		= "images/" + category + '/' + item + ".png";
+	var url		= "images/";
+	if(category != "misc") {
+		url += selectedGame + '/';
+	}
+	url += category + '/' + item + ".png";
     return url;
 }
 

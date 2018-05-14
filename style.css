@@ -187,24 +187,29 @@ label {
 
 .mapdiv{
     background-size: 100% 100%;
-    background: url("images/maps/map.png") no-repeat;
     transform-origin: top left;
 
     position: relative;
-    width: 884px;
-    height: 442px;
     left: 0;
 }
 
 .mapvdiv{
     background-size: cover;
-    background: url("images/maps/mapv.png") no-repeat;
     transform-origin: top left;
 
     position: relative;
+    left: 0;
+}
+
+.zelda3 .mapdiv{
+    background: url("images/zelda3/maps/map.png") no-repeat;
+    width: 884px;
+    height: 442px;
+}
+.zelda3 .mapvdiv{
+    background: url("images/zelda3/maps/mapv.png") no-repeat;
     width: 438px;
     height: 888px;
-    left: 0;
 }
 
 .chest{
