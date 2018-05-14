@@ -17,9 +17,23 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function extend(obj, src) {
+    for (var key in src) {
+        if (src.hasOwnProperty(key)) obj[key] = src[key];
+    }
+    return obj;
+}
+
+function include_js(url) {
+	var script = document.createElement("script");
+	script.src = url;
+	document.head.appendChild(script);
+}
+
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
 var chests = {};
 var dungeons = {};
+var regionNames = {};
 
 var roomid = "hyph";//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
 var authAttempted = false;
