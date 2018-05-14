@@ -1,5 +1,5 @@
-
-var trackerOptions = {
+var trackerOptions = {};
+trackerOptions[selectedGame] = {
   showchests: true,
   showprizes: true,
   showmedals: true,
@@ -10,18 +10,20 @@ var trackerOptions = {
   selected: {}
 };
 
-var chestsopenedInit = [];
-for(var i = 0; i < chests.length; i++) {
-    chestsopenedInit.push(false);
+var chestsopenedInit = {};
+chestsopenedInit[selectedGame] = [];
+for(var i = 0; i < chests[selectedGame].length; i++) {
+    chestsopenedInit[selectedGame].push(false);
 }
 
-var trackerData = {
-  items: itemsInit,
-  dungeonchests: dungeonchestsInit,
-  dungeonbeaten: dungeonbeatenInit,
-  prizes: prizesInit,
-  medallions: medallionsInit,
-  chestsopened: chestsopenedInit
+var trackerData = {};
+trackerData[selectedGame] = {
+  items: itemsInit[selectedGame],
+  dungeonchests: dungeonchestsInit[selectedGame],
+  dungeonbeaten: dungeonbeatenInit[selectedGame],
+  prizes: prizesInit[selectedGame],
+  medallions: medallionsInit[selectedGame],
+  chestsopened: chestsopenedInit[selectedGame]
 };
 
 function setCookie(obj) {
@@ -47,9 +49,9 @@ var cookieDefault = {
     chest:1,
     prize:1,
     medal:1,
-    label:1,
-    items:defaultItemGrid
+    label:1
 };
+cookieDefault.items = defaultItemGrid[selectedGame];
 
 var cookielock = false;
 function loadCookie() {
@@ -153,14 +155,14 @@ function getConfigObject() {
 
 // Event of clicking a chest on the map
 function toggleChest(x){
-    trackerData.chestsopened[x] = !trackerData.chestsopened[x];
+    trackerData[selectedGame].chestsopened[x] = !trackerData[selectedGame].chestsopened[x];
     updateAll();
 }
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
     document.getElementById(x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = chests[x].name;
+    document.getElementById("caption").innerHTML = chests[selectedGame][x].name;
 }
 
 function unhighlight(x){
@@ -171,7 +173,7 @@ function unhighlight(x){
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = dungeons[x].name;
+    document.getElementById("caption").innerHTML = dungeons[selectedGame][x].name;
 }
 
 function unhighlightDungeon(x){
@@ -180,25 +182,25 @@ function unhighlightDungeon(x){
 }
 
 function showChest(sender) {
-    trackerOptions.showchests = sender.checked;
+    trackerOptions[selectedGame].showchests = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function showCrystal(sender) {
-    trackerOptions.showprizes = sender.checked;
+    trackerOptions[selectedGame].showprizes = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function showMedallion(sender) {
-    trackerOptions.showmedals = sender.checked;
+    trackerOptions[selectedGame].showmedals = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function showLabel(sender) {
-    trackerOptions.showlabels = sender.checked;
+    trackerOptions[selectedGame].showlabels = sender.checked;
     refreshMap();
     saveCookie();
 }
@@ -271,24 +273,24 @@ function setMapOrientation(H) {
 }
 
 function setOpenMode(sender) {
-    trackerOptions.openmode = sender.checked;
+    trackerOptions[selectedGame].openmode = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function setLogic(logic) {
-    trackerOptions.mapLogic = logic;
+    trackerOptions[selectedGame].mapLogic = logic;
     refreshMap();
     saveCookie();
 }
 
 function showSettings(sender) {
-    if (trackerOptions.editmode) {
-        trackerOptions.showchests = document.getElementsByName('showchest')[0].checked;
-        trackerOptions.showprizes = document.getElementsByName('showcrystal')[0].checked;
-        trackerOptions.showmedals = document.getElementsByName('showmedallion')[0].checked;
-        trackerOptions.showlabels = document.getElementsByName('showlabel')[0].checked;
-        trackerOptions.editmode = false;
+    if (trackerOptions[selectedGame].editmode) {
+        trackerOptions[selectedGame].showchests = document.getElementsByName('showchest')[0].checked;
+        trackerOptions[selectedGame].showprizes = document.getElementsByName('showcrystal')[0].checked;
+        trackerOptions[selectedGame].showmedals = document.getElementsByName('showmedallion')[0].checked;
+        trackerOptions[selectedGame].showlabels = document.getElementsByName('showlabel')[0].checked;
+        trackerOptions[selectedGame].editmode = false;
         showTracker('mapdiv', document.getElementsByName('showmap')[0]);
         document.getElementById('itemconfig').style.display = 'none';
 
@@ -316,11 +318,11 @@ function showTracker(target, sender) {
 }
 
 function EditMode() {
-    trackerOptions.showchests = false;
-    trackerOptions.showprizes = false;
-    trackerOptions.showmedals = false;
-    trackerOptions.showlabels = false;
-    trackerOptions.editmode = true;
+    trackerOptions[selectedGame].showchests = false;
+    trackerOptions[selectedGame].showprizes = false;
+    trackerOptions[selectedGame].showmedals = false;
+    trackerOptions[selectedGame].showlabels = false;
+    trackerOptions[selectedGame].editmode = true;
     showTracker('mapdiv', {checked:false});
     document.getElementById('settings').style.display = 'none';
     document.getElementById('itemconfig').style.display = '';
@@ -335,13 +337,13 @@ function refreshMapMedallions() {
 
 function refreshMapMedallion(d) {
     // Update availability of dungeon boss AND chests
-    if(trackerData.dungeonbeaten[d])
+    if(trackerData[selectedGame].dungeonbeaten[d])
         document.getElementById("bossMap"+d).className = "mapspan boss opened";
     else
-        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable().getClassName();
+        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[selectedGame][d].isBeatable().getClassName();
 
-    if(trackerData.dungeonchests[d] > 0)
-        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[d].canGetChest().getClassName();
+    if(trackerData[selectedGame].dungeonchests[d] > 0)
+        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[selectedGame][d].canGetChest().getClassName();
     // TRock medallion affects Mimic Cave
     if(d === 9){
         refreshChests();
@@ -352,15 +354,15 @@ function refreshMapMedallion(d) {
         dungeonName = "Misery Mire";
     else
         dungeonName = "Turtle Rock";
-    dungeons[d].name = dungeonName + " " + mini("medallion" + trackerData.medallions[d]) + mini("lantern");
+    dungeons[selectedGame][d].name = dungeonName + " " + mini("medallion" + trackerData[selectedGame].medallions[d]) + mini("lantern");
 }
 
 function refreshChests() {
-    for(k=0; k<chests.length; k++){
-        if(trackerData.chestsopened[k])
+    for(k=0; k<chests[selectedGame].length; k++){
+        if(trackerData[selectedGame].chestsopened[k])
             document.getElementById(k).className = "mapspan chest opened";
         else
-            document.getElementById(k).className = "mapspan chest " + chests[k].isAvailable().getClassName();
+            document.getElementById(k).className = "mapspan chest " + chests[selectedGame][k].isAvailable().getClassName();
     }
 }
 
@@ -368,13 +370,13 @@ function refreshMap() {
   refreshMapMedallions();
   refreshChests();
 
-  for(k=0; k<dungeons.length; k++){
-      if(trackerData.dungeonbeaten[k])
+  for(k=0; k<dungeons[selectedGame].length; k++){
+      if(trackerData[selectedGame].dungeonbeaten[k])
           document.getElementById("bossMap"+k).className = "mapspan boss opened";
       else
-          document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[k].isBeatable().getClassName();
-      if(trackerData.dungeonchests[k])
-          document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[k].canGetChest().getClassName();
+          document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[selectedGame][k].isBeatable().getClassName();
+      if(trackerData[selectedGame].dungeonchests[k])
+          document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[selectedGame][k].canGetChest().getClassName();
       else
           document.getElementById("dungeon"+k).className = "mapspan dungeon opened";
   }
@@ -383,11 +385,11 @@ function refreshMap() {
 function itemConfigClick (sender) {
     var item = sender.id;
 
-    if (trackerOptions.selected.item) {
-        document.getElementById(trackerOptions.selected.item).style.border = '0px';
+    if (trackerOptions[selectedGame].selected.item) {
+        document.getElementById(trackerOptions[selectedGame].selected.item).style.border = '0px';
         sender.style.border = '3px solid yellow';
-        trackerOptions.selected = {item:item};	
-    } else if (trackerOptions.selected.row !== undefined) {
+        trackerOptions[selectedGame].selected = {item:item};
+    } else if (trackerOptions[selectedGame].selected.row !== undefined) {
         itemGrid[selected.row][selected.col]['item'].style.border = '1px solid white';
         var old = itemLayout[selected.row][selected.col];
 
@@ -421,10 +423,10 @@ function itemConfigClick (sender) {
 
         document.getElementById(old).style.opacity = 1;
 
-        trackerOptions.selected = {};
+        trackerOptions[selectedGame].selected = {};
     } else {
         sender.style.border = '3px solid yellow';
-        trackerOptions.selected = {item:item}
+        trackerOptions[selectedGame].selected = {item:item}
     }
 }
 
@@ -432,7 +434,7 @@ function populateMapdiv() {
     var mapdiv = document.getElementById('mapdiv');
 
     // Initialize all chests on the map
-    for(k=0; k<chests.length; k++){
+    for(k=0; k<chests[selectedGame].length; k++){
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.style.color = 'black';
@@ -440,25 +442,25 @@ function populateMapdiv() {
         s.onclick = new Function('toggleChest('+k+')');
         s.onmouseover = new Function('highlight('+k+')');
         s.onmouseout = new Function('unhighlight('+k+')');
-        s.style.left = chests[k].x;
-        s.style.top = chests[k].y;
-        if(trackerData.chestsopened[k])
+        s.style.left = chests[selectedGame][k].x;
+        s.style.top = chests[selectedGame][k].y;
+        if(trackerData[selectedGame].chestsopened[k])
             s.className = "mapspan chest opened";
         else
-            s.className = "mapspan chest " + chests[k].isAvailable().getClassName();
+            s.className = "mapspan chest " + chests[selectedGame][k].isAvailable().getClassName();
         mapdiv.appendChild(s);
     }
 
     // Dungeon bosses & chests
-    for(k=0; k<dungeons.length; k++){
+    for(k=0; k<dungeons[selectedGame].length; k++){
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
         s.id = 'bossMap' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
-        s.style.left = dungeons[k].x;
-        s.style.top = dungeons[k].y;
-        s.className = "mapspan boss " + dungeons[k].isBeatable().getClassName();
+        s.style.left = dungeons[selectedGame][k].x;
+        s.style.top = dungeons[selectedGame][k].y;
+        s.className = "mapspan boss " + dungeons[selectedGame][k].isBeatable().getClassName();
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
@@ -466,9 +468,9 @@ function populateMapdiv() {
         s.id = 'dungeon' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
-        s.style.left = dungeons[k].x;
-        s.style.top = dungeons[k].y;
-        s.className = "mapspan dungeon " + dungeons[k].canGetChest().getClassName();
+        s.style.left = dungeons[selectedGame][k].x;
+        s.style.top = dungeons[selectedGame][k].y;
+        s.className = "mapspan dungeon " + dungeons[selectedGame][k].canGetChest().getClassName();
         mapdiv.appendChild(s);
     }
 }
@@ -480,7 +482,7 @@ function populateItemconfig() {
 
     var row;
 
-    for (var key in trackerData.items) {
+    for (var key in trackerData[selectedGame].items) {
         if (i % 10 === 0){
             row = document.createElement('tr');
             grid.appendChild(row);
@@ -492,7 +494,7 @@ function populateItemconfig() {
         rowitem.id = key;
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
-        if((typeof trackerData.items[key]) === "boolean"){
+        if((typeof trackerData[selectedGame].items[key]) === "boolean"){
             rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
         }
         else if(key.indexOf("heart") === 0){
@@ -503,7 +505,7 @@ function populateItemconfig() {
         }
         if(key.indexOf("boss") === 0){
             rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
-            rowitem.innerText = dungeons[key.substring(4)].label;
+            rowitem.innerText = dungeons[selectedGame][key.substring(4)].label;
         }
         row.appendChild(rowitem);
     }		
@@ -519,12 +521,12 @@ function createRoom() {
 }
 
 function resetFirebase() {
-    trackerData.items = itemsInit;
-    trackerData.dungeonchests = dungeonchestsInit;
-    trackerData.dungeonbeaten = dungeonbeatenInit;
-    trackerData.prizes = prizesInit;
-    trackerData.medallions = medallionsInit;
-    trackerData.chestsopened = chestsopenedInit;
+    trackerData[selectedGame].items = itemsInit[selectedGame];
+    trackerData[selectedGame].dungeonchests = dungeonchestsInit[selectedGame];
+    trackerData[selectedGame].dungeonbeaten = dungeonbeatenInit[selectedGame];
+    trackerData[selectedGame].prizes = prizesInit[selectedGame];
+    trackerData[selectedGame].medallions = medallionsInit[selectedGame];
+    trackerData[selectedGame].chestsopened = chestsopenedInit[selectedGame];
     updateAll();
 }
 
@@ -543,7 +545,7 @@ function initTracker() {
 }
 
 function updateAll() {
-    if(trackerData.items && trackerData.dungeonchests && trackerData.dungeonbeaten && trackerData.prizes && trackerData.medallions && trackerData.chestsopened) {
+    if(trackerData[selectedGame].items && trackerData[selectedGame].dungeonchests && trackerData[selectedGame].dungeonbeaten && trackerData[selectedGame].prizes && trackerData[selectedGame].medallions && trackerData[selectedGame].chestsopened) {
       vm.displayVueMap = true;
       refreshMap();
     }
@@ -606,76 +608,80 @@ Vue.component('tracker-cell', {
       return this.itemName.substring(4);
     },
     dungeonLabel: function() {
-      if(this.bossNum && this.trackerOptions && this.trackerOptions.showlabels) {
-        return dungeons[this.bossNum].label;
+      if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showlabels) {
+        return dungeons[selectedGame][this.bossNum].label;
       }
       return null;
     },
     textCounter: function() {
+      var itemValue = this.trackerData[selectedGame].items[this.itemName];
       if(this.itemName.indexOf('heart') === 0) {
-        return this.itemValue;
+        return itemValue;
       }
       return null;
     },
     backgroundImage: function() {
+      var itemValue = this.trackerData[selectedGame].items[this.itemName];
       if(this.itemName === 'blank') {
-        return this.trackerOptions.editmode ? 'url(' + build_img_url("blank") + ')' : 'none';
+        return this.trackerOptions[selectedGame].editmode ? 'url(' + build_img_url("blank") + ')' : 'none';
       }
-      else if((typeof this.itemValue) === "boolean") {
+      else if((typeof itemValue) === "boolean") {
         return 'url(' + build_img_url(this.itemName) + ')';
       }
       else if(this.textCounter !== null) {
         return 'url(' + build_img_url(this.itemName) + ')';
       }
-      return 'url(' + build_img_url(this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0'))) + ')';
+      return 'url(' + build_img_url(this.itemName + (this.trackerOptions[selectedGame].editmode ? itemsMax[this.itemName] : (itemValue || '0'))) + ')';
     },
     isActive: function() {
-      return this.trackerOptions.editmode || this.itemValue;
+      var itemValue = this.trackerData[selectedGame].items[this.itemName];
+      return this.trackerOptions[selectedGame].editmode || itemValue;
     },
     chestImage: function() {
-      if(this.bossNum && this.trackerOptions && this.trackerOptions.showchests) {
-        return "url(" + build_img_url("chest" + this.trackerData.dungeonchests[this.bossNum]) + ")";
+      if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showchests) {
+        return "url(" + build_img_url("chest" + this.trackerData[selectedGame].dungeonchests[this.bossNum]) + ")";
       }
       return null;
     },
     prizeImage: function() {
-      if(this.bossNum && this.bossNum !== "10" && this.trackerOptions && this.trackerOptions.showprizes) {
-        return "url(" + build_img_url("dungeon" + this.trackerData.prizes[this.bossNum]) + ")";
+      if(this.bossNum && this.bossNum !== "10" && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showprizes) {
+        return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
       }
       return null;
     },
     medallionImage: function() {
-      if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions && this.trackerOptions.showmedals) {
-        return "url(" + build_img_url("medallion" + this.trackerData.medallions[this.bossNum]) + ")";
+      if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showmedals) {
+        return "url(" + build_img_url("medallion" + this.trackerData[selectedGame].medallions[this.bossNum]) + ")";
       }
       return null;
     }
   },
   methods: {
     clickCell: function(amt) {
-      if(this.trackerOptions.editmode) {
-          Vue.set(vm.itemRows[this.rowIndex], this.columnIndex, this.trackerOptions.selected.item || 'blank');
+	  var itemValue = this.trackerData[selectedGame].items[this.itemName];
+      if(this.trackerOptions[selectedGame].editmode) {
+          Vue.set(vm.itemRows[this.rowIndex], this.columnIndex, this.trackerOptions[selectedGame].selected.item || 'blank');
         return;
       }
       // Non-edit mode clicks
       if(this.bossNum) {
         // Do both this and the below for bosses
-        this.trackerData.dungeonbeaten[this.bossNum] = !this.trackerData.dungeonbeaten[this.bossNum];
+        this.trackerData[selectedGame].dungeonbeaten[this.bossNum] = !this.trackerData[selectedGame].dungeonbeaten[this.bossNum];
         updateAll();
       }
-      if((typeof this.itemValue) === "boolean"){        
-        this.trackerData.items[this.itemName] = !this.itemValue;
+      if((typeof itemValue) === "boolean"){
+        this.trackerData[selectedGame].items[this.itemName] = !itemValue;
         updateAll();
       }
       else{
-        var newVal = (this.itemValue || 0) + amt;
+        var newVal = (itemValue || 0) + amt;
         if(newVal > itemsMax[this.itemName]){
           newVal = itemsMin[this.itemName];
         }
         if(newVal < itemsMin[this.itemName]){
           newVal = itemsMax[this.itemName];
         }
-        this.trackerData.items[this.itemName] = newVal;
+        this.trackerData[selectedGame].items[this.itemName] = newVal;
         updateAll();
       }
     },
@@ -686,9 +692,9 @@ Vue.component('tracker-cell', {
       this.clickCell(-1);
     },
     clickMedallion: function(amt) {
-      var newMedallion = (this.trackerData.medallions[this.bossNum] + amt + 4) % 4;
+      var newMedallion = (this.trackerData[selectedGame].medallions[this.bossNum] + amt + 4) % 4;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
-      this.trackerData.medallions.splice(this.bossNum, 1, newMedallion);
+      this.trackerData[selectedGame].medallions.splice(this.bossNum, 1, newMedallion);
       updateAll();
     },
     clickMedallionForward: function(e) {
@@ -700,8 +706,8 @@ Vue.component('tracker-cell', {
     clickChest: function(amt) {
       var chestitem = 'chest' + this.bossNum;
       var modamt = itemsMax[chestitem] + 1;
-      var newVal = (this.trackerData.dungeonchests[this.bossNum] + amt + modamt) % modamt;
-      this.trackerData.dungeonchests[this.bossNum] = newVal;
+      var newVal = (this.trackerData[selectedGame].dungeonchests[this.bossNum] + amt + modamt) % modamt;
+      this.trackerData[selectedGame].dungeonchests[this.bossNum] = newVal;
       updateAll();
     },
     clickChestForward: function(e) {
@@ -711,10 +717,10 @@ Vue.component('tracker-cell', {
       this.clickChest(-1);
     },
     clickPrize: function(amt) {
-      var newPrize = (this.trackerData.prizes[this.bossNum] + amt + 4) % 4;
+      var newPrize = (this.trackerData[selectedGame].prizes[this.bossNum] + amt + 4) % 4;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
-      this.trackerData.prizes.splice(this.bossNum, 1, newPrize);
       updateAll(); 
+      this.trackerData[selectedGame].prizes.splice(this.bossNum, 1, newPrize);
     },
     clickPrizeForward: function(e) {
         this.clickPrize(1);

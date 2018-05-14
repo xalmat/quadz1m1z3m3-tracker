@@ -1,4 +1,5 @@
-var defaultItemGrid = [
+var defaultItemGrid = {};
+defaultItemGrid.zelda3 = [
     [
         "bow",
         "hookshot",
@@ -53,7 +54,8 @@ var defaultItemGrid = [
     ],
 ];
 
-var itemsInit = {
+var itemsInit = {};
+itemsInit.zelda3 = {
     bow: false,
     boomerang: 0,
     hookshot: false,
@@ -104,7 +106,8 @@ var itemsInit = {
     blank: false
 };
 
-var dungeonchestsInit = {
+var dungeonchestsInit = {};
+dungeonchestsInit.zelda3 = {
     0: 3,
     1: 2,
     2: 2,
@@ -118,11 +121,13 @@ var dungeonchestsInit = {
     10: 20
 };
 
+var dungeonbeatenInit = {};
+var prizesInit = {};
+var medallionsInit = {};
 
-var dungeonbeatenInit = [false, false, false, false, false, false, false, false, false, false, false];
-var prizesInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var medallionsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
+dungeonbeatenInit.zelda3 = [false, false, false, false, false, false, false, false, false, false, false];
+prizesInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+medallionsInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var itemsMin = {
     sword:0,

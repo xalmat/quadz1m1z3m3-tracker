@@ -7,6 +7,20 @@ const redCrystal = 1;
 const badPendant = 2;
 const greenPendant = 3;
 
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
+var chests = {};
+var dungeons = {};
+
 var roomid = "hyph";//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
 var authAttempted = false;
 
@@ -17,7 +31,7 @@ function build_img_url(item) {
     var misc = ["blank","highlighted","poi"];
 
     var globalReplaceItem = {
-		bomb:		"bomb0",
+		bomb:		"bomb1",
 		glove0:		"glove1",
 		medallion1:	"bombos",
 		medallion2:	"ether",
