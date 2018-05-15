@@ -2,7 +2,7 @@
 function canEnterBrinstarRed() {
 	return ((canDestroyBombWalls() || canDashSM())
 		&& (canOpenGreenDoors() && canMorph()))
-		|| (canAccessNorfairPortal() && (trackerData.items.ice || trackerData.items.hijump || canFlySM()));
+		|| (canAccessNorfairPortal() && (has("ice") || has("hijump") || canFlySM()));
 }
 chests.metroid3[36] = {
 	name: "X-Ray Scope " + mini("powerbomb") + mini("missile"),

@@ -1,5 +1,7 @@
 include_js("script/shared-access.js");
 include_js("script/" + selectedGame + "/items.js");
+include_js("script/zelda3/item-limits.js");
+include_js("script/metroid3/item-limits.js");
 
 var regionNames = {
 	zelda3: {

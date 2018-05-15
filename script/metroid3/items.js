@@ -5,6 +5,8 @@ defaultItemGrid.metroid3 = [
 		"powerbomb",
 		"grappling",
 		"xray",
+		"hookshot",
+		"lantern",
 	],
 	[
 		"charge",
@@ -12,6 +14,8 @@ defaultItemGrid.metroid3 = [
 		"wave",
 		"spazer",
 		"plasma",
+		"hammer",
+		"flute",
 	],
 	[
 		"varia",
@@ -19,6 +23,8 @@ defaultItemGrid.metroid3 = [
 		"bombs",
 		"space",
 		"hijump",
+		"mirror",
+		"agahnim",
 	],
 	[
 		"gravity",
@@ -26,6 +32,8 @@ defaultItemGrid.metroid3 = [
 		"screw",
 		"speed",
 		"etank",
+		"boots",
+		"glove",
 	],
 	[
 		"kraid",
@@ -33,6 +41,8 @@ defaultItemGrid.metroid3 = [
 		"draygon",
 		"ridley",
 		"rtank",
+		"flippers",
+		"moonpearl",
 	],
 ];
 
@@ -74,6 +84,17 @@ itemsInit.metroid3 = {
 	boss8: 2,
 	boss9: 2,
 
+	hookshot: false,
+	hammer: false,
+	glove: 0,
+	moonpearl: false,
+	lantern: false,
+	flute: false,
+	boots: false,
+	flippers: false,
+	mirror: false,
+	agahnim: 0,
+
 	blank: false,
 };
 
@@ -81,41 +102,3 @@ dungeonchestsInit.metroid3 = {};
 dungeonbeatenInit.metroid3 = [false,false,false,false,false,false,false,false,false,false];
 prizesInit.metroid3 = [];
 medallionsInit.metroid3 = [];
-
-var iMin = {
-	boss0:2,
-	boss1:2,
-	boss2:2,
-	boss3:2,
-	boss4:2,
-	boss5:2,
-	boss6:2,
-	boss7:2,
-	boss8:2,
-	boss9:2,
-	missile:0,
-	supermissile:0,
-	powerbomb:0,
-	etank:0,
-	rtank:0
-};
-itemsMin = extend(itemsMin,iMin);
-
-var iMax = {
-	boss0:2,
-	boss1:2,
-	boss2:2,
-	boss3:2,
-	boss4:2,
-	boss5:2,
-	boss6:2,
-	boss7:2,
-	boss8:2,
-	boss9:2,
-	missile:230/5,
-	supermissile:50/5,
-	powerbomb:50/5,
-	etank:14,
-	rtank:4
-};
-itemsMax = extend(itemsMax,iMax);

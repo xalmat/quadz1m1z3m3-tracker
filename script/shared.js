@@ -34,6 +34,8 @@ var selectedGame = (getParameterByName("game",window.location) != null) ? getPar
 var chests = {};
 var dungeons = {};
 var regionNames = {};
+chests[selectedGame] = [];
+dungeons[selectedGame] = [];
 
 var roomid = "hyph";//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
 var authAttempted = false;
@@ -43,6 +45,16 @@ function destroyFirebase() {
 
 function build_img_url(item) {
     var misc = ["blank","highlighted","poi"];
+    var useGame = selectedGame;
+
+    var zelda3items = ["agahnim","agahnim0","agahnim1","boots","flippers","flute","glove","glove0","glove1","glove2","hammer","hookshot","lantern","mirror","moonpearl"];
+    var metroid3items = ["bombs","grappling","gravity","hijump","ice","morph","powerbomb","speed","supermissile","varia"];
+
+    if(zelda3items.indexOf(item) > -1) {
+		useGame = "zelda3";
+	} else if(metroid3items.indexOf(item) > -1) {
+		useGame = "metroid3";
+	}
 
     var globalReplaceItem = {
 		bomb:		"bomb1",
@@ -74,9 +86,9 @@ function build_img_url(item) {
 		category = "misc";
 	}
 
-	var url		= "images/";
+	var url = "images/";
 	if(category != "misc") {
-		url += selectedGame + '/';
+		url += useGame + '/';
 	}
 	url += category + '/' + item + ".png";
     return url;
