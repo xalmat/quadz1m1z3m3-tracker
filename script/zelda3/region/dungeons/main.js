@@ -1,6 +1,3 @@
-// define dungeon chests
-dungeons.zelda3 = [];
-
 dungeons.zelda3[0] = {
     name: "Eastern Palace",
     label: "EP",

@@ -56,10 +56,15 @@
                 <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br>
                 <fieldset>
                     <legend>Logic Options</legend>
-                    <input type='checkbox' name='openmode' checked='' onchange='setOpenMode(this)'>Open Mode<br>
-                    <input type='radio' name='maplogic' value='glitchless' checked='checked' onclick='setLogic("glitchless")'>Glitchless<br>
-                    <input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld Glitches<br>
-                    <input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major Glitches
+                    <!-- Zelda 3 -->
+                    <div class='openMode'><input type='checkbox' name='openmode' checked='' onchange='setOpenMode(this)'>Open Mode</div>
+                    <div class='glitchless'><input type='radio' name='maplogic' value='glitchless' checked='checked' onclick='setLogic("glitchless")'>Glitchless</div>
+                    <div class='owGlitches'><input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld Glitches</div>
+                    <div class='majorGlitches'><input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major Glitches</div>
+
+					<!-- Metroid 3 -->
+                    <div class='casualLogic'><input type='radio' name='maplogic' value='casualLogic' checked='checked' onclick='setLogic("casualLogic")'>Casual Logic</div>
+                    <div class='tourneyGlitches'><input type='radio' name='maplogic' value='tourneyGlitches checked='checked'' onclick='setLogic("tourneyLogic")'>Tournament Logic</div>
                 </fieldset>
                 <fieldset>
                     <legend>Chest Legend</legend>
@@ -107,7 +112,8 @@
         </script>
 
         <script type="text/x-template" id="tracker-cell">
-            <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative' }"
+            <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative', backgroundSize: '64px 64px', imageRendering: 'pixelated' }"
+             :title="itemLabel"
              :class="isActive ? 'true' : 'false'" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
                 <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
                 <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>

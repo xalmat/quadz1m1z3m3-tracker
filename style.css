@@ -131,7 +131,7 @@ label {
     text-shadow: -2px -2px 1px black;
 }
 .medallionImage, .prizeImage {
-    background-color: #000000;
+    background-color: rgb(0,0,0);
     border-radius: 50%;
 }
 .medallionImage {
@@ -211,6 +211,67 @@ label {
     width: 438px;
     height: 888px;
 }
+.zelda3 div.casualLogic,
+.zelda3 div.tourneyLogic {
+    display: none;
+}
+.metroid3 div.openmode,
+.metroid3 div.glitchless,
+.metroid3 div.owGlitches,
+.metroid3 div.majorGlitches {
+    display: none;
+}
+.metroid3 .mapdiv {
+    background: url("images/metroid3/maps/map.png") no-repeat;
+    width: 1200px;
+    height: 1020px;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+.metroid3 .itemdiv {
+    top: 660px;
+    left: 0;
+    position: absolute;
+    z-index: 100;
+}
+.metroid3 .boss {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.metroid3 .dungeon {
+    width: 33px;
+    height: 33px;
+
+    margin-left: 0;
+    margin-top: 0;
+}
+.metroid3 .chest {
+    background-size: 15px 15px;
+    width: 15px;
+    height: 15px;
+    margin-left: 0;
+    margin-top: 0;
+}
+.metroid3 .chest.unavailable, .metroid3 .chest.available, .metroid3 .chest.opened {
+    background-repeat: no-repeat;
+}
+.metroid3 .chest.unavailable {
+    background-image: url("images/metroid3/chests/unavailable.png") !important;
+}
+.metroid3 .chest.available {
+    background-image: url("images/metroid3/chests/available.png") !important;
+}
+.metroid3 .chest.opened {
+    background-image: url("images/metroid3/chests/opened.png") !important;
+}
+.metroid3 .active {
+    background-color: #ffaaff;
+    background-image: url("images/metroid3/chests/warp.gif") !important;
+}
+.metroid3 .inactive {
+    background-image: url("images/metroid3/chests/inactivewarp.gif") !important;
+}
 
 .chest{
     width: 24px;
@@ -274,7 +335,8 @@ label {
 }
 
 #caption {
-    position: relative;
+    background-color: rgb(0,0,0);
+    position: fixed;
     left: 20px;
     text-align: left;
 }

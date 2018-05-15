@@ -5,6 +5,17 @@ var regionNames = {
 	zelda3: {
 		dungeons:		["main"],
 		overworld:		["main"],
+	},
+	metroid3: {
+		dungeons:		["dungeons"],
+		brinstar:		["blue","green","kraid","pink","red"],
+		crateria:		["east","west"],
+		lowernorfair:	["east","west"],
+		maridia:		["inner","outer"],
+		norfair:		["crocomire","east","west"],
+//		tourian:		["main"],
+		wreckedship:	["main"],
+		hyrule:			["m3-z3"],
 	}
 };
 

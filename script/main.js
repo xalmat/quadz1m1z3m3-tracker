@@ -51,6 +51,9 @@ var cookieDefault = {
     medal:1,
     label:1
 };
+if(selectedGame == "metroid3") {
+	cookieDefault.mZoom = 100;
+}
 cookieDefault.items = defaultItemGrid[selectedGame];
 
 var cookielock = false;
@@ -182,24 +185,32 @@ function unhighlightDungeon(x){
 }
 
 function showChest(sender) {
+	if(selectedGame != "zelda3") { return; }
+
     trackerOptions[selectedGame].showchests = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function showCrystal(sender) {
+	if(selectedGame != "zelda3") { return; }
+
     trackerOptions[selectedGame].showprizes = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function showMedallion(sender) {
+	if(selectedGame != "zelda3") { return; }
+
     trackerOptions[selectedGame].showmedals = sender.checked;
     refreshMap();
     saveCookie();
 }
 
 function showLabel(sender) {
+	if(selectedGame != "zelda3") { return; }
+
     trackerOptions[selectedGame].showlabels = sender.checked;
     refreshMap();
     saveCookie();
@@ -220,12 +231,17 @@ function setZoom(target, sender) {
 
     document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
     var offset = -442 * (100 - sender.value) / 100.0;
+    if(selectedGame == "metroid3") {
+		offset = 0;
+	}
     document.getElementById("caption").style.top = offset;
     saveCookie();
 }
 
 var prevH = false;
 function setMapOrientation(H) {
+	if(selectedGame == "metroid3") { return; }
+
     if (H === prevH) {
         return;
     }
@@ -273,6 +289,8 @@ function setMapOrientation(H) {
 }
 
 function setOpenMode(sender) {
+	if(selectedGame != "zelda3") { return; }
+
     trackerOptions[selectedGame].openmode = sender.checked;
     refreshMap();
     saveCookie();
@@ -331,11 +349,15 @@ function EditMode() {
 }
 
 function refreshMapMedallions() {
+  if(selectedGame != "zelda3") { return; }
+
   refreshMapMedallion(8);
   refreshMapMedallion(9);
 }
 
 function refreshMapMedallion(d) {
+	if(selectedGame != "zelda3") { return; }
+
     // Update availability of dungeon boss AND chests
     if(trackerData[selectedGame].dungeonbeaten[d])
         document.getElementById("bossMap"+d).className = "mapspan boss opened";
@@ -439,11 +461,18 @@ function populateMapdiv() {
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.style.color = 'black';
         s.id = k;
-        s.onclick = new Function('toggleChest('+k+')');
-        s.onmouseover = new Function('highlight('+k+')');
-        s.onmouseout = new Function('unhighlight('+k+')');
-        s.style.left = chests[selectedGame][k].x;
-        s.style.top = chests[selectedGame][k].y;
+        var d = document.createElement('div');
+        if(chests[selectedGame][k]) {
+          d.innerHTML = chests[selectedGame][k].name;
+          s.title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
+          s.onclick = new Function('toggleChest('+k+')');
+          s.onmouseover = new Function('highlight('+k+')');
+          s.onmouseout = new Function('unhighlight('+k+')');
+          s.style.left = chests[selectedGame][k].x;
+          s.style.top = chests[selectedGame][k].y;
+        } else {
+          console.log("Can't find Chest #" + k);
+        }
         if(trackerData[selectedGame].chestsopened[k])
             s.className = "mapspan chest opened";
         else
@@ -456,6 +485,7 @@ function populateMapdiv() {
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
         s.id = 'bossMap' + k;
+        s.title = dungeons[selectedGame][k].name;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
         s.style.left = dungeons[selectedGame][k].x;
@@ -466,6 +496,7 @@ function populateMapdiv() {
         s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.id = 'dungeon' + k;
+        s.title = dungeons[selectedGame][k].name;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
         s.style.left = dungeons[selectedGame][k].x;
@@ -614,9 +645,40 @@ Vue.component('tracker-cell', {
       }
       return null;
     },
+    itemLabel: function() {
+		var ret = this.itemName;
+		var names = {
+			"moonpearl":	"Moon Pearl",
+
+			"etank":		"Energy Tank",
+			"hijump":		"Hi-Jump Boots",
+			"morph":		"Morph Ball",
+			"powerbomb":	"Power Bomb",
+			"rtank":		"Reserve Tank",
+			"screw":		"Screw Attack",
+			"space":		"Space Jump",
+			"speed":		"Speed Booster",
+			"springball":	"Spring Ball",
+			"supermissile": "Super Missile",
+			"xray":			"X-Ray Scope",
+		};
+		var beams = ["charge","ice","wave","plasma","grappling"];
+		if(names[ret]) {
+			ret = names[ret];
+		}
+		if(beams.indexOf(ret) > -1) {
+			ret += " Beam";
+		}
+		if(ret == "varia" || ret == "gravity") {
+			ret += " Suit";
+		}
+		ret = ret.ucfirst();
+
+		return ret;
+	},
     textCounter: function() {
       var itemValue = this.trackerData[selectedGame].items[this.itemName];
-      if(this.itemName.indexOf('heart') === 0) {
+      if(this.itemName.indexOf('heart') === 0 || this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') === 0 || this.itemName.indexOf('tank') > -1) {
         return itemValue;
       }
       return null;
