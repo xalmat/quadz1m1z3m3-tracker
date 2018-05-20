@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
-        
+
         <script src="script/shared.js"></script>
         <script src="script/items.js"></script>
         <script src="script/includes.js"></script>
@@ -13,6 +13,9 @@
     </head>
 
     <body>
+    	<div id='selectGame'>
+    		[ <a href="?game=zelda3">ALttPR</a> | <a href="?game=metroid3">SM</a> ]
+    	</div>
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
                 <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
