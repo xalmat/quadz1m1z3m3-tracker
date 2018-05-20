@@ -289,7 +289,7 @@ function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Atta
 	return (canMorph()
 		&& (canUseMorphBombs
 			|| canUsePowerBombs()))
-	|| trackerData.metroid3.items.screw;
+	|| trackerData[selectedGame].items.screw;
 }
 function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
 	return (canFlySM() || trackerData.metroid3.items.hijump || canDashSM())
@@ -304,7 +304,7 @@ function canCrystalFlash() {	// Refill HP
 		&& trackerData.metroid3.items.powerbomb >= 3;
 }
 function canDashSM() {	// SM: Speed Booster
-	return trackerData.metroid3.items.speed;
+	return trackerData[selectedGame].items.speed;
 }
 function canDamageBoostJump() {	// Requires accurate positioning, #FIXME: Not Casual
 	return true;
@@ -328,7 +328,7 @@ function canMachball() {	// #FIXME: Not Casual
 	return canMorph();
 }
 function canMorph () {
-	return trackerData.metroid3.items.morph;
+	return trackerData[selectedGame].items.morph;
 }
 function canOpenGreenDoors() {
 	return trackerData.metroid3.items.supermissile > 0;
@@ -358,7 +358,7 @@ function hasEnergyReserves(amount) {	// Total Energy Tanks (including Reserve Ta
 	return ((trackerData.metroid3.items.etank + trackerData.metroid3.items.rtank) >= amount);
 }
 function heatProof() {	// Varia Suit
-	return trackerData.metroid3.items.varia;
+	return trackerData[selectedGame].items.varia;
 }
 
 // SM Bosses
@@ -404,7 +404,7 @@ function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") 
 	return canFly() && trackerData[selectedGame].items.moonpearl && canLiftDarkRocks();
 }
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right || DW Flute 5) -> Maridia Missile Refill
-	return trackerData.metroid3.items.moonpearl
+	return trackerData[selectedGame].items.moonpearl
 		&& canSwim()
 		&& (((trackerData[selectedGame].items.agahnim
 			|| (trackerData[selectedGame].items.hammer && canLiftRocks() && trackerData[selectedGame].items.moonpearl)

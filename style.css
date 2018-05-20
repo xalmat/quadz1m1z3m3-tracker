@@ -272,6 +272,15 @@ label {
 .metroid3 .inactive {
     background-image: url("images/metroid3/chests/inactivewarp.gif") !important;
 }
+.zelda3 .active {
+    background-image: url("images/zelda3/chests/warp.gif") !important;
+}
+.zelda3 .inactive {
+    background-image: url("images/zelda3/chests/inactivewarp.gif") !important;
+}
+.zelda3 #itemdiv {
+    top: 20px;
+}
 
 .chest{
     width: 24px;
@@ -338,5 +347,7 @@ label {
     background-color: rgb(0,0,0);
     position: fixed;
     left: 20px;
+    top: 0 !important;
     text-align: left;
+    z-index: 100;
 }

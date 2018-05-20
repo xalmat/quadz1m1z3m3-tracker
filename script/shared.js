@@ -37,7 +37,7 @@ var regionNames = {};
 chests[selectedGame] = [];
 dungeons[selectedGame] = [];
 
-var roomid = "hyph";//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
+var roomid = selectedGame;//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
 var authAttempted = false;
 
 function destroyFirebase() {
@@ -58,6 +58,8 @@ function build_img_url(item) {
 
     var globalReplaceItem = {
 		bomb:		"bomb1",
+		bomb0:		"bomb1",
+		boomerang0:	"boomerang1",
 		glove0:		"glove1",
 		medallion1:	"bombos",
 		medallion2:	"ether",

@@ -7,6 +7,7 @@ var regionNames = {
 	zelda3: {
 		dungeons:		["main"],
 		overworld:		["main"],
+		zebes:			["z3-m3"],
 	},
 	metroid3: {
 		dungeons:		["dungeons"],

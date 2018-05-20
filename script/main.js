@@ -9,11 +9,32 @@ trackerOptions[selectedGame] = {
   editmode: false,
   selected: {}
 };
+if(selectedGame == "metroid3") {
+	trackerOptions[selectedGame]["mapLogic"] = "tourneyLogic";
+}
 
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
 for(var i = 0; i < chests[selectedGame].length; i++) {
     chestsopenedInit[selectedGame].push(false);
+    var d = document.createElement("div");
+    d.innerHTML = chests[selectedGame][i].name;
+    var title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
+    var remove = ['+','/'];
+    for(var search in remove) {
+      title = title.replace(remove[search],"");
+	}
+    chests[selectedGame][i].titleStripped = title.trim();
+}
+for(var i = 0; i < dungeons[selectedGame].length; i++) {
+	var d = document.createElement("div");
+    d.innerHTML = dungeons[selectedGame][i].name;
+    var title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
+    var remove = ['+','/'];
+    for(var search in remove) {
+      title = title.replace(remove[search],"");
+	}
+    dungeons[selectedGame][i].titleStripped = title.trim();
 }
 
 var trackerData = {};
@@ -51,6 +72,11 @@ var cookieDefault = {
     medal:1,
     label:1
 };
+if(selectedGame == "zelda3") {
+	cookieDefault.mOrien = 1;
+	cookieDefault.mPos = 1;
+	cookieDefault.mZoom = 80;
+}
 if(selectedGame == "metroid3") {
 	cookieDefault.mZoom = 100;
 }
@@ -463,8 +489,8 @@ function populateMapdiv() {
         s.id = k;
         var d = document.createElement('div');
         if(chests[selectedGame][k]) {
-          d.innerHTML = chests[selectedGame][k].name;
-          s.title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
+		  chests[selectedGame][k].isImportant = false;
+		  s.title = chests[selectedGame][k].titleStripped;
           s.onclick = new Function('toggleChest('+k+')');
           s.onmouseover = new Function('highlight('+k+')');
           s.onmouseout = new Function('unhighlight('+k+')');
@@ -485,7 +511,7 @@ function populateMapdiv() {
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
         s.id = 'bossMap' + k;
-        s.title = dungeons[selectedGame][k].name;
+        s.title = dungeons[selectedGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
         s.style.left = dungeons[selectedGame][k].x;
@@ -496,7 +522,7 @@ function populateMapdiv() {
         s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.id = 'dungeon' + k;
-        s.title = dungeons[selectedGame][k].name;
+        s.title = dungeons[selectedGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
         s.style.left = dungeons[selectedGame][k].x;
@@ -574,6 +600,12 @@ function initTracker() {
 
     loadCookie();
     updateAll();
+    var games = {
+		zelda3:		"ALttP",
+		metroid3:	"Super Metroid",
+	};
+    var game = games[selectedGame];
+    document.title = game + " Item Tracker";
 }
 
 function updateAll() {
