@@ -205,6 +205,9 @@ label {
     float: right;
     z-index: 100;
 }
+#selectGame a {
+    color: #aaaaff;
+}
 .zelda3 .mapdiv{
     background: url("images/zelda3/maps/map.png") no-repeat;
     width: 884px;
