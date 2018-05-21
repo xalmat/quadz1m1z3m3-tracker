@@ -1,7 +1,7 @@
 # smalttpr-tracker
 
 * Known Bugs
-** Doesn't keep inventory if you switch views, nor does it propagate to the other views
+  * Doesn't keep inventory if you switch views, nor does it propagate to the other views
 
 This is an item tracker for LTTP: Randomizer. Use it at https://miketrethewey.github.io/smalttpr-tracker/
 
