@@ -2,15 +2,15 @@
 function canEnterLowerNorfairEast() {
 	return (canEnterLowerNorfairWest()
 		&& (canDestroyBombWalls() || canDashSM())
-		&& (canFlySM() || trackerData.items.hijump || (trackerData.items.ice && trackerData.items.charge))
+		&& (canFlySM() || has("hijump") || (has("ice") && has("charge")))
 			&& canPassBombPassages()
 			&& (
-				(heatProof() && (trackerData.items.hijump || canSwimSM())
+				(heatProof() && (has("hijump") || canSwimSM())
 			)
 			|| (heatProof()
 				&& (canIbj()
-					|| (trackerData.items.space && (trackerData.items.screw || canPassBombPassages() || canUsePowerBombs()))
-					|| (trackerData.items.springball && canUsePowerBombs())
+					|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
+					|| (has("springball") && canUsePowerBombs())
 					|| canDashSM()
 				)
 			)
@@ -89,7 +89,7 @@ chests.metroid3[94] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterLowerNorfairEast() && canUsePowerBombs() && canOpenGreenDoors() && trackerData.items.charge) {
+		if(canEnterLowerNorfairEast() && canUsePowerBombs() && canOpenGreenDoors() && has("charge")) {
 			availability.tourneyLogic = "available";
 		}
 		return availability;

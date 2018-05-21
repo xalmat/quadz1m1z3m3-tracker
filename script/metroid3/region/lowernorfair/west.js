@@ -1,6 +1,6 @@
 // Lower Norfair: West
 function canEnterLowerNorfairWest() {
-	return (canEnterNorfairEast() && canUsePowerBombs() && (heatProof() && (trackerData.items.hijump || canSwimSM())))
+	return (canEnterNorfairEast() && canUsePowerBombs() && (heatProof() && (has("hijump") || canSwimSM())))
 	|| (canAccessLowerNorfairPortal() && canHellRun() && canDestroyBombWalls());
 }
 chests.metroid3[86] = {
@@ -13,13 +13,13 @@ chests.metroid3[86] = {
 		if(
 			canEnterLowerNorfairWest()
 			&& canUsePowerBombs()
-			&& trackerData.items.space
+			&& has("space")
 			&& (
-				(heatProof() && (trackerData.items.hijump || canSwimSM()))
+				(heatProof() && (has("hijump") || canSwimSM()))
 				|| (heatProof()
 					&& (canIbj()
-						|| (trackerData.items.space && (trackerData.items.screw || canPassBombPassages() || canUsePowerBombs()))
-						|| (trackerData.items.springball && canUsePowerBombs())
+						|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
+						|| (has("springball") && canUsePowerBombs())
 						|| canDashSM()
 						)
 					)
@@ -42,8 +42,8 @@ chests.metroid3[87] = {
 			&& canDestroyBombWalls()
 			&& heatProof()
 			&& (canIbj()
-				|| (trackerData.items.space && (trackerData.items.screw || canPassBombPassages() || canUsePowerBombs()))
-				|| (trackerData.items.springball && canUsePowerBombs())
+				|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
+				|| (has("springball") && canUsePowerBombs())
 				|| canDashSM()
 			)
 		) {
@@ -63,8 +63,8 @@ chests.metroid3[88] = {
 			canEnterLowerNorfairWest()
 			&& (
 					(canIbj()
-					|| (trackerData.items.space && (trackerData.items.screw || canPassBombPassages() || canUsePowerBombs()))
-					|| (trackerData.items.springball && canUsePowerBombs())
+					|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
+					|| (has("springball") && canUsePowerBombs())
 					|| canDashSM()
 				)
 				|| canAccessLowerNorfairPortal()

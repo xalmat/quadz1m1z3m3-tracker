@@ -101,7 +101,7 @@ dungeons.metroid3[5] = {
 	isBeatable: function () {
 		const availability = new Availability();
 		// Beat Wrecked Ship
-		if(canSwimSM() && canOpenGreenDoors() && canOpenYellowDoors() && trackerData.items.phantoon) {
+		if(canSwimSM() && canOpenGreenDoors() && canOpenYellowDoors() && has("phantoon")) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
@@ -126,7 +126,7 @@ dungeons.metroid3[6] = {
 	isBeatable: function () {
 		const availability = new Availability();
 		// Beat Wrecked Ship
-		if(canSwimSM() && canOpenGreenDoors() && canOpenYellowDoors() && trackerData.items.phantoon) {
+		if(canSwimSM() && canOpenGreenDoors() && canOpenYellowDoors() && has("phantoon")) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
@@ -188,7 +188,7 @@ dungeons.metroid3[9] = {
 	image: "boss92.png",
 	isBeatable: function () {
 		const availability = new Availability();
-		if(canOpenRedDoors() && trackerData.items.kraid && trackerData.items.phantoon && trackerData.items.draygon && trackerData.items.ridley) {
+		if(canOpenRedDoors() && has("kraid") && has("phantoon") && has("draygon") && has("ridley")) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}

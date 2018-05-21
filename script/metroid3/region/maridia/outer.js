@@ -1,6 +1,6 @@
 // Maridia: Outer
 function canEnterMaridiaOuter() {
-	return canEnterNorfairWest() && canUsePowerBombs() && (canSwimSM() || (trackerData.items.hijump && (trackerData.items.springball || trackerData.items.ice)));
+	return canEnterNorfairWest() && canUsePowerBombs() && (canSwimSM() || (has("hijump") && (has("springball") || has("ice"))));
 }
 chests.metroid3[69] = {
 	name: "Missile (green Maridia shinespark) " + mini("gravity") + mini("speed"),

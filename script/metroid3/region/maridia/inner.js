@@ -1,6 +1,6 @@
 // Maridia: Inner
 function canEnterMaridiaInner() {
-	return canEnterMaridiaOuter() && (canSwimSM() || (canGrappleSM() && trackerData.items.hijump && trackerData.items.ice));
+	return canEnterMaridiaOuter() && (canSwimSM() || (canGrappleSM() && has("hijump") && has("ice")));
 }
 chests.metroid3[73] = {
 	name: "Super Missile (yellow Maridia) (2 items)",
@@ -35,7 +35,7 @@ chests.metroid3[75] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterMaridiaInner() && canDefeatDraygon() && (canDashSM() || ((trackerData.items.charge || trackerData.items.screw) && (canFlySM() || trackerData.items.hijump)))) {
+		if(canEnterMaridiaInner() && canDefeatDraygon() && (canDashSM() || ((has("charge") || has("screw")) && (canFlySM() || has("hijump"))))) {
 			availability.tourneyLogic = "available";
 		}
 		return availability;
@@ -126,7 +126,7 @@ chests.metroid3[82] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterMaridiaInner() && canSwimSM() && canGrappleSM() && (canFlySM() || trackerData.items.hijump)) {
+		if(canEnterMaridiaInner() && canSwimSM() && canGrappleSM() && (canFlySM() || has("hijump"))) {
 			availability.tourneyLogic = "available";
 		}
 		return availability;

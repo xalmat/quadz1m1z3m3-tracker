@@ -314,7 +314,7 @@ function canFlySM() {	// SM: Infinite Bomb Jump or Space Jump
 	return canIbj() || trackerData.metroid3.items.space;
 }
 function canGrappleSM() {	// SM: Grapple Beam
-	return trackerData.metroid3.items.grappling;
+	return has("grappling");
 }
 function canHellRun() {	// Varia or enough health
 	return heatProof() || hasEnergyReserves(5);
@@ -332,7 +332,7 @@ function canMorph () {
 	return trackerData[selectedGame].items.morph;
 }
 function canOpenGreenDoors() {
-	return trackerData.metroid3.items.supermissile > 0;
+	return has("supermissile",1);
 }
 function canGGG() {
 	return canOpenGreenDoors();
@@ -347,13 +347,13 @@ function canPassBombPassages() {	// Not sure why Power Bombs; Infinite Bomb Jump
 	return canUsePowerBombs() || canIbj();
 }
 function canSwimSM() {	// SM: Gravity Suit
-	return trackerData.metroid3.items.gravity;
+	return has("gravity");
 }
 function canUseMorphBombs() {
 	return canMorph() && trackerData.metroid3.items.bombs;
 }
 function canUsePowerBombs() {
-	return canMorph() && trackerData.metroid3.items.powerbomb > 0;
+	return canMorph() && has("powerbomb",1);
 }
 function hasEnergyReserves(amount) {	// Total Energy Tanks (including Reserve Tanks)
 	return ((trackerData.metroid3.items.etank + trackerData.metroid3.items.rtank) >= amount);
@@ -381,7 +381,7 @@ function canAccessDeathMountainPortal() { // Norfair Map Room -> DM (Old Man exi
 function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Refill) -> Mire (Great Fairy, east "Entrance")
 	return heatProof()
 		&& canOpenGreenDoors()
-		&& (trackerData.metroid3.items.hijump || canSwimSM())
+		&& (has("hijump") || canSwimSM())
 		&& canOpenYellowDoors();
 }
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)

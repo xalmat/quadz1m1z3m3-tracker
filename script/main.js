@@ -106,9 +106,9 @@ function setConfigObject(configobj) {
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
     document.querySelector('input[value="' + (configobj.mapLogic || 'glitchless') + '"]').click();
-    
+
     document.getElementsByName('openmode')[0].checked = !!configobj.openmode;
-    document.getElementsByName('openmode')[0].onchange();    
+    document.getElementsByName('openmode')[0].onchange();
     document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
     document.getElementsByName('showcrystal')[0].checked = !!configobj.prize;
@@ -242,7 +242,7 @@ function showLabel(sender) {
 function setOrder(H) {
     if (H) {
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
-    } 
+    }
     else {
         document.getElementById('layoutdiv').classList.add('flexcontainer');
     }
@@ -343,9 +343,9 @@ function showSettings(sender) {
             x.style.display = 'initial';
             sender.innerHTML = 'X';
         } else {
-            x.style.display = 'none';		
+            x.style.display = 'none';
             sender.innerHTML = '🔧';
-        } 
+        }
     }
 }
 
@@ -562,11 +562,11 @@ function populateItemconfig() {
             rowitem.innerText = dungeons[selectedGame][key.substring(4)].label;
         }
         row.appendChild(rowitem);
-    }		
+    }
 }
 
 function enterPasscode() {
-    
+
 }
 
 function createRoom() {
@@ -816,7 +816,7 @@ Vue.component('tracker-cell', {
     clickPrize: function(amt) {
       var newPrize = (this.trackerData[selectedGame].prizes[this.bossNum] + amt + 4) % 4;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
-      updateAll(); 
+      updateAll();
       this.trackerData[selectedGame].prizes.splice(this.bossNum, 1, newPrize);
     },
     clickPrizeForward: function(e) {

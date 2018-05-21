@@ -16,7 +16,7 @@ chests.metroid3[36] = {
 			&& canOpenYellowDoors()
 			&& canOpenRedDoors()
 			&& (canGrappleSM()
-				|| trackerData.items.space
+				|| has("space")
 				|| (heatProof() && hasEnergyReserves(3) && canIbj())
 				|| (hasEnergyReserves(6) && canIbj()
 				)

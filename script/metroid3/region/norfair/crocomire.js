@@ -5,7 +5,7 @@ function canEnterNorfairCrocomire() {
 		|| canAccessNorfairPortal())
 		&& (hasEnergyReserves(3) || heatProof())
 		&& canOpenGreenDoors()
-		&& (((canFlySM() || trackerData.items.hijump) && canMorph()) || canDashSM());
+		&& (((canFlySM() || has("hijump")) && canMorph()) || canDashSM());
 }
 chests.metroid3[49] = {
 	name: "Energy Tank, Crocomire",
@@ -27,7 +27,7 @@ chests.metroid3[50] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterNorfairCrocomire() && (canFlySM() || canGrappleSM() || (trackerData.items.hijump && canDashSM())) && canHellRun()) {
+		if(canEnterNorfairCrocomire() && (canFlySM() || canGrappleSM() || (has("hijump") && canDashSM())) && canHellRun()) {
 			availability.tourneyLogic = "available";
 		}
 		return availability;
@@ -79,7 +79,7 @@ chests.metroid3[54] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterNorfairCrocomire() && (canFlySM() || trackerData.items.hijump || canGrappleSM() || canMorph())) {
+		if(canEnterNorfairCrocomire() && (canFlySM() || has("hijump") || canGrappleSM() || canMorph())) {
 			availability.tourneyLogic = "available";
 		}
 		return availability;

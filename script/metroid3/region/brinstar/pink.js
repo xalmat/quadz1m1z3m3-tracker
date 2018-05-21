@@ -101,7 +101,7 @@ chests.metroid3[35] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterBrinstarPink() && canOpenYellowDoors() && (trackerData.items.wave || (canOpenGreenDoors() && trackerData.items.hijump))) {
+		if(canEnterBrinstarPink() && canOpenYellowDoors() && (has("wave") || (canOpenGreenDoors() && has("hijump")))) {
 			availability.tourneyLogic = "available";
 		}
 		return availability;
