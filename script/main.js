@@ -9,9 +9,6 @@ trackerOptions[selectedGame] = {
   editmode: false,
   selected: {}
 };
-if(selectedGame == "metroid3") {
-	trackerOptions[selectedGame]["mapLogic"] = "tourneyLogic";
-}
 
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
@@ -600,6 +597,11 @@ function initTracker() {
 
     loadCookie();
     updateAll();
+
+    if(selectedGame == "metroid3") {
+        setLogic("tourneyLogic");
+    }
+
     var games = {
 		zelda3:		"ALttP",
 		metroid3:	"Super Metroid",

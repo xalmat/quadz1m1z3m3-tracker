@@ -24,12 +24,6 @@ function extend(obj, src) {
     return obj;
 }
 
-function include_js(url) {
-	var script = document.createElement("script");
-	script.src = url;
-	document.head.appendChild(script);
-}
-
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
 var chests = {};
 var dungeons = {};

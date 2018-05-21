@@ -1,7 +1,10 @@
-include_js("script/shared-access.js");
-include_js("script/" + selectedGame + "/items.js");
-include_js("script/zelda3/item-limits.js");
-include_js("script/metroid3/item-limits.js");
+var scripts = [
+	"script/items.js",
+	"script/shared-access.js",
+	"script/" + selectedGame + "/items.js",
+	"script/zelda3/item-limits.js",
+	"script/metroid3/item-limits.js"
+];
 
 var regionNames = {
 	zelda3: {
@@ -30,8 +33,15 @@ for(var gameName in regionNames) {
 			for(var segment in region) {
 				var segmentName = region[segment];
 				var url = "script/" + gameName + "/region/" + regionName + "/" + segmentName + ".js";
-				include_js(url);
+				scripts.push(url);
 			}
 		}
     }
 }
+
+scripts.push("https://unpkg.com/vue/dist/vue.min.js");
+scripts.push("script/main.js");
+
+LazyLoad.js(scripts, function () {
+	init(initTracker);
+});

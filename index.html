@@ -6,10 +6,9 @@
         <link rel="stylesheet" href="style.css" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 
+        <script src="script/loader/lazyload.js"></script>
         <script src="script/shared.js"></script>
-        <script src="script/items.js"></script>
         <script src="script/includes.js"></script>
-        <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     </head>
 
     <body>
@@ -124,10 +123,6 @@
                 <span v-if="prizeImage" @click.stop="clickPrizeForward" @contextmenu.prevent.stop="clickPrizeBack" :class="'prizeImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage, backgroundSize: '32px 32px' }"></span>
                 <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :class="'medallionImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage, backgroundSize: '32px 32px' }"></span>
             </div>
-        </script>
-        <script src="script/main.js"></script>
-        <script>
-            init(initTracker);
         </script>
     </body>
 </html>
