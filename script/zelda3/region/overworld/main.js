@@ -8,8 +8,8 @@ chests.zelda3[0] = {
         if (canDash() && canLiftDarkRocks()) {
             availability.glitchless = "available";
         }
-        else if (canDash() && trackerData.zelda3.items.mirror) {
-            if (trackerData.zelda3.items.moonpearl) {
+        else if (canDash() && has("mirror")) {
+            if (has("moonpearl")) {
                 if (canEnterNorthWestDarkWorld('glitchless', false, false)) {
                     availability.glitchless = "available";
                 }
@@ -91,23 +91,23 @@ chests.zelda3[4] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canEnterEastDeathMountain("glitchless", false) && trackerData.zelda3.items.mirror && dungeons.zelda3[9].mayEnter("glitchless", false)) {
-            if (trackerData.zelda3.items.firerod && dungeons.zelda3[9].canEnter("glitchless", false)) {
+        if (canEnterEastDeathMountain("glitchless", false) && has("mirror") && dungeons.zelda3[9].mayEnter("glitchless", false)) {
+            if (has("firerod") && dungeons.zelda3[9].canEnter("glitchless", false)) {
                 availability.glitchless = "available";
             }
             else {
                 availability.glitchless = "possible";
             }
         }
-        else if (canEnterEastDeathMountain("glitchless", true) && trackerData.zelda3.items.mirror && dungeons.zelda3[9].mayEnter("glitchless", true)) {
-            if (trackerData.zelda3.items.firerod && dungeons.zelda3[9].canEnter("glitchless", true)) {
+        else if (canEnterEastDeathMountain("glitchless", true) && has("mirror") && dungeons.zelda3[9].mayEnter("glitchless", true)) {
+            if (has("firerod") && dungeons.zelda3[9].canEnter("glitchless", true)) {
                 availability.glitchless = "glitchavailable";
             }
             else {
                 availability.glitchless = "glitchpossible";
             }
         }
-        if (trackerData.zelda3.items.hammer && trackerData.zelda3.items.mirror) {
+        if (has("hammer") && has("mirror")) {
             if (canEnterEastDeathMountain("owGlitches", false) && canEnterEastDarkWorldDeathMountain("owGlitches", false)) {
                 availability.owGlitches = "available";
             }
@@ -165,7 +165,7 @@ chests.zelda3[7] = {
         else if (canEnterNorthWestDarkWorld("glitchless", true, true)) {
             availability.glitchless = "glitchagahnim";
         }
-        if (trackerData.zelda3.items.moonpearl) {
+        if (has("moonpearl")) {
             if (canEnterNorthWestDarkWorld("owGlitches", false, false)) {
                 availability.owGlitches = "available";
             }
@@ -249,14 +249,14 @@ chests.zelda3[10] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canEnterMireArea('glitchless', false, false)) {
-            if (trackerData.zelda3.items.moonpearl) {
+            if (has("moonpearl")) {
                 availability.glitchless = 'available';
             }
-            else if (trackerData.zelda3.items.mirror) {
+            else if (has("mirror")) {
                 availability.glitchless = 'glitchavailable';
             }
         }
-        if (trackerData.zelda3.items.moonpearl || trackerData.zelda3.items.mirror) {
+        if (has("moonpearl") || has("mirror")) {
             if (canEnterMireArea('owGlitches', false, false)) {
                 availability.owGlitches = 'available';
             }
@@ -288,7 +288,7 @@ chests.zelda3[11] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canEnterEastDarkWorldDeathMountain('glitchless', true)) {
-            if (canEnterEastDarkWorldDeathMountain('glitchless', false) && trackerData.zelda3.items.moonpearl) {
+            if (canEnterEastDarkWorldDeathMountain('glitchless', false) && has("moonpearl")) {
                 availability.glitchless = 'available';
             }
             else {
@@ -330,9 +330,9 @@ chests.zelda3[13] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canLiftRocks() && trackerData.zelda3.items.hammer) {
-            if (canEnterWestDeathMountain('glitchless', true) && trackerData.zelda3.items.moonpearl) {
-                if (canExtendMagic() && (trackerData.zelda3.items.cape || trackerData.zelda3.items.byrna)) {
+        if (canLiftRocks() && has("hammer")) {
+            if (canEnterWestDeathMountain('glitchless', true) && has("moonpearl")) {
+                if (canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('glitchless', false)) {
                         availability.glitchless = 'available';
                     }
@@ -344,8 +344,8 @@ chests.zelda3[13] = {
                     availability.glitchless = 'glitchpossible';
                 }
             }
-            if (canEnterWestDeathMountain('owGlitches', true) && trackerData.zelda3.items.moonpearl) {
-                if (canExtendMagic() && (trackerData.zelda3.items.cape || trackerData.zelda3.items.byrna)) {
+            if (canEnterWestDeathMountain('owGlitches', true) && has("moonpearl")) {
+                if (canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('owGlitches', false)) {
                         availability.owGlitches = 'available';
                     }
@@ -357,8 +357,8 @@ chests.zelda3[13] = {
                     availability.owGlitches = 'glitchpossible';
                 }
             }
-            else if (canEnterWestDeathMountain('majorGlitches', true) && (trackerData.zelda3.items.moonpearl || (trackerData.zelda3.items.bottle >= 1 && canDash()))) {
-                if (canExtendMagic() && (trackerData.zelda3.items.cape || trackerData.zelda3.items.byrna)) {
+            else if (canEnterWestDeathMountain('majorGlitches', true) && (has("moonpearl") || (trackerData.zelda3.items.bottle >= 1 && canDash()))) {
+                if (canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('majorGlitches', false)) {
                         availability.majorGlitches = 'available';
                     }
@@ -415,7 +415,7 @@ chests.zelda3[16] = {
         else if (canEnterSouthDarkWorld("glitchless", true, true)) {
             availability.glitchless = "glitchagahnim";
         }
-        if (trackerData.zelda3.items.moonpearl) {
+        if (has("moonpearl")) {
             if (canEnterSouthDarkWorld("owGlitches", false, false)) {
                 availability.owGlitches = "available";
             }
@@ -515,7 +515,7 @@ chests.zelda3[21] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.moonpearl
+        if (has("moonpearl")
                 && (canGrapple() || canDash())) {
             if (canEnterEastDarkWorldDeathMountain('glitchless', false)) {
                 availability.glitchless = 'available';
@@ -549,7 +549,7 @@ chests.zelda3[22] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.moonpearl && canGrapple()) {
+        if (has("moonpearl") && canGrapple()) {
             if (canEnterEastDarkWorldDeathMountain('glitchless', false)) {
                 availability.glitchless = 'available';
             }
@@ -658,7 +658,7 @@ chests.zelda3[26] = {
         else if (canEnterSouthDarkWorld("glitchless", true, true)) {
             availability.glitchless = "glitchagahnim";
         }
-        if (trackerData.zelda3.items.moonpearl) {
+        if (has("moonpearl")) {
             if (canEnterSouthDarkWorld("owGlitches", false, false)) {
                 availability.owGlitches = "available";
             }
@@ -691,7 +691,7 @@ chests.zelda3[27] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.bottle >= 1) {
+        if (has("bottle",1)) {
             availability.glitchless = "available";
         }
         return availability;
@@ -716,7 +716,7 @@ chests.zelda3[28] = {
                 availability.glitchless = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.moonpearl) {
+        if (has("moonpearl")) {
             if (canEnterNorthWestDarkWorld('owGlitches', false, false)
                     && chests.zelda3[60].isAvailable().owGlitches === 'available'
                     && (canLiftDarkRocks() || (canDash() && canEnterNorthEastDarkWorld('owGlitches', false, false)))) {
@@ -735,21 +735,21 @@ chests.zelda3[28] = {
         }
         if (canEnterNorthWestDarkWorld('majorGlitches', false, false)
                 && chests.zelda3[60].isAvailable().majorGlitches === 'available'
-                && (trackerData.zelda3.items.mirror
+                && (has("mirror")
                         || (glitchedLinkInDarkWorld() && canLiftDarkRocks())
                         || (canDash() && glitchedLinkInDarkWorld() && canEnterNorthEastDarkWorld('majorGlitches', false, false)))) {
             availability.majorGlitches = 'available';
         }
         else if (canEnterNorthWestDarkWorld('majorGlitches', true, false)
                 && (chests.zelda3[60].isAvailable().majorGlitches === 'available' || chests.zelda3[60].isAvailable().majorGlitches === 'agahnim')
-                && (trackerData.zelda3.items.mirror
+                && (has("mirror")
                         || (glitchedLinkInDarkWorld() && canLiftDarkRocks())
                         || (canDash() && glitchedLinkInDarkWorld() && canEnterNorthEastDarkWorld('majorGlitches', true, false)))) {
             availability.majorGlitches = 'agahnim';
         }
         else if (canEnterNorthWestDarkWorld('majorGlitches', true, true)
                 && (chests.zelda3[60].isAvailable().majorGlitches === 'available' || chests.zelda3[60].isAvailable().majorGlitches === 'agahnim' || chests.zelda3[60].isAvailable().majorGlitches === 'glitchagahnim')
-                && (trackerData.zelda3.items.mirror
+                && (has("mirror")
                         || (glitchedLinkInDarkWorld() && canLiftDarkRocks())
                         || (canDash() && glitchedLinkInDarkWorld() && canEnterNorthEastDarkWorld('majorGlitches', true, true)))) {
             availability.majorGlitches = 'glitchagahnim';
@@ -783,9 +783,9 @@ chests.zelda3[30] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.book && (trackerData.zelda3.items.mirror || (trackerData.zelda3.items.hammer && canGrapple()))) {
+        if (canRead() && (has("mirror") || (has("hammer") && canGrapple()))) {
             if (canEnterWestDeathMountain('glitchless', false)) {
-                if (trackerData.zelda3.items.sword >= 2) {
+                if (has("sword",2)) {
                     availability.glitchless = 'available';
                 }
                 else {
@@ -793,7 +793,7 @@ chests.zelda3[30] = {
                 }
             }
             else if (canEnterWestDeathMountain('glitchless', true)) {
-                if (trackerData.zelda3.items.sword >= 2) {
+                if (has("sword",2)) {
                     availability.glitchless = 'glitchavailable';
                 }
                 else {
@@ -801,9 +801,9 @@ chests.zelda3[30] = {
                 }
             }
         }
-        if (trackerData.zelda3.items.book) {
+        if (canRead()) {
             if (canEnterWestDeathMountain('owGlitches', false) && dungeons.zelda3[2].canEnter('owGlitches', false, false)) {
-                if (trackerData.zelda3.items.sword >= 2) {
+                if (has("sword",2)) {
                     availability.owGlitches = 'available';
                 }
                 else {
@@ -811,7 +811,7 @@ chests.zelda3[30] = {
                 }
             }
             else if (canEnterWestDeathMountain('owGlitches', true) && dungeons.zelda3[2].canEnter('owGlitches', false, true)) {
-                if (trackerData.zelda3.items.sword >= 2) {
+                if (has("sword",2)) {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else {
@@ -819,9 +819,9 @@ chests.zelda3[30] = {
                 }
             }
         }
-        if (trackerData.zelda3.items.book) {
+        if (canRead()) {
             if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].canEnter('majorGlitches', false, false)) {
-                if (trackerData.zelda3.items.sword >= 2) {
+                if (has("sword",2)) {
                     availability.majorGlitches = 'available';
                 }
                 else {
@@ -832,7 +832,7 @@ chests.zelda3[30] = {
                 availability.majorGlitches = 'possible';
             }
             else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].canEnter('majorGlitches', false, true)) {
-                if (trackerData.zelda3.items.sword >= 2) {
+                if (has("sword",2)) {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else {
@@ -842,10 +842,10 @@ chests.zelda3[30] = {
             else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', false, true)) {
                 availability.majorGlitches = 'glitchpossible';
             }
-            else if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].mayEnter('majorGlitches', true, false) && trackerData.zelda3.items.sword >= 2) {
+            else if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].mayEnter('majorGlitches', true, false) && has("sword",2)) {
                 availability.majorGlitches = 'agahnim';
             }
-            else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', true, true) && trackerData.zelda3.items.sword >= 2) {
+            else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', true, true) && has("sword",2)) {
                 availability.majorGlitches = 'glitchagahnim';
             }
         }
@@ -860,15 +860,15 @@ chests.zelda3[31] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.book && trackerData.zelda3.items.mirror && canEnterSouthDarkWorld('glitchless', false, false)) {
-            if (trackerData.zelda3.items.sword >= 2) {
+        if (canRead() && has("mirror") && canEnterSouthDarkWorld('glitchless', false, false)) {
+            if (has("sword",2)) {
                 availability.glitchless = 'available';
             }
             else {
                 availability.glitchless = 'possible';
             }
         }
-        else if (trackerData.zelda3.items.book && trackerData.zelda3.items.mirror && trackerData.zelda3.items.sword >= 2) {
+        else if (canRead() && has("mirror") && has("sword",2)) {
             if (canEnterSouthDarkWorld('glitchless', true, false)) {
                 availability.glitchless = 'agahnim';
             }
@@ -876,15 +876,15 @@ chests.zelda3[31] = {
                 availability.glitchless = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.book && (canDash() || (trackerData.zelda3.items.mirror && canEnterSouthDarkWorld('owGlitches', false, false)))) {
-            if (trackerData.zelda3.items.sword >= 2) {
+        if (canRead() && (canDash() || (has("mirror") && canEnterSouthDarkWorld('owGlitches', false, false)))) {
+            if (has("sword",2)) {
                 availability.owGlitches = 'available';
             }
             else {
                 availability.owGlitches = 'possible';
             }
         }
-        else if (trackerData.zelda3.items.book && trackerData.zelda3.items.mirror && trackerData.zelda3.items.sword >= 2) {
+        else if (canRead() && has("mirror") && has("sword",2)) {
             if (canEnterSouthDarkWorld('owGlitches', true, false)) {
                 availability.owGlitches = 'agahnim';
             }
@@ -892,16 +892,16 @@ chests.zelda3[31] = {
                 availability.owGlitches = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.book
-                && (canDash() || (trackerData.zelda3.items.mirror && canEnterSouthDarkWorld('majorGlitches', false, false)))) {
-            if (trackerData.zelda3.items.sword >= 2) {
+        if (canRead()
+                && (canDash() || (has("mirror") && canEnterSouthDarkWorld('majorGlitches', false, false)))) {
+            if (has("sword",2)) {
                 availability.majorGlitches = 'available';
             }
             else {
                 availability.majorGlitches = 'possible';
             }
         }
-        else if (trackerData.zelda3.items.book && trackerData.zelda3.items.mirror && trackerData.zelda3.items.sword >= 2) {
+        else if (canRead() && has("mirror") && has("sword",2)) {
             if (canEnterSouthDarkWorld('majorGlitches', true, false)) {
                 availability.majorGlitches = 'agahnim';
             }
@@ -920,7 +920,7 @@ chests.zelda3[32] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.moonpearl && canLiftRocks()) {
+        if (has("moonpearl") && canLiftRocks()) {
             if (canEnterNorthEastDarkWorld('glitchless', false, false)) {
                 availability.glitchless = 'available';
             }
@@ -931,7 +931,7 @@ chests.zelda3[32] = {
                 availability.glitchless = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.moonpearl
+        if (has("moonpearl")
                 && (canLiftRocks() || canDash())) {
             if (canEnterNorthEastDarkWorld('owGlitches', false, false)) {
                 availability.owGlitches = 'available';
@@ -985,7 +985,7 @@ chests.zelda3[34] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canEnterWestDeathMountain('glitchless', true)) {
-            if (trackerData.zelda3.items.lantern) {
+            if (has("lantern")) {
                 availability.glitchless = 'available';
             }
             else {
@@ -993,7 +993,7 @@ chests.zelda3[34] = {
             }
         }
         else if (canEnterWestDeathMountain('owGlitches', true)) {
-            if (trackerData.zelda3.items.lantern) {
+            if (has("lantern")) {
                 availability.owGlitches = 'available';
             }
             else {
@@ -1001,7 +1001,7 @@ chests.zelda3[34] = {
             }
         }
         else if (canEnterWestDeathMountain('majorGlitches', true)) {
-            if (trackerData.zelda3.items.lantern) {
+            if (has("lantern")) {
                 availability.majorGlitches = 'available';
             }
             else {
@@ -1019,7 +1019,7 @@ chests.zelda3[35] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.mushroom) {
+        if (has("mushroom")) {
             availability.glitchless = 'available';
         }
         return availability;
@@ -1047,7 +1047,7 @@ chests.zelda3[37] = {
         const availability = new Availability();
         availability.glitchless = 'possible';
         if (canDash()) {
-            if (trackerData.zelda3.items.agahnim) {
+            if (has("agahnim")) {
                 availability.glitchless = 'available';
             }
             else if (canGoBeatAgahnim1(false)) {
@@ -1097,7 +1097,7 @@ chests.zelda3[39] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.mirror) {
+        if (has("mirror")) {
             if (canEnterSouthDarkWorld('glitchless', false, false)) {
                 availability.glitchless = 'available';
             }
@@ -1112,7 +1112,7 @@ chests.zelda3[39] = {
             availability.owGlitches = 'available';
         }
         else {
-            if (trackerData.zelda3.items.mirror) {
+            if (has("mirror")) {
                 if (canEnterSouthDarkWorld('owGlitches', false, false)) {
                     availability.owGlitches = 'available';
                 }
@@ -1144,7 +1144,7 @@ chests.zelda3[40] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.mirror && trackerData.zelda3.items.moonpearl) {
+        if (has("mirror") && has("moonpearl")) {
             if (canEnterNorthWestDarkWorld('glitchless', false, false)) {
                 availability.glitchless = 'available';
             }
@@ -1159,7 +1159,7 @@ chests.zelda3[40] = {
             availability.owGlitches = 'available';
         }
         else {
-            if (trackerData.zelda3.items.mirror && trackerData.zelda3.items.moonpearl) {
+            if (has("mirror") && has("moonpearl")) {
                 if (canEnterNorthWestDarkWorld('owGlitches', false, false)) {
                     availability.owGlitches = 'available';
                 }
@@ -1170,7 +1170,7 @@ chests.zelda3[40] = {
                     availability.owGlitches = 'glitchagahnim';
                 }
             }
-            if (trackerData.zelda3.items.mirror && glitchedLinkInDarkWorld()) {
+            if (has("mirror") && glitchedLinkInDarkWorld()) {
                 availability.majorGlitches = 'available';
             }
         }
@@ -1185,14 +1185,14 @@ chests.zelda3[41] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canFly() && canLiftDarkRocks() && trackerData.zelda3.items.mirror) {
+        if (canFly() && canLiftDarkRocks() && has("mirror")) {
             availability.glitchless = 'available';
         }
         if (canLiftRocks()) {
             if (canDash()) {
                 availability.owGlitches = 'available';
             }
-            else if (trackerData.zelda3.items.mirror) {
+            else if (has("mirror")) {
                 if (canEnterMireArea('owGlitches', false, false)) {
                     availability.owGlitches = 'available';
                 }
@@ -1224,7 +1224,7 @@ chests.zelda3[42] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canLiftDarkRocks() && trackerData.zelda3.items.hammer) {
+        if (canLiftDarkRocks() && has("hammer")) {
             if (canEnterNorthWestDarkWorld('glitchless', false, false)) {
                 availability.glitchless = 'available';
             }
@@ -1235,7 +1235,7 @@ chests.zelda3[42] = {
                 availability.glitchless = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.hammer && trackerData.zelda3.items.moonpearl) {
+        if (has("hammer") && has("moonpearl")) {
             if (canEnterNorthWestDarkWorld('owGlitches', false, false)
                     && (canLiftDarkRocks() || (canDash() && canEnterNorthEastDarkWorld('owGlitches', false, false)))) {
                 availability.owGlitches = 'available';
@@ -1249,7 +1249,7 @@ chests.zelda3[42] = {
                 availability.owGlitches = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.hammer && glitchedLinkInDarkWorld()) {
+        if (has("hammer") && glitchedLinkInDarkWorld()) {
             if (canEnterNorthWestDarkWorld('majorGlitches', false, false)) {
                 availability.majorGlitches = 'available';
             }
@@ -1301,7 +1301,7 @@ chests.zelda3[45] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canEnterWestDeathMountain('glitchless', false)) {
-            if (trackerData.zelda3.items.mirror) {
+            if (has("mirror")) {
                 availability.glitchless = 'available';
             }
             else {
@@ -1309,7 +1309,7 @@ chests.zelda3[45] = {
             }
         }
         else if (canEnterWestDeathMountain('glitchless', true)) {
-            if (trackerData.zelda3.items.mirror) {
+            if (has("mirror")) {
                 availability.glitchless = 'glitchavailable';
             }
             else {
@@ -1317,7 +1317,7 @@ chests.zelda3[45] = {
             }
         }
         if (canEnterWestDeathMountain('owGlitches', false)) {
-            if (canDash() || trackerData.zelda3.items.mirror) {
+            if (canDash() || has("mirror")) {
                 availability.owGlitches = 'available';
             }
             else {
@@ -1325,7 +1325,7 @@ chests.zelda3[45] = {
             }
         }
         else if (canEnterWestDeathMountain('owGlitches', true)) {
-            if (canDash() || trackerData.zelda3.items.mirror) {
+            if (canDash() || has("mirror")) {
                 availability.owGlitches = 'glitchavailable';
             }
             else {
@@ -1333,7 +1333,7 @@ chests.zelda3[45] = {
             }
         }
         if (canEnterWestDeathMountain('majorGlitches', false)) {
-            if (canDash() || trackerData.zelda3.items.mirror) {
+            if (canDash() || has("mirror")) {
                 availability.majorGlitches = 'available';
             }
             else {
@@ -1341,7 +1341,7 @@ chests.zelda3[45] = {
             }
         }
         else if (canEnterWestDeathMountain('majorGlitches', true)) {
-            if (canDash() || trackerData.zelda3.items.mirror) {
+            if (canDash() || has("mirror")) {
                 availability.majorGlitches = 'glitchavailable';
             }
             else {
@@ -1360,8 +1360,8 @@ chests.zelda3[46] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canEnterEastDeathMountain('glitchless', false)) {
-            if (trackerData.zelda3.items.mirror
-                    && trackerData.zelda3.items.moonpearl
+            if (has("mirror")
+                    && has("moonpearl")
                     && canLiftDarkRocks()) {
                 availability.glitchless = 'available';
             }
@@ -1370,8 +1370,8 @@ chests.zelda3[46] = {
             }
         }
         else if (canEnterEastDeathMountain('glitchless', true)) {
-            if (trackerData.zelda3.items.mirror
-                    && trackerData.zelda3.items.moonpearl
+            if (has("mirror")
+                    && has("moonpearl")
                     && canLiftDarkRocks()) {
                 availability.glitchless = 'glitchavailable';
             }
@@ -1381,8 +1381,8 @@ chests.zelda3[46] = {
         }
         if (canEnterEastDeathMountain('owGlitches', false)) {
             if ((canDash()
-                            || (trackerData.zelda3.items.mirror
-                                    && trackerData.zelda3.items.moonpearl
+                            || (has("mirror")
+                                    && has("moonpearl")
                                     && canLiftRocks()
                                     && canEnterEastDarkWorldDeathMountain('owGlitches', false)))) {
                 availability.owGlitches = 'available';
@@ -1393,8 +1393,8 @@ chests.zelda3[46] = {
         }
         else if (canEnterEastDeathMountain('owGlitches', true)) {
             if ((canDash()
-                            || (trackerData.zelda3.items.mirror
-                                    && trackerData.zelda3.items.moonpearl
+                            || (has("mirror")
+                                    && has("moonpearl")
                                     && canLiftRocks()
                                     && canEnterEastDarkWorldDeathMountain('owGlitches', true)))) {
                 availability.owGlitches = 'glitchavailable';
@@ -1405,7 +1405,7 @@ chests.zelda3[46] = {
         }
         if (canEnterEastDeathMountain('majorGlitches', false)) {
             if ((canDash()
-                            || (trackerData.zelda3.items.mirror
+                            || (has("mirror")
                                     && glitchedLinkInDarkWorld()
                                     && canLiftRocks()
                                     && canEnterEastDarkWorldDeathMountain('majorGlitches', false)))) {
@@ -1417,7 +1417,7 @@ chests.zelda3[46] = {
         }
         else if (canEnterEastDeathMountain('majorGlitches', true)) {
             if ((canDash()
-                            || (trackerData.zelda3.items.mirror
+                            || (has("mirror")
                                     && glitchedLinkInDarkWorld()
                                     && canLiftRocks()
                                     && canEnterEastDarkWorldDeathMountain('majorGlitches', true)))) {
@@ -1486,7 +1486,7 @@ chests.zelda3[49] = {
     isAvailable: function () {
         const availability = new Availability();
         availability.glitchless = 'possible';
-        if (canSwim() && trackerData.zelda3.items.moonpearl && trackerData.zelda3.items.mirror) {
+        if (canSwim() && has("moonpearl") && has("mirror")) {
             if (canEnterSouthDarkWorld('glitchless', false, false) || canEnterNorthEastDarkWorld('glitchless', false, false)) {
                 availability.glitchless = 'available';
             }
@@ -1501,16 +1501,16 @@ chests.zelda3[49] = {
             availability.owGlitches = 'available';
         }
         else {
-            if (canSwim() && trackerData.zelda3.items.mirror) {
-                if ((trackerData.zelda3.items.moonpearl && canEnterSouthDarkWorld('owGlitches', false, false))
+            if (canSwim() && has("mirror")) {
+                if ((has("moonpearl") && canEnterSouthDarkWorld('owGlitches', false, false))
                         || canEnterNorthEastDarkWorld('owGlitches', false, false)) {
                     availability.owGlitches = 'available';
                 }
-                else if ((trackerData.zelda3.items.moonpearl && canEnterSouthDarkWorld('owGlitches', true, false))
+                else if ((has("moonpearl") && canEnterSouthDarkWorld('owGlitches', true, false))
                         || canEnterNorthEastDarkWorld('owGlitches', true, false)) {
                     availability.owGlitches = 'agahnim';
                 }
-                else if ((trackerData.zelda3.items.moonpearl && canEnterSouthDarkWorld('owGlitches', true, true))
+                else if ((has("moonpearl") && canEnterSouthDarkWorld('owGlitches', true, true))
                         || canEnterNorthEastDarkWorld('owGlitches', true, true)) {
                     availability.owGlitches = 'glitchagahnim';
                 }
@@ -1537,28 +1537,28 @@ chests.zelda3[50] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canEnterNorthWestDarkWorld('glitchless', false, false)) {
-            if (canLiftRocks() && trackerData.zelda3.items.cape) {
+            if (canLiftRocks() && has("cape")) {
                 availability.glitchless = 'available';
             }
             else {
                 availability.glitchless = 'possible';
             }
         }
-        else if (canEnterNorthWestDarkWorld('glitchless', true, false) && canLiftRocks() && trackerData.zelda3.items.cape) {
+        else if (canEnterNorthWestDarkWorld('glitchless', true, false) && canLiftRocks() && has("cape")) {
             availability.glitchless = 'agahnim';
         }
-        else if (canEnterNorthWestDarkWorld('glitchless', true, true) && canLiftRocks() && trackerData.zelda3.items.cape) {
+        else if (canEnterNorthWestDarkWorld('glitchless', true, true) && canLiftRocks() && has("cape")) {
             availability.glitchless = 'glitchagahnim';
         }
         if (canEnterNorthWestDarkWorld('owGlitches', false, false)) {
-            if (trackerData.zelda3.items.moonpearl && (canDash() || (canLiftRocks() && trackerData.zelda3.items.cape))) {
+            if (has("moonpearl") && (canDash() || (canLiftRocks() && has("cape")))) {
                 availability.owGlitches = 'available';
             }
             else {
                 availability.owGlitches = 'possible';
             }
         }
-        else if (trackerData.zelda3.items.moonpearl && (canDash() || (canLiftRocks() && trackerData.zelda3.items.cape))) {
+        else if (has("moonpearl") && (canDash() || (canLiftRocks() && has("cape")))) {
             if (canEnterNorthWestDarkWorld('owGlitches', true, false)) {
                 availability.owGlitches = 'agahnim';
             }
@@ -1567,14 +1567,14 @@ chests.zelda3[50] = {
             }
         }
         if (canEnterNorthWestDarkWorld('majorGlitches', false, false)) {
-            if (glitchedLinkInDarkWorld() && (canDash() || (canLiftRocks() && trackerData.zelda3.items.cape))) {
+            if (glitchedLinkInDarkWorld() && (canDash() || (canLiftRocks() && has("cape")))) {
                 availability.majorGlitches = 'available';
             }
             else {
                 availability.majorGlitches = 'possible';
             }
         }
-        else if (glitchedLinkInDarkWorld() && (canDash() || (canLiftRocks() && trackerData.zelda3.items.cape))) {
+        else if (glitchedLinkInDarkWorld() && (canDash() || (canLiftRocks() && has("cape")))) {
             if (canEnterNorthWestDarkWorld('majorGlitches', true, false)) {
                 availability.majorGlitches = 'agahnim';
             }
@@ -1640,7 +1640,7 @@ chests.zelda3[52] = {
         else if (canEnterSouthDarkWorld("glitchless", true, true)) {
             availability.glitchless = "glitchagahnim";
         }
-        if (trackerData.zelda3.items.moonpearl) {
+        if (has("moonpearl")) {
             if (canEnterSouthDarkWorld("owGlitches", false, false)) {
                 availability.owGlitches = "available";
             }
@@ -1682,7 +1682,7 @@ chests.zelda3[53] = {
         else {
             availability.glitchless = 'glitchpossible';
         }
-        if (canDash() && trackerData.zelda3.items.moonpearl) {
+        if (canDash() && has("moonpearl")) {
             availability.owGlitches = 'available';
         }
         else {
@@ -1699,7 +1699,7 @@ chests.zelda3[54] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.shovel) {
+        if (has("shovel")) {
             availability.glitchless = 'available';
         }
         return availability;
@@ -1713,7 +1713,7 @@ chests.zelda3[55] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (!trackerOptions[selectedGame].openmode || trackerData.zelda3.items.lantern || canLiftRocks()) {
+        if (!trackerOptions[selectedGame].openmode || has("lantern") || canLiftRocks()) {
             availability.glitchless = 'available';
         } else {
             availability.glitchless = 'unavailable';
@@ -1765,19 +1765,19 @@ chests.zelda3[59] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.zelda3.items.hammer
-                || (trackerData.zelda3.items.moonpearl && trackerData.zelda3.items.mirror && canLiftDarkRocks())) {
-            if (trackerData.zelda3.items.powder) {
+        if (has("hammer")
+                || (has("moonpearl") && has("mirror") && canLiftDarkRocks())) {
+            if (has("powder")) {
                 availability.glitchless = 'available';
             }
-            else if (trackerData.zelda3.items.somaria && trackerData.zelda3.items.mushroom) {
+            else if (has("somaria") && has("mushroom")) {
                 availability.glitchless = 'glitchavailable';
             }
         }
-        if (trackerData.zelda3.items.powder && canDash()) {
+        if (has("powder") && canDash()) {
             availability.owGlitches = 'available';
         }
-        else if (trackerData.zelda3.items.powder && trackerData.zelda3.items.mirror) {
+        else if (has("powder") && has("mirror")) {
             availability.majorGlitches = 'available';
         }
         return availability;
@@ -1802,7 +1802,7 @@ chests.zelda3[60] = {
                 availability.glitchless = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.moonpearl && (canLiftDarkRocks() || (canDash() && trackerData.zelda3.items.mirror))) {
+        if (has("moonpearl") && (canLiftDarkRocks() || (canDash() && has("mirror")))) {
             if (canEnterNorthWestDarkWorld('owGlitches', false, false)) {
                 availability.owGlitches = 'available';
             }
@@ -1813,7 +1813,7 @@ chests.zelda3[60] = {
                 availability.owGlitches = 'glitchagahnim';
             }
         }
-        if (glitchedLinkInDarkWorld() && (canLiftDarkRocks() || (canDash() && trackerData.zelda3.items.mirror))) {
+        if (glitchedLinkInDarkWorld() && (canLiftDarkRocks() || (canDash() && has("mirror")))) {
             if (canEnterNorthWestDarkWorld('majorGlitches', false, false)) {
                 availability.majorGlitches = 'available';
             }
@@ -1845,46 +1845,46 @@ chests.zelda3[61] = {
                 }
             }
         }
-        if (crystalCount === 2 && trackerData.zelda3.items.moonpearl) {
+        if (crystalCount === 2 && has("moonpearl")) {
             if (canEnterSouthDarkWorld('glitchless', false, false)
-                    && (trackerData.zelda3.items.hammer || (trackerData.zelda3.items.mirror && trackerData.zelda3.items.agahnim))) {
+                    && (has("hammer") || (has("mirror") && has("agahnim")))) {
                 availability.glitchless = 'available';
             }
             else if (canEnterSouthDarkWorld('glitchless', true, false)
-                    && (trackerData.zelda3.items.hammer || (trackerData.zelda3.items.mirror && canGoBeatAgahnim1(false)))) {
+                    && (has("hammer") || (has("mirror") && canGoBeatAgahnim1(false)))) {
                 availability.glitchless = 'agahnim';
             }
             else if (canEnterSouthDarkWorld('glitchless', true, true)
-                    && (trackerData.zelda3.items.hammer || (trackerData.zelda3.items.mirror && canGoBeatAgahnim1(true)))) {
+                    && (has("hammer") || (has("mirror") && canGoBeatAgahnim1(true)))) {
                 availability.glitchless = 'glitchagahnim';
             }
         }
-        if (trackerData.zelda3.items.mirror && canSpinSpeed()) {
+        if (has("mirror") && canSpinSpeed()) {
             availability.owGlitches = 'available';
         }
         else if (crystalCount === 2) {
             if (canEnterSouthDarkWorld('owGlitches', false, false)
-                    && ((trackerData.zelda3.items.hammer && trackerData.zelda3.items.moonpearl) || (trackerData.zelda3.items.mirror && trackerData.zelda3.items.agahnim))) {
+                    && ((has("hammer") && has("moonpearl")) || (has("mirror") && has("agahnim")))) {
                 availability.owGlitches = 'available'
             }
             else if (canEnterSouthDarkWorld('owGlitches', true, false)
-                    && ((trackerData.zelda3.items.hammer && trackerData.zelda3.items.moonpearl) || (trackerData.zelda3.items.mirror && canGoBeatAgahnim1(false)))) {
+                    && ((has("hammer") && has("moonpearl")) || (has("mirror") && canGoBeatAgahnim1(false)))) {
                 availability.owGlitches = 'agahnim';
             }
             else if (canEnterSouthDarkWorld('owGlitches', true, true)
-                    && ((trackerData.zelda3.items.hammer && trackerData.zelda3.items.moonpearl) || (trackerData.zelda3.items.mirror && canGoBeatAgahnim1(true)))) {
+                    && ((has("hammer") && has("moonpearl")) || (has("mirror") && canGoBeatAgahnim1(true)))) {
                 availability.owGlitches = 'glitchagahnim';
             }
             if (canEnterSouthDarkWorld('majorGlitches', false, false)
-                    && ((trackerData.zelda3.items.hammer && glitchedLinkInDarkWorld()) || (trackerData.zelda3.items.mirror && trackerData.zelda3.items.agahnim))) {
+                    && ((has("hammer") && glitchedLinkInDarkWorld()) || (has("mirror") && has("agahnim")))) {
                 availability.majorGlitches = 'available'
             }
             else if (canEnterSouthDarkWorld('majorGlitches', true, false)
-                    && ((trackerData.zelda3.items.hammer && glitchedLinkInDarkWorld()) || (trackerData.zelda3.items.mirror && canGoBeatAgahnim1(false)))) {
+                    && ((has("hammer") && glitchedLinkInDarkWorld()) || (has("mirror") && canGoBeatAgahnim1(false)))) {
                 availability.majorGlitches = 'agahnim';
             }
             else if (canEnterSouthDarkWorld('majorGlitches', true, true)
-                    && ((trackerData.zelda3.items.hammer && glitchedLinkInDarkWorld()) || (trackerData.zelda3.items.mirror && canGoBeatAgahnim1(true)))) {
+                    && ((has("hammer") && glitchedLinkInDarkWorld()) || (has("mirror") && canGoBeatAgahnim1(true)))) {
                 availability.majorGlitches = 'glitchagahnim';
             }
         }
@@ -1911,7 +1911,7 @@ chests.zelda3[62] = {
         if (pendantCount === 3) {
             availability.glitchless = 'available';
         }
-        else if (trackerData.zelda3.items.book) {
+        else if (canRead()) {
             availability.glitchless = 'possible';
         }
         return availability;
@@ -1928,7 +1928,7 @@ chests.zelda3[63] = {
         if (canSwim()) {
             availability.glitchless = 'available';
         }
-        else if (trackerData.zelda3.items.moonpearl) {
+        else if (has("moonpearl")) {
             availability.glitchless = 'glitchavailable';
             availability.owGlitches = 'available';
         }
@@ -1946,7 +1946,7 @@ chests.zelda3[64] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (!trackerOptions[selectedGame].openmode || trackerData.zelda3.items.lantern) {
+        if (!trackerOptions[selectedGame].openmode || has("lantern")) {
             availability.glitchless = 'available';
         } else {
             availability.glitchless = 'unavailable';

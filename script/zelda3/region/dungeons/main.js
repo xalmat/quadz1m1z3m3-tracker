@@ -45,17 +45,17 @@ dungeons.zelda3[1] = {
     y: "78.4%",
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
         if (logic === 'majorGlitches') {
-            return has("book")
+            return canRead()
                     || canDash()
                     || (has("mirror") && canEnterMireArea('majorGlitches', agahnimCheck, allowOutOfLogicGlitches));
         }
         else if (logic === 'owGlitches') {
-            return has("book")
+            return canRead()
                     || canDash()
                     || (has("mirror") && canEnterMireArea('owGlitches', agahnimCheck, allowOutOfLogicGlitches));
         }
         else if (logic === 'glitchless') {
-            return has("book")
+            return canRead()
                     || (has("mirror") && canLiftDarkRocks() && canFly())
                     || (canAccessMiseryMirePortal() && has("mirror"));
         }
@@ -1262,7 +1262,7 @@ dungeons.zelda3[8] = {
                     availability.glitchless = 'available';
                 }
                 else if (trackerData.zelda3.dungeonchests[8] === 1
-                        && (has("cape") || has("byrna"))
+                        && (canInvul())
                         && has("somaria")
                         && this.canHurtBoss()) {
                     availability.glitchless = 'available';
@@ -1287,7 +1287,7 @@ dungeons.zelda3[8] = {
                     availability.owGlitches = 'available';
                 }
                 else if (trackerData.zelda3.dungeonchests[8] === 1
-                        && (has("cape") || has("byrna"))
+                        && (canInvul())
                         && has("somaria")
                         && this.canHurtBoss()
                         && has("lantern")) {
@@ -1313,7 +1313,7 @@ dungeons.zelda3[8] = {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else if (trackerData.zelda3.dungeonchests[8] === 1
-                        && (has("cape") || has("byrna"))
+                        && (canInvul())
                         && has("somaria")
                         && this.canHurtBoss()
                         && has("lantern")) {
@@ -1345,7 +1345,7 @@ dungeons.zelda3[8] = {
                     availability.majorGlitches = 'available';
                 }
                 else if (trackerData.zelda3.dungeonchests[8] === 1
-                        && (has("cape") || has("byrna"))
+                        && (canInvul())
                         && has("somaria")
                         && this.canHurtBoss()
                         && has("lantern")) {
@@ -1371,7 +1371,7 @@ dungeons.zelda3[8] = {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else if (trackerData.zelda3.dungeonchests[8] === 1
-                        && (has("cape") || has("byrna"))
+                        && (canInvul())
                         && has("somaria")
                         && this.canHurtBoss()
                         && has("lantern")) {
@@ -1522,7 +1522,7 @@ dungeons.zelda3[9] = {
             if (this.canEnter('glitchless', false)
                     && has("lantern")
                     && (has("hammer") || has("sword",2))) {
-                if (has("cape") || has("byrna") || canBlockLasers()) {
+                if (canInvul() || canBlockLasers()) {
                     availability.glitchless = 'available';
                 }
                 else {
@@ -1533,7 +1533,7 @@ dungeons.zelda3[9] = {
                 availability.glitchless = 'possible';
             }
             else if (this.canEnter('glitchless', true)) {
-                if (has("cape") || has("byrna") || canBlockLasers()) {
+                if (canInvul() || canBlockLasers()) {
                     availability.glitchless = 'glitchavailable';
                 }
                 else {
@@ -1546,7 +1546,7 @@ dungeons.zelda3[9] = {
             if (this.canEnter('owGlitches', false)
                     && has("lantern")
                     && (has("hammer") || has("sword",2))) {
-                if (has("cape") || has("byrna") || canBlockLasers()) {
+                if (canInvul() || canBlockLasers()) {
                     availability.owGlitches = 'available';
                 }
                 else {
@@ -1557,7 +1557,7 @@ dungeons.zelda3[9] = {
                 availability.owGlitches = 'possible';
             }
             else if (this.canEnter('owGlitches', true)) {
-                if (has("cape") || has("byrna") || canBlockLasers()) {
+                if (canInvul() || canBlockLasers()) {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else {
@@ -1570,7 +1570,7 @@ dungeons.zelda3[9] = {
             if (this.canEnter('majorGlitches', false)
                     && has("lantern")
                     && (has("hammer") || has("sword",2))) {
-                if (has("cape") || has("byrna") || canBlockLasers()) {
+                if (canInvul() || canBlockLasers()) {
                     availability.majorGlitches = 'available';
                 }
                 else {
@@ -1581,7 +1581,7 @@ dungeons.zelda3[9] = {
                 availability.majorGlitches = 'possible';
             }
             else if (this.canEnter('majorGlitches', true)) {
-                if (has("cape") || has("byrna") || canBlockLasers()) {
+                if (canInvul() || canBlockLasers()) {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else {
@@ -1598,7 +1598,7 @@ dungeons.zelda3[9] = {
         const availability = new Availability();
         if (this.canEnter('glitchless', false)) {
             if (has("firerod")) {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     if (trackerData.zelda3.dungeonchests[9] >= 2 || this.isBeatable().glitchless === 'available') {
                         availability.glitchless = 'available';
                     }
@@ -1614,7 +1614,7 @@ dungeons.zelda3[9] = {
                 }
             }
             else {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.glitchless = 'partial';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 4) {
@@ -1627,7 +1627,7 @@ dungeons.zelda3[9] = {
         }
         else if (this.mayEnter('glitchless', false)) {
             if (has("firerod")) {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.glitchless = 'possible';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 2) {
@@ -1638,7 +1638,7 @@ dungeons.zelda3[9] = {
                 }
             }
             else {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.glitchless = 'possible';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 4) {
@@ -1670,7 +1670,7 @@ dungeons.zelda3[9] = {
         // TODO: Account for lower/middle entrances for owGlitches and majorGlitches chest counts.
         if (this.canEnter('owGlitches', false)) {
             if (has("firerod")) {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     if (trackerData.zelda3.dungeonchests[9] >= 2 || this.isBeatable().glitchless === 'available') {
                         availability.owGlitches = 'available';
                     }
@@ -1686,7 +1686,7 @@ dungeons.zelda3[9] = {
                 }
             }
             else {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.owGlitches = 'partial';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 4) {
@@ -1699,7 +1699,7 @@ dungeons.zelda3[9] = {
         }
         else if (this.mayEnter('owGlitches', false)) {
             if (has("firerod")) {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.owGlitches = 'possible';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 2) {
@@ -1710,7 +1710,7 @@ dungeons.zelda3[9] = {
                 }
             }
             else {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.owGlitches = 'possible';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 4) {
@@ -1741,7 +1741,7 @@ dungeons.zelda3[9] = {
         }
         if (this.canEnter('majorGlitches', false)) {
             if (has("firerod")) {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     if (trackerData.zelda3.dungeonchests[9] >= 2 || this.isBeatable().glitchless === 'available') {
                         availability.majorGlitches = 'available';
                     }
@@ -1757,7 +1757,7 @@ dungeons.zelda3[9] = {
                 }
             }
             else {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.majorGlitches = 'partial';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 4) {
@@ -1770,7 +1770,7 @@ dungeons.zelda3[9] = {
         }
         else if (this.mayEnter('majorGlitches', false)) {
             if (has("firerod")) {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.majorGlitches = 'possible';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 2) {
@@ -1781,7 +1781,7 @@ dungeons.zelda3[9] = {
                 }
             }
             else {
-                if (has("lantern") && (has("cape") || has("byrna") || canBlockLasers())) {
+                if (has("lantern") && (canInvul() || canBlockLasers())) {
                     availability.majorGlitches = 'possible';
                 }
                 else if (trackerData.zelda3.dungeonchests[9] >= 4) {

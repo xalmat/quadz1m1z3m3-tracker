@@ -84,6 +84,14 @@ function canGrapple() {
 	return has("hookshot");
 }
 
+function canInvul() {
+	return has("cape") || has("byrna");
+}
+
+function canRead() {
+	return has("book");
+}
+
 function canSwim() {
 	return has("flippers");
 }
@@ -203,12 +211,14 @@ function canEnterSouthDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches) {
                                         && (has("hammer") || (canGrapple() && (canSwim() || canLiftRocks()))))));
     }
     else if (logic === 'owGlitches') {
-        return (canEnterWestDeathMountain(logic, allowOutOfLogicGlitches) && (has("mirror") || (canDash() && has("moonpearl"))))
-                || (has("moonpearl")
-                        && (canLiftDarkRocks()
-                                || (has("hammer") && canLiftRocks())
-                                || ((has("agahnim") || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
-                                        && (has("hammer") || (canGrapple() && (canSwim() || canLiftRocks()))))));
+        return ((has("moonpearl")
+        		&& (canLiftDarkRocks()
+        				|| (has("hammer") && canLiftRocks())
+        				|| (has("agahnim") && (has("hammer")
+        						|| (canGrapple() && (canLiftRocks() || canSwim()))))))
+        		|| ((has("mirror") || (canDash() && has("moonpearl")))
+        				&& canEnterWestDeathMountain(logic, allowOutOfLogicGlitches))
+        		|| (canAccessDarkWorldPortal() && canSwim()));
     }
     else if (logic === 'glitchless') {
         return has("moonpearl")
@@ -231,7 +241,7 @@ function canEnterMireArea(logic, agahnimCheck, allowOutOfLogicGlitches) {
                 || (has("moonpearl") && has("boots") && canEnterSouthDarkWorld('owGlitches', agahnimCheck, allowOutOfLogicGlitches));
     }
     else if (logic === 'glitchless') {
-        return canFly() && canLiftDarkRocks();
+        return (canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal();
     }
 }
 
@@ -249,7 +259,8 @@ function canEnterWestDeathMountain(logic, allowOutOfLogicGlitches) {
     }
     else if (logic === 'glitchless') {
         return canFly()
-                || (canLiftRocks() && (has("lantern") || allowOutOfLogicGlitches));
+                || (canLiftRocks() && (has("lantern") || allowOutOfLogicGlitches))
+                || canAccessDeathMountainPortal();
     }
 }
 
