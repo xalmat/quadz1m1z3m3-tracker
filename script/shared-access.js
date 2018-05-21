@@ -161,7 +161,8 @@ function canEnterNorthEastDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches
         return trackerData[selectedGame].items.agahnim
                 || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches))
                 || (trackerData[selectedGame].items.hammer && canLiftRocks() && trackerData[selectedGame].items.moonpearl)
-                || (canLiftDarkRocks() && canSwim() && trackerData[selectedGame].items.moonpearl);
+                || (canLiftDarkRocks() && canSwim() && trackerData[selectedGame].items.moonpearl)
+                || (canAccessDarkWorldPortal() && canSwim() && trackerData[selectedGame].items.moonpearl);
     }
 }
 
@@ -316,7 +317,7 @@ function canGrappleSM() {	// SM: Grapple Beam
 	return trackerData.metroid3.items.grappling;
 }
 function canHellRun() {	// Varia or enough health
-	return heatProof() || hasEnergyReserves(4);
+	return heatProof() || hasEnergyReserves(5);
 }
 function canHiJump() {
 	return trackerData.metroid3.items.hijump || trackerData.metroid3.items.space;
@@ -381,15 +382,14 @@ function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Re
 	return heatProof()
 		&& canOpenGreenDoors()
 		&& (trackerData.metroid3.items.hijump || canSwimSM())
-		&& canOpenYellowDoors()
-		&& (heatProof() && (trackerData.metroid3.items.hijump || canSwimSM()));
+		&& canOpenYellowDoors();
 }
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)
 	return canOpenYellowDoors()
 		&& canOpenGreenDoors()
 		&& (canSwimSM()
-			|| (trackerData.metroid3.items.hijump && trackerData.metroid3.items.ice && canGrappleSM()))
-		&& (trackerData.metroid3.items.ice && canDashSM());
+			|| (trackerData[selectedGame].items.hijump && trackerData[selectedGame].items.ice && canGrappleSM()))
+		&& (trackerData[selectedGame].items.ice || (canDashSM() && canSwimSM()));
 }
 
 // ALttP -> SM portals
@@ -401,9 +401,9 @@ function canAccessNorfairPortal() { // DM (Old Man exit) -> Norfair Map Room
 	return canFly() || (canLiftRocks() && trackerData[selectedGame].items.lantern);
 }
 function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") -> Lower Norfair (Golden Torizo Energy Refill)
-	return canFly() && trackerData[selectedGame].items.moonpearl && canLiftDarkRocks();
+	return canFly() && canLiftDarkRocks();
 }
-function canAccessMaridiaPortal() { // DW (DW Ice Rod Right || DW Flute 5) -> Maridia Missile Refill
+function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
 	return trackerData[selectedGame].items.moonpearl
 		&& canSwim()
 		&& (((trackerData[selectedGame].items.agahnim

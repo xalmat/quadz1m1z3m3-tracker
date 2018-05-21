@@ -56,7 +56,8 @@ dungeons.zelda3[1] = {
         }
         else if (logic === 'glitchless') {
             return trackerData.zelda3.items.book
-                    || (trackerData.zelda3.items.mirror && canLiftDarkRocks() && canFly());
+                    || (trackerData.zelda3.items.mirror && canLiftDarkRocks() && canFly())
+                    || (canAccessMiseryMirePortal() && trackerData.zelda3.items.mirror);
         }
     },
     canHurtBoss: function() {

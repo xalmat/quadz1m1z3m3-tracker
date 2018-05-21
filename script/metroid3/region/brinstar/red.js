@@ -41,7 +41,7 @@ chests.metroid3[37] = {
 	}
 };
 chests.metroid3[38] = {
-	name: "Power Bomb (red Brinstar spike room) " + mini("powerbomb") + mini("supermissile"),
+	name: "Power Bomb (red Brinstar spike room) " + mini("supermissile"),
 	x: "547",
 	y: "547",
 	isOpened: false,
