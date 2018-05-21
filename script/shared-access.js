@@ -77,118 +77,118 @@ function has(item, amount = -1) {
 // Helper functions to simplify logic.
 // ALttP Ability Functions
 function canDash() {
-	return trackerData[selectedGame].items.boots;
+	return has("boots");
 }
 
 function canGrapple() {
-	return trackerData[selectedGame].items.hookshot;
+	return has("hookshot");
 }
 
 function canSwim() {
-	return trackerData[selectedGame].items.flippers;
+	return has("flippers");
 }
 
 function canLiftRocks() {
-    return trackerData[selectedGame].items.glove >= 1;
+    return has("glove",1);
 }
 
 function canLiftDarkRocks() {
-    return trackerData[selectedGame].items.glove === 2;
+    return has("glove",2);
 }
 
 function canLightTorches() {
-    return trackerData[selectedGame].items.firerod || trackerData[selectedGame].items.lantern;
+    return has("firerod") || has("lantern");
 }
 
 function canMeltThings() {
-    return trackerData[selectedGame].items.firerod || (trackerData[selectedGame].items.bombos && trackerData[selectedGame].items.sword >= 1);
+    return has("firerod") || (has("bombos") && has("sword",1));
 }
 
 function canFly() {
-    return trackerData[selectedGame].items.flute;
+    return has("flute");
 }
 
 function canSpinSpeed() {
-    return canDash() && (trackerData[selectedGame].items.sword >= 1 || canGrapple());
+    return canDash() && (has("sword",1) || canGrapple());
 }
 
 function canShootArrows() {
-    return trackerData[selectedGame].items.bow;
+    return has("bow");
 }
 
 function canBlockLasers() {
-    return trackerData[selectedGame].items.shield === 3;
+    return has("shield",3);
 }
 
 function canExtendMagic() {
-    return trackerData[selectedGame].items.mpupgrade >= 1 || trackerData[selectedGame].items.bottle >= 1;
+    return has("mpupgrade",1) || has("bottle",1);
 }
 
 function glitchedLinkInDarkWorld() {
-    return trackerData[selectedGame].items.moonpearl || trackerData[selectedGame].items.bottle >= 1;
+    return has("moonpearl") || has("bottle",1);
 }
 
 function canGoBeatAgahnim1(allowOutOfLogicGlitches) {
-    return !trackerData[selectedGame].items.agahnim
-            && (trackerData[selectedGame].items.lantern || allowOutOfLogicGlitches)
-            && (trackerData[selectedGame].items.cape || trackerData[selectedGame].items.sword >= 2)
-            && trackerData[selectedGame].items.sword >= 1;
+    return !has("agahnim")
+            && (has("lantern") || allowOutOfLogicGlitches)
+            && (has("cape") || has("sword",2))
+            && has("sword",1);
 }
 
 function canEnterNorthEastDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
-        return trackerData[selectedGame].items.agahnim
+        return has("agahnim")
                 || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches))
-                || (trackerData[selectedGame].items.moonpearl
+                || (has("moonpearl")
                         && ((canLiftDarkRocks() && (canDash() || canSwim()))
-                                || (trackerData[selectedGame].items.hammer && canLiftRocks())))
+                                || (has("hammer") && canLiftRocks())))
                 || (canEnterWestDeathMountain(logic, allowOutOfLogicGlitches)
-                        && (trackerData[selectedGame].items.bottle >= 1
-                                || (trackerData[selectedGame].items.mirror && canSpinSpeed())
-                                || (trackerData[selectedGame].items.moonpearl && (trackerData[selectedGame].items.mirror || canDash()))));
+                        && (has("bottle",1)
+                                || (has("mirror") && canSpinSpeed())
+                                || (has("moonpearl") && (has("mirror") || canDash()))));
     }
     else if (logic === 'owGlitches') {
-        return trackerData[selectedGame].items.agahnim
+        return has("agahnim")
                 || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches))
-                || (trackerData[selectedGame].items.moonpearl
+                || (has("moonpearl")
                         && ((canLiftDarkRocks() && (canDash() || canSwim()))
-                                || (trackerData[selectedGame].items.hammer && canLiftRocks())))
+                                || (has("hammer") && canLiftRocks())))
                 || (canEnterWestDeathMountain(logic, allowOutOfLogicGlitches)
-                        && ((trackerData[selectedGame].items.mirror && canSpinSpeed())
-                                || (trackerData[selectedGame].items.moonpearl && (trackerData[selectedGame].items.mirror || canDash()))));
+                        && ((has("mirror") && canSpinSpeed())
+                                || (has("moonpearl") && (has("mirror") || canDash()))));
     }
     else if (logic === 'glitchless') {
-        return trackerData[selectedGame].items.agahnim
+        return has("agahnim")
                 || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches))
-                || (trackerData[selectedGame].items.hammer && canLiftRocks() && trackerData[selectedGame].items.moonpearl)
-                || (canLiftDarkRocks() && canSwim() && trackerData[selectedGame].items.moonpearl)
-                || (canAccessDarkWorldPortal() && canSwim() && trackerData[selectedGame].items.moonpearl);
+                || (has("hammer") && canLiftRocks() && has("moonpearl"))
+                || (canLiftDarkRocks() && canSwim() && has("moonpearl"))
+                || (canAccessDarkWorldPortal() && canSwim() && has("moonpearl"));
     }
 }
 
 function canEnterNorthWestDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
         return canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches)
-                || (trackerData[selectedGame].items.moonpearl
+                || (has("moonpearl")
                         && (canLiftDarkRocks()
-                                || (trackerData[selectedGame].items.hammer && canLiftRocks())
-                                || ((trackerData[selectedGame].items.agahnim || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
+                                || (has("hammer") && canLiftRocks())
+                                || ((has("agahnim") || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
                                         && canGrapple()
-                                        && (trackerData[selectedGame].items.hammer || canLiftRocks() || canSwim()))));
+                                        && (has("hammer") || canLiftRocks() || canSwim()))));
     }
     else if (logic === 'owGlitches') {
-        return canEnterWestDeathMountain('owGlitches', allowOutOfLogicGlitches) && (trackerData[selectedGame].items.mirror || (canDash() && trackerData[selectedGame].items.moonpearl))
-                || (trackerData[selectedGame].items.moonpearl
+        return canEnterWestDeathMountain('owGlitches', allowOutOfLogicGlitches) && (has("mirror") || (canDash() && has("moonpearl")))
+                || (has("moonpearl")
                         && (canLiftDarkRocks()
-                                || (trackerData[selectedGame].items.hammer && canLiftRocks())
-                                || ((trackerData[selectedGame].items.agahnim || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
+                                || (has("hammer") && canLiftRocks())
+                                || ((has("agahnim") || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
                                         && canGrapple()
-                                        && (trackerData[selectedGame].items.hammer || canLiftRocks() || canSwim()))));
+                                        && (has("hammer") || canLiftRocks() || canSwim()))));
     }
     else if (logic === 'glitchless') {
-        return trackerData[selectedGame].items.moonpearl
-                && ((canEnterNorthEastDarkWorld('glitchless', agahnimCheck, allowOutOfLogicGlitches) && (canGrapple() && (canSwim() || canLiftRocks() || trackerData[selectedGame].items.hammer)))
-                        || (trackerData[selectedGame].items.hammer && canLiftRocks())
+        return has("moonpearl")
+                && ((canEnterNorthEastDarkWorld('glitchless', agahnimCheck, allowOutOfLogicGlitches) && (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
+                        || (has("hammer") && canLiftRocks())
                         || canLiftDarkRocks());
     }
 }
@@ -196,39 +196,39 @@ function canEnterNorthWestDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches
 function canEnterSouthDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
         return canEnterWestDeathMountain(logic, allowOutOfLogicGlitches)
-                || (trackerData[selectedGame].items.moonpearl
+                || (has("moonpearl")
                         && (canLiftDarkRocks()
-                                || (trackerData[selectedGame].items.hammer && canLiftRocks())
-                                || ((trackerData[selectedGame].items.agahnim || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
-                                        && (trackerData[selectedGame].items.hammer || (canGrapple() && (canSwim() || canLiftRocks()))))));
+                                || (has("hammer") && canLiftRocks())
+                                || ((has("agahnim") || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
+                                        && (has("hammer") || (canGrapple() && (canSwim() || canLiftRocks()))))));
     }
     else if (logic === 'owGlitches') {
-        return (canEnterWestDeathMountain(logic, allowOutOfLogicGlitches) && (trackerData[selectedGame].items.mirror || (canDash() && trackerData[selectedGame].items.moonpearl)))
-                || (trackerData[selectedGame].items.moonpearl
+        return (canEnterWestDeathMountain(logic, allowOutOfLogicGlitches) && (has("mirror") || (canDash() && has("moonpearl"))))
+                || (has("moonpearl")
                         && (canLiftDarkRocks()
-                                || (trackerData[selectedGame].items.hammer && canLiftRocks())
-                                || ((trackerData[selectedGame].items.agahnim || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
-                                        && (trackerData[selectedGame].items.hammer || (canGrapple() && (canSwim() || canLiftRocks()))))));
+                                || (has("hammer") && canLiftRocks())
+                                || ((has("agahnim") || (agahnimCheck && canGoBeatAgahnim1(allowOutOfLogicGlitches)))
+                                        && (has("hammer") || (canGrapple() && (canSwim() || canLiftRocks()))))));
     }
     else if (logic === 'glitchless') {
-        return trackerData[selectedGame].items.moonpearl
+        return has("moonpearl")
                 && (canLiftDarkRocks()
-                        || (trackerData[selectedGame].items.hammer && canLiftRocks())
+                        || (has("hammer") && canLiftRocks())
                         || (canEnterNorthEastDarkWorld('glitchless', agahnimCheck, allowOutOfLogicGlitches)
-                                && (trackerData[selectedGame].items.hammer
+                                && (has("hammer")
                                         || (canGrapple() && (canSwim() || canLiftRocks())))));
     }
 }
 
 function canEnterMireArea(logic, agahnimCheck, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
-        return (trackerData[selectedGame].items.bottle && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches))
-                || (canLiftDarkRocks() && (canFly() || trackerData[selectedGame].items.bottle || canDash()))
+        return (has("bottle") && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches))
+                || (canLiftDarkRocks() && (canFly() || has("bottle") || canDash()))
                 || (glitchedLinkInDarkWorld() && canDash() && canEnterSouthDarkWorld('majorGlitches', agahnimCheck, allowOutOfLogicGlitches));
     }
     else if (logic === 'owGlitches') {
         return (canLiftDarkRocks() && (canFly() || canDash()))
-                || (trackerData[selectedGame].items.moonpearl && trackerData[selectedGame].items.boots && canEnterSouthDarkWorld('owGlitches', agahnimCheck, allowOutOfLogicGlitches));
+                || (has("moonpearl") && has("boots") && canEnterSouthDarkWorld('owGlitches', agahnimCheck, allowOutOfLogicGlitches));
     }
     else if (logic === 'glitchless') {
         return canFly() && canLiftDarkRocks();
@@ -238,45 +238,45 @@ function canEnterMireArea(logic, agahnimCheck, allowOutOfLogicGlitches) {
 function canEnterWestDeathMountain(logic, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
         return canDash()
-                || trackerData[selectedGame].items.bottle >= 1
+                || has("bottle",1)
                 || canFly()
-                || (canLiftRocks() && (trackerData[selectedGame].items.lantern || allowOutOfLogicGlitches));
+                || (canLiftRocks() && (has("lantern") || allowOutOfLogicGlitches));
     }
     else if (logic === 'owGlitches') {
         return canDash()
                 || canFly()
-                || (canLiftRocks() && (trackerData[selectedGame].items.lantern || allowOutOfLogicGlitches));
+                || (canLiftRocks() && (has("lantern") || allowOutOfLogicGlitches));
     }
     else if (logic === 'glitchless') {
         return canFly()
-                || (canLiftRocks() && (trackerData[selectedGame].items.lantern || allowOutOfLogicGlitches));
+                || (canLiftRocks() && (has("lantern") || allowOutOfLogicGlitches));
     }
 }
 
 function canEnterEastDeathMountain(logic, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
         return canDash()
-                || (canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches) && (canGrapple() || trackerData[selectedGame].items.mirror));
+                || (canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches) && (canGrapple() || has("mirror")));
     }
     else if (logic === 'owGlitches') {
         return canDash()
-                || (canEnterWestDeathMountain('owGlitches', allowOutOfLogicGlitches) && (canGrapple() || (trackerData[selectedGame].items.mirror && trackerData[selectedGame].items.hammer)));
+                || (canEnterWestDeathMountain('owGlitches', allowOutOfLogicGlitches) && (canGrapple() || (has("mirror") && has("hammer"))));
     }
     else if (logic === 'glitchless') {
-        return canEnterWestDeathMountain('glitchless', allowOutOfLogicGlitches) && (canGrapple() || (trackerData[selectedGame].items.mirror && trackerData[selectedGame].items.hammer));
+        return canEnterWestDeathMountain('glitchless', allowOutOfLogicGlitches) && (canGrapple() || (has("mirror") && has("hammer")));
     }
 }
 
 function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
-        return trackerData[selectedGame].items.moonpearl
-                || (trackerData[selectedGame].items.bottle >= 1 && canDash())
-                || ((canLiftDarkRocks() || (trackerData[selectedGame].items.hammer && canDash())) && canEnterEastDeathMountain('majorGlitches', allowOutOfLogicGlitches))
-                || (trackerData[selectedGame].items.mirror && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches));
+        return has("moonpearl")
+                || (has("bottle",1) && canDash())
+                || ((canLiftDarkRocks() || (has("hammer") && canDash())) && canEnterEastDeathMountain('majorGlitches', allowOutOfLogicGlitches))
+                || (has("mirror") && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches));
     }
     else if (logic === 'owGlitches') {
-        return (trackerData[selectedGame].items.moonpearl && canDash())
-                || ((canLiftDarkRocks() || (trackerData[selectedGame].items.hammer && canDash()))
+        return (has("moonpearl") && canDash())
+                || ((canLiftDarkRocks() || (has("hammer") && canDash()))
                         && canEnterEastDeathMountain('owGlitches', allowOutOfLogicGlitches));
     }
     else if (logic === 'glitchless') {
@@ -290,28 +290,28 @@ function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Atta
 	return (canMorph()
 		&& (canUseMorphBombs
 			|| canUsePowerBombs()))
-	|| trackerData[selectedGame].items.screw;
+	|| has("screw");
 }
 function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
 	return (canFlySM() || trackerData.metroid3.items.hijump || canDashSM())
 		&& canIbj()
-			|| (canOpenYellowDoors() && trackerData.metroid3.items.powerbomb >= 2)
-			|| trackerData.metroid3.items.screw
+			|| (canOpenYellowDoors() && has("powerbomb",2))
+			|| has("screw")
 			|| (canDashSM() && canOpenYellowDoors() && hasEnergyReserves(2));
 }
 function canCrystalFlash() {	// Refill HP
-	return trackerData.metroid3.items.missile >= 2
-		&& trackerData.metroid3.items.supermissile >= 2
-		&& trackerData.metroid3.items.powerbomb >= 3;
+	return has("missile",2)
+		&& has("supermissile",2)
+		&& has("powerbomb",3);
 }
 function canDashSM() {	// SM: Speed Booster
-	return trackerData[selectedGame].items.speed;
+	return has("speed");
 }
 function canDamageBoostJump() {	// Requires accurate positioning, #FIXME: Not Casual
 	return true;
 }
 function canFlySM() {	// SM: Infinite Bomb Jump or Space Jump
-	return canIbj() || trackerData.metroid3.items.space;
+	return canIbj() || has("space");
 }
 function canGrappleSM() {	// SM: Grapple Beam
 	return has("grappling");
@@ -320,7 +320,7 @@ function canHellRun() {	// Varia or enough health
 	return heatProof() || hasEnergyReserves(5);
 }
 function canHiJump() {
-	return trackerData.metroid3.items.hijump || trackerData.metroid3.items.space;
+	return has("hijump") || has("space");
 }
 function canIbj() {	// Infinite Bomb Jump, #FIXME: Not Casual
 	return canUseMorphBombs();
@@ -329,7 +329,7 @@ function canMachball() {	// #FIXME: Not Casual
 	return canMorph();
 }
 function canMorph () {
-	return trackerData[selectedGame].items.morph;
+	return has("morph");
 }
 function canOpenGreenDoors() {
 	return has("supermissile",1);
@@ -338,7 +338,7 @@ function canGGG() {
 	return canOpenGreenDoors();
 }
 function canOpenRedDoors() {
-	return trackerData.metroid3.items.missile > 0 || canOpenGreenDoors();
+	return has("missile",1) || canOpenGreenDoors();
 }
 function canOpenYellowDoors() {
 	return canUsePowerBombs();
@@ -350,7 +350,7 @@ function canSwimSM() {	// SM: Gravity Suit
 	return has("gravity");
 }
 function canUseMorphBombs() {
-	return canMorph() && trackerData.metroid3.items.bombs;
+	return canMorph() && has("bombs");
 }
 function canUsePowerBombs() {
 	return canMorph() && has("powerbomb",1);
@@ -359,12 +359,12 @@ function hasEnergyReserves(amount) {	// Total Energy Tanks (including Reserve Ta
 	return ((trackerData.metroid3.items.etank + trackerData.metroid3.items.rtank) >= amount);
 }
 function heatProof() {	// Varia Suit
-	return trackerData[selectedGame].items.varia;
+	return has("varia");
 }
 
 // SM Bosses
 function canDefeatBotwoon() {
-	return trackerData.metroid3.items.ice || canDashSM() || canAccessMaridiaPortal();
+	return has("ice") || canDashSM() || canAccessMaridiaPortal();
 }
 function canDefeatDraygon() {
 	return canDefeatBotwoon() && canSwimSM();
@@ -388,8 +388,8 @@ function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Ro
 	return canOpenYellowDoors()
 		&& canOpenGreenDoors()
 		&& (canSwimSM()
-			|| (trackerData[selectedGame].items.hijump && trackerData[selectedGame].items.ice && canGrappleSM()))
-		&& (trackerData[selectedGame].items.ice || (canDashSM() && canSwimSM()));
+			|| (has("hijump") && has("ice") && canGrappleSM()))
+		&& (has("ice") || (canDashSM() && canSwimSM()));
 }
 
 // ALttP -> SM portals
@@ -398,18 +398,18 @@ function canAccessCrateriaPortal() { // Fortune Teller -> Crateria Map Room
 }
 function canAccessNorfairPortal() { // DM (Old Man exit) -> Norfair Map Room
 	// Death Mountain Access
-	return canFly() || (canLiftRocks() && trackerData[selectedGame].items.lantern);
+	return canFly() || (canLiftRocks() && has("lantern"));
 }
 function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") -> Lower Norfair (Golden Torizo Energy Refill)
 	return canFly() && canLiftDarkRocks();
 }
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
-	return trackerData[selectedGame].items.moonpearl
+	return has("moonpearl")
 		&& canSwim()
-		&& (((trackerData[selectedGame].items.agahnim
-			|| (trackerData[selectedGame].items.hammer && canLiftRocks() && trackerData[selectedGame].items.moonpearl)
-			|| (canLiftDarkRocks() && canSwim() && trackerData[selectedGame].items.moonpearl)) && (trackerData[selectedGame].items.hammer
+		&& (((has("agahnim")
+			|| (has("hammer") && canLiftRocks() && has("moonpearl"))
+			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))) && (has("hammer")
 			|| (canGrapple() && (canSwim() || canLiftRocks()))))
-			|| (trackerData[selectedGame].items.hammer && canLiftRocks())
+			|| (has("hammer") && canLiftRocks())
 			|| canLiftDarkRocks());
 }
