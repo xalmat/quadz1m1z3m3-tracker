@@ -150,7 +150,7 @@ dungeons.metroid3[7] = {
 	image: "boss72.png",
 	isBeatable: function () {
 		const availability = new Availability();
-		if(canEnterWestLowerNorfair()) {
+		if(canEnterLowerNorfairWest()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
