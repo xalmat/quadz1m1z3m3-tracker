@@ -49,8 +49,8 @@ defaultItemGrid.zelda3 = [
 	],
 	[
 		"mpupgrade",
-		"boss8",
 		"boss6",
+		"boss8",
 		"boss4",
 		"boss7",
 		"boss3",
