@@ -3,9 +3,10 @@ function canEnterNorfairCrocomire() {
 	return (((canDestroyBombWalls() || canDashSM())
 		&& (canOpenGreenDoors() && canMorph()))
 		|| canAccessNorfairPortal())
-		&& (hasEnergyReserves(3) || heatProof())
+		&& (trackerOptions.mapLogic == "casualLogic" ? heatProof() : hasEnergyReserves(3))
+		&& (trackerOptions.mapLogic == "casualLogic" ? ((canUsePowerBombs && canDashSM()) || has("wave")) : true)
 		&& canOpenGreenDoors()
-		&& (((canFlySM() || has("hijump")) && canMorph()) || canDashSM());
+		&& (((canFlySM() || canHiJump()) && canMorph()) || canDashSM());
 }
 chests.metroid3[49] = {
 	name: "Energy Tank, Crocomire",
@@ -16,6 +17,7 @@ chests.metroid3[49] = {
 		const availability = new Availability();
 		if(canEnterNorfairCrocomire()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -27,8 +29,11 @@ chests.metroid3[50] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterNorfairCrocomire() && (canFlySM() || canGrappleSM() || (has("hijump") && canDashSM())) && canHellRun()) {
+		if(canEnterNorfairCrocomire() && (canFlySM() || canGrappleSM() || (canHiJump() && canDashSM())) && canHellRun()) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterNorfairCrocomire() && (canFlySM() || canGrappleSM() || (canHiJump() && canDashSM()))) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -56,6 +61,9 @@ chests.metroid3[52] = {
 		if(canEnterNorfairCrocomire()) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterNorfairCrocomire() && canMorph()) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -69,6 +77,9 @@ chests.metroid3[53] = {
 		if(canEnterNorfairCrocomire() && (canFlySM() || canDashSM() || canGrappleSM()) && canMorph()) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterNorfairCrocomire() && (canFlySM() || canHiJump() || canGrappleSM() || canDashSM())) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -79,8 +90,11 @@ chests.metroid3[54] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterNorfairCrocomire() && (canFlySM() || has("hijump") || canGrappleSM() || canMorph())) {
+		if(canEnterNorfairCrocomire() && (canFlySM() || canHiJump() || canGrappleSM() || canMorph())) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterNorfairCrocomire() && (canFlySM() || canHiJump() || canGrappleSM() || canDashSM())) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

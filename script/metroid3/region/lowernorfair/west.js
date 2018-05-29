@@ -1,6 +1,6 @@
 // Lower Norfair: West
 function canEnterLowerNorfairWest() {
-	return (canEnterNorfairEast() && canUsePowerBombs() && (heatProof() && (has("hijump") || canSwimSM())))
+	return (canEnterNorfairEast() && canUsePowerBombs() && (heatProof() && (canHiJump() || canSwimSM())))
 	|| (canAccessLowerNorfairPortal() && canHellRun() && canDestroyBombWalls());
 }
 chests.metroid3[86] = {
@@ -15,7 +15,7 @@ chests.metroid3[86] = {
 			&& canUsePowerBombs()
 			&& has("space")
 			&& (
-				(heatProof() && (has("hijump") || canSwimSM()))
+				(heatProof() && (canHiJump() || canSwimSM()))
 				|| (heatProof()
 					&& (canIbj()
 						|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
@@ -26,6 +26,9 @@ chests.metroid3[86] = {
 				)
 		) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterLowerNorfairWest() && canUsePowerBombs() && has("space")) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -49,6 +52,9 @@ chests.metroid3[87] = {
 		) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterLowerNorfairWest() && canDestroyBombWalls() && (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()))) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -71,6 +77,9 @@ chests.metroid3[88] = {
 			)
 		) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterLowerNorfairWest() && canDestroyBombWalls() && (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()))) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

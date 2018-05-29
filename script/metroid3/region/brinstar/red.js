@@ -2,7 +2,7 @@
 function canEnterBrinstarRed() {
 	return ((canDestroyBombWalls() || canDashSM())
 		&& (canOpenGreenDoors() && canMorph()))
-		|| (canAccessNorfairPortal() && (has("ice") || has("hijump") || canFlySM()));
+		|| (canAccessNorfairPortal() && (has("ice") || canHiJump() || canFlySM()));
 }
 chests.metroid3[36] = {
 	name: "X-Ray Scope " + mini("powerbomb") + mini("missile"),
@@ -24,6 +24,14 @@ chests.metroid3[36] = {
 		) {
 			availability.tourneyLogic = "available";
 		}
+		if(
+			canEnterBrinstarRed()
+			&& canOpenYellowDoors()
+			&& canOpenRedDoors()
+			&& (canGrappleSM() || has("space"))
+		) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -36,6 +44,7 @@ chests.metroid3[37] = {
 		const availability = new Availability();
 		if(canEnterBrinstarRed() && canOpenYellowDoors() && canOpenGreenDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -50,6 +59,9 @@ chests.metroid3[38] = {
 		if(canEnterBrinstarRed() && canOpenGreenDoors()) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterBrinstarRed() && (canOpenYellowDoors() || has("ice")) && canOpenGreenDoors()) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -62,6 +74,7 @@ chests.metroid3[39] = {
 		const availability = new Availability();
 		if(canEnterBrinstarRed() && canOpenYellowDoors() && canOpenGreenDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -75,6 +88,7 @@ chests.metroid3[40] = {
 		const availability = new Availability();
 		if(canEnterBrinstarRed() && canPassBombPassages() && canOpenGreenDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

@@ -12,6 +12,7 @@ chests.metroid3[28] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink() && canPassBombPassages() && canOpenGreenDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -25,6 +26,7 @@ chests.metroid3[29] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -38,6 +40,7 @@ chests.metroid3[30] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -51,6 +54,7 @@ chests.metroid3[31] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink() && canPassBombPassages()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -64,6 +68,7 @@ chests.metroid3[32] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink() && canOpenYellowDoors() && canOpenGreenDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -77,6 +82,7 @@ chests.metroid3[33] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink() && canMorph() && (canOpenYellowDoors() || canOpenGreenDoors())) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -90,6 +96,7 @@ chests.metroid3[34] = {
 		const availability = new Availability();
 		if(canEnterBrinstarPink() && canOpenYellowDoors() && canOpenRedDoors() && canDashSM()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -101,8 +108,11 @@ chests.metroid3[35] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterBrinstarPink() && canOpenYellowDoors() && (has("wave") || (canOpenGreenDoors() && has("hijump")))) {
+		if(canEnterBrinstarPink() && canOpenYellowDoors() && (has("wave") || (canOpenGreenDoors() && canHiJump()))) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterBrinstarPink() && canOpenYellowDoors() && has("wave")) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

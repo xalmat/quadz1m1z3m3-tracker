@@ -3,7 +3,7 @@ function canEnterNorfairEast() {
 	return (((canDestroyBombWalls() || trackerData[selectedGame].speed)
 		&& (canOpenGreenDoors() && canMorph()))
 		|| canAccessNorfairPortal())
-		&& canHellRun()
+		&& (trackerOptions.mapLogic == "casualLogic" ? has("varia") : canHellRun())
 		&& (canFlySM() || trackerData[selectedGame].hijump || (canDashSM() && canUsePowerBombs()) || (heatProof() && (trackerData[selectedGame].ice || canDashSM())));
 }
 chests.metroid3[55] = {
@@ -15,6 +15,7 @@ chests.metroid3[55] = {
 		const availability = new Availability();
 		if(canEnterNorfairEast() && canMorph()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -33,6 +34,7 @@ chests.metroid3[56] = {
 			&& (canFlySM() || canGrappleSM() || trackerData[selectedGame].hijump || trackerData[selectedGame].ice)
 		) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -51,6 +53,7 @@ chests.metroid3[57] = {
 			&& (canFlySM() || canGrappleSM() || trackerData[selectedGame].hijump || trackerData[selectedGame].ice)
 		) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -68,6 +71,7 @@ chests.metroid3[58] = {
 			&& (canFlySM() || canGrappleSM() || trackerData[selectedGame].hijump || trackerData[selectedGame].ice)
 		) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -81,6 +85,7 @@ chests.metroid3[59] = {
 		const availability = new Availability();
 		if(canEnterNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -94,6 +99,7 @@ chests.metroid3[60] = {
 		const availability = new Availability();
 		if(canEnterNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -107,6 +113,7 @@ chests.metroid3[61] = {
 		const availability = new Availability();
 		if(canEnterNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -120,6 +127,7 @@ chests.metroid3[62] = {
 		const availability = new Availability();
 		if(canEnterNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -133,6 +141,7 @@ chests.metroid3[63] = {
 		const availability = new Availability();
 		if(canEnterNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

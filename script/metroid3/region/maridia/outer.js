@@ -1,6 +1,12 @@
 // Maridia: Outer
 function canEnterMaridiaOuter() {
-	return canEnterNorfairWest() && canUsePowerBombs() && (canSwimSM() || (has("hijump") && (has("springball") || has("ice"))));
+	var ret = canEnterNorfairWest() && canUsePowerBombs();
+	if(trackerOptions.mapLogic == "casualLogic") {
+		ret = ret && canSwimSM();
+	} else {
+		ret = ret && (canSwimSM() || (has("hijump") && (has("springball") || has("ice"))));
+	}
+	return ret;
 }
 chests.metroid3[69] = {
 	name: "Missile (green Maridia shinespark) " + mini("gravity") + mini("speed"),
@@ -11,6 +17,9 @@ chests.metroid3[69] = {
 		const availability = new Availability();
 		if(canEnterMaridiaOuter() && canSwimSM() && canDashSM()) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterMaridiaOuter() && canDashSM()) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -24,6 +33,7 @@ chests.metroid3[70] = {
 		const availability = new Availability();
 		if(canEnterMaridiaOuter()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -37,6 +47,7 @@ chests.metroid3[71] = {
 		const availability = new Availability();
 		if(canEnterMaridiaOuter() && (canFlySM() || canDashSM() || canGrappleSM())) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -50,6 +61,7 @@ chests.metroid3[72] = {
 		const availability = new Availability();
 		if(canEnterMaridiaOuter()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

@@ -43,7 +43,7 @@ dungeons.metroid3[2] = {
     image: "boss22.png",
     isBeatable: function () {
         const availability = new Availability();
-		if(canOpenGreenDoors() && canUseMorphBombs() && canOpenYellowDoors()) {
+		if(canEnterBrinstarKraid()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
@@ -62,7 +62,7 @@ dungeons.metroid3[3] = {
 	image: "boss32.png",
 	isBeatable: function () {
 		const availability = new Availability();
-		if(canDashSM() && canOpenGreenDoors()) {
+		if(canEnterNorfairCrocomire()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
@@ -81,7 +81,7 @@ dungeons.metroid3[4] = {
 	image: "boss42.png",
 	isBeatable: function () {
 		const availability = new Availability();
-		if(canOpenGreenDoors() && canOpenYellowDoors()) {
+		if(canEnterWreckedShip()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
@@ -96,17 +96,17 @@ dungeons.metroid3[5] = {
 	name: "Botwoon",
 	label: "BT",
 	x: "853",
-	y: "493",
+	y: "476",
 	image: "boss52.png",
 	isBeatable: function () {
 		const availability = new Availability();
 		// Beat Wrecked Ship
-		if(canSwimSM() && canOpenGreenDoors() && canOpenYellowDoors() && has("phantoon")) {
+		if(canEnterWreckedShip() && has("phantoon") && canDefeatBotwoon()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
 		// Crateria -> Brinstar -> Maridia
-		if(canSwimSM() && canOpenRedDoors() && canOpenGreenDoors() && canOpenYellowDoors()) {
+		if(canEnterBrinstarRed() && canEnterMaridiaInner() && canDefeatBotwoon()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
@@ -126,12 +126,12 @@ dungeons.metroid3[6] = {
 	isBeatable: function () {
 		const availability = new Availability();
 		// Beat Wrecked Ship
-		if(canSwimSM() && canOpenGreenDoors() && canOpenYellowDoors() && has("phantoon")) {
+		if(canEnterWreckedShip() && has("phantoon") && canDefeatDraygon()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
 		// Crateria -> Brinstar -> Maridia
-		if(canSwimSM() && canOpenRedDoors() && canOpenGreenDoors() && canOpenYellowDoors()) {
+		if(canEnterBrinstarRed() && canEnterMaridiaInner() && canDefeatDraygon()) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}

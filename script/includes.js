@@ -8,19 +8,19 @@ var scripts = [
 
 var regionNames = {
 	zelda3: {
-		dungeons:		["main"],
 		overworld:		["main"],
+		dungeons:		["main"],
 		zebes:			["z3-m3"],
 	},
 	metroid3: {
-		dungeons:		["dungeons"],
 		brinstar:		["blue","green","kraid","pink","red"],
-		crateria:		["east","west"],
+		crateria:		["central","east","west"],
 		lowernorfair:	["east","west"],
 		maridia:		["inner","outer"],
 		norfair:		["crocomire","east","west"],
 //		tourian:		["main"],
 		wreckedship:	["main"],
+		dungeons:		["dungeons"],
 		hyrule:			["m3-z3"],
 	}
 };

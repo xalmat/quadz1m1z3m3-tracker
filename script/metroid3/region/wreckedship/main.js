@@ -1,6 +1,10 @@
 // Wrecked Ship
 function canEnterWreckedShip() {
-	return canOpenYellowDoors() && canOpenGreenDoors();
+	var ret = canOpenYellowDoors() && canOpenGreenDoors();
+	if(trackerOptions[selectedGame].mapLogic == "casualLogic") {
+		ret = ret && (canDashSM() || canGrappleSM() || has("space") || has("springball"));
+	}
+	return ret;
 }
 chests.metroid3[41] = {
 	name: "Missile (Wrecked Ship middle)",
@@ -11,6 +15,7 @@ chests.metroid3[41] = {
 		const availability = new Availability();
 		if(canEnterWreckedShip()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -25,6 +30,9 @@ chests.metroid3[42] = {
 		if(canEnterWreckedShip() && canDashSM() && (heatProof() || hasEnergyReserves(3))) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterWreckedShip() && canDashSM() && (canGrappleSM() || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3))) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -38,6 +46,9 @@ chests.metroid3[43] = {
 		if(canEnterWreckedShip() && (heatProof() || hasEnergyReserves(2))) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterWreckedShip() && (canGrappleSM() || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3))) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -50,6 +61,7 @@ chests.metroid3[44] = {
 		const availability = new Availability();
 		if(canEnterWreckedShip()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -74,6 +86,17 @@ chests.metroid3[45] = {
 		) {
 			availability.tourneyLogic = "available";
 		}
+		if(
+			canEnterWreckedShip()
+			&& (
+				canHiJump()
+				|| has("space")
+				|| canDashSM()
+				|| canSwimSM()
+			)
+		) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -86,6 +109,7 @@ chests.metroid3[46] = {
 		const availability = new Availability();
 		if(canEnterWreckedShip()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -99,6 +123,7 @@ chests.metroid3[47] = {
 		const availability = new Availability();
 		if(canEnterWreckedShip()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -112,6 +137,9 @@ chests.metroid3[48] = {
 		const availability = new Availability();
 		if(canEnterWreckedShip() && (heatProof() || hasEnergyReserves(2))) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterWreckedShip() && (canGrappleSM() || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3))) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

@@ -392,14 +392,14 @@ function canAccessDeathMountainPortal() { // Norfair Map Room -> DM (Old Man exi
 function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Refill) -> Mire (Great Fairy, east "Entrance")
 	return heatProof()
 		&& canOpenGreenDoors()
-		&& (has("hijump") || canSwimSM())
+		&& (canHiJump() || canSwimSM())
 		&& canOpenYellowDoors();
 }
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)
 	return canOpenYellowDoors()
 		&& canOpenGreenDoors()
 		&& (canSwimSM()
-			|| (has("hijump") && has("ice") && canGrappleSM()))
+			|| (canHiJump() && has("ice") && canGrappleSM()))
 		&& (has("ice") || (canDashSM() && canSwimSM()));
 }
 

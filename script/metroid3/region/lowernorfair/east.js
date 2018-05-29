@@ -1,11 +1,13 @@
 // Lower Norfair: East
 function canEnterLowerNorfairEast() {
-	return (canEnterLowerNorfairWest()
+	var ret = canEnterLowerNorfairWest();
+	if(trackerOptions.mapLogic == "tourneyLogic") {
+		ret = ret
 		&& (canDestroyBombWalls() || canDashSM())
-		&& (canFlySM() || has("hijump") || (has("ice") && has("charge")))
+		&& (canFlySM() || canHiJump() || (has("ice") && has("charge")))
 			&& canPassBombPassages()
 			&& (
-				(heatProof() && (has("hijump") || canSwimSM())
+				(heatProof() && (canHiJump() || canSwimSM())
 			)
 			|| (heatProof()
 				&& (canIbj()
@@ -14,8 +16,15 @@ function canEnterLowerNorfairEast() {
 					|| canDashSM()
 				)
 			)
-		)
-	);
+		);
+	}
+	if(trackerOptions.mapLogic == "casualLogic") {
+		ret = ret
+		&& canUsePowerBombs()
+		&& canFlySM()
+		&& heatProof();
+	}
+	return ret;
 }
 chests.metroid3[89] = {
 	name: "Missile (Mickey Mouse room)",
@@ -26,6 +35,7 @@ chests.metroid3[89] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -39,6 +49,7 @@ chests.metroid3[90] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -52,6 +63,7 @@ chests.metroid3[91] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -65,6 +77,7 @@ chests.metroid3[92] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast() && canUsePowerBombs()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -78,6 +91,7 @@ chests.metroid3[93] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -91,6 +105,7 @@ chests.metroid3[94] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast() && canUsePowerBombs() && canOpenGreenDoors() && has("charge")) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -104,6 +119,7 @@ chests.metroid3[95] = {
 		const availability = new Availability();
 		if(canEnterLowerNorfairEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

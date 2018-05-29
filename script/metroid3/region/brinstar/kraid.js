@@ -16,6 +16,7 @@ chests.metroid3[25] = {
 		const availability = new Availability();
 		if(canEnterBrinstarKraid()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -29,6 +30,7 @@ chests.metroid3[26] = {
 		const availability = new Availability();
 		if(canEnterBrinstarKraid()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -42,6 +44,7 @@ chests.metroid3[27] = {
 		const availability = new Availability();
 		if(canEnterBrinstarKraid() && canOpenYellowDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

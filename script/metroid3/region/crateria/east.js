@@ -11,6 +11,7 @@ chests.metroid3[8] = {
 		const availability = new Availability();
 		if(canEnterCrateriaEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -24,6 +25,7 @@ chests.metroid3[9] = {
 		const availability = new Availability();
 		if(canEnterCrateriaEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -37,6 +39,7 @@ chests.metroid3[10] = {
 		const availability = new Availability();
 		if(canEnterCrateriaEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -50,6 +53,7 @@ chests.metroid3[11] = {
 		const availability = new Availability();
 		if(canEnterCrateriaEast()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

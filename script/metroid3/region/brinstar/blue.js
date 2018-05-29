@@ -11,6 +11,7 @@ chests.metroid3[12] = {
 		const availability = new Availability();
 		if(canEnterBrinstarBlue()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -24,6 +25,7 @@ chests.metroid3[13] = {
 		const availability = new Availability();
 		if(canEnterBrinstarBlue() && canOpenYellowDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -37,6 +39,7 @@ chests.metroid3[14] = {
 		const availability = new Availability();
 		if(canEnterBrinstarBlue() && canMorph()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -48,11 +51,11 @@ chests.metroid3[15] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability;
-		if(canEnterBrinstarBlue() && (canHiJump() || has("ice"))) {
-			availability.casualLogic = "available";
-		}
 		if(canEnterBrinstarBlue() && canDamageBoostJump()) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterBrinstarBlue() && (canFlySM() || canHiJump() || canDashSM() || has("ice"))) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -66,6 +69,7 @@ chests.metroid3[16] = {
 		const availability = new Availability();
 		if(canEnterBrinstarBlue() && canMorph()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -79,6 +83,7 @@ chests.metroid3[17] = {
 		const availability = new Availability();
 		if(canEnterBrinstarBlue() && canOpenYellowDoors()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}

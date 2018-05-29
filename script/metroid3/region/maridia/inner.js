@@ -1,6 +1,12 @@
 // Maridia: Inner
 function canEnterMaridiaInner() {
-	return canEnterMaridiaOuter() && (canSwimSM() || (canGrappleSM() && has("hijump") && has("ice")));
+	var ret = canEnterMaridiaOuter();
+	if(trackerOptions.mapLogic == "casualLogic") {
+		ret = ret && (canFlySM() || canGrappleSM() || canDashSM() || canAccessMaridiaPortal());
+	} else {
+		ret = ret && (canSwimSM() || (canGrappleSM() && canHiJump() && has("ice")));
+	}
+	return ret;
 }
 chests.metroid3[73] = {
 	name: "Super Missile (yellow Maridia) (2 items)",
@@ -11,6 +17,7 @@ chests.metroid3[73] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -24,6 +31,7 @@ chests.metroid3[74] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -35,8 +43,11 @@ chests.metroid3[75] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterMaridiaInner() && canDefeatDraygon() && (canDashSM() || ((has("charge") || has("screw")) && (canFlySM() || has("hijump"))))) {
+		if(canEnterMaridiaInner() && canDefeatDraygon() && (canDashSM() || ((has("charge") || has("screw")) && (canFlySM() || canHiJump())))) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterMaridiaInner() && canDefeatDraygon() && (has("plasma") || has("screw")) && (canFlySM() || canHiJump())) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -50,6 +61,7 @@ chests.metroid3[76] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -63,6 +75,7 @@ chests.metroid3[77] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -76,6 +89,7 @@ chests.metroid3[78] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -90,6 +104,9 @@ chests.metroid3[79] = {
 		if(canEnterMaridiaInner() && canSwimSM()) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterMaridiaInner()) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -102,6 +119,9 @@ chests.metroid3[80] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner() && canSwimSM() && canDashSM()) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterMaridiaInner() && canDashSM()) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -116,6 +136,9 @@ chests.metroid3[81] = {
 		if(canEnterMaridiaInner() && canSwimSM() && canDashSM()) {
 			availability.tourneyLogic = "available";
 		}
+		if(canEnterMaridiaInner() && canDashSM()) {
+			availability.casualLogic = "available";
+		}
 		return availability;
 	}
 };
@@ -126,8 +149,11 @@ chests.metroid3[82] = {
 	isOpened: false,
 	isAvailable: function () {
 		const availability = new Availability();
-		if(canEnterMaridiaInner() && canSwimSM() && canGrappleSM() && (canFlySM() || has("hijump"))) {
+		if(canEnterMaridiaInner() && canSwimSM() && canGrappleSM() && (canFlySM() || canHiJump())) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterMaridiaInner() && (canGrappleSM() && (has("space") || canHiJump()))) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -141,6 +167,7 @@ chests.metroid3[83] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner() && canDefeatBotwoon()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -154,6 +181,7 @@ chests.metroid3[84] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner() && canDefeatBotwoon()) {
 			availability.tourneyLogic = "available";
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
@@ -167,6 +195,9 @@ chests.metroid3[85] = {
 		const availability = new Availability();
 		if(canEnterMaridiaInner() && canDefeatDraygon()) {
 			availability.tourneyLogic = "available";
+		}
+		if(canEnterMaridiaInner() && canDefeatDraygon() && (canFlySM() || (canDashSM() && canHiJump()))) {
+			availability.casualLogic = "available";
 		}
 		return availability;
 	}
