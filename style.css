@@ -201,10 +201,6 @@ label {
     left: 0;
 }
 
-#selectGame {
-    float: right;
-    z-index: 100;
-}
 #selectGame a {
     color: #aaaaff;
 }
@@ -272,21 +268,48 @@ label {
 .metroid3 .chest.opened {
     background-image: url("images/metroid3/chests/opened.png") !important;
 }
-.metroid3 .active {
+.metroid3 .chest.portal.active {
     background-color: #ffaaff;
     background-image: url("images/metroid3/chests/warp.gif") !important;
 }
-.metroid3 .inactive {
+.metroid3 .chest.portal.inactive {
     background-image: url("images/metroid3/chests/inactivewarp.gif") !important;
 }
-.zelda3 .active {
+.metroid3 .icons-itemball-nolights .chest.unavailable {
+    background-image: url("images/metroid3/chests/icon-itemball-nolights/unavailable.png") !important;
+}
+.metroid3 .icons-itemball-nolights .chest.available {
+    background-image: url("images/metroid3/chests/icon-itemball-nolights/available.png") !important;
+}
+.metroid3 .icons-itemball-nolights .chest.opened {
+    background-image: url("images/metroid3/chests/icon-itemball-nolights/opened.png") !important;
+}
+.zelda3 .chest.portal.active {
     background-image: url("images/zelda3/chests/warp.gif") !important;
 }
-.zelda3 .inactive {
+.zelda3 .chest.portal.inactive {
     background-image: url("images/zelda3/chests/inactivewarp.gif") !important;
 }
-.zelda3 #itemdiv {
+.zelda3 #itemdiv,
+.zelda3 #mapdiv {
     top: 20px;
+}
+.zelda3 #sm-item-skin {
+    display: none;
+}
+.metroid3 .icons-nothing .chest.available,
+.metroid3 .icons-nothing .chest.unavailable,
+.metroid3 .icons-nothing .chest.opened {
+    background-image: url() !important;
+    border: 1px solid #000000;
+}
+.metroid3 .chest.available.spicy {
+    background-image: url(images/metroid3/chests/icon-itemball-spicy/available.gif) !important;
+    border: 0;
+}
+.metroid3 .chest.unavailable.spicy {
+    background-image: url(images/metroid3/chests/icon-itemball-spicy/unavailable.gif) !important;
+    border: 0;
 }
 
 .chest{
@@ -353,7 +376,6 @@ label {
 #caption {
     background-color: rgb(0,0,0);
     position: fixed;
-    left: 20px;
     top: 0 !important;
     text-align: left;
     z-index: 100;

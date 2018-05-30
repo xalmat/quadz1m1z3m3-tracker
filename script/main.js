@@ -10,6 +10,8 @@ trackerOptions[selectedGame] = {
   selected: {}
 };
 
+var spicyChests = [56,57,58,60,61,65,55,62,50,91,51,89,92,86,87,88,94];
+
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
 for(var i = 0; i < chests[selectedGame].length; i++) {
@@ -22,6 +24,7 @@ for(var i = 0; i < chests[selectedGame].length; i++) {
       title = title.replace(remove[search],"");
 	}
     chests[selectedGame][i].titleStripped = title.trim();
+    chests[selectedGame][i].isSpicy = (selectedGame == "metroid3") && (spicyChests.indexOf(i) > -1);
 }
 for(var i = 0; i < dungeons[selectedGame].length; i++) {
 	var d = document.createElement("div");
@@ -105,7 +108,8 @@ function setConfigObject(configobj) {
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
-    document.querySelector('input[value="' + (configobj.mapLogic || 'glitchless') + '"]').click();
+    var defaultLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
+    document.querySelector('input[value="' + (configobj.mapLogic || defaultLogic) + '"]').click();
 
     document.getElementsByName('openmode')[0].checked = !!configobj.openmode;
     document.getElementsByName('openmode')[0].onchange();
@@ -167,6 +171,7 @@ function getConfigObject() {
     configobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
     configobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
     configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
+    configobj.chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
 
     configobj.openmode = document.getElementsByName('openmode')[0].checked ? 1 : 0;
     configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
@@ -185,26 +190,28 @@ function toggleChest(x){
     updateAll();
 }
 
+var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a> | <a href="?game=metroid3">Zebes</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a></span>';
+
 // Highlights a chest location and shows the name as caption
 function highlight(x){
     document.getElementById(x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = chests[selectedGame][x].name;
+    document.getElementById("caption").innerHTML = selectGame + ' | ' + chests[selectedGame][x].name + ' ]';
 }
 
 function unhighlight(x){
     document.getElementById(x).style.backgroundImage = "url(" + build_img_url("poi") + ")";
-//    document.getElementById("caption").innerHTML = "&nbsp;";
+//    document.getElementById("caption").innerHTML = selectGame;
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = dungeons[selectedGame][x].name;
+    document.getElementById("caption").innerHTML = selectGame + ' | ' + dungeons[selectedGame][x].name + ' ]';
 }
 
 function unhighlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("poi") + ")";
-//    document.getElementById("caption").innerHTML = "&nbsp;";
+//    document.getElementById("caption").innerHTML = selectGame;
 }
 
 function showChest(sender) {
@@ -325,6 +332,10 @@ function setLogic(logic) {
     saveCookie();
 }
 
+function setSMChestSkin(skin) {
+	document.getElementById("mapdiv").className = ("mapdiv " + skin);
+}
+
 function showSettings(sender) {
     if (trackerOptions[selectedGame].editmode) {
         trackerOptions[selectedGame].showchests = document.getElementsByName('showchest')[0].checked;
@@ -404,10 +415,15 @@ function refreshMapMedallion(d) {
 
 function refreshChests() {
     for(k=0; k<chests[selectedGame].length; k++){
-        if(trackerData[selectedGame].chestsopened[k])
-            document.getElementById(k).className = "mapspan chest opened";
-        else
-            document.getElementById(k).className = "mapspan chest " + chests[selectedGame][k].isAvailable().getClassName();
+		document.getElementById(k).className = "mapspan chest";
+        if(trackerData[selectedGame].chestsopened[k]){
+			document.getElementById(k).classList.add("opened");
+        } else {
+			document.getElementById(k).className += " " + chests[selectedGame][k].isAvailable().getClassName();
+		}
+		if(chests[selectedGame][k].isSpicy) {
+			document.getElementById(k).classList.add("spicy");
+		}
     }
 }
 
@@ -598,16 +614,14 @@ function initTracker() {
     loadCookie();
     updateAll();
 
-    if(selectedGame == "metroid3") {
-        setLogic("tourneyLogic");
-    }
-
     var games = {
 		zelda3:		"ALttP",
 		metroid3:	"Super Metroid",
 	};
     var game = games[selectedGame];
     document.title = game + " Item Tracker";
+    document.getElementById("mapLogic").innerHTML = game + " Logic Options";
+    document.getElementById("caption").innerHTML = selectGame + ' ]';
 }
 
 function updateAll() {

@@ -12,9 +12,6 @@
     </head>
 
     <body>
-    	<div id='selectGame'>
-    		[ <a href="?game=zelda3">ALttPR</a> | <a href="?game=metroid3">SM</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a>]
-    	</div>
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
                 <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
@@ -57,7 +54,7 @@
                 <input type='radio' name='maporientation' value='Horizontal' checked='checked' onclick="setMapOrientation(false)">Horizontal
                 <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br>
                 <fieldset>
-                    <legend>Logic Options</legend>
+                    <legend id="mapLogic">Logic Options</legend>
                     <!-- Zelda 3 -->
                     <div class='openMode'><input type='checkbox' name='openmode' checked='' onchange='setOpenMode(this)'>Open Mode</div>
                     <div class='glitchless'><input type='radio' name='maplogic' value='glitchless' checked='checked' onclick='setLogic("glitchless")'>Glitchless</div>
@@ -66,7 +63,14 @@
 
 					<!-- Metroid 3 -->
                     <div class='casualLogic'><input type='radio' name='maplogic' value='casualLogic' checked='checked' onclick='setLogic("casualLogic")'>Casual Logic</div>
-                    <div class='tourneyLogic'><input type='radio' name='maplogic' value='tourneyGlitches checked='checked'' onclick='setLogic("tourneyLogic")'>Tournament Logic</div>
+                    <div class='tourneyLogic'><input type='radio' name='maplogic' value='tourneyGlitches' onclick='setLogic("tourneyLogic")'>Tournament Logic</div>
+                </fieldset>
+                <fieldset id="sm-item-skin">
+                    <legend>Super Metroid Item Skin</legend>
+					<!-- Metroid 3 -->
+                    <div><input type='radio' name='chestskin' value='lights' checked='checked' onclick='setSMChestSkin("icons-itemball-lights")'>Lights</div>
+                    <div><input type='radio' name='chestskin' value='nolights' onclick='setSMChestSkin("icons-itemball-nolights")'>No Lights</div>
+                    <div><input type='radio' name='chestskin' value='nothing' onclick='setSMChestSkin("icons-nothing")'>Nothing</div>
                 </fieldset>
                 <fieldset>
                     <legend>Chest Legend</legend>
@@ -90,8 +94,9 @@
                     </table>
                 </fieldset>
             </fieldset>
-            <footer id="credits">Lttp Rando Tracker - <a href="https://www.twitch.tv/hyphen_ated">hyphen</a>'s version
-                (major credits: <a href="https://twitter.com/pickfifteen">pickfifteen</a>, <a href="https://www.twitch.tv/crossproduct">crossproduct</a>, <a href="https://www.twitch.tv/testrunner">testrunner</a>, <a href="https://www.twitch.tv/marcmagus">marcmagus</a>)
+            <footer id="credits">
+                SMALttP Rando Tracker - <a href="https://github.com/miketrethewey/">miketrethewey</a><br />
+                (major credits: <a href="https://www.twitch.tv/hyphen_ated">hyphen</a>, <a href="https://twitter.com/pickfifteen">pickfifteen</a>, <a href="https://www.twitch.tv/marcmagus">marcmagus</a>, <a href="https://www.twitch.tv/testrunner">testrunner</a>, <a href="https://www.twitch.tv/crossproduct">crossproduct</a>)
             </footer>
         </fieldset>
 
