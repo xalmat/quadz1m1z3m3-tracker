@@ -108,8 +108,8 @@ function setConfigObject(configobj) {
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
-    var defaultLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
-    document.querySelector('input[value="' + (configobj.mapLogic || defaultLogic) + '"]').click();
+//    var defaultLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
+//    document.querySelector('input[value="' + (configobj.mapLogic || defaultLogic) + '"]').click();
 
     document.getElementsByName('openmode')[0].checked = !!configobj.openmode;
     document.getElementsByName('openmode')[0].onchange();
