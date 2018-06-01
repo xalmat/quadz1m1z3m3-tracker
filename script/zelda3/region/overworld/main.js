@@ -1185,7 +1185,7 @@ chests.zelda3[41] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canFly() && canLiftDarkRocks() && has("mirror")) {
+        if (((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal()) && has("mirror")) {
             availability.glitchless = 'available';
         }
         if (canLiftRocks()) {
