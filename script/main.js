@@ -696,6 +696,8 @@ Vue.component('tracker-cell', {
     itemLabel: function() {
 		var ret = this.itemName;
 		var names = {
+			"firerod":		"Fire Rod",
+			"icerod":		"Ice Rod",
 			"moonpearl":	"Moon Pearl",
 
 			"etank":		"Energy Tank",
