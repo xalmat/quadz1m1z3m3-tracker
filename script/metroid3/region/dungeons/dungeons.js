@@ -188,7 +188,7 @@ dungeons.metroid3[9] = {
 	image: "boss92.png",
 	isBeatable: function () {
 		const availability = new Availability();
-		if(canOpenRedDoors() && has("kraid") && has("phantoon") && has("draygon") && has("ridley")) {
+		if(canOpenRedDoors() && has("kraid") && has("phantoon") && has("draygon") && has("ridley") && hasEnergyReserves(3)) {
 			availability.casualLogic = 'available';
 			availability.tourneyLogic = 'available';
 		}
