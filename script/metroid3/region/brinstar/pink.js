@@ -1,7 +1,15 @@
 // Brinstar: Pink
 function canEnterBrinstarPink() {
-	return (canDestroyBombWalls() || canDashSM())
-		&& (canOpenRedDoors() || (canDestroyBombWalls() && canOpenYellowDoors()));
+	var ret = canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()) || canOpenYellowDoors();
+
+	if(trackerOptions.mapLogic == "tourneyLogic") {
+		ret = ret || (canAccessNorfairPortal() && canMorph() && (has("ice") || has("hijump") || canFlySM()));
+	}
+	if(trackerOptions.mapLogic == "casualLogic") {
+		ret = ret || (canAccessNorfairPortal() && canMorph() && has("wave") && (has("ice") || has("hijump") || canFlySM()));
+	}
+
+	return ret;
 }
 chests.metroid3[28] = {
 	name: "Super Missile (pink Brinstar) " + mini("bombs") + mini("supermissile"),

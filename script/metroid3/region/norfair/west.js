@@ -28,7 +28,7 @@ chests.metroid3[65] = {
 		if(canEnterNorfairWest() && (canUsePowerBombs() && canHellRun()) || (heatProof() && canDashSM())) {
 			availability.tourneyLogic = "available";
 		}
-		if(canEnterNorfairWest() && (canUsePowerBombs() && heatProof()) || (heatProof() && canDashSM())) {
+		if(canEnterNorfairWest() && (canUsePowerBombs() || has("wave")) && heatProof() && canDashSM()) {
 			availability.casualLogic = "available";
 		}
 		return availability;

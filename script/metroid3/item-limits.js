@@ -28,9 +28,9 @@ var iMax = {
 	boss7:2,
 	boss8:2,
 	boss9:2,
-	missile:230/5,
-	supermissile:50/5,
-	powerbomb:50/5,
+	missile:1+39,
+	supermissile:1+16,
+	powerbomb:1+9,
 	etank:14,
 	rtank:4
 };

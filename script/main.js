@@ -4,11 +4,11 @@ trackerOptions[selectedGame] = {
   showprizes: true,
   showmedals: true,
   showlabels: true,
-  mapLogic: 'glitchless',
-  openmode: false,
   editmode: false,
+  mapState: "open",
   selected: {}
 };
+trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
 
 var spicyChests = [56,57,58,60,61,65,55,62,50,91,51,89,92,86,87,88,94];
 
@@ -57,15 +57,13 @@ function getCookie() {
     return JSON.parse(str);
 }
 
-var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'openmode', 'chest', 'prize', 'medal', 'label', 'items'];
+var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'mapState', 'chest', 'prize', 'medal', 'label', 'items'];
 var cookieDefault = {
     ts:94,
     map:1,
     iZoom:100,
-    mZoom:50,
     mOrien:0,
-    mapLogic:'glitchless',
-    openmode:0,
+    mapState:'open',
     mPos:0,
     chest:1,
     prize:1,
@@ -76,9 +74,11 @@ if(selectedGame == "zelda3") {
 	cookieDefault.mOrien = 1;
 	cookieDefault.mPos = 1;
 	cookieDefault.mZoom = 80;
+	cookieDefault.mapLogic = "glitchless";
 }
 if(selectedGame == "metroid3") {
 	cookieDefault.mZoom = 100;
+	cookieDefault.mapLogic = "casualLogic";
 }
 cookieDefault.items = defaultItemGrid[selectedGame];
 
@@ -108,11 +108,7 @@ function setConfigObject(configobj) {
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
-//    var defaultLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
-//    document.querySelector('input[value="' + (configobj.mapLogic || defaultLogic) + '"]').click();
 
-    document.getElementsByName('openmode')[0].checked = !!configobj.openmode;
-    document.getElementsByName('openmode')[0].onchange();
     document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
     document.getElementsByName('showcrystal')[0].checked = !!configobj.prize;
@@ -173,7 +169,7 @@ function getConfigObject() {
     configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
     configobj.chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
 
-    configobj.openmode = document.getElementsByName('openmode')[0].checked ? 1 : 0;
+    configobj.mapState = document.querySelector('input[name="mapstate"]:checked').value;
     configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
     configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
     configobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
@@ -318,10 +314,10 @@ function setMapOrientation(H) {
     saveCookie();
 }
 
-function setOpenMode(sender) {
+function setState(state) {
 	if(selectedGame != "zelda3") { return; }
 
-    trackerOptions[selectedGame].openmode = sender.checked;
+    trackerOptions[selectedGame].mapState = state;
     refreshMap();
     saveCookie();
 }
@@ -567,7 +563,7 @@ function populateItemconfig() {
         if((typeof trackerData[selectedGame].items[key]) === "boolean"){
             rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
         }
-        else if(key.indexOf("heart") === 0){
+        else if(key.indexOf('heart') === 0 || key.indexOf('missile') > -1 || key.indexOf('powerbomb') === 0 || key.indexOf('tank') > -1){
             rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
         }
 		else {
@@ -611,6 +607,17 @@ function initTracker() {
     populateMapdiv();
     populateItemconfig();
 
+    if(! document.querySelector('input[name="maplogic"]:checked')) {
+		var defaultLogic = selectedGame == "metroid3" ? "casualLogic" : "glitchless";
+		var radios = document.querySelectorAll('input[name="maplogic"]');
+		for(var radio in radios) {
+			radio = radios[radio];
+			if(radio.value == defaultLogic) {
+				radio.checked = "checked";
+			}
+		}
+	}
+
     loadCookie();
     updateAll();
 
@@ -620,7 +627,6 @@ function initTracker() {
 	};
     var game = games[selectedGame];
     document.title = game + " Item Tracker";
-    document.getElementById("mapLogic").innerHTML = game + " Logic Options";
     document.getElementById("caption").innerHTML = selectGame + ' ]';
 }
 

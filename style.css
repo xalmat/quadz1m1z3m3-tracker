@@ -214,14 +214,10 @@ label {
     width: 438px;
     height: 888px;
 }
-.zelda3 div.casualLogic,
-.zelda3 div.tourneyLogic {
+.zelda3 .metroid3-option {
     display: none;
 }
-.metroid3 div.openmode,
-.metroid3 div.glitchless,
-.metroid3 div.owGlitches,
-.metroid3 div.majorGlitches {
+.metroid3 .zelda3-option {
     display: none;
 }
 .metroid3 .mapdiv {

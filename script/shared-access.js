@@ -299,7 +299,7 @@ function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
 // SM Ability functions
 function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Attack
 	return (canMorph()
-		&& (canUseMorphBombs
+		&& (canUseMorphBombs()
 			|| canUsePowerBombs()))
 	|| has("screw");
 }

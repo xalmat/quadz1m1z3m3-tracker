@@ -1,7 +1,7 @@
 dungeons.metroid3[0] = {
     name: "Torizo",
     label: "T",
-    x: "421",
+    x: "439",
     y: "115",
     image: "boss02.png",
     isBeatable: function() {
