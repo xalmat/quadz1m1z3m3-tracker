@@ -841,8 +841,8 @@ Vue.component('tracker-cell', {
     clickPrize: function(amt) {
       var newPrize = (this.trackerData[selectedGame].prizes[this.bossNum] + amt + 4) % 4;
       // need to use splice here instead of just setting it the normal way or vue won't pick up the change
-      updateAll();
       this.trackerData[selectedGame].prizes.splice(this.bossNum, 1, newPrize);
+      updateAll();
     },
     clickPrizeForward: function(e) {
         this.clickPrize(1);
