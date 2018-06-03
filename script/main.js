@@ -735,6 +735,9 @@ Vue.component('tracker-cell', {
     textCounter: function() {
       var itemValue = this.trackerData[selectedGame].items[this.itemName];
       if(this.itemName.indexOf('heart') === 0 || this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') === 0 || this.itemName.indexOf('tank') > -1) {
+		if(this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') > -1) {
+			itemValue *= 5;
+		}
         return itemValue;
       }
       return null;
