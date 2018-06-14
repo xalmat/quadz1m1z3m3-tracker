@@ -65,9 +65,19 @@ Object.defineProperty(Availability.prototype, 'majorGlitches', {
 
 function has(item, amount = -1) {
 	var ret = false;
+	var val = -1;
 	if(trackerData[selectedGame].items[item]) {
 		ret = true;
-		if(amount > -1 && trackerData[selectedGame].items[item] < amount) {
+		val = trackerData[selectedGame].items[item];
+	} else if(trackerData.zelda3 && trackerData.zelda3.items[item]) {
+		ret = true;
+		val = trackerData.zelda3.items[item];
+	} else if(trackerData.metroid3 && trackerData.metroid3.items[item]) {
+		ret = true;
+		val = trackerData.metroid3.items[item];
+	}
+	if(ret) {
+		if(amount > -1 && val < amount) {
 			ret = false;
 		}
 	}

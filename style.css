@@ -229,7 +229,7 @@ label {
     position: absolute;
 }
 .metroid3 .itemdiv {
-    top: 660px;
+    top: 680px;
     left: 0;
     position: absolute;
     z-index: 100;
@@ -287,11 +287,9 @@ label {
     background-image: url("images/zelda3/chests/inactivewarp.gif") !important;
 }
 .zelda3 #itemdiv,
-.zelda3 #mapdiv {
+.zelda3 #mapdiv,
+.metroid3 #mapdiv {
     top: 20px;
-}
-.zelda3 #sm-item-skin {
-    display: none;
 }
 .metroid3 .icons-nothing .chest.available,
 .metroid3 .icons-nothing .chest.unavailable,
@@ -305,6 +303,13 @@ label {
 }
 .metroid3 .chest.unavailable.spicy {
     background-image: url(images/metroid3/chests/icon-itemball-spicy/unavailable.gif) !important;
+    border: 0;
+}
+.metroid3 .icons-itemball-nolights .chest.available.spicy,
+.metroid3 .icons-itemball-nolights .chest.unavailable.spicy,
+.metroid3 .icons-nothing .chest.available.spicy,
+.metroid3 .icons-nothing .chest.unavailable.spicy {
+    background-image: url(images/metroid3/chests/icons-noicons/noicons-spicy.png) !important;
     border: 0;
 }
 
@@ -361,6 +366,10 @@ label {
 
 .opened{
     background-color: rgb(127,127,127);
+}
+
+.important {
+    background-color: rgb(255,160,0);
 }
 
 #credits {

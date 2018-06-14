@@ -19,10 +19,14 @@ for(var i = 0; i < chests[selectedGame].length; i++) {
     var d = document.createElement("div");
     d.innerHTML = chests[selectedGame][i].name;
     var title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
+    if(title.indexOf('(') > -1) {
+	    title = title.substr(0,title.indexOf('('));
+	}
     var remove = ['+','/'];
     for(var search in remove) {
       title = title.replace(remove[search],"");
 	}
+	chests[selectedGame][i].titleEquipment = chests[selectedGame][i].name;
     chests[selectedGame][i].titleStripped = title.trim();
     chests[selectedGame][i].isSpicy = (selectedGame == "metroid3") && (spicyChests.indexOf(i) > -1);
 }
@@ -34,6 +38,7 @@ for(var i = 0; i < dungeons[selectedGame].length; i++) {
     for(var search in remove) {
       title = title.replace(remove[search],"");
 	}
+	dungeons[selectedGame][i].titleEquipment = dungeons[selectedGame][i].name;
     dungeons[selectedGame][i].titleStripped = title.trim();
 }
 
@@ -191,7 +196,7 @@ var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a> | <a
 // Highlights a chest location and shows the name as caption
 function highlight(x){
     document.getElementById(x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = selectGame + ' | ' + chests[selectedGame][x].name + ' ]';
+    document.getElementById("caption").innerHTML = selectGame + ' | ' + chests[selectedGame][x].titleEquipment + ' ]';
 }
 
 function unhighlight(x){
@@ -199,15 +204,165 @@ function unhighlight(x){
 //    document.getElementById("caption").innerHTML = selectGame;
 }
 
+function toggleImportant(x) {
+	var ele = document.getElementById(x);
+	var chest = chests[selectedGame][x];
+	if(chest.isImportant) {
+		chest.isImportant = false;
+		ele.classList.remove("important");
+	} else {
+		chest.isImportant = true;
+		ele.classList.add("important");
+	}
+}
+
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = selectGame + ' | ' + dungeons[selectedGame][x].name + ' ]';
+    document.getElementById("caption").innerHTML = selectGame + ' | ' + dungeons[selectedGame][x].titleEquipment + ' ]';
 }
 
 function unhighlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("poi") + ")";
 //    document.getElementById("caption").innerHTML = selectGame;
+}
+
+var wikiRoomNames = {
+	 0: "Crateria Power Bomb Room",
+	 1: "The Final Missile",
+	 2: "Pit Room",
+	 3: "Crateria Super Room",
+	 4: "Bomb Torizo Room",
+	 5: "West Ocean",
+	 6: "West Ocean",
+	 7: "West Ocean",
+	 8: "The Moat",
+	 9: "Terminator Room",
+	10: "Gauntlet Energy Tank Room",
+	11: "Green Pirates Shaft",
+	12: "Green Pirates Shaft",
+	13: "Morph Ball Room",
+	14: "Morph Ball Room",
+	15: "Blue Brinstar Energy Tank Room",
+	16: "Blue Brinstar Energy Tank Room",
+	17: "First Missile Room",
+	18: "Billy Mays Room",
+	19: "Billy Mays Room",
+	20: "Green Brinstar Main Shaft",
+	21: "Early Supers Room",
+	22: "Early Supers Room",
+	23: "Brinstar Reserve Tank Room",
+	24: "Brinstar Reserve Tank Room",
+	25: "Brinstar Reserve Tank Room",
+	26: "Etecoon Energy Tank Room",
+	27: "Etecoon Super Room",
+	28: "Spore Spawn Super Room",
+	29: "Big Pink",
+	30: "Big Pink",
+	31: "Big Pink",
+	32: "Pink Brinstar Power Bomb Room",
+	33: "Green Hill Zone",
+	34: "Waterway Energy Tank Room",
+	35: "Hopper Energy Tank Room",
+	36: "X-Ray Scope Room",
+	37: "Beta Power Bomb Room",
+	38: "Alpha Power Bomb Room",
+	39: "Alpha Power Bomb Room",
+	40: "Spazer Room",
+	41: "Warehouse Energy Tank Room",
+	42: "Varia Suit Room",
+	43: "Warehouse Keyhunter Room",
+	44: "Crocomire's Room",
+	45: "Crocomire Escape",
+	46: "Post Crocomire Power Bomb Room",
+	47: "Post Crocomire Missile Room",
+	48: "Post Crocomire Jump Room",
+	49: "Grapple Beam Room",
+	50: "Cathedral",
+	51: "Norfair Reserve Tank Room",
+	52: "Norfair Reserve Tank Room",
+	53: "Green Bubbles Missile Room",
+	54: "Bubble Mountain",
+	55: "Speed Booster Hall",
+	56: "Speed Booster Room",
+	57: "Double Chamber",
+	58: "Wave Beam Room",
+	59: "Ice Beam Room",
+	60: "Crumble Shaft",
+	61: "Hi Jump Boots Room",
+	62: "Hi Jump Energy Tank Room",
+	63: "Hi Jump Energy Tank Room",
+	64: "Wrecked Ship Main Shaft",
+	65: "Bowling Alley",
+	66: "Bowling Alley",
+	67: "Wrecked Ship East Missile Room",
+	68: "Wrecked Ship Energy Tank Room",
+	69: "Wrecked Ship West Super Room",
+	70: "Wrecked Ship East Super Room",
+	71: "Gravity Suit Room",
+	72: "Watering Hole",
+	73: "Watering Hole",
+	74: "Pseudo Plasma Spark Room",
+	75: "Plasma Room",
+	76: "West Sand Hole",
+	77: "West Sand Hole",
+	78: "East Sand Hole",
+	79: "East Sand Hole",
+	80: "Aqueduct",
+	81: "Aqueduct",
+	82: "Spring Ball Room",
+	83: "The Precious Room",
+	84: "Botwoon Energy Tank Room",
+	85: "Space Jump Room",
+	86: "Main Street",
+	87: "Main Street",
+	88: "Mama Turtle Room",
+	89: "Mama Turtle Room",
+	90: "Golden Torizo's Room",
+	91: "Golden Torizo's Room",
+	92: "Screw Attack Room",
+	93: "Mickey Mouse Room",
+	94: "Lower Norfair Spring Ball Maze Room",
+	95: "Lower Norfair Escape Power Bomb Room",
+	96: "Wasteland",
+	97: "Three Musketeers' Room",
+	98: "Ridley Tank Room",
+	99: "Lower Norfair Fireflea Room",
+};
+
+function clickChest(e) {
+	var x = e.srcElement.attributes.id.value;
+	switch(e.which) {
+		// LEFT
+		case 1:
+			if(e.ctrlKey) {
+				toggleImportant(x);
+			} else {
+				toggleChest(x);
+			}
+			break;
+
+		// MIDDLE
+		case 2:
+			e.preventDefault();
+			if(wikiRoomNames[x]) {
+				window.open("http://wiki.supermetroid.run/" + wikiRoomNames[x]);
+				break;
+			} else {
+				console.log(x);
+				break;
+			}
+
+		// RIGHT
+		case 3:
+			// do nothing
+			break;
+
+		// DUNNO
+		default:
+			// do nothing
+			break;
+	}
 }
 
 function showChest(sender) {
@@ -342,7 +497,7 @@ function showSettings(sender) {
         showTracker('mapdiv', document.getElementsByName('showmap')[0]);
         document.getElementById('itemconfig').style.display = 'none';
 
-        sender.innerHTML = '🔧';
+        sender.innerHTML = '&#128295;';
         saveCookie();
     } else {
         var x = document.getElementById("settings");
@@ -351,7 +506,7 @@ function showSettings(sender) {
             sender.innerHTML = 'X';
         } else {
             x.style.display = 'none';
-            sender.innerHTML = '🔧';
+            sender.innerHTML = '&#128295;';
         }
     }
 }
@@ -389,24 +544,26 @@ function refreshMapMedallion(d) {
 	if(selectedGame != "zelda3") { return; }
 
     // Update availability of dungeon boss AND chests
-    if(trackerData[selectedGame].dungeonbeaten[d])
-        document.getElementById("bossMap"+d).className = "mapspan boss opened";
-    else
-        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[selectedGame][d].isBeatable().getClassName();
+    if(dungeons[selectedGame][d]) {
+	    if(trackerData[selectedGame].dungeonbeaten[d])
+	        document.getElementById("bossMap"+d).className = "mapspan boss opened";
+	    else
+	        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[selectedGame][d].isBeatable().getClassName();
 
-    if(trackerData[selectedGame].dungeonchests[d] > 0)
-        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[selectedGame][d].canGetChest().getClassName();
-    // TRock medallion affects Mimic Cave
-    if(d === 9){
-        refreshChests();
-    }
-    // Change the mouseover text on the map
-    var dungeonName;
-    if(d === 8)
-        dungeonName = "Misery Mire";
-    else
-        dungeonName = "Turtle Rock";
-    dungeons[selectedGame][d].name = dungeonName + " " + mini("medallion" + trackerData[selectedGame].medallions[d]) + mini("lantern");
+	    if(trackerData[selectedGame].dungeonchests[d] > 0)
+	        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[selectedGame][d].canGetChest().getClassName();
+	    // TRock medallion affects Mimic Cave
+	    if(d === 9){
+	        refreshChests();
+	    }
+	    // Change the mouseover text on the map
+		    var dungeonName;
+	    if(d === 8)
+	        dungeonName = "Misery Mire";
+	    else
+	        dungeonName = "Turtle Rock";
+	    dungeons[selectedGame][d].name = dungeonName + " " + mini("medallion" + trackerData[selectedGame].medallions[d]) + mini("lantern");
+	}
 }
 
 function refreshChests() {
@@ -498,9 +655,8 @@ function populateMapdiv() {
         s.id = k;
         var d = document.createElement('div');
         if(chests[selectedGame][k]) {
-		  chests[selectedGame][k].isImportant = false;
-		  s.title = chests[selectedGame][k].titleStripped;
-          s.onclick = new Function('toggleChest('+k+')');
+		  s.title = chests[selectedGame][k].titleStripped + ((selectedGame == "metroid3" && (typeof wikiRoomNames[k] != "undefined")) ? "\n" + '"' + wikiRoomNames[k] + '"' : "");
+          s.onmousedown = function(e) { clickChest(e,k); };
           s.onmouseover = new Function('highlight('+k+')');
           s.onmouseout = new Function('unhighlight('+k+')');
           s.style.left = chests[selectedGame][k].x;
@@ -569,7 +725,7 @@ function populateItemconfig() {
 		else {
             rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
         }
-        if(key.indexOf("boss") === 0){
+        if(key.indexOf("boss") === 0 && dungeons[selectedGame][key.substring(4)]){
             rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
             rowitem.innerText = dungeons[selectedGame][key.substring(4)].label;
         }
@@ -694,7 +850,7 @@ Vue.component('tracker-cell', {
       return this.itemName.substring(4);
     },
     dungeonLabel: function() {
-      if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showlabels) {
+      if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showlabels && dungeons[selectedGame][this.bossNum]) {
         return dungeons[selectedGame][this.bossNum].label;
       }
       return null;
