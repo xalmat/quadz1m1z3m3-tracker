@@ -345,7 +345,7 @@ function clickChest(e) {
 		// MIDDLE
 		case 2:
 			e.preventDefault();
-			if(wikiRoomNames[x]) {
+			if(selectedGame == "metroid3" && wikiRoomNames[x]) {
 				window.open("http://wiki.supermetroid.run/" + wikiRoomNames[x]);
 				break;
 			} else {

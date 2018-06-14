@@ -33,6 +33,10 @@ class NorfairEast extends Norfair {
 		return canOpenGreenDoors()
 			&& (canFlySM() || canGrappleSM() || canHiJump() || has("ice"));
 	}
+	this.locations["Wave Beam"].casualLogic = function() {
+		return (canOpenGreenDoors() && canMorph() && (canGrappleSM() || canFlySM())
+			&& canHiJump() || has("ice"));
+	}
 
     this.canEnter.casualLogic = function() {
       return (((canDestroyBombWalls() || canDashSM())
@@ -41,13 +45,16 @@ class NorfairEast extends Norfair {
       	&& heatProof()
       	&& (canFlySM() || canHiJump() || (canDashSM() && canUsePowerBombs()) || (heatProof() && (has("ice") || canDashSM())));
     }
-    this.canComplete.casualLogic = function() {
-      return this.canEnter.casualLogic();
-    }
   }
 
   initTournament() {
     this.initCasual();
+
+    this.locations["Wave Beam"].tourneyLogic = function() {
+		return canOpenGreenDoors()
+			&& (canMorph() || canGrappleSM())
+			&& (canFlySM() || canHiJump() || has("ice"));
+	}
 
 	this.canEnter.tourneyLogic = function() {
 		return (((canDestroyBombWalls() || canDashSM())

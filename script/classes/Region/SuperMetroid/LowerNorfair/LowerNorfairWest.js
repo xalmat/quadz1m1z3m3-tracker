@@ -49,7 +49,7 @@ class LowerNorfairWest extends LowerNorfair {
 			|| (heatProof()
 				&& (canIbj()
 					|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-					|| (has("springball") && canUsePowerBombs())
+					|| (canSpringBall() && canUsePowerBombs())
 					|| canDashSM())));
 	}
 
@@ -58,7 +58,7 @@ class LowerNorfairWest extends LowerNorfair {
 			&& heatProof()
 			&& (canIbj()
 				|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-				|| (has("springball") && canUsePowerBombs())
+				|| (canSpringBall() && canUsePowerBombs())
 				|| canDashSM());
 	}
 
@@ -66,7 +66,7 @@ class LowerNorfairWest extends LowerNorfair {
 		return canDestroyBombWalls()
 			&& ((canIbj()
 				|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-				|| (has("springball") && canUsePowerBombs())
+				|| (canSpringBall() && canUsePowerBombs())
 					|| canDashSM())
 					|| canAccessLowerNorfairPortal());
 	}
@@ -78,7 +78,7 @@ class LowerNorfairWest extends LowerNorfair {
 			|| (heatProof()
 				&& (canIbj()
 					|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-					|| (has("springball") && canUsePowerBombs())
+					|| (canSpringBall() && canUsePowerBombs())
 					|| canDashSM())));
 	}
 	this.canEnter.tourneyLogic = function() {

@@ -31,13 +31,6 @@ class HyruleMain extends Hyrule {
 		lnw.initCasual();
 		return (lnw.canEnter.casualLogic() && canAccessMiseryMirePortal()) || canAccessLowerNorfairPortal();
 	}
-
-    this.canEnter.casualLogic = function() {
-      return true;
-    }
-    this.canComplete.casualLogic = function() {
-      return this.canEnter.casualLogic();
-    }
   }
 
   initTournament() {

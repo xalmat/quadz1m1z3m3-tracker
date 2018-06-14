@@ -32,9 +32,6 @@ class CrateriaCentral extends Crateria {
 		return canPassBombPassages() && canOpenRedDoors();
 	}
 
-    this.canEnter.casualLogic = function() {
-      return true;
-    }
     this.canComplete.casualLogic = function() {
       return this.locations["Torizo"].casualLogic();
     }

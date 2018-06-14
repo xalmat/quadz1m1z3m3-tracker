@@ -14,9 +14,6 @@ class TourianMain extends Tourian {
       	&& has("ridley")
       	&& has("kraid");
     }
-    this.canComplete.casualLogic = function() {
-      return this.canEnter.casualLogic();
-    }
   }
 
   initTournament() {

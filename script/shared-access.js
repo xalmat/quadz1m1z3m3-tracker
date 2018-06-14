@@ -323,7 +323,8 @@ function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
 function canCrystalFlash() {	// Refill HP
 	return has("missile",2)
 		&& has("supermissile",2)
-		&& has("powerbomb",3);
+		&& has("powerbomb",3)
+		&& canMorph();
 }
 function canDashSM() {	// SM: Speed Booster
 	return has("speed");
@@ -366,6 +367,9 @@ function canOpenYellowDoors() {
 }
 function canPassBombPassages() {	// Not sure why Power Bombs; Infinite Bomb Jump
 	return canUsePowerBombs() || canIbj();
+}
+function canSpringBall() {
+	return canMorph() && has("springball");
 }
 function canSwimSM() {	// SM: Gravity Suit
 	return has("gravity");

@@ -43,7 +43,7 @@ class WreckedShipMain extends WreckedShip {
 	}
 
     this.canEnter.casualLogic = function() {
-      return canUsePowerBombs() && canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || has("springball"));
+      return canUsePowerBombs() && canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || canSpringBall());
     }
     this.canComplete.casualLogic = function() {
       return this.locations["Phantoon"].casualLogic();
@@ -70,7 +70,7 @@ class WreckedShipMain extends WreckedShip {
 			|| canHiJump()
 			|| has("space")
 			|| canDashSM()
-			|| has("springball")
+			|| canSpringBall()
 			|| canSwimSM()
 		);
 	}

@@ -54,5 +54,11 @@ class BrinstarPink extends Brinstar {
     this.locations["Energy Tank, Brinstar Gate"].tourneyLogic = function() {
 		return canUsePowerBombs() && (has("wave") || (canOpenGreenDoors() && canHiJump()));
 	}
+
+	this.canEnter.tourneyLogic = function() {
+		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
+			|| canUsePowerBombs()
+			|| (canAccessNorfairPortal() && canMorph() && (has("ice") || canHiJump() || canFlySM()));
+	}
   }
 }

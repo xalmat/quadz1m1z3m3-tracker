@@ -52,7 +52,7 @@ class LowerNorfairEast extends LowerNorfair {
 					|| (heatProof()
 					&& (canIbj()
 						|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-						|| (has("springball") && canUsePowerBombs())
+						|| (canSpringBall() && canUsePowerBombs())
 						|| canDashSM())));
 	}
   }

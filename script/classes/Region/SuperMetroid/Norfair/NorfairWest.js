@@ -30,9 +30,6 @@ class NorfairWest extends Norfair {
 			&& (canOpenGreenDoors() && canMorph())
 			|| canAccessNorfairPortal();
     }
-    this.canComplete.casualLogic = function() {
-      return this.canEnter.casualLogic();
-    }
   }
 
   initTournament() {

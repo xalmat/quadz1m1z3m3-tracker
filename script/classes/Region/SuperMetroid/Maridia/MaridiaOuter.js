@@ -43,7 +43,7 @@ class MaridiaOuter extends Maridia {
 		return nw.canEnter.casualLogic()
 			&& canUsePowerBombs()
 			&& (canSwimSM()
-				|| (canHiJump() && (has("springball") || has("ice"))));
+				|| (canHiJump() && (canSpringBall() || has("ice"))));
 	}
   }
 }
