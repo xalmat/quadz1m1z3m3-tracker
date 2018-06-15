@@ -331,7 +331,7 @@ var wikiRoomNames = {
 };
 
 function clickChest(e) {
-	var x = e.srcElement.attributes.id.value;
+	var x = e.target.id;
 	switch(e.which) {
 		// LEFT
 		case 1:
@@ -656,7 +656,7 @@ function populateMapdiv() {
         var d = document.createElement('div');
         if(chests[selectedGame][k]) {
 		  s.title = chests[selectedGame][k].titleStripped + ((selectedGame == "metroid3" && (typeof wikiRoomNames[k] != "undefined")) ? "\n" + '"' + wikiRoomNames[k] + '"' : "");
-          s.onmousedown = function(e) { clickChest(e,k); };
+          s.onmousedown = function(e) { clickChest(e); };
           s.onmouseover = new Function('highlight('+k+')');
           s.onmouseout = new Function('unhighlight('+k+')');
           s.style.left = chests[selectedGame][k].x;
