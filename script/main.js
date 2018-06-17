@@ -6,6 +6,7 @@ trackerOptions[selectedGame] = {
   showlabels: true,
   editmode: false,
   mapState: "open",
+  selected: {}
 };
 trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
 
