@@ -1,5 +1,5 @@
-class HyruleMain extends Hyrule {
-  constructor(name = "Hyrule", subname = "Main") {
+class HyrulePortalsMain extends HyrulePortals {
+  constructor(name = "HyrulePortals", subname = "Main") {
 	super(name,subname);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([

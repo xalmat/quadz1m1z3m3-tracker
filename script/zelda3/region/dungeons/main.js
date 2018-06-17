@@ -28,7 +28,7 @@ dungeons.zelda3[0] = {
                 availability.glitchless = 'partial';
             }
         }
-        else if (trackerData.zelda3.dungeonchests[0] === 3) {
+        else if (trackerData.zelda3 && trackerData.zelda3.dungeonchests && trackerData.zelda3.dungeonchests[0] === 3) {
             availability.glitchless = 'available';
         }
         else {
@@ -1107,15 +1107,15 @@ dungeons.zelda3[8] = {
     x: "55.8%",
     y: "82.9%",
     hasMedallion: function () {
-        return (trackerData.zelda3.medallions[8] === 1 && has("bombos"))
-                || (trackerData.zelda3.medallions[8] === 2 && has("ether"))
-                || (trackerData.zelda3.medallions[8] === 3 && has("quake"))
+        return (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[8] === 1 && has("bombos"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[8] === 2 && has("ether"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[8] === 3 && has("quake"))
                 || (has("bombos") && has("ether") && has("quake"));
     },
     mayHaveMedallion: function () {
-        return !((trackerData.zelda3.medallions[8] === 1 && !has("bombos"))
-                || (trackerData.zelda3.medallions[8] === 2 && !has("ether"))
-                || (trackerData.zelda3.medallions[8] === 3 && !has("quake"))
+        return !((trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[8] === 1 && !has("bombos"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[8] === 2 && !has("ether"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[8] === 3 && !has("quake"))
                 || (!has("bombos") && !has("ether") && !has("quake")));
     },
     canEnter: function (logic, agahnimCheck, allowOutOfLogicGlitches) {
@@ -1404,15 +1404,15 @@ dungeons.zelda3[9] = {
     x: "96.9%",
     y: "7.0%",
     hasMedallion: function () {
-        return (trackerData.zelda3.medallions[9] === 1 && has("bombos"))
-                || (trackerData.zelda3.medallions[9] === 2 && has("ether"))
-                || (trackerData.zelda3.medallions[9] === 3 && has("quake"))
+        return (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[9] === 1 && has("bombos"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[9] === 2 && has("ether"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[9] === 3 && has("quake"))
                 || (has("bombos") && has("ether") && has("quake"));
     },
     mayHaveMedallion: function () {
-        return !((trackerData.zelda3.medallions[9] === 1 && !has("bombos"))
-                || (trackerData.zelda3.medallions[9] === 2 && !has("ether"))
-                || (trackerData.zelda3.medallions[9] === 3 && !has("quake"))
+        return !((trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[9] === 1 && !has("bombos"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[9] === 2 && !has("ether"))
+                || (trackerData.zelda3 && trackerData.zelda3.medallions && trackerData.zelda3.medallions[9] === 3 && !has("quake"))
                 || (!has("bombos") && !has("ether") && !has("quake")));
     },
     lower: function (logic, allowOutOfLogicGlitches) {
@@ -1829,7 +1829,7 @@ dungeons.zelda3[10] = {
         else if (logic === 'glitchless') {
             let crystalCount = 0;
             for (let k = 0; k < 10; k++) {
-                if ((trackerData.zelda3.prizes[k] === redCrystal || trackerData.zelda3.prizes[k] === blueCrystal) && trackerData.zelda3.items["boss" + k] === 2) {
+                if (((trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === redCrystal) || (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === blueCrystal)) && trackerData.zelda3.items["boss" + k] === 2) {
                     crystalCount++;
                     if (crystalCount === 7) {
                         break;

@@ -1,17 +1,23 @@
-function initClasses() {
+function initClasses(useGame) {
 	var boss = 0;
 	var regionObjects = {};
 	for(var gameName in regionNames) {
-		if(gameName == selectedGame) {
+		if(gameName == useGame) {
 			game = regionNames[gameName];
 			var i = 1;
 			for(var regionName in game) {
 				region = game[regionName];
 				for(var segment in region) {
 					var segmentName = region[segment];
-					var regionClassName = fix_region(regionName) + segmentName.ucfirst();
+					var regionClassName = fix_region(regionName) + fix_region(segmentName);
 					var regionObject = eval("new " + regionClassName + "()");
-					regionObject.initTournament();
+
+					if(useGame == "zelda3") {
+						regionObject.initNoMajorGlitches();
+					}
+					if(useGame == "metroid3") {
+						regionObject.initTournament();
+					}
 
 					regionObjects[regionClassName] = regionObject;
 
@@ -34,13 +40,27 @@ function initClasses() {
 							titleStripped: location.name,
 							type: location.type,
 							region: location.region,
-							canAccess: {
+						};
+						if(useGame == "zelda3") {
+							props.canAccess = {
+								glitchless: location.glitchless,
+								owglitches: location.owglitches,
+								majorglitches: location.majorglitches
+							};
+						}
+						if(useGame == "metroid3") {
+							props.canAccess = {
 								casualLogic: location.casualLogic,
 								tourneyLogic: location.tourneyLogic
-							},
-						};
+							};
+						}
 						if(location.equipment) {
-							props["titleEquipment"] += " " + location.equipment.replace(/%%([\w]+)%%/g,mini('$1'));
+							var regex = /%%([\w]+)%%/g;
+							var equip = location.equipment;
+							while(match = regex.exec(equip)) {
+								location.equipment = location.equipment.replace(match[0],mini(match[1]));
+							}
+							props["titleEquipment"] += " " + location.equipment;
 						}
 
 						total++;
@@ -52,7 +72,6 @@ function initClasses() {
 						if(location.type == "Event") {
 							var dungeon = {
 								label: location.name.substring(0,1),
-								image: "boss0" + ".png",
 								isBeatable: function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3") {
@@ -76,7 +95,7 @@ function initClasses() {
 							};
 							dungeon = Object.assign(props,dungeon);
 
-							dungeons[selectedGame].push(dungeon);
+							dungeons[gameName].push(dungeon);
 							boss++;
 						} else {
 							var chest = {
@@ -139,7 +158,7 @@ function initClasses() {
 							}
 
 							chest = Object.assign(props,chest);
-							chests[selectedGame].push(chest);
+							chests[gameName].push(chest);
 						}
 					}
 				}

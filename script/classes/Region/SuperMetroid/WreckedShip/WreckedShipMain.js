@@ -16,7 +16,6 @@ class WreckedShipMain extends WreckedShip {
   }
 
   initCasual() {
-	this.locations["Missile (Wrecked Ship middle)"].casualLogic =
 	this.locations["Missile (Wrecked Ship top)"].casualLogic =
 	this.locations["Super Missile (Wrecked Ship left)"].casualLogic =
 	this.locations["Right Super, Wrecked Ship"].casualLogic = function() {

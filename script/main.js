@@ -10,8 +10,6 @@ trackerOptions[selectedGame] = {
 };
 trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
 
-var spicyChests = [56,57,58,60,61,65,55,62,50,91,51,89,92,86,87,88,94];
-
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
 for(var i = 0; i < chests[selectedGame].length; i++) {
@@ -644,55 +642,55 @@ function itemConfigClick (sender) {
     }
 }
 
-function populateMapdiv() {
+function populateMapdiv(useGame = "zelda3") {
     var mapdiv = document.getElementById('mapdiv');
 
     // Initialize all chests on the map
-    for(k=0; k<chests[selectedGame].length; k++){
+    for(k=0; k<chests[useGame].length; k++){
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.style.color = 'black';
         s.id = k;
         var d = document.createElement('div');
-        if(chests[selectedGame][k]) {
-		  s.title = chests[selectedGame][k].titleStripped + ((selectedGame == "metroid3" && (typeof wikiRoomNames[k] != "undefined")) ? "\n" + '"' + wikiRoomNames[k] + '"' : "");
+        if(chests[useGame][k]) {
+		  s.title = chests[useGame][k].titleStripped + ((useGame == "metroid3" && (typeof wikiRoomNames[k] != "undefined")) ? "\n" + '"' + wikiRoomNames[k] + '"' : "");
           s.onmousedown = function(e) { clickChest(e); };
           s.onmouseover = new Function('highlight('+k+')');
           s.onmouseout = new Function('unhighlight('+k+')');
-          s.style.left = chests[selectedGame][k].x;
-          s.style.top = chests[selectedGame][k].y;
+          s.style.left = chests[useGame][k].x;
+          s.style.top = chests[useGame][k].y;
         } else {
           console.log("Can't find Chest #" + k);
         }
-        if(trackerData[selectedGame].chestsopened[k])
+        if(trackerData[useGame] && trackerData[useGame].chestsopened[k])
             s.className = "mapspan chest opened";
         else
-            s.className = "mapspan chest " + chests[selectedGame][k].isAvailable().getClassName();
+            s.className = "mapspan chest " + chests[useGame][k].isAvailable().getClassName();
         mapdiv.appendChild(s);
     }
 
     // Dungeon bosses & chests
-    for(k=0; k<dungeons[selectedGame].length; k++){
+    for(k=0; k<dungeons[useGame].length; k++){
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
         s.id = 'bossMap' + k;
-        s.title = dungeons[selectedGame][k].titleStripped;
+        s.title = dungeons[useGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
-        s.style.left = dungeons[selectedGame][k].x;
-        s.style.top = dungeons[selectedGame][k].y;
-        s.className = "mapspan boss " + dungeons[selectedGame][k].isBeatable().getClassName();
+        s.style.left = dungeons[useGame][k].x;
+        s.style.top = dungeons[useGame][k].y;
+        s.className = "mapspan boss " + dungeons[useGame][k].isBeatable().getClassName();
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.id = 'dungeon' + k;
-        s.title = dungeons[selectedGame][k].titleStripped;
+        s.title = dungeons[useGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
-        s.style.left = dungeons[selectedGame][k].x;
-        s.style.top = dungeons[selectedGame][k].y;
-        s.className = "mapspan dungeon " + dungeons[selectedGame][k].canGetChest().getClassName();
+        s.style.left = dungeons[useGame][k].x;
+        s.style.top = dungeons[useGame][k].y;
+        s.className = "mapspan dungeon " + dungeons[useGame][k].canGetChest().getClassName();
         mapdiv.appendChild(s);
     }
 }
@@ -758,9 +756,9 @@ function useTourneyConfig() {
 
 
 function initTracker() {
-    //createItemTracker(document.getElementById('itemdiv'));
+	var useGame = arguments[0];
     document.body.classList.add(selectedGame);
-    populateMapdiv();
+    populateMapdiv(useGame);
     populateItemconfig();
 
     if(! document.querySelector('input[name="maplogic"]:checked')) {
@@ -817,7 +815,7 @@ Vue.component('tracker-table', {
   methods: {
     itemFor: function(itemName) {
       if(!this.trackerData || !this.trackerData.items) return null;
-      return this.trackerData.items[itemName];
+      return this.trackerData[selectedGame].items[itemName];
     },
     addRow: function(e) {
       vm.itemRows.push(['blank']);
@@ -861,6 +859,18 @@ Vue.component('tracker-cell', {
 			"firerod":		"Fire Rod",
 			"icerod":		"Ice Rod",
 			"moonpearl":	"Moon Pearl",
+			"mpupgrade":	"Magic Upgrade",
+			"boss0":		"Eastern Palace",
+			"boss1":		"Desert Palace",
+			"boss2":		"Tower of Hera",
+			"boss3":		"Palace of Darkness",
+			"boss4":		"Swamp Palace",
+			"boss5":		"Skull Woods",
+			"boss6":		"Thieves' Town",
+			"boss7":		"Ice Palace",
+			"boss8":		"Misery Mire",
+			"boss9":		"Turtle Rock",
+			"boss10":		"Ganon's Tower",
 
 			"etank":		"Energy Tank",
 			"hijump":		"Hi-Jump Boots",

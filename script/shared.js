@@ -25,13 +25,13 @@ function extend(obj, src) {
 }
 
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
-var chests = {};
-var dungeons = {};
+var chests = {zelda3:[],metroid3:[]};
+var dungeons = {zelda3:[],metroid3:[]};
 var regionNames = {};
 chests[selectedGame] = [];
 dungeons[selectedGame] = [];
 
-var roomid = selectedGame;//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
+var roomid = selectedGame;
 var authAttempted = false;
 
 function destroyFirebase() {
@@ -41,14 +41,20 @@ function build_img_url(item) {
     var misc = ["blank","highlighted","poi"];
     var useGame = selectedGame;
 
-    var zelda3items = ["agahnim","agahnim0","agahnim1","boots","flippers","flute","glove","glove0","glove1","glove2","hammer","hookshot","lantern","mirror","moonpearl"];
-    var metroid3items = ["bombs","grappling","gravity","hijump","ice","morph","powerbomb","speed","supermissile","varia"];
+    var zelda3items = gameItems.zelda3;
+    var metroid3items = gameItems.metroid3;
 
-    if(zelda3items.indexOf(item) > -1) {
-		useGame = "zelda3";
-	} else if(metroid3items.indexOf(item) > -1) {
-		useGame = "metroid3";
-	}
+    if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
+        if(item == "bomb") {
+            useGame = "zelda3";
+        } else if(item == "bombs") {
+            useGame = "metroid3";
+        } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
+            useGame = "zelda3";
+        } else if(metroid3items.indexOf(item) > -1 || metroid3items.indexOf(item.substr(0,item.length-1)) > -1) {
+            useGame = "metroid3";
+        }
+    }
 
     var globalReplaceItem = {
 		bomb:		"bomb1",
@@ -111,6 +117,6 @@ function mini(item) {
 	return '<img src="' + build_img_url(item) + '" title="' + title + '" class="mini" />';
 }
 
-function init(callback) {
-    callback();   
+function init(callback,arguments) {
+    callback(arguments);
 }

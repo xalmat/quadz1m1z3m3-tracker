@@ -14,5 +14,5 @@ class WreckedShip extends SuperMetroid {
 }
 class Tourian extends SuperMetroid {
 }
-class Hyrule extends SuperMetroid {
+class HyrulePortals extends SuperMetroid {
 }
