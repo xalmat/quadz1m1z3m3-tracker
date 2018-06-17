@@ -70,8 +70,18 @@ function initClasses(useGame) {
 						}
 
 						if(location.type == "Event") {
+							var label = location.name.split(' ');
+							label = label.map(x => {
+								var ret = x;
+								var smallWords = ["of"];
+								if(smallWords.indexOf(ret) > -1) {
+									ret = ret.toLowerCase();
+								}
+								ret = ret.substring(0,1);
+								return ret;
+							});
 							var dungeon = {
-								label: location.name.substring(0,1),
+								label: label.join(''),
 								isBeatable: function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3") {

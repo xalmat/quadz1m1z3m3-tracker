@@ -37,6 +37,50 @@ var authAttempted = false;
 function destroyFirebase() {
 }
 
+function fix_itemlabel(item) {
+	var ret = item;
+	var names = {
+		"firerod":		"Fire Rod",
+		"icerod":		"Ice Rod",
+		"moonpearl":	"Moon Pearl",
+		"mpupgrade":	"Magic Upgrade",
+		"etank":		"Energy Tank",
+		"hijump":		"Hi-Jump Boots",
+		"morph":		"Morph Ball",
+		"powerbomb":	"Power Bomb",
+		"rtank":		"Reserve Tank",
+		"screw":		"Screw Attack",
+		"space":		"Space Jump",
+		"speed":		"Speed Booster",
+		"springball":	"Spring Ball",
+		"supermissile": "Super Missile",
+		"xray":			"X-Ray Scope",
+	};
+	if(names[ret]) {
+		ret = names[ret];
+	}
+
+	if((ret.indexOf("boss") === 0) || (ret.indexOf("chest") === 0)) {
+		var start = ret.indexOf("boss") === 0 ? 4 : 5;
+		ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
+	}
+	var beams = ["charge","ice","wave","plasma","grappling"];
+	if(beams.indexOf(ret) > -1) {
+		ret += " Beam";
+	}
+	if(ret == "varia" || ret == "gravity") {
+		ret += " Suit";
+	}
+	if(ret.indexOf("heart") === 0) {
+		ret = ret.replace("heart","Heart ");
+		ret = ret.split(" ");
+		ret[1] = ret[1].ucfirst();
+		ret = ret.join(" ");
+	}
+	ret = ret.ucfirst();
+	return ret;
+}
+
 function build_img_url(item) {
     var misc = ["blank","highlighted","poi"];
     var useGame = selectedGame;

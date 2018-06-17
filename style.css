@@ -2,6 +2,7 @@
 body{
     background-color: rgb(0,0,0);
     margin: 0;
+    margin-top: 20px;
     color: white;
 }
 
@@ -15,6 +16,15 @@ a {
 
 .flexcontainer {
     display: flex;
+}
+.flexreverse {
+    flex-direction: column-reverse;
+}
+.metroid3 .flexreverse .itemdiv {
+    top: 660px;
+    left: 0;
+    z-index: 100;
+    position: absolute;
 }
 
 .settings{
@@ -61,7 +71,8 @@ a {
 
 .itemconfig {
     border-spacing: 0;
-    border: 1px solid white;	
+    border: 1px solid white;
+    margin-top: 20px;
 }
 
 * {
@@ -183,6 +194,7 @@ label {
     position: relative;
     transform-origin: top left;
     left: 0;
+    top: 0;
 }
 
 .mapdiv{
@@ -191,6 +203,7 @@ label {
 
     position: relative;
     left: 0;
+    top: 0;
 }
 
 .mapvdiv{
@@ -199,6 +212,7 @@ label {
 
     position: relative;
     left: 0;
+    top: 0;
 }
 
 #selectGame a {
@@ -227,12 +241,6 @@ label {
     top: 0;
     left: 0;
     position: absolute;
-}
-.metroid3 .itemdiv {
-    top: 680px;
-    left: 0;
-    position: absolute;
-    z-index: 100;
 }
 .metroid3 .boss {
     margin-left: 5px;
@@ -265,10 +273,11 @@ label {
     background-image: url("images/metroid3/chests/opened.png") !important;
 }
 .metroid3 .chest.portal.active {
-    background-color: #ffaaff;
+    background-color: #aaffaa;
     background-image: url("images/metroid3/chests/warp.gif") !important;
 }
 .metroid3 .chest.portal.inactive {
+    background-color: #ffaaff;
     background-image: url("images/metroid3/chests/inactivewarp.gif") !important;
 }
 .metroid3 .icons-itemball-nolights .chest.unavailable {
@@ -286,17 +295,19 @@ label {
 .zelda3 .chest.portal.inactive {
     background-image: url("images/zelda3/chests/inactivewarp.gif") !important;
 }
-.zelda3 #itemdiv,
-.zelda3 #mapdiv,
-.metroid3 #mapdiv {
-    top: 20px;
-}
 .metroid3 .icons-nothing .chest.available,
 .metroid3 .icons-nothing .chest.unavailable,
 .metroid3 .icons-nothing .chest.opened {
     background-image: url() !important;
     border: 1px solid #000000;
 }
+.metroid3 .icons-nothing .chest.portal.portal-zelda3.active {
+    background-image: url(images/metroid3/chests/icons-noicons/warp.png) !important;
+}
+.metroid3 .icons-nothing .chest.portal.portal-zelda3.inactive {
+    background-image: url(images/metroid3/chests/icons-noicons/nowarp.png) !important;
+}
+
 .metroid3 .chest.available.spicy {
     background-image: url(images/metroid3/chests/icon-itemball-spicy/available.gif) !important;
     border: 0;

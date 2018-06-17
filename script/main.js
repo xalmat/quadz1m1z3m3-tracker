@@ -6,7 +6,6 @@ trackerOptions[selectedGame] = {
   showlabels: true,
   editmode: false,
   mapState: "open",
-  selected: {}
 };
 trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
 
@@ -42,13 +41,23 @@ for(var i = 0; i < dungeons[selectedGame].length; i++) {
 
 var trackerData = {};
 trackerData[selectedGame] = {
-  items: itemsInit[selectedGame],
+  items: itemsInit,
   dungeonchests: dungeonchestsInit[selectedGame],
   dungeonbeaten: dungeonbeatenInit[selectedGame],
   prizes: prizesInit[selectedGame],
   medallions: medallionsInit[selectedGame],
   chestsopened: chestsopenedInit[selectedGame]
 };
+
+var bosses = 0;
+if(selectedGame == "zelda3") {
+	bosses = 11;
+} else if(selectedGame == "metroid3") {
+	bosses = 10;
+}
+for(var i = 0; i < bosses; i++) {
+	trackerData[selectedGame].items["boss" + i] = 1;
+}
 
 function setCookie(obj) {
     window.localStorage.setItem(roomid, JSON.stringify(obj));
@@ -60,28 +69,30 @@ function getCookie() {
     return JSON.parse(str);
 }
 
-var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'mapState', 'chest', 'prize', 'medal', 'label', 'items'];
+var cookiekeys = ['gameName', 'ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'mapState', 'chest', 'prize', 'medal', 'label', 'items'];
 var cookieDefault = {
+	gameName: selectedGame,
     ts:94,
-    map:1,
     iZoom:100,
+    map:1,
     mOrien:0,
-    mapState:'open',
-    mPos:0,
-    chest:1,
-    prize:1,
-    medal:1,
-    label:1
+    mPos:0
 };
 if(selectedGame == "zelda3") {
-	cookieDefault.mOrien = 1;
-	cookieDefault.mPos = 1;
-	cookieDefault.mZoom = 80;
 	cookieDefault.mapLogic = "glitchless";
+    cookieDefault.mapState = "open";
+	cookieDefault.mOrien = 1;
+	cookieDefault.mPos = "Side";
+	cookieDefault.mZoom = 80;
+    cookieDefault.chest = true;
+    cookieDefault.prize = true;
+    cookieDefault.medal = true;
+    cookieDefault.label = true;
 }
 if(selectedGame == "metroid3") {
-	cookieDefault.mZoom = 100;
 	cookieDefault.mapLogic = "casualLogic";
+	cookieDefault.mPos = "Above";
+	cookieDefault.mZoom = 100;
 }
 cookieDefault.items = defaultItemGrid[selectedGame];
 
@@ -110,7 +121,9 @@ function setConfigObject(configobj) {
     document.getElementsByName('mapdivsize')[0].onchange();
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
-    document.getElementsByName('mapposition')[configobj.mPos].click();
+
+    var mappositions = ["Above","Below","Side"];
+    document.getElementsByName('mapposition')[mappositions.indexOf(configobj.mPos)].click();
 
     document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
@@ -161,6 +174,7 @@ function getConfigObjectFromCookie() {
 
 function getConfigObject() {
     configobj = {};
+    configobj.gameName = selectedGame;
     configobj.ts = (new Date()).getTime();
 
     configobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
@@ -168,7 +182,7 @@ function getConfigObject() {
     configobj.mZoom = document.getElementsByName('mapdivsize')[0].value;
 
     configobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
-    configobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
+    configobj.mPos = document.querySelector('input[name="mapposition"]:checked').value;
     configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
     configobj.chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
 
@@ -395,13 +409,17 @@ function showLabel(sender) {
     saveCookie();
 }
 
-function setOrder(H) {
-    if (H) {
+function setOrder(mode) {
+    if (mode == 1) { // Below
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
-    }
-    else {
+        document.getElementById('layoutdiv').classList.remove('flexreverse');
+    } else if (mode == 2) { // Side
         document.getElementById('layoutdiv').classList.add('flexcontainer');
-    }
+        document.getElementById('layoutdiv').classList.remove('flexreverse');
+    } else if (mode == 0) { // Above
+        document.getElementById('layoutdiv').classList.add('flexcontainer');
+        document.getElementById('layoutdiv').classList.add('flexreverse');
+	}
     saveCookie();
 }
 
@@ -712,6 +730,7 @@ function populateItemconfig() {
         var rowitem = document.createElement('td');
         rowitem.className = 'corner editcell';
         rowitem.id = key;
+        rowitem.title = fix_itemlabel(key);
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if((typeof trackerData[selectedGame].items[key]) === "boolean"){
@@ -854,49 +873,7 @@ Vue.component('tracker-cell', {
       return null;
     },
     itemLabel: function() {
-		var ret = this.itemName;
-		var names = {
-			"firerod":		"Fire Rod",
-			"icerod":		"Ice Rod",
-			"moonpearl":	"Moon Pearl",
-			"mpupgrade":	"Magic Upgrade",
-			"boss0":		"Eastern Palace",
-			"boss1":		"Desert Palace",
-			"boss2":		"Tower of Hera",
-			"boss3":		"Palace of Darkness",
-			"boss4":		"Swamp Palace",
-			"boss5":		"Skull Woods",
-			"boss6":		"Thieves' Town",
-			"boss7":		"Ice Palace",
-			"boss8":		"Misery Mire",
-			"boss9":		"Turtle Rock",
-			"boss10":		"Ganon's Tower",
-
-			"etank":		"Energy Tank",
-			"hijump":		"Hi-Jump Boots",
-			"morph":		"Morph Ball",
-			"powerbomb":	"Power Bomb",
-			"rtank":		"Reserve Tank",
-			"screw":		"Screw Attack",
-			"space":		"Space Jump",
-			"speed":		"Speed Booster",
-			"springball":	"Spring Ball",
-			"supermissile": "Super Missile",
-			"xray":			"X-Ray Scope",
-		};
-		var beams = ["charge","ice","wave","plasma","grappling"];
-		if(names[ret]) {
-			ret = names[ret];
-		}
-		if(beams.indexOf(ret) > -1) {
-			ret += " Beam";
-		}
-		if(ret == "varia" || ret == "gravity") {
-			ret += " Suit";
-		}
-		ret = ret.ucfirst();
-
-		return ret;
+		return fix_itemlabel(this.itemName);
 	},
     textCounter: function() {
       var itemValue = this.trackerData[selectedGame].items[this.itemName];
@@ -926,18 +903,21 @@ Vue.component('tracker-cell', {
       return this.trackerOptions[selectedGame].editmode || itemValue;
     },
     chestImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
       if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showchests) {
         return "url(" + build_img_url("chest" + this.trackerData[selectedGame].dungeonchests[this.bossNum]) + ")";
       }
       return null;
     },
     prizeImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
       if(this.bossNum && this.bossNum !== "10" && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showprizes) {
         return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
       }
       return null;
     },
     medallionImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
       if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showmedals) {
         return "url(" + build_img_url("medallion" + this.trackerData[selectedGame].medallions[this.bossNum]) + ")";
       }
