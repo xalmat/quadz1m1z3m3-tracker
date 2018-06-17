@@ -31,7 +31,7 @@ var regionNames = {};
 chests[selectedGame] = [];
 dungeons[selectedGame] = [];
 
-var roomid = selectedGame;
+var roomid = "smalttpr";
 var authAttempted = false;
 
 function destroyFirebase() {

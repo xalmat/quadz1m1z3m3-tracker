@@ -40,7 +40,7 @@ for(var i = 0; i < dungeons[selectedGame].length; i++) {
     dungeons[selectedGame][i].titleStripped = title.trim();
 }
 
-var trackerData = {};
+var trackerData = {"zelda3":{},"metroid3":{}};
 trackerData[selectedGame] = {
   items: itemsInit,
   dungeonchests: dungeonchestsInit[selectedGame],
@@ -73,22 +73,21 @@ function getCookie() {
 var cookiekeys = ['gameName', 'ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'mapState', 'chest', 'prize', 'medal', 'label', 'items'];
 var cookieDefault = {
 	gameName: selectedGame,
-    ts:94,
     iZoom:100,
     map:1,
     mOrien:0,
     mPos:0
+    mapState:"open",
+    mOrien:1,
+    chest:true,
+    prize:true,
+    medal:true,
+    label:true
 };
 if(selectedGame == "zelda3") {
 	cookieDefault.mapLogic = "glitchless";
-    cookieDefault.mapState = "open";
-	cookieDefault.mOrien = 1;
 	cookieDefault.mPos = "Side";
 	cookieDefault.mZoom = 80;
-    cookieDefault.chest = true;
-    cookieDefault.prize = true;
-    cookieDefault.medal = true;
-    cookieDefault.label = true;
 }
 if(selectedGame == "metroid3") {
 	cookieDefault.mapLogic = "casualLogic";
@@ -118,7 +117,7 @@ function setConfigObject(configobj) {
     document.getElementsByName('showmap')[0].onchange();
     document.getElementsByName('itemdivsize')[0].value = configobj.iZoom;
     document.getElementsByName('itemdivsize')[0].onchange();
-    document.getElementsByName('mapdivsize')[0].value = configobj.mZoom;
+    document.getElementsByName('mapdivsize')[0].value = selectedGame == "zelda3" ? configobj.mZoom : 100;
     document.getElementsByName('mapdivsize')[0].onchange();
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
@@ -194,6 +193,8 @@ function getConfigObject() {
     configobj.label = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
 
     configobj.items = window.vm.itemRows;
+
+    configobj.itemValues = trackerData[selectedGame].items;
 
     return configobj;
 }
@@ -802,12 +803,45 @@ function initTracker() {
     var game = games[selectedGame];
     document.title = game + " Item Tracker";
     document.getElementById("caption").innerHTML = selectGame + ' ]';
+
+	window.addEventListener('storage', function(event) {
+		var newValues = JSON.parse(event.newValue);
+		for(var k in Object.keys(newValues.itemValues)) {
+			k = Object.keys(newValues.itemValues)[k];
+			if(k.indexOf("boss") == -1 && k.indexOf("chest") == -1) {
+				var gameNames = ["zelda3","metroid3"];
+				for(var loadGameName in gameNames) {
+					loadGameName = gameNames[loadGameName];
+					if(trackerData[loadGameName] && trackerData[loadGameName].items) {
+						if(k in trackerData[loadGameName].items) {
+							for(var setGameName in gameNames) {
+								setGameName = gameNames[setGameName];
+								if((setGameName in trackerData) && ("items" in trackerData[setGameName])) {
+									if(k in trackerData[setGameName].items) {
+										trackerData[setGameName].items[k] = newValues.itemValues[k];
+									} else {
+										newValue = {k: newValues.itemValues[k]};
+										trackerData[setGameName].items = extend(trackerData[setGameName].items,newValue);
+									}
+								}
+							}
+						} else {
+							newValue = {k: newValues.itemValues[k]};
+							trackerData[loadGameName].items = extend(trackerData[loadGameName].items,newValue);
+						}
+					}
+				}
+			}
+		}
+		refreshMap();
+	});
 }
 
 function updateAll() {
     if(trackerData[selectedGame].items && trackerData[selectedGame].dungeonchests && trackerData[selectedGame].dungeonbeaten && trackerData[selectedGame].prizes && trackerData[selectedGame].medallions && trackerData[selectedGame].chestsopened) {
       vm.displayVueMap = true;
       refreshMap();
+      saveCookie();
     }
 }
 
