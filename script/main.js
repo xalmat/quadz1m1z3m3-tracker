@@ -76,7 +76,7 @@ var cookieDefault = {
     iZoom:100,
     map:1,
     mOrien:0,
-    mPos:0
+    mPos:0,
     mapState:"open",
     mOrien:1,
     chest:true,
