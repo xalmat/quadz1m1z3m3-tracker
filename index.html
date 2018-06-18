@@ -18,6 +18,7 @@
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
                 <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
+		        <table id='itemconfig' class='itemconfig' style='display:none'></table>
             </div>
             <div id='mapdiv' class='mapdiv'>
             </div>
@@ -119,8 +120,6 @@
                 (major credits: <a href="https://www.twitch.tv/hyphen_ated">hyphen</a>, <a href="https://twitter.com/pickfifteen">pickfifteen</a>, <a href="https://www.twitch.tv/marcmagus">marcmagus</a>, <a href="https://www.twitch.tv/testrunner">testrunner</a>, <a href="https://www.twitch.tv/crossproduct">crossproduct</a>)
             </footer>
         </fieldset>
-
-        <table id='itemconfig' class='itemconfig' style='display:none'></table>
 
         <script type="text/x-template" id="tracker-table">
             <div class="vueTrackerTable" :style="{ backgroundColor: 'black'}">
