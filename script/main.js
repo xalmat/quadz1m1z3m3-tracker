@@ -856,7 +856,6 @@ function initTracker() {
 
 	window.addEventListener('storage', function(event) {
 		var newValues = JSON.parse(event.newValue);
-		console.log(newValues);
 		for(var k in Object.keys(newValues.itemValues)) {
 			k = Object.keys(newValues.itemValues)[k];
 			if(k.indexOf("boss") == -1 && k.indexOf("chest") == -1) {
