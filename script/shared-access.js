@@ -302,7 +302,7 @@ function canEnterEastDeathMountain(logic, allowOutOfLogicGlitches) {
 function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
         return has("moonpearl")
-                || (has("bottle",1) && canDash())
+                || (has("bottle") && canDash())
                 || ((canLiftDarkRocks() || (has("hammer") && canDash())) && canEnterEastDeathMountain('majorGlitches', allowOutOfLogicGlitches))
                 || (has("mirror") && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches));
     }

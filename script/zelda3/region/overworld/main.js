@@ -354,7 +354,7 @@ chests.zelda3[13] = {
                     availability.owGlitches = 'glitchpossible';
                 }
             }
-            else if (canEnterWestDeathMountain('majorGlitches', true) && (has("moonpearl") || (has("bottle",1) && canDash()))) {
+            else if (canEnterWestDeathMountain('majorGlitches', true) && (has("moonpearl") || (has("bottle") && canDash()))) {
                 if (canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('majorGlitches', false)) {
                         availability.majorGlitches = 'available';
@@ -688,7 +688,7 @@ chests.zelda3[27] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (has("bottle",1)) {
+        if (has("bottle")) {
             availability.glitchless = "available";
         }
         return availability;

@@ -1136,7 +1136,7 @@ dungeons.zelda3[8] = {
         else if (logic === 'majorGlitches') {
             return this.hasMedallion()
                     && has("sword",1)
-                    && (has("moonpearl") || (has("bottle",1) && canDash()))
+                    && (has("moonpearl") || (has("bottle") && canDash()))
                     && (canDash() || canGrapple())
                     && canEnterMireArea('majorGlitches', agahnimCheck, allowOutOfLogicGlitches);
         }
@@ -1159,7 +1159,7 @@ dungeons.zelda3[8] = {
         else if (logic === 'majorGlitches') {
             return this.mayHaveMedallion()
                     && has("sword",1)
-                    && (has("moonpear") || (has("bottle",1) && canDash()))
+                    && (has("moonpearl") || (has("bottle") && canDash()))
                     && (canDash() || canGrapple())
                     && canEnterMireArea('majorGlitches', agahnimCheck, allowOutOfLogicGlitches);
         }
@@ -1418,7 +1418,7 @@ dungeons.zelda3[9] = {
     lower: function (logic, allowOutOfLogicGlitches) {
         return logic === 'majorGlitches'
                 && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches)
-                && (has("moonpearl") || (has("bottle",1) && canDash()))
+                && (has("moonpearl") || (has("bottle") && canDash()))
                 && has("mirror");
     },
     middle: function (logic, allowOutOfLogicGlitches) {
@@ -1440,7 +1440,7 @@ dungeons.zelda3[9] = {
         if (logic === 'majorGlitches') {
             return this.hasMedallion()
                     && has("sword",1)
-                    && (has("moonpearl") || (has("bottle",1) && canDash()))
+                    && (has("moonpearl") || (has("bottle") && canDash()))
                     && has("somaria")
                     && has("hammer")
                     && (canLiftDarkRocks() || canDash())
@@ -1469,7 +1469,7 @@ dungeons.zelda3[9] = {
         if (logic === 'majorGlitches') {
             return this.mayHaveMedallion()
                     && has("sword",1)
-                    && (has("moonpearl") || (has("bottle",1) && canDash()))
+                    && (has("moonpearl") || (has("bottle") && canDash()))
                     && has("somaria")
                     && has("hammer")
                     && (canLiftDarkRocks() || canDash())
