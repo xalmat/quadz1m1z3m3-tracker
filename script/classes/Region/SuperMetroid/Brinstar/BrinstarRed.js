@@ -50,7 +50,7 @@ class BrinstarRed extends Brinstar {
 			);
 	}
 	this.locations["Power Bomb (red Brinstar spike room)"].tourneyLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors();
+		return canOpenGreenDoors();
 	}
   }
 }
