@@ -78,9 +78,9 @@ chests.metroid3[45] = {
 			&& (
 				canOpenYellowDoors()
 				|| canFlySM()
-				|| trackerData.items.hijump
+				|| canHiJump()
 				|| canDashSM()
-				|| trackerData.items.springball
+				|| canSpringBall()
 				|| canSwimSM()
 			)
 		) {

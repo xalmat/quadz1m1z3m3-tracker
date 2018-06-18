@@ -10,8 +10,6 @@ trackerOptions[selectedGame] = {
 };
 trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
 
-var spicyChests = [56,57,58,60,61,65,55,62,50,91,51,89,92,86,87,88,94];
-
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
 for(var i = 0; i < chests[selectedGame].length; i++) {
@@ -19,10 +17,14 @@ for(var i = 0; i < chests[selectedGame].length; i++) {
     var d = document.createElement("div");
     d.innerHTML = chests[selectedGame][i].name;
     var title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
+    if(title.indexOf('(') > -1) {
+	    title = title.substr(0,title.indexOf('('));
+	}
     var remove = ['+','/'];
     for(var search in remove) {
       title = title.replace(remove[search],"");
 	}
+	chests[selectedGame][i].titleEquipment = chests[selectedGame][i].name;
     chests[selectedGame][i].titleStripped = title.trim();
     chests[selectedGame][i].isSpicy = (selectedGame == "metroid3") && (spicyChests.indexOf(i) > -1);
 }
@@ -34,12 +36,13 @@ for(var i = 0; i < dungeons[selectedGame].length; i++) {
     for(var search in remove) {
       title = title.replace(remove[search],"");
 	}
+	dungeons[selectedGame][i].titleEquipment = dungeons[selectedGame][i].name;
     dungeons[selectedGame][i].titleStripped = title.trim();
 }
 
-var trackerData = {};
+var trackerData = {"zelda3":{},"metroid3":{}};
 trackerData[selectedGame] = {
-  items: itemsInit[selectedGame],
+  items: itemsInit,
   dungeonchests: dungeonchestsInit[selectedGame],
   dungeonbeaten: dungeonbeatenInit[selectedGame],
   prizes: prizesInit[selectedGame],
@@ -47,40 +50,89 @@ trackerData[selectedGame] = {
   chestsopened: chestsopenedInit[selectedGame]
 };
 
+var bosses = 0;
+if(selectedGame == "zelda3") {
+	bosses = 11;
+} else if(selectedGame == "metroid3") {
+	bosses = 10;
+}
+for(var i = 0; i < bosses; i++) {
+	trackerData[selectedGame].items["boss" + i] = 1;
+}
+
 function setCookie(obj) {
     window.localStorage.setItem(roomid, JSON.stringify(obj));
 }
 
 function getCookie() {
     var str = window.localStorage.getItem(roomid);
-    if(!str) return {};
+    if(!str) {
+		var ret = {};
+		for(var gameName in gameNames) {
+			gameName = gameNames[gameName];
+			ret[gameName] = {};
+		}
+		return ret;
+	}
     return JSON.parse(str);
 }
 
-var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'mapState', 'chest', 'prize', 'medal', 'label', 'items'];
-var cookieDefault = {
-    ts:94,
-    map:1,
-    iZoom:100,
-    mOrien:0,
-    mapState:'open',
-    mPos:0,
-    chest:1,
-    prize:1,
-    medal:1,
-    label:1
+var cookiekeys = [
+	'ts',		// global
+	'itemValues',
+	'gameName',	// both games
+	'items',
+	'iZoom',
+	'map',
+	'mOrien',
+	'mPos',
+	'label',
+	'mapLogic',
+	'mPos',
+	'mZoom',
+	'mapState',	// zelda3-only
+	'chest',
+	'medal',
+	'prize',
+	'chestskin'	// metroid3-only
+];
+for(var gameName in gameNames) {
+	gameName = gameNames[gameName];
+	cookieDefault[gameName] = {
+		gameName: gameName,
+	    iZoom:100,
+	    label:true,
+	    map:1,
+	    mOrien:1
+	};
+}
+
+var defaults = {
+	zelda3: {
+		mapLogic: "glitchless",
+		mapState: "open",
+		mPos: "Side",
+		mZoom: 80,
+		chest: true,
+		medal: true,
+		prize: true
+	},
+	metroid3: {
+		chestskin: "lights",
+		mapLogic: "casualLogic",
+		mPos: "Above",
+		mZoom: 100
+	}
 };
-if(selectedGame == "zelda3") {
-	cookieDefault.mOrien = 1;
-	cookieDefault.mPos = 1;
-	cookieDefault.mZoom = 80;
-	cookieDefault.mapLogic = "glitchless";
+for(var gameName in gameNames) {
+	gameName = gameNames[gameName];
+	cookieDefault[gameName].items = defaultItemGrid[gameName];
+	for(var k in defaults[gameName]) {
+		if(cookieDefault[gameName][k] === undefined) {
+			cookieDefault[gameName][k] = defaults[gameName][k];
+		}
+	}
 }
-if(selectedGame == "metroid3") {
-	cookieDefault.mZoom = 100;
-	cookieDefault.mapLogic = "casualLogic";
-}
-cookieDefault.items = defaultItemGrid[selectedGame];
 
 var cookielock = false;
 function loadCookie() {
@@ -97,25 +149,27 @@ function setConfigObject(configobj) {
     //while(itemLayout.length > 0) {itemLayout.length.pop();}
     //itemLayout = configobj.items;
     //Array.prototype.push.apply(itemLayout, configobj.items);
-    window.vm.itemRows = configobj.items;
+    window.vm.itemRows = configobj[selectedGame].items;
 
-    document.getElementsByName('showmap')[0].checked = !!configobj.map;
+    document.getElementsByName('showmap')[0].checked = !!configobj[selectedGame].map;
     document.getElementsByName('showmap')[0].onchange();
-    document.getElementsByName('itemdivsize')[0].value = configobj.iZoom;
+    document.getElementsByName('itemdivsize')[0].value = configobj[selectedGame].iZoom;
     document.getElementsByName('itemdivsize')[0].onchange();
-    document.getElementsByName('mapdivsize')[0].value = configobj.mZoom;
+    document.getElementsByName('mapdivsize')[0].value = configobj[selectedGame].mZoom;
     document.getElementsByName('mapdivsize')[0].onchange();
 
-    document.getElementsByName('maporientation')[configobj.mOrien].click();
-    document.getElementsByName('mapposition')[configobj.mPos].click();
+    document.getElementsByName('maporientation')[configobj[selectedGame].mOrien].click();
 
-    document.getElementsByName('showchest')[0].checked = !!configobj.chest;
+    var mappositions = ["Above","Below","Side"];
+    document.getElementsByName('mapposition')[mappositions.indexOf(configobj[selectedGame].mPos)].click();
+
+    document.getElementsByName('showchest')[0].checked = !!configobj[selectedGame].chest;
     document.getElementsByName('showchest')[0].onchange();
-    document.getElementsByName('showcrystal')[0].checked = !!configobj.prize;
+    document.getElementsByName('showcrystal')[0].checked = !!configobj[selectedGame].prize;
     document.getElementsByName('showcrystal')[0].onchange();
-    document.getElementsByName('showmedallion')[0].checked = !!configobj.medal;
+    document.getElementsByName('showmedallion')[0].checked = !!configobj[selectedGame].medal;
     document.getElementsByName('showmedallion')[0].onchange();
-    document.getElementsByName('showlabel')[0].checked = !!configobj.label;
+    document.getElementsByName('showlabel')[0].checked = !!configobj[selectedGame].label;
     document.getElementsByName('showlabel')[0].onchange();
 }
 
@@ -147,35 +201,50 @@ function saveCookie() {
 
 function getConfigObjectFromCookie() {
     configobj = getCookie();
+    var globalKeys = ["ts","itemValues"];
 
     cookiekeys.forEach(function (key) {
-        if (configobj[key] === undefined) {
-            configobj[key] = cookieDefault[key];
-        }
+		for(var gameName in gameNames) {
+			gameName = gameNames[gameName];
+			if(configobj[gameName] && configobj[gameName][key] === undefined) {
+				if(globalKeys.indexOf(key) < 0) {
+					if(cookieDefault[gameName][key] !== undefined) {
+			            configobj[gameName][key] = cookieDefault[gameName][key];
+					}
+				} else {
+					configobj[key] = cookieDefault[key];
+				}
+			}
+		}
     });
+
     return configobj;
 }
 
 function getConfigObject() {
-    configobj = {};
     configobj.ts = (new Date()).getTime();
 
-    configobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
-    configobj.iZoom = document.getElementsByName('itemdivsize')[0].value;
-    configobj.mZoom = document.getElementsByName('mapdivsize')[0].value;
+    configobj[selectedGame] = {};
+    configobj[selectedGame].gameName = selectedGame;
 
-    configobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
-    configobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
-    configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
-    configobj.chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
+    configobj[selectedGame].map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
+    configobj[selectedGame].iZoom = document.getElementsByName('itemdivsize')[0].value;
+    configobj[selectedGame].mZoom = document.getElementsByName('mapdivsize')[0].value;
 
-    configobj.mapState = document.querySelector('input[name="mapstate"]:checked').value;
-    configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
-    configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
-    configobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
-    configobj.label = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
+    configobj[selectedGame].mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
+    configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value;
+    configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
+    configobj[selectedGame].chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
 
-    configobj.items = window.vm.itemRows;
+    configobj[selectedGame].mapState = document.querySelector('input[name="mapstate"]:checked').value;
+    configobj[selectedGame].chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
+    configobj[selectedGame].prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
+    configobj[selectedGame].medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
+    configobj[selectedGame].label = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
+
+    configobj[selectedGame].items = window.vm.itemRows;
+
+    configobj.itemValues = trackerData[selectedGame].items;
 
     return configobj;
 }
@@ -191,7 +260,7 @@ var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a> | <a
 // Highlights a chest location and shows the name as caption
 function highlight(x){
     document.getElementById(x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = selectGame + ' | ' + chests[selectedGame][x].name + ' ]';
+    document.getElementById("caption").innerHTML = selectGame + ' | ' + chests[selectedGame][x].titleEquipment + ' ]';
 }
 
 function unhighlight(x){
@@ -199,15 +268,165 @@ function unhighlight(x){
 //    document.getElementById("caption").innerHTML = selectGame;
 }
 
+function toggleImportant(x) {
+	var ele = document.getElementById(x);
+	var chest = chests[selectedGame][x];
+	if(chest.isImportant) {
+		chest.isImportant = false;
+		ele.classList.remove("important");
+	} else {
+		chest.isImportant = true;
+		ele.classList.add("important");
+	}
+}
+
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("highlighted") + ")";
-    document.getElementById("caption").innerHTML = selectGame + ' | ' + dungeons[selectedGame][x].name + ' ]';
+    document.getElementById("caption").innerHTML = selectGame + ' | ' + dungeons[selectedGame][x].titleEquipment + ' ]';
 }
 
 function unhighlightDungeon(x){
     document.getElementById("dungeon"+x).style.backgroundImage = "url(" + build_img_url("poi") + ")";
 //    document.getElementById("caption").innerHTML = selectGame;
+}
+
+var wikiRoomNames = {
+	 0: "Crateria Power Bomb Room",
+	 1: "The Final Missile",
+	 2: "Pit Room",
+	 3: "Crateria Super Room",
+	 4: "Bomb Torizo Room",
+	 5: "West Ocean",
+	 6: "West Ocean",
+	 7: "West Ocean",
+	 8: "The Moat",
+	 9: "Terminator Room",
+	10: "Gauntlet Energy Tank Room",
+	11: "Green Pirates Shaft",
+	12: "Green Pirates Shaft",
+	13: "Morph Ball Room",
+	14: "Morph Ball Room",
+	15: "Blue Brinstar Energy Tank Room",
+	16: "Blue Brinstar Energy Tank Room",
+	17: "First Missile Room",
+	18: "Billy Mays Room",
+	19: "Billy Mays Room",
+	20: "Green Brinstar Main Shaft",
+	21: "Early Supers Room",
+	22: "Early Supers Room",
+	23: "Brinstar Reserve Tank Room",
+	24: "Brinstar Reserve Tank Room",
+	25: "Brinstar Reserve Tank Room",
+	26: "Etecoon Energy Tank Room",
+	27: "Etecoon Super Room",
+	28: "Spore Spawn Super Room",
+	29: "Big Pink",
+	30: "Big Pink",
+	31: "Big Pink",
+	32: "Pink Brinstar Power Bomb Room",
+	33: "Green Hill Zone",
+	34: "Waterway Energy Tank Room",
+	35: "Hopper Energy Tank Room",
+	36: "X-Ray Scope Room",
+	37: "Beta Power Bomb Room",
+	38: "Alpha Power Bomb Room",
+	39: "Alpha Power Bomb Room",
+	40: "Spazer Room",
+	41: "Warehouse Energy Tank Room",
+	42: "Varia Suit Room",
+	43: "Warehouse Keyhunter Room",
+	44: "Crocomire's Room",
+	45: "Crocomire Escape",
+	46: "Post Crocomire Power Bomb Room",
+	47: "Post Crocomire Missile Room",
+	48: "Post Crocomire Jump Room",
+	49: "Grapple Beam Room",
+	50: "Cathedral",
+	51: "Norfair Reserve Tank Room",
+	52: "Norfair Reserve Tank Room",
+	53: "Green Bubbles Missile Room",
+	54: "Bubble Mountain",
+	55: "Speed Booster Hall",
+	56: "Speed Booster Room",
+	57: "Double Chamber",
+	58: "Wave Beam Room",
+	59: "Ice Beam Room",
+	60: "Crumble Shaft",
+	61: "Hi Jump Boots Room",
+	62: "Hi Jump Energy Tank Room",
+	63: "Hi Jump Energy Tank Room",
+	64: "Wrecked Ship Main Shaft",
+	65: "Bowling Alley",
+	66: "Bowling Alley",
+	67: "Wrecked Ship East Missile Room",
+	68: "Wrecked Ship Energy Tank Room",
+	69: "Wrecked Ship West Super Room",
+	70: "Wrecked Ship East Super Room",
+	71: "Gravity Suit Room",
+	72: "Watering Hole",
+	73: "Watering Hole",
+	74: "Pseudo Plasma Spark Room",
+	75: "Plasma Room",
+	76: "West Sand Hole",
+	77: "West Sand Hole",
+	78: "East Sand Hole",
+	79: "East Sand Hole",
+	80: "Aqueduct",
+	81: "Aqueduct",
+	82: "Spring Ball Room",
+	83: "The Precious Room",
+	84: "Botwoon Energy Tank Room",
+	85: "Space Jump Room",
+	86: "Main Street",
+	87: "Main Street",
+	88: "Mama Turtle Room",
+	89: "Mama Turtle Room",
+	90: "Golden Torizo's Room",
+	91: "Golden Torizo's Room",
+	92: "Screw Attack Room",
+	93: "Mickey Mouse Room",
+	94: "Lower Norfair Spring Ball Maze Room",
+	95: "Lower Norfair Escape Power Bomb Room",
+	96: "Wasteland",
+	97: "Three Musketeers' Room",
+	98: "Ridley Tank Room",
+	99: "Lower Norfair Fireflea Room",
+};
+
+function clickChest(e) {
+	var x = e.target.id;
+	switch(e.which) {
+		// LEFT
+		case 1:
+			if(e.ctrlKey) {
+				toggleImportant(x);
+			} else {
+				toggleChest(x);
+			}
+			break;
+
+		// MIDDLE
+		case 2:
+			e.preventDefault();
+			if(selectedGame == "metroid3" && wikiRoomNames[x]) {
+				window.open("http://wiki.supermetroid.run/" + wikiRoomNames[x]);
+				break;
+			} else {
+				console.log(x);
+				break;
+			}
+
+		// RIGHT
+		case 3:
+			// do nothing
+			break;
+
+		// DUNNO
+		default:
+			// do nothing
+			break;
+	}
 }
 
 function showChest(sender) {
@@ -242,13 +461,17 @@ function showLabel(sender) {
     saveCookie();
 }
 
-function setOrder(H) {
-    if (H) {
+function setOrder(mode) {
+    if (mode == 1) { // Below
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
-    }
-    else {
+        document.getElementById('layoutdiv').classList.remove('flexreverse');
+    } else if (mode == 2) { // Side
         document.getElementById('layoutdiv').classList.add('flexcontainer');
-    }
+        document.getElementById('layoutdiv').classList.remove('flexreverse');
+    } else if (mode == 0) { // Above
+        document.getElementById('layoutdiv').classList.add('flexcontainer');
+        document.getElementById('layoutdiv').classList.add('flexreverse');
+	}
     saveCookie();
 }
 
@@ -342,7 +565,7 @@ function showSettings(sender) {
         showTracker('mapdiv', document.getElementsByName('showmap')[0]);
         document.getElementById('itemconfig').style.display = 'none';
 
-        sender.innerHTML = '🔧';
+        sender.innerHTML = '&#128295;';
         saveCookie();
     } else {
         var x = document.getElementById("settings");
@@ -351,7 +574,7 @@ function showSettings(sender) {
             sender.innerHTML = 'X';
         } else {
             x.style.display = 'none';
-            sender.innerHTML = '🔧';
+            sender.innerHTML = '&#128295;';
         }
     }
 }
@@ -389,24 +612,26 @@ function refreshMapMedallion(d) {
 	if(selectedGame != "zelda3") { return; }
 
     // Update availability of dungeon boss AND chests
-    if(trackerData[selectedGame].dungeonbeaten[d])
-        document.getElementById("bossMap"+d).className = "mapspan boss opened";
-    else
-        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[selectedGame][d].isBeatable().getClassName();
+    if(dungeons[selectedGame][d]) {
+	    if(trackerData[selectedGame].dungeonbeaten[d])
+	        document.getElementById("bossMap"+d).className = "mapspan boss opened";
+	    else
+	        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[selectedGame][d].isBeatable().getClassName();
 
-    if(trackerData[selectedGame].dungeonchests[d] > 0)
-        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[selectedGame][d].canGetChest().getClassName();
-    // TRock medallion affects Mimic Cave
-    if(d === 9){
-        refreshChests();
-    }
-    // Change the mouseover text on the map
-    var dungeonName;
-    if(d === 8)
-        dungeonName = "Misery Mire";
-    else
-        dungeonName = "Turtle Rock";
-    dungeons[selectedGame][d].name = dungeonName + " " + mini("medallion" + trackerData[selectedGame].medallions[d]) + mini("lantern");
+	    if(trackerData[selectedGame].dungeonchests[d] > 0)
+	        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[selectedGame][d].canGetChest().getClassName();
+	    // TRock medallion affects Mimic Cave
+	    if(d === 9){
+	        refreshChests();
+	    }
+	    // Change the mouseover text on the map
+		    var dungeonName;
+	    if(d === 8)
+	        dungeonName = "Misery Mire";
+	    else
+	        dungeonName = "Turtle Rock";
+	    dungeons[selectedGame][d].name = dungeonName + " " + mini("medallion" + trackerData[selectedGame].medallions[d]) + mini("lantern");
+	}
 }
 
 function refreshChests() {
@@ -487,56 +712,55 @@ function itemConfigClick (sender) {
     }
 }
 
-function populateMapdiv() {
+function populateMapdiv(useGame = "zelda3") {
     var mapdiv = document.getElementById('mapdiv');
 
     // Initialize all chests on the map
-    for(k=0; k<chests[selectedGame].length; k++){
+    for(k=0; k<chests[useGame].length; k++){
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.style.color = 'black';
         s.id = k;
         var d = document.createElement('div');
-        if(chests[selectedGame][k]) {
-		  chests[selectedGame][k].isImportant = false;
-		  s.title = chests[selectedGame][k].titleStripped;
-          s.onclick = new Function('toggleChest('+k+')');
+        if(chests[useGame][k]) {
+		  s.title = chests[useGame][k].titleStripped + ((useGame == "metroid3" && (typeof wikiRoomNames[k] != "undefined")) ? "\n" + '"' + wikiRoomNames[k] + '"' : "");
+          s.onmousedown = function(e) { clickChest(e); };
           s.onmouseover = new Function('highlight('+k+')');
           s.onmouseout = new Function('unhighlight('+k+')');
-          s.style.left = chests[selectedGame][k].x;
-          s.style.top = chests[selectedGame][k].y;
+          s.style.left = chests[useGame][k].x;
+          s.style.top = chests[useGame][k].y;
         } else {
           console.log("Can't find Chest #" + k);
         }
-        if(trackerData[selectedGame].chestsopened[k])
+        if(trackerData[useGame] && trackerData[useGame].chestsopened[k])
             s.className = "mapspan chest opened";
         else
-            s.className = "mapspan chest " + chests[selectedGame][k].isAvailable().getClassName();
+            s.className = "mapspan chest " + chests[useGame][k].isAvailable().getClassName();
         mapdiv.appendChild(s);
     }
 
     // Dungeon bosses & chests
-    for(k=0; k<dungeons[selectedGame].length; k++){
+    for(k=0; k<dungeons[useGame].length; k++){
         var s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
         s.id = 'bossMap' + k;
-        s.title = dungeons[selectedGame][k].titleStripped;
+        s.title = dungeons[useGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
-        s.style.left = dungeons[selectedGame][k].x;
-        s.style.top = dungeons[selectedGame][k].y;
-        s.className = "mapspan boss " + dungeons[selectedGame][k].isBeatable().getClassName();
+        s.style.left = dungeons[useGame][k].x;
+        s.style.top = dungeons[useGame][k].y;
+        s.className = "mapspan boss " + dungeons[useGame][k].isBeatable().getClassName();
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
         s.style.backgroundImage = 'url(' + build_img_url("poi") + ')';
         s.id = 'dungeon' + k;
-        s.title = dungeons[selectedGame][k].titleStripped;
+        s.title = dungeons[useGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
-        s.style.left = dungeons[selectedGame][k].x;
-        s.style.top = dungeons[selectedGame][k].y;
-        s.className = "mapspan dungeon " + dungeons[selectedGame][k].canGetChest().getClassName();
+        s.style.left = dungeons[useGame][k].x;
+        s.style.top = dungeons[useGame][k].y;
+        s.className = "mapspan dungeon " + dungeons[useGame][k].canGetChest().getClassName();
         mapdiv.appendChild(s);
     }
 }
@@ -558,6 +782,7 @@ function populateItemconfig() {
         var rowitem = document.createElement('td');
         rowitem.className = 'corner editcell';
         rowitem.id = key;
+        rowitem.title = fix_itemlabel(key);
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if((typeof trackerData[selectedGame].items[key]) === "boolean"){
@@ -569,7 +794,7 @@ function populateItemconfig() {
 		else {
             rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
         }
-        if(key.indexOf("boss") === 0){
+        if(key.indexOf("boss") === 0 && dungeons[selectedGame][key.substring(4)]){
             rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
             rowitem.innerText = dungeons[selectedGame][key.substring(4)].label;
         }
@@ -602,9 +827,9 @@ function useTourneyConfig() {
 
 
 function initTracker() {
-    //createItemTracker(document.getElementById('itemdiv'));
+	var useGame = arguments[0];
     document.body.classList.add(selectedGame);
-    populateMapdiv();
+    populateMapdiv(useGame);
     populateItemconfig();
 
     if(! document.querySelector('input[name="maplogic"]:checked')) {
@@ -628,12 +853,44 @@ function initTracker() {
     var game = games[selectedGame];
     document.title = game + " Item Tracker";
     document.getElementById("caption").innerHTML = selectGame + ' ]';
+
+	window.addEventListener('storage', function(event) {
+		var newValues = JSON.parse(event.newValue);
+		for(var k in Object.keys(newValues.itemValues)) {
+			k = Object.keys(newValues.itemValues)[k];
+			if(k.indexOf("boss") == -1 && k.indexOf("chest") == -1) {
+				for(var loadGameName in gameNames) {
+					loadGameName = gameNames[loadGameName];
+					if(trackerData[loadGameName] && trackerData[loadGameName].items) {
+						if(k in trackerData[loadGameName].items) {
+							for(var setGameName in gameNames) {
+								setGameName = gameNames[setGameName];
+								if((setGameName in trackerData) && ("items" in trackerData[setGameName])) {
+									if(k in trackerData[setGameName].items) {
+										trackerData[setGameName].items[k] = newValues.itemValues[k];
+									} else {
+										newValue = {k: newValues.itemValues[k]};
+										trackerData[setGameName].items = extend(trackerData[setGameName].items,newValue);
+									}
+								}
+							}
+						} else {
+							newValue = {k: newValues.itemValues[k]};
+							trackerData[loadGameName].items = extend(trackerData[loadGameName].items,newValue);
+						}
+					}
+				}
+			}
+		}
+		refreshMap();
+	});
 }
 
 function updateAll() {
     if(trackerData[selectedGame].items && trackerData[selectedGame].dungeonchests && trackerData[selectedGame].dungeonbeaten && trackerData[selectedGame].prizes && trackerData[selectedGame].medallions && trackerData[selectedGame].chestsopened) {
       vm.displayVueMap = true;
       refreshMap();
+      saveCookie();
     }
 }
 
@@ -661,7 +918,7 @@ Vue.component('tracker-table', {
   methods: {
     itemFor: function(itemName) {
       if(!this.trackerData || !this.trackerData.items) return null;
-      return this.trackerData.items[itemName];
+      return this.trackerData[selectedGame].items[itemName];
     },
     addRow: function(e) {
       vm.itemRows.push(['blank']);
@@ -694,43 +951,13 @@ Vue.component('tracker-cell', {
       return this.itemName.substring(4);
     },
     dungeonLabel: function() {
-      if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showlabels) {
+      if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showlabels && dungeons[selectedGame][this.bossNum]) {
         return dungeons[selectedGame][this.bossNum].label;
       }
       return null;
     },
     itemLabel: function() {
-		var ret = this.itemName;
-		var names = {
-			"firerod":		"Fire Rod",
-			"icerod":		"Ice Rod",
-			"moonpearl":	"Moon Pearl",
-
-			"etank":		"Energy Tank",
-			"hijump":		"Hi-Jump Boots",
-			"morph":		"Morph Ball",
-			"powerbomb":	"Power Bomb",
-			"rtank":		"Reserve Tank",
-			"screw":		"Screw Attack",
-			"space":		"Space Jump",
-			"speed":		"Speed Booster",
-			"springball":	"Spring Ball",
-			"supermissile": "Super Missile",
-			"xray":			"X-Ray Scope",
-		};
-		var beams = ["charge","ice","wave","plasma","grappling"];
-		if(names[ret]) {
-			ret = names[ret];
-		}
-		if(beams.indexOf(ret) > -1) {
-			ret += " Beam";
-		}
-		if(ret == "varia" || ret == "gravity") {
-			ret += " Suit";
-		}
-		ret = ret.ucfirst();
-
-		return ret;
+		return fix_itemlabel(this.itemName);
 	},
     textCounter: function() {
       var itemValue = this.trackerData[selectedGame].items[this.itemName];
@@ -760,18 +987,21 @@ Vue.component('tracker-cell', {
       return this.trackerOptions[selectedGame].editmode || itemValue;
     },
     chestImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
       if(this.bossNum && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showchests) {
         return "url(" + build_img_url("chest" + this.trackerData[selectedGame].dungeonchests[this.bossNum]) + ")";
       }
       return null;
     },
     prizeImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
       if(this.bossNum && this.bossNum !== "10" && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showprizes) {
         return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
       }
       return null;
     },
     medallionImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
       if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].showmedals) {
         return "url(" + build_img_url("medallion" + this.trackerData[selectedGame].medallions[this.bossNum]) + ")";
       }

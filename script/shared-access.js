@@ -63,11 +63,32 @@ Object.defineProperty(Availability.prototype, 'majorGlitches', {
     }
 });
 
+function getHas(item) {
+	var val = -1;
+	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
+		val = trackerData[selectedGame].items[item];
+	} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
+		val = trackerData.zelda3.items[item];
+	} else if(trackerData.metroid3 && trackerData.metroid3.items && trackerData.metroid3.items[item]) {
+		val = trackerData.metroid3.items[item];
+	}
+	return val;
+}
 function has(item, amount = -1) {
 	var ret = false;
-	if(trackerData[selectedGame].items[item]) {
+	var val = -1;
+	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
 		ret = true;
-		if(amount > -1 && trackerData[selectedGame].items[item] < amount) {
+		val = trackerData[selectedGame].items[item];
+	} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
+		ret = true;
+		val = trackerData.zelda3.items[item];
+	} else if(trackerData.metroid3 && trackerData.metroid3.items && trackerData.metroid3.items[item]) {
+		ret = true;
+		val = trackerData.metroid3.items[item];
+	}
+	if(ret) {
+		if(amount > -1 && val < amount) {
 			ret = false;
 		}
 	}
@@ -304,7 +325,7 @@ function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Atta
 	|| has("screw");
 }
 function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
-	return (canFlySM() || trackerData.metroid3.items.hijump || canDashSM())
+	return (canFlySM() || canHiJump() || canDashSM())
 		&& canIbj()
 			|| (canOpenYellowDoors() && has("powerbomb",2))
 			|| has("screw")
@@ -313,7 +334,8 @@ function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
 function canCrystalFlash() {	// Refill HP
 	return has("missile",2)
 		&& has("supermissile",2)
-		&& has("powerbomb",3);
+		&& has("powerbomb",3)
+		&& canMorph();
 }
 function canDashSM() {	// SM: Speed Booster
 	return has("speed");
@@ -357,6 +379,9 @@ function canOpenYellowDoors() {
 function canPassBombPassages() {	// Not sure why Power Bombs; Infinite Bomb Jump
 	return canUsePowerBombs() || canIbj();
 }
+function canSpringBall() {
+	return canMorph() && has("springball");
+}
 function canSwimSM() {	// SM: Gravity Suit
 	return has("gravity");
 }
@@ -367,7 +392,7 @@ function canUsePowerBombs() {
 	return canMorph() && has("powerbomb",1);
 }
 function hasEnergyReserves(amount) {	// Total Energy Tanks (including Reserve Tanks)
-	return ((trackerData.metroid3.items.etank + trackerData.metroid3.items.rtank) >= amount);
+	return getHas("etank") + getHas("rtank") >= amount;
 }
 function heatProof() {	// Varia Suit
 	return has("varia");

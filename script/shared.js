@@ -25,30 +25,86 @@ function extend(obj, src) {
 }
 
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
+var gameNames = ["zelda3","metroid3"];
 var chests = {};
 var dungeons = {};
+var cookieDefault = {};
 var regionNames = {};
-chests[selectedGame] = [];
-dungeons[selectedGame] = [];
+for(var gameName in gameNames) {
+	gameName = gameNames[gameName];
+	chests[gameName] = [];
+	dungeons[gameName] = [];
+	cookieDefault[gameName] = {};
+}
 
-var roomid = selectedGame;//location.pathname.replace(/\/$/, "").split("/").pop().toLowerCase();
+var roomid = "smalttpr";
 var authAttempted = false;
 
 function destroyFirebase() {
+}
+
+function fix_itemlabel(item) {
+	var ret = item;
+	var names = {
+		"firerod":		"Fire Rod",
+		"icerod":		"Ice Rod",
+		"moonpearl":	"Moon Pearl",
+		"mpupgrade":	"Magic Upgrade",
+		"etank":		"Energy Tank",
+		"hijump":		"Hi-Jump Boots",
+		"morph":		"Morph Ball",
+		"powerbomb":	"Power Bomb",
+		"rtank":		"Reserve Tank",
+		"screw":		"Screw Attack",
+		"space":		"Space Jump",
+		"speed":		"Speed Booster",
+		"springball":	"Spring Ball",
+		"supermissile": "Super Missile",
+		"xray":			"X-Ray Scope",
+	};
+	if(names[ret]) {
+		ret = names[ret];
+	}
+
+	if((ret.indexOf("boss") === 0) || (ret.indexOf("chest") === 0)) {
+		var start = ret.indexOf("boss") === 0 ? 4 : 5;
+		ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
+	}
+	var beams = ["charge","ice","wave","plasma","grappling"];
+	if(beams.indexOf(ret) > -1) {
+		ret += " Beam";
+	}
+	if(ret == "varia" || ret == "gravity") {
+		ret += " Suit";
+	}
+	if(ret.indexOf("heart") === 0) {
+		ret = ret.replace("heart","Heart ");
+		ret = ret.split(" ");
+		ret[1] = ret[1].ucfirst();
+		ret = ret.join(" ");
+	}
+	ret = ret.ucfirst();
+	return ret;
 }
 
 function build_img_url(item) {
     var misc = ["blank","highlighted","poi"];
     var useGame = selectedGame;
 
-    var zelda3items = ["agahnim","agahnim0","agahnim1","boots","flippers","flute","glove","glove0","glove1","glove2","hammer","hookshot","lantern","mirror","moonpearl"];
-    var metroid3items = ["bombs","grappling","gravity","hijump","ice","morph","powerbomb","speed","supermissile","varia"];
+    var zelda3items = gameItems.zelda3;
+    var metroid3items = gameItems.metroid3;
 
-    if(zelda3items.indexOf(item) > -1) {
-		useGame = "zelda3";
-	} else if(metroid3items.indexOf(item) > -1) {
-		useGame = "metroid3";
-	}
+    if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
+        if(item == "bomb") {
+            useGame = "zelda3";
+        } else if(item == "bombs") {
+            useGame = "metroid3";
+        } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
+            useGame = "zelda3";
+        } else if(metroid3items.indexOf(item) > -1 || metroid3items.indexOf(item.substr(0,item.length-1)) > -1) {
+            useGame = "metroid3";
+        }
+    }
 
     var globalReplaceItem = {
 		bomb:		"bomb1",
@@ -111,6 +167,6 @@ function mini(item) {
 	return '<img src="' + build_img_url(item) + '" title="' + title + '" class="mini" />';
 }
 
-function init(callback) {
-    callback();   
+function init(callback,arguments) {
+    callback(arguments);
 }

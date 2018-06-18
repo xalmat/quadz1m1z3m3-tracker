@@ -12,6 +12,9 @@
     </head>
 
     <body>
+        <div width='100%' id="caption">
+            &nbsp;
+        </div>
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
                 <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
@@ -19,21 +22,18 @@
             <div id='mapdiv' class='mapdiv'>
             </div>
         </div>
-        <div width='100%' id="caption">
-            &nbsp;
-        </div>
 
         <!-- Setting panel-->
 
-        <button id='settingsbutton' type='button' onclick='showSettings(this)'>🔧</button>
+        <button id='settingsbutton' type='button' onclick='showSettings(this)'>&#128295;</button>
         <fieldset id='settings' class='settings'>
             <legend>Settings</legend>
             <fieldset>
                 <legend>Item Tracker</legend>
                 <button type="button" onclick="EditMode()">Edit Mode</button><br />
+                Size<input type="range" name='itemdivsize' value='100' max='200' min='1' onchange="setZoom('itemdiv', this)">
+                <span id='itemdivsize'>100%</span><br />
                 <div class="zelda3-option">
-	                Size<input type="range" name='itemdivsize' value='100' max='200' min='1' onchange="setZoom('itemdiv', this)">
-	                <span id='itemdivsize'>100%</span><br />
 	                <fieldset>
 	                    <legend>Dungeon Display</legend>
 	                    <input type="checkbox" name="showchest" checked='checked' onchange="showChest(this)">Chests
@@ -49,19 +49,24 @@
                 <div class="zelda3-option">
 	                Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)">
 	                <span id='mapdivsize'>100%</span><br />
-	                Position:
-	                <input type='radio' name='mapposition' value='Below' checked='checked' onclick="setOrder(true)">Below
-	                <input type='radio' name='mapposition' value='Side' onclick="setOrder(false)">Side<br />
 	                Orientation:
 	                <input type='radio' name='maporientation' value='Horizontal' checked='checked' onclick="setMapOrientation(false)">Horizontal
-	                <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br />
+	                <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical
 	            </div>
+                <fieldset>
+	                <legend>Position</legend>
+	                <input type='radio' name='mapposition' value='Above' onclick="setOrder(0)">Above
+	                <span class="zelda3-option">
+		                <input type='radio' name='mapposition' value='Below' checked='checked' onclick="setOrder(1)">Below
+		                <input type='radio' name='mapposition' value='Side' onclick="setOrder(2)">Side
+		            </span>
+	            </fieldset>
                 <fieldset class="zelda3-option">
                     <legend>ALttP Options</legend>
                     <!-- Zelda 3 -->
                     <fieldset>
                     	<legend>State</legend>
-                    	<input type='radio' name='mapstate' value='standard' onclick='setState("standard")'>Standard<br />
+                    	<input type='radio' name='mapstate' value='standard' onclick='setState("standard")'>Standard
                     	<input type='radio' name='mapstate' value='open' checked='checked' onclick='setState("open")'>Open
                     </fieldset>
                     <fieldset>
