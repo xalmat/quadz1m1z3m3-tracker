@@ -330,18 +330,15 @@ chests.zelda3[13] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canLiftRocks() && has("hammer")) {
-            if (canEnterWestDeathMountain('glitchless', true) && has("moonpearl")) {
-                if (canExtendMagic() && (canInvul())) {
+        if (canLiftRocks() && has("hammer") && has("moonpearl")) {
+            if (canEnterWestDeathMountain('glitchless', true)) {
+				if (canEnterWestDeathMountain('glitchless', false) && canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('glitchless', false)) {
                         availability.glitchless = 'available';
                     }
                     else {
                         availability.glitchless = 'glitchavailable';
                     }
-                }
-                else {
-                    availability.glitchless = 'glitchpossible';
                 }
             }
             if (canEnterWestDeathMountain('owGlitches', true) && has("moonpearl")) {
@@ -1012,6 +1009,7 @@ chests.zelda3[34] = {
     }
 };
 
+witchChest = 35;
 chests.zelda3[35] = {
     name: "Witch: Give her " + mini("mushroom"),
     x: "40.8%",
@@ -1770,7 +1768,7 @@ chests.zelda3[59] = {
             if (has("powder")) {
                 availability.glitchless = 'available';
             }
-            else if (has("somaria") && has("mushroom")) {
+            else if (has("somaria") && has("mushroom") && !trackerData.zelda3.chestsopened[witchChest]) {
                 availability.glitchless = 'glitchavailable';
             }
         }

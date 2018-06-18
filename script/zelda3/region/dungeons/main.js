@@ -933,17 +933,17 @@ dungeons.zelda3[7] = {
     },
     isBeatable: function () {
         const availability = new Availability();
-        if (canMeltThings() && canLiftRocks()) {
-            if (this.canEnter('glitchless', false, false) && has("hammer")) {
+        if (canMeltThings() && canLiftRocks() && has("hammer")) {
+            if (this.canEnter('glitchless', false, false)) {
                 if (canGrapple() && has("somaria")) {
                     availability.glitchless = 'available';
                 }
                 else {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'glitchavailable';
                 }
             }
             else if (this.canEnter('glitchless', false, true)) {
-                availability.glitchless = 'glitchavailable';
+                availability.glitchless = 'glitchpossible';
             }
             if (this.canEnter('owGlitches', false, false) && has("hammer")) {
                 if (canGrapple() && has("somaria")) {
@@ -1526,19 +1526,14 @@ dungeons.zelda3[9] = {
                     availability.glitchless = 'available';
                 }
                 else {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'glitchavailable';
                 }
             }
             else if (this.mayEnter('glitchless', false)) {
                 availability.glitchless = 'possible';
             }
             else if (this.canEnter('glitchless', true)) {
-                if (canInvul() || canBlockLasers()) {
-                    availability.glitchless = 'glitchavailable';
-                }
-                else {
-                    availability.glitchless = 'glitchpossible';
-                }
+				availability.glitchless = 'glitchavailable';
             }
             else if (this.mayEnter('glitchless', true)) {
                 availability.glitchless = 'glitchpossible';
