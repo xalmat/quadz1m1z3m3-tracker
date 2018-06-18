@@ -5,10 +5,10 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
 	this.locations = new LocationCollection([
 		new Location("Chest","Superbunny Cave - Top","92.8%","14.7%",regionName),
 		new Location("Chest","Superbunny Cave - Bottom","92.8%","14.7%",regionName),
-		new Location("Chest","Hookshot Cave - Top Right","91.6%","3.4%",regionName),
-		new Location("Chest","Hookshot Cave - Top Left","91.6%","3.4%",regionName),
-		new Location("Chest","Hookshot Cave - Bottom Left","91.6%","3.4%",regionName),
-		new Location("Chest","Hookshot Cave - Bottom Right","91.6%","8.6%",regionName)
+		new Location("Chest","Hookshot Cave - Top Right","91.6%","3.4%",regionName,{equipment:"%%hookshot%%"}),
+		new Location("Chest","Hookshot Cave - Top Left","91.6%","3.4%",regionName,{equipment:"%%hookshot%%"}),
+		new Location("Chest","Hookshot Cave - Bottom Left","91.6%","3.4%",regionName,{equipment:"%%hookshot%%"}),
+		new Location("Chest","Hookshot Cave - Bottom Right","91.6%","8.6%",regionName,{equipment:"%%hookshot%%/%%boots%%"})
 	],this);
   }
 
