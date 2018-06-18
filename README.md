@@ -3,6 +3,7 @@
 * Known Bugs
   * Doesn't keep inventory if you switch views
     * To counteract this, open one tab for each game **then** start modifying settings
+    * Reloading either page will clear your inventory
 
 This is an item tracker for LTTP: Randomizer. Use it at http://smalttpr.mymm1.com/tracker (hosted on my site, usually running a beta version) or https://miketrethewey.github.io/smalttpr-tracker/ (hosted here on Github, usually running a stable version)
 
