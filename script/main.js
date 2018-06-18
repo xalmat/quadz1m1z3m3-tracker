@@ -66,35 +66,73 @@ function setCookie(obj) {
 
 function getCookie() {
     var str = window.localStorage.getItem(roomid);
-    if(!str) return {};
+    if(!str) {
+		var ret = {};
+		for(var gameName in gameNames) {
+			gameName = gameNames[gameName];
+			ret[gameName] = {};
+		}
+		return ret;
+	}
     return JSON.parse(str);
 }
 
-var cookiekeys = ['gameName', 'ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'mapState', 'chest', 'prize', 'medal', 'label', 'items'];
-var cookieDefault = {
-	gameName: selectedGame,
-    iZoom:100,
-    map:1,
-    mOrien:0,
-    mPos:0,
-    mapState:"open",
-    mOrien:1,
-    chest:true,
-    prize:true,
-    medal:true,
-    label:true
+var cookiekeys = [
+	'ts',		// global
+	'itemValues',
+	'gameName',	// both games
+	'items',
+	'iZoom',
+	'map',
+	'mOrien',
+	'mPos',
+	'label',
+	'mapLogic',
+	'mPos',
+	'mZoom',
+	'mapState',	// zelda3-only
+	'chest',
+	'medal',
+	'prize',
+	'chestskin'	// metroid3-only
+];
+for(var gameName in gameNames) {
+	gameName = gameNames[gameName];
+	cookieDefault[gameName] = {
+		gameName: gameName,
+	    iZoom:100,
+	    label:true,
+	    map:1,
+	    mOrien:1
+	};
+}
+
+var defaults = {
+	zelda3: {
+		mapLogic: "glitchless",
+		mapState: "open",
+		mPos: "Side",
+		mZoom: 80,
+		chest: true,
+		medal: true,
+		prize: true
+	},
+	metroid3: {
+		chestskin: "lights",
+		mapLogic: "casualLogic",
+		mPos: "Above",
+		mZoom: 100
+	}
 };
-if(selectedGame == "zelda3") {
-	cookieDefault.mapLogic = "glitchless";
-	cookieDefault.mPos = "Side";
-	cookieDefault.mZoom = 80;
+for(var gameName in gameNames) {
+	gameName = gameNames[gameName];
+	cookieDefault[gameName].items = defaultItemGrid[gameName];
+	for(var k in defaults[gameName]) {
+		if(cookieDefault[gameName][k] === undefined) {
+			cookieDefault[gameName][k] = defaults[gameName][k];
+		}
+	}
 }
-if(selectedGame == "metroid3") {
-	cookieDefault.mapLogic = "casualLogic";
-	cookieDefault.mPos = "Above";
-	cookieDefault.mZoom = 100;
-}
-cookieDefault.items = defaultItemGrid[selectedGame];
 
 var cookielock = false;
 function loadCookie() {
@@ -111,27 +149,27 @@ function setConfigObject(configobj) {
     //while(itemLayout.length > 0) {itemLayout.length.pop();}
     //itemLayout = configobj.items;
     //Array.prototype.push.apply(itemLayout, configobj.items);
-    window.vm.itemRows = configobj.items;
+    window.vm.itemRows = configobj[selectedGame].items;
 
-    document.getElementsByName('showmap')[0].checked = !!configobj.map;
+    document.getElementsByName('showmap')[0].checked = !!configobj[selectedGame].map;
     document.getElementsByName('showmap')[0].onchange();
-    document.getElementsByName('itemdivsize')[0].value = configobj.iZoom;
+    document.getElementsByName('itemdivsize')[0].value = configobj[selectedGame].iZoom;
     document.getElementsByName('itemdivsize')[0].onchange();
-    document.getElementsByName('mapdivsize')[0].value = selectedGame == "zelda3" ? configobj.mZoom : 100;
+    document.getElementsByName('mapdivsize')[0].value = configobj[selectedGame].mZoom;
     document.getElementsByName('mapdivsize')[0].onchange();
 
-    document.getElementsByName('maporientation')[configobj.mOrien].click();
+    document.getElementsByName('maporientation')[configobj[selectedGame].mOrien].click();
 
     var mappositions = ["Above","Below","Side"];
-    document.getElementsByName('mapposition')[mappositions.indexOf(configobj.mPos)].click();
+    document.getElementsByName('mapposition')[mappositions.indexOf(configobj[selectedGame].mPos)].click();
 
-    document.getElementsByName('showchest')[0].checked = !!configobj.chest;
+    document.getElementsByName('showchest')[0].checked = !!configobj[selectedGame].chest;
     document.getElementsByName('showchest')[0].onchange();
-    document.getElementsByName('showcrystal')[0].checked = !!configobj.prize;
+    document.getElementsByName('showcrystal')[0].checked = !!configobj[selectedGame].prize;
     document.getElementsByName('showcrystal')[0].onchange();
-    document.getElementsByName('showmedallion')[0].checked = !!configobj.medal;
+    document.getElementsByName('showmedallion')[0].checked = !!configobj[selectedGame].medal;
     document.getElementsByName('showmedallion')[0].onchange();
-    document.getElementsByName('showlabel')[0].checked = !!configobj.label;
+    document.getElementsByName('showlabel')[0].checked = !!configobj[selectedGame].label;
     document.getElementsByName('showlabel')[0].onchange();
 }
 
@@ -163,36 +201,48 @@ function saveCookie() {
 
 function getConfigObjectFromCookie() {
     configobj = getCookie();
+    var globalKeys = ["ts","itemValues"];
 
     cookiekeys.forEach(function (key) {
-        if (configobj[key] === undefined) {
-            configobj[key] = cookieDefault[key];
-        }
+		for(var gameName in gameNames) {
+			gameName = gameNames[gameName];
+			if(configobj[gameName] && configobj[gameName][key] === undefined) {
+				if(globalKeys.indexOf(key) < 0) {
+					if(cookieDefault[gameName][key] !== undefined) {
+			            configobj[gameName][key] = cookieDefault[gameName][key];
+					}
+				} else {
+					configobj[key] = cookieDefault[key];
+				}
+			}
+		}
     });
+
     return configobj;
 }
 
 function getConfigObject() {
-    configobj = {};
-    configobj.gameName = selectedGame;
     configobj.ts = (new Date()).getTime();
 
-    configobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
-    configobj.iZoom = document.getElementsByName('itemdivsize')[0].value;
-    configobj.mZoom = document.getElementsByName('mapdivsize')[0].value;
+    configobj[selectedGame] = {};
+    configobj[selectedGame].gameName = selectedGame;
 
-    configobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
-    configobj.mPos = document.querySelector('input[name="mapposition"]:checked').value;
-    configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
-    configobj.chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
+    configobj[selectedGame].map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
+    configobj[selectedGame].iZoom = document.getElementsByName('itemdivsize')[0].value;
+    configobj[selectedGame].mZoom = document.getElementsByName('mapdivsize')[0].value;
 
-    configobj.mapState = document.querySelector('input[name="mapstate"]:checked').value;
-    configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
-    configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
-    configobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
-    configobj.label = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
+    configobj[selectedGame].mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
+    configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value;
+    configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
+    configobj[selectedGame].chestSkin = document.querySelector('input[name="chestskin"]:checked').value;
 
-    configobj.items = window.vm.itemRows;
+    configobj[selectedGame].mapState = document.querySelector('input[name="mapstate"]:checked').value;
+    configobj[selectedGame].chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
+    configobj[selectedGame].prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
+    configobj[selectedGame].medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
+    configobj[selectedGame].label = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
+
+    configobj[selectedGame].items = window.vm.itemRows;
 
     configobj.itemValues = trackerData[selectedGame].items;
 
@@ -806,10 +856,10 @@ function initTracker() {
 
 	window.addEventListener('storage', function(event) {
 		var newValues = JSON.parse(event.newValue);
+		console.log(newValues);
 		for(var k in Object.keys(newValues.itemValues)) {
 			k = Object.keys(newValues.itemValues)[k];
 			if(k.indexOf("boss") == -1 && k.indexOf("chest") == -1) {
-				var gameNames = ["zelda3","metroid3"];
 				for(var loadGameName in gameNames) {
 					loadGameName = gameNames[loadGameName];
 					if(trackerData[loadGameName] && trackerData[loadGameName].items) {

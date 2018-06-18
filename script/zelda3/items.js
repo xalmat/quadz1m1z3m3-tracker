@@ -3,8 +3,8 @@ defaultItemGrid.zelda3 = [
 		"tunic",
 		"bow",
 		"boomerang",
-		"bomb",
 		"hookshot",
+		"bomb",
 		"powder",
 	],
 	[

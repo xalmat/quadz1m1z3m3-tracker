@@ -25,11 +25,17 @@ function extend(obj, src) {
 }
 
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
-var chests = {zelda3:[],metroid3:[]};
-var dungeons = {zelda3:[],metroid3:[]};
+var gameNames = ["zelda3","metroid3"];
+var chests = {};
+var dungeons = {};
+var cookieDefault = {};
 var regionNames = {};
-chests[selectedGame] = [];
-dungeons[selectedGame] = [];
+for(var gameName in gameNames) {
+	gameName = gameNames[gameName];
+	chests[gameName] = [];
+	dungeons[gameName] = [];
+	cookieDefault[gameName] = {};
+}
 
 var roomid = "smalttpr";
 var authAttempted = false;
