@@ -36,7 +36,7 @@ class DarkWorldNorthEast extends DarkWorld {
 	this.canComplete.glitchless = function() {
 		return ((! has("requireBetterBow")) || canShootArrows(2))	// FIXME: Silvers required in Swordless
 			&& (
-				(has("swordless") && has("hammer"))
+				(has("swordless") && has("hammer"))					// FIXME: Swordless
 					|| ((! has("requireBetterSword")) &&			// FIXME: No swords in Swordless
 						(has("sword",2) && (has("lantern") || (has("firerod") && canExtendMagic(3)))))
 					|| (has("sword",3) && (has("lantern") || (has("firerod") && canExtendMagic(2))))

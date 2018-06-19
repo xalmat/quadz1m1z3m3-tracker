@@ -77,6 +77,16 @@ function getHas(item) {
 function has(item, amount = -1) {
 	var ret = false;
 	var val = -1;
+
+	var globalReplace = {
+		lamp: "lantern",
+		pearl: "moonpearl"
+	};
+
+	if(item in globalReplace) {
+		item = globalReplace[item];
+	}
+
 	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
 		ret = true;
 		val = trackerData[selectedGame].items[item];
@@ -99,6 +109,14 @@ function has(item, amount = -1) {
 // ALttP Ability Functions
 function canDash() {
 	return has("boots");
+}
+
+function canActivateTablets() {
+	return has("book") && (has("sword",2) || (has("swordless") && has("hammer")));
+}
+
+function canActivateMedallions() {
+	return has("sword") || (has("swordless") && has("hammer"));
 }
 
 function canGrapple() {
@@ -130,7 +148,7 @@ function canLightTorches() {
 }
 
 function canMeltThings() {
-    return has("firerod") || (has("bombos") && has("sword",1));
+    return has("firerod") || (has("bombos") && canActivateMedallions());
 }
 
 function canFly() {
@@ -318,7 +336,7 @@ function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
 
 // app/Support/ItemCollection.php
 // SM Ability functions
-function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Attack
+function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Attack; Can pass through barriers that must be destroyed
 	return (canMorph()
 		&& (canUseMorphBombs()
 			|| canUsePowerBombs()))
@@ -337,6 +355,9 @@ function canCrystalFlash() {	// Refill HP
 		&& has("powerbomb",3)
 		&& canMorph();
 }
+function canCwj() {	// FIXME: Not Casual
+	return true;
+}
 function canDashSM() {	// SM: Speed Booster
 	return has("speed");
 }
@@ -348,6 +369,9 @@ function canFlySM() {	// SM: Infinite Bomb Jump or Space Jump
 }
 function canGrappleSM() {	// SM: Grapple Beam
 	return has("grappling");
+}
+function canGravityJump() {	// FIXME: Not Casual
+	return canSwimSM();
 }
 function canHellRun() {	// Varia or enough health
 	return heatProof() || hasEnergyReserves(5);
@@ -376,11 +400,17 @@ function canOpenRedDoors() {
 function canOpenYellowDoors() {
 	return canUsePowerBombs();
 }
-function canPassBombPassages() {	// Not sure why Power Bombs; Infinite Bomb Jump
+function canPassBombPassages() {	// Power Bombs || Infinite Bomb Jump
 	return canUsePowerBombs() || canIbj();
+}
+function canShortCharge() {	// FIXME: Not Casual
+	return canDashSM();
 }
 function canSpringBall() {
 	return canMorph() && has("springball");
+}
+function canSpringBallJump() {	// FIXME: Not Casual
+	return has("springball");
 }
 function canSwimSM() {	// SM: Gravity Suit
 	return has("gravity");
@@ -389,7 +419,13 @@ function canUseMorphBombs() {
 	return canMorph() && has("bombs");
 }
 function canUsePowerBombs() {
-	return canMorph() && has("powerbomb",1);
+	return canMorph() && has("powerbomb");
+}
+function canWalljump() {
+	return true;
+}
+function canYba($amount = 1) {	// FIXME: Not Casual
+	return has("bottle",$amount);
 }
 function hasEnergyReserves(amount) {	// Total Energy Tanks (including Reserve Tanks)
 	return getHas("etank") + getHas("rtank") >= amount;
