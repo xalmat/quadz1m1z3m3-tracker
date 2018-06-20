@@ -102,6 +102,16 @@ function has(item, amount = -1) {
 			ret = false;
 		}
 	}
+
+	if(
+		item.indexOf("key") > -1 ||		// FIXME: Keys for Dungeons
+		item.indexOf("crystal") > -1 ||	// FIXME: Crystals for GT & Pyramid Fairy
+		item.indexOf("pendant") > -1 ||	// FIXME: Pendants for Saha & Pedestal
+		item.indexOf("medallion") > -1	// FIXME: Medallions for Mire & TR
+	) {
+		ret = true;
+	}
+
 	return ret;
 }
 
@@ -112,11 +122,26 @@ function canDash() {
 }
 
 function canActivateTablets() {
-	return has("book") && (has("sword",2) || (has("swordless") && has("hammer")));
+	return has("book") && hasSword(2);
 }
 
 function canActivateMedallions() {
-	return has("sword") || (has("swordless") && has("hammer"));
+	return hasSword() || has("swords.swordless");	// FIXME: Swordless
+}
+
+function hasSword(min_level = 1) {
+	switch(min_level) {
+		case 4:
+			return has("sword",4);
+		case 3:
+			return has("sword",3);
+		case 2:
+			return has("sword",2);
+		case 1:
+			return has("sword",1);
+		default:
+			return has("sword") || (has("swords.swordless") && has("hammer"));
+	}
 }
 
 function canGrapple() {
@@ -171,6 +196,24 @@ function canExtendMagic() {
     return has("mpupgrade",1) || has("bottle",1);
 }
 
+function canKillMostThings(enemies = 5) {
+	return (hasSword()
+		&& (has("swords.uncle") || has("swords.swordless")))		// FIXME: Swords Uncle/Swordless
+		|| has("somaria")
+		|| (has("bombs") && enemies < 6)
+		|| (has("byrna") && (enemies < 6 || canExtendMagic()))
+		|| canShootArrows()
+		|| has("hammer")
+		|| has("firerod");
+}
+
+function canGetGoodBee() {
+	return has("net")
+		&& has("bottle")
+		&& (canDash()
+			|| (hasSword() && has("quake")));
+}
+
 function glitchedLinkInDarkWorld() {
     return has("moonpearl") || has("bottle",1);
 }
@@ -178,8 +221,8 @@ function glitchedLinkInDarkWorld() {
 function canGoBeatAgahnim1(allowOutOfLogicGlitches) {
     return !has("agahnim")
             && (has("lantern") || allowOutOfLogicGlitches)
-            && (has("cape") || has("sword",2))
-            && has("sword",1);
+            && (has("cape") || hasSword(2))
+            && hasSword();
 }
 
 function canEnterNorthEastDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches) {

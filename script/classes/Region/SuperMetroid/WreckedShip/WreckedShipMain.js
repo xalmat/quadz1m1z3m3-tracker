@@ -11,7 +11,7 @@ class WreckedShipMain extends WreckedShip {
 		new Location("","Super Missile (Wrecked Ship left)",853,133,regionName),
 		new Location("","Right Super, Wrecked Ship",961,133,regionName),
 		new Location("Chozo","Gravity Suit",763,61,regionName),
-		new Location("Event","Phantoon",925,169,regionName)
+		new Location("Event","Phantoon",925,160,regionName)
 	],this);
   }
 

@@ -8,7 +8,7 @@ class CrateriaCentral extends Crateria {
 		new Location("","Missile (Crateria bottom)",331,331,regionName),
 		new Location("","Super Missile (Crateria)",403,169,regionName),
 		new Location("Chozo","Bombs",421,115,regionName),
-		new Location("Event","Torizo",439,105,regionName)
+		new Location("Event","Torizo",439,106,regionName)
 	],this);
   }
 

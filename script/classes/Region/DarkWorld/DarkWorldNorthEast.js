@@ -34,12 +34,12 @@ class DarkWorldNorthEast extends DarkWorld {
 	}
 
 	this.canComplete.glitchless = function() {
-		return ((! has("requireBetterBow")) || canShootArrows(2))	// FIXME: Silvers required in Swordless
+		return ((! has("config.requireBetterBow")) || canShootArrows(2))	// FIXME: Silvers required in Swordless
 			&& (
-				(has("swordless") && has("hammer"))					// FIXME: Swordless
-					|| ((! has("requireBetterSword")) &&			// FIXME: No swords in Swordless
-						(has("sword",2) && (has("lantern") || (has("firerod") && canExtendMagic(3)))))
-					|| (has("sword",3) && (has("lantern") || (has("firerod") && canExtendMagic(2))))
+				(hasSword())					// FIXME: Swordless
+					|| ((! has("config.requireBetterSword")) &&			// FIXME: No swords in Swordless
+						(hasSword(2) && (has("lantern") || (has("firerod") && canExtendMagic(3)))))
+					|| (hasSword(3) && (has("lantern") || (has("firerod") && canExtendMagic(2))))
 				);
 
 	}

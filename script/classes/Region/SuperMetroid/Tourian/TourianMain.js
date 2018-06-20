@@ -3,7 +3,7 @@ class TourianMain extends Tourian {
 	super(name,subname);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([
-		new Location("Event","Mother Brain",133,349,regionName)
+		new Location("Event","Mother Brain",133,340,regionName)
 	],this);
   }
 

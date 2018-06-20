@@ -782,7 +782,7 @@ chests.zelda3[30] = {
         const availability = new Availability();
         if (canRead() && (has("mirror") || (has("hammer") && canGrapple()))) {
             if (canEnterWestDeathMountain('glitchless', false)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.glitchless = 'available';
                 }
                 else {
@@ -790,7 +790,7 @@ chests.zelda3[30] = {
                 }
             }
             else if (canEnterWestDeathMountain('glitchless', true)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.glitchless = 'glitchavailable';
                 }
                 else {
@@ -800,7 +800,7 @@ chests.zelda3[30] = {
         }
         if (canRead()) {
             if (canEnterWestDeathMountain('owGlitches', false) && dungeons.zelda3[2].canEnter('owGlitches', false, false)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.owGlitches = 'available';
                 }
                 else {
@@ -808,7 +808,7 @@ chests.zelda3[30] = {
                 }
             }
             else if (canEnterWestDeathMountain('owGlitches', true) && dungeons.zelda3[2].canEnter('owGlitches', false, true)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else {
@@ -818,7 +818,7 @@ chests.zelda3[30] = {
         }
         if (canRead()) {
             if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].canEnter('majorGlitches', false, false)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.majorGlitches = 'available';
                 }
                 else {
@@ -829,7 +829,7 @@ chests.zelda3[30] = {
                 availability.majorGlitches = 'possible';
             }
             else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].canEnter('majorGlitches', false, true)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else {
@@ -839,10 +839,10 @@ chests.zelda3[30] = {
             else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', false, true)) {
                 availability.majorGlitches = 'glitchpossible';
             }
-            else if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].mayEnter('majorGlitches', true, false) && has("sword",2)) {
+            else if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].mayEnter('majorGlitches', true, false) && hasSword(2)) {
                 availability.majorGlitches = 'agahnim';
             }
-            else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', true, true) && has("sword",2)) {
+            else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', true, true) && hasSword(2)) {
                 availability.majorGlitches = 'glitchagahnim';
             }
         }
@@ -858,14 +858,14 @@ chests.zelda3[31] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canRead() && has("mirror") && canEnterSouthDarkWorld('glitchless', false, false)) {
-            if (has("sword",2)) {
+            if (hasSword(2)) {
                 availability.glitchless = 'available';
             }
             else {
                 availability.glitchless = 'possible';
             }
         }
-        else if (canRead() && has("mirror") && has("sword",2)) {
+        else if (canRead() && has("mirror") && hasSword(2)) {
             if (canEnterSouthDarkWorld('glitchless', true, false)) {
                 availability.glitchless = 'agahnim';
             }
@@ -874,14 +874,14 @@ chests.zelda3[31] = {
             }
         }
         if (canRead() && (canDash() || (has("mirror") && canEnterSouthDarkWorld('owGlitches', false, false)))) {
-            if (has("sword",2)) {
+            if (hasSword(2)) {
                 availability.owGlitches = 'available';
             }
             else {
                 availability.owGlitches = 'possible';
             }
         }
-        else if (canRead() && has("mirror") && has("sword",2)) {
+        else if (canRead() && has("mirror") && hasSword(2)) {
             if (canEnterSouthDarkWorld('owGlitches', true, false)) {
                 availability.owGlitches = 'agahnim';
             }
@@ -891,14 +891,14 @@ chests.zelda3[31] = {
         }
         if (canRead()
                 && (canDash() || (has("mirror") && canEnterSouthDarkWorld('majorGlitches', false, false)))) {
-            if (has("sword",2)) {
+            if (hasSword(2)) {
                 availability.majorGlitches = 'available';
             }
             else {
                 availability.majorGlitches = 'possible';
             }
         }
-        else if (canRead() && has("mirror") && has("sword",2)) {
+        else if (canRead() && has("mirror") && hasSword(2)) {
             if (canEnterSouthDarkWorld('majorGlitches', true, false)) {
                 availability.majorGlitches = 'agahnim';
             }
