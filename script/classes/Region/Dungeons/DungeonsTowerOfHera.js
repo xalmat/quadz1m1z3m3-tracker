@@ -1,15 +1,17 @@
 class DungeonsTowerOfHera extends Dungeons {
-  constructor(name = "Dungeons", subname = "TowerOfHera") {
-	super(name,subname);
+  constructor(name = "Dungeons", subname = "TowerOfHera", buildLocations = true) {
+	super(name,subname,buildLocations);
 	let regionName = name + subname;
-	this.locations = new LocationCollection([
-		new Location("SpawnableChest","Tower of Hera - Big Key Chest","","",regionName),
-		new Location("Standing","Tower of Hera - Basement Cage","","",regionName),
-		new Location("Chest","Tower of Hera - Map Chest","","",regionName),
-		new Location("Chest","Tower of Hera - Compass Chest","","",regionName),
-		new Location("BigChest","Tower of Hera - Big Chest","","",regionName),
-		new Location("Event","Tower of Hera - Moldorm","31.0%","5.5%",regionName)
-	],this);
+	if(this.buildLocations) {
+		this.locations = new LocationCollection([
+			new Location("SpawnableChest","Tower of Hera - Big Key Chest","","",regionName),
+			new Location("Standing","Tower of Hera - Basement Cage","","",regionName),
+			new Location("Chest","Tower of Hera - Map Chest","","",regionName),
+			new Location("Chest","Tower of Hera - Compass Chest","","",regionName),
+			new Location("BigChest","Tower of Hera - Big Chest","","",regionName),
+			new Location("Event","Tower of Hera - Moldorm","31.0%","5.5%",regionName)
+		],this);
+	}
 
 	this.boss = new BossMoldorm();
   }
@@ -17,20 +19,22 @@ class DungeonsTowerOfHera extends Dungeons {
   initNoMajorGlitches() {
 	let boss = this.boss;
 
-	this.locations["Tower of Hera - Big Key Chest"].glitchless = function() {
-		return canLightTorches() && has("key");
-	}
-	this.locations["Tower of Hera - Compass Chest"].glitchless =
-	this.locations["Tower of Hera - Big Chest"].glitchless = function() {
-		return has("bigkey");
-	}
-	this.locations["Tower of Hera - Moldorm"].glitchless = function() {
-		return has("key") && has("bigkey")
-			&& boss.canBeat();
+	if(this.buildLocations) {
+		this.locations["Tower of Hera - Big Key Chest"].glitchless = function() {
+			return canLightTorches() && has("key");
+		}
+		this.locations["Tower of Hera - Compass Chest"].glitchless =
+		this.locations["Tower of Hera - Big Chest"].glitchless = function() {
+			return has("bigkey");
+		}
+		this.locations["Tower of Hera - Moldorm"].glitchless = function() {
+			return has("key") && has("bigkey")
+				&& boss.canBeat();
+		}
 	}
 
 	this.canEnter.glitchless = function() {
-		let wdm = new DeathMountainWest();
+		let wdm = new DeathMountainWest("","",false);
 		wdm.initNoMajorGlitches();
 
 		return (has("mirror") || (canGrapple() && has("hammer")))
@@ -45,7 +49,7 @@ class DungeonsTowerOfHera extends Dungeons {
 	  this.initNoMajorGlitches();
 
 	  this.canEnter.owglitches = function() {
-		  let wdm = new DeathMountainWest();
+		  let wdm = new DeathMountainWest("","",false);
 		  wdm.initOverworldGlitches();
 
 		  return (canDash()
@@ -59,10 +63,10 @@ class DungeonsTowerOfHera extends Dungeons {
 
 	  this.initOverworldGlitches();
 
-	  let wdm = new DeathMountainWest();
+	  let wdm = new DeathMountainWest("","",false);
 	  wdm.initMajorGlitches();
 
-	  let mm = new DungeonsMiseryMire();
+	  let mm = new DungeonsMiseryMire("","",false);
 	  mm.initMajorGlitches();
 
 	  let main = function() {
@@ -76,21 +80,23 @@ class DungeonsTowerOfHera extends Dungeons {
 	  	&& mm.canEnter.majorglitches());
 	  };
 
-	  this.locations["Tower of Hera - Big Key Chest"].majorglitches = function() {
-		  return canLightTorches() && has("key");
-	  }
-	  this.locations["Tower of Hera - Compass Chest"].majorglitches = function() {
-		  return (main() && has("bigkey"))
-		  	|| mire();
-	  }
-	  this.locations["Tower of Hera - Big Chest"].majorglitches = function() {
-		  return (main() && has("bigkey"))
-		  	|| (mire() && (has("bigkey") || has("bigkey")));
-	  }
-	  this.locations["Tower of Hera - Moldorm"].majorglitches = function() {
-		  return ((main() && has("bigkey"))
-		  		|| mire())
-		  	&& boss.canBeat();
+	  if(this.buildLocations) {
+		  this.locations["Tower of Hera - Big Key Chest"].majorglitches = function() {
+			  return canLightTorches() && has("key");
+		  }
+		  this.locations["Tower of Hera - Compass Chest"].majorglitches = function() {
+			  return (main() && has("bigkey"))
+			  	|| mire();
+		  }
+		  this.locations["Tower of Hera - Big Chest"].majorglitches = function() {
+			  return (main() && has("bigkey"))
+			  	|| (mire() && (has("bigkey") || has("bigkey")));
+		  }
+		  this.locations["Tower of Hera - Moldorm"].majorglitches = function() {
+			  return ((main() && has("bigkey"))
+			  		|| mire())
+			  	&& boss.canBeat();
+		  }
 	  }
 
 	  this.canEnter.majorglitches = function() {
@@ -98,7 +104,7 @@ class DungeonsTowerOfHera extends Dungeons {
 		  	|| mire());
 	  }
 	  this.canComplete.majorglitches = function() {
-		  let sp = new DungeonsSwampPalace();
+		  let sp = new DungeonsSwampPalace("","",false);
 		  sp.initMajorGlitches();
 
 		  return (((main() && has("bigkey"))

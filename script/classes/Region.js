@@ -1,7 +1,8 @@
 class Region {
-  constructor(name,subname) {
+  constructor(name,subname,buildLocations = true) {
     Region.prototype.name = name;
     Region.prototype.subname = subname;
+    Region.prototype.buildLocations = buildLocations;
     this.canEnter = {
 		glitchless: function() { return true; },
 		owglitches: function() { return this.glitchless(); },
