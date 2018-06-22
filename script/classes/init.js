@@ -13,7 +13,7 @@ function initClasses(useGame) {
 					var regionObject = eval("new " + regionClassName + "()");
 
 					if(useGame == "zelda3") {
-						regionObject.initNoMajorGlitches();
+						regionObject.initMajorGlitches();
 					}
 					if(useGame == "metroid3") {
 						regionObject.initTournament();
@@ -31,13 +31,16 @@ function initClasses(useGame) {
 
 						var d = document.createElement("div");
 						d.innerHTML = location.name;
+						if(location.type == "Event") {
+							d.innerHTML = location.name.split('-')[0];
+						}
 						var title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
 						var props = {
 							name: location.name,
 							x: location.x,
 							y: location.y,
 							titleEquipment: title,
-							titleStripped: location.name,
+							titleStripped: title,
 							type: location.type,
 							region: location.region,
 						};
@@ -69,8 +72,8 @@ function initClasses(useGame) {
 							regionObjects[regionClassName] = regionObject;
 						}
 
-						if(location.type == "Event") {
-							var label = location.name.split(' ');
+						if(location.type == "Event") {							// Boss/Dungeon
+							var label = location.name.split('-')[0].split(' ');
 							label = label.map(x => {
 								var ret = x;
 								var smallWords = ["of"];
@@ -80,6 +83,7 @@ function initClasses(useGame) {
 								ret = ret.substring(0,1);
 								return ret;
 							});
+
 							var dungeon = {
 								label: label.join(''),
 								isBeatable: function() {
@@ -107,18 +111,18 @@ function initClasses(useGame) {
 
 							dungeons[gameName].push(dungeon);
 							boss++;
-						} else {
+						} else {												// Point of Interest
 							var chest = {
 								isImportant: false,
 								isOpened: false
 							};
 
-							if(location.type == "Portal") {
+							if(location.type == "Portal") {						// Portal
 								chest.isAvailable = function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3") {
 										var tmp = "portal portal-metroid3";
-										if(regionObjects[this.region].canEnter.glitchless() || this.canAccess.glitchless()) {
+										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = tmp + " active";
 											availability.owglitches = tmp + " active";
 											availability.majorglitches = tmp + " active";
@@ -140,7 +144,7 @@ function initClasses(useGame) {
 									}
 									return availability;
 								};
-							} else {
+							} else {											// Chest
 								chest.isSpicy = location.spicy;
 								chest.isAvailable = function() {
 									const availability = new Availability();

@@ -30,10 +30,10 @@ class DungeonsGanonsTower extends Dungeons {
 		new Location("Chest","Ganon's Tower - Mini Helmasaur Room - Right","","",regionName),
 		new Location("Chest","Ganon's Tower - Pre-Moldorm Chest","","",regionName),
 		new Location("Chest","Ganon's Tower - Moldorm Chest","","",regionName),
-		new Location("Event","ArmosKnights2","","",regionName),	// FIXME: Basement Refight, not Enemizer-compatible
-		new Location("Event","Lanmolas2","","",regionName),		// FIXME: Ascent Refight, not Enemizer-compatible
-		new Location("Event","Moldorm2","","",regionName),		// FIXME: Top Refight, not Enemizer-compatible
-		new Location("Event","Agahnim2","","",regionName)
+		new Location("Boss","Ganon's Tower - Armos Knights2","","",regionName),	// FIXME: Basement Refight, not Enemizer-compatible
+		new Location("Boss","Ganon's Tower - Lanmolas2","","",regionName),		// FIXME: Ascent Refight, not Enemizer-compatible
+		new Location("Boss","Ganon's Tower - Moldorm2","","",regionName),		// FIXME: Top Refight, not Enemizer-compatible
+		new Location("Event","Ganon's Tower - Agahnim2","77.0%","5.5%",regionName)
 	],this);
 
 	this.boss = new BossAgahnim();
@@ -43,6 +43,11 @@ class DungeonsGanonsTower extends Dungeons {
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+	let boss_bottom = this.boss_bottom;
+	let boss_middle = this.boss_middle;
+	let boss_top = this.boss_top;
+
 	this.locations["Ganon's Tower - Bob's Torch"].glitchless = function() {
 		return canDash();
 	}
@@ -90,25 +95,25 @@ class DungeonsGanonsTower extends Dungeons {
 		return ((has("hammer") && canGrapple())
 			|| (has("firerod") && has("somaria")))
 			&& has("key",3)
-			&& this.bottom_boss.canBeat();
+			&& boss_bottom.canBeat();
 	}
 	this.locations["Ganon's Tower - Mini Helmasaur Room - Left"].glitchless =
 	this.locations["Ganon's Tower - Mini Helmasaur Room - Right"].glitchless = function() {
 		return canShootArrows() && canLightTorches()
 			&& has("bigkey") && has("key",3)
-			&& this.middle_boss.canBeat();
+			&& boss_middle.canBeat();
 	}
 	this.locations["Ganon's Tower - Pre-Moldorm Chest"].glitchless = function() {
 		return canShootArrows() && canLightTorches()
 			&& has("bigkey") && has("key",3)
-			&& this.middle_boss.canBeat();
+			&& boss_middle.canBeat();
 	}
 	this.locations["Ganon's Tower - Moldorm Chest"].glitchless = function() {
 		return canGrapple()
 			&& canShootArrows() && canLightTorches()
 			&& has("bigkey") && has("key",4)
-			&& this.middle_boss.canBeat()
-			&& this.top_boss.canBeat();
+			&& boss_middle.canBeat()
+			&& boss_top.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -128,7 +133,7 @@ class DungeonsGanonsTower extends Dungeons {
 	}
 	this.canComplete.glitchless = function() {
 		return this.locations["Ganon's Tower - Moldorm's Chest"].glitchless()
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
   }
 

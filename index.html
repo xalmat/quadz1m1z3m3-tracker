@@ -31,7 +31,7 @@
             <legend>Settings</legend>
             <fieldset>
                 <legend>Item Tracker</legend>
-                <button type="button" onclick="EditMode()">Edit Mode</button><br />
+                <button type="button" onclick="EditMode()" style="float:right;">Edit Mode</button>
                 Size<input type="range" name='itemdivsize' value='100' max='200' min='1' onchange="setZoom('itemdiv', this)">
                 <span id='itemdivsize'>100%</span><br />
                 <div class="zelda3-option">
@@ -39,14 +39,14 @@
 	                    <legend>Dungeon Display</legend>
 	                    <input type="checkbox" name="showchest" checked='checked' onchange="showChest(this)">Chests
 	                    <input type="checkbox" name="showcrystal" checked='checked' onchange="showCrystal(this)">Prizes
-	                    <input type="checkbox" name="showmedallion" checked='checked' onchange="showMedallion(this)">Medals<br />
-	                    <input type="checkbox" name="showlabel" checked='checked' onchange="showLabel(this)">Dungeon Labels
+	                    <input type="checkbox" name="showmedallion" checked='checked' onchange="showMedallion(this)">Medals
+	                    <input type="checkbox" name="showlabel" checked='checked' onchange="showLabel(this)">Labels
 	                </fieldset>
 	            </div>
             </fieldset>
             <fieldset>
                 <legend>Map Tracker</legend>
-                <input type="checkbox" name="showmap" checked='checked' onchange="showTracker('mapdiv', this)">Enabled<br />
+                <span style="float:right;"><input type="checkbox" name="showmap" checked='checked' onchange="showTracker('mapdiv', this)">Enabled</span>
                 <div class="zelda3-option">
 	                Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)">
 	                <span id='mapdivsize'>100%</span><br />
@@ -66,15 +66,16 @@
                     <legend>ALttP Options</legend>
                     <!-- Zelda 3 -->
                     <fieldset>
-                    	<legend>State</legend>
+                    	<legend>Game State</legend>
                     	<input type='radio' name='mapstate' value='standard' onclick='setState("standard")'>Standard
                     	<input type='radio' name='mapstate' value='open' checked='checked' onclick='setState("open")'>Open
+                    	<input type='checkbox' name='swordless' onclick='setSwords(this.checked)'>Swordless
                     </fieldset>
                     <fieldset>
-						<legend>Logic</legend>
-						<input type='radio' name='maplogic' value='glitchless' onclick='setLogic("glitchless")'>Glitchless<br />
-						<input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld Glitches<br />
-						<input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major Glitches
+						<legend>Glitch Logic</legend>
+						<input type='radio' name='maplogic' value='glitchless' onclick='setLogic("glitchless")'>NMG
+						<input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld
+						<input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major
                     </fieldset>
                 </fieldset>
                 <fieldset class="metroid3-option">
@@ -82,20 +83,20 @@
 					<!-- Metroid 3 -->
                     <fieldset>
 						<legend>Logic</legend>
-	                    <input type='radio' name='maplogic' value='casualLogic' onclick='setLogic("casualLogic")'>Casual Logic<br />
+	                    <input type='radio' name='maplogic' value='casualLogic' onclick='setLogic("casualLogic")'>Casual Logic
 						<input type='radio' name='maplogic' value='tourneyLogic' onclick='setLogic("tourneyLogic")'>Tournament Logic
                     </fieldset>
 	                <fieldset>
 	                    <legend>Item Skin</legend>
 						<!-- Metroid 3 -->
-	                    <input type='radio' name='chestskin' value='lights' checked='checked' onclick='setSMChestSkin("icons-itemball-lights")'>Lights<br />
-	                    <input type='radio' name='chestskin' value='nolights' onclick='setSMChestSkin("icons-itemball-nolights")'>No Lights<br />
+	                    <input type='radio' name='chestskin' value='lights' checked='checked' onclick='setSMChestSkin("icons-itemball-lights")'>Lights
+	                    <input type='radio' name='chestskin' value='nolights' onclick='setSMChestSkin("icons-itemball-nolights")'>No Lights
 	                    <input type='radio' name='chestskin' value='nothing' onclick='setSMChestSkin("icons-nothing")'>Nothing
 	                </fieldset>
                 </fieldset>
                 <fieldset>
                     <legend>Chest Legend</legend>
-                    <table border="0" cellspacing="0">
+                    <table border="0" cellspacing="0" class="legend" style="width:100%;">
                         <tr>
                             <th class="available">Available</th>
                             <th class="glitchavailable">Glitch Available</th>
@@ -140,7 +141,7 @@
         <script type="text/x-template" id="tracker-cell">
             <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative', backgroundSize: '64px 64px', imageRendering: 'pixelated' }"
              :title="itemLabel"
-             :class="isActive ? 'true' : 'false'" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
+             :class="[itemLabel.toLowerCase(), isActive ? 'true':'false']" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
                 <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
                 <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>
                 <span v-if="chestImage" @click.stop="clickChestBack" @contextmenu.prevent.stop="clickChestForward" :class="'chestImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage, backgroundSize: '32px 32px' }"></span>

@@ -3,14 +3,16 @@ class DarkWorldMire extends DarkWorld {
 	super(name,subname);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([
-		new Location("Chest","Mire Shed - Left","51.7%","79.5%",regionName),
-		new Location("Chest","Mire Shed - Right","51.7%","79.5%",regionName),
+//		new Location("Chest","Mire Shed - Left","51.7%","79.5%",regionName),
+//		new Location("Chest","Mire Shed - Right","51.7%","79.5%",regionName),
+		new Location("Chest","Mire Shed","51.7%","79.5%",regionName)
 	],this);
   }
 
   initNoMajorGlitches() {
-	this.locations["Mire Shed - Left"].glitchless =
-	this.locations["Mire Shed - Right"].glitchless = function() {
+//	this.locations["Mire Shed - Left"].glitchless =
+//	this.locations["Mire Shed - Right"].glitchless = function() {
+	this.locations["Mire Shed"].glitchless = function() {
 		return has("moonpearl");
 	}
 
@@ -20,13 +22,16 @@ class DarkWorldMire extends DarkWorld {
   }
 
   initOverworldGlitches() {
-	this.locations["Mire Shed - Left"].owglitches =
-	this.locations["Mire Shed - Right"] = function() {
+	this.initNoMajorGlitches();
+
+//	this.locations["Mire Shed - Left"].owglitches =
+//	this.locations["Mire Shed - Right"].owglitches = function() {
+	this.locations["Mire Shed"].owglitches = function() {
 		return has("moonpearl") || has("mirror");
 	}
 
 	this.canEnter.owglitches = function() {
-		var sdw = new DarkWorldSouth();
+		let sdw = new DarkWorldSouth();
 		sdw.initOverworldGlitches();
 
 		return ((canLiftDarkRocks() && (canFly() || canDash()))
@@ -36,16 +41,18 @@ class DarkWorldMire extends DarkWorld {
   }
 
   initMajorGlitches() {
-	var wdm = new DeathMountainWest();
+	this.initOverworldGlitches();
+
+	let wdm = new DeathMountainWest();
 	wdm.initMajorGlitches();
-	var sdw = new DarkWorldSouth();
+	let sdw = new DarkWorldSouth();
 	sdw.initMajorGlitches();
 
 	this.canEnter.majorglitches = function() {
 		return ((has("bottle") && wdm.canEnter.majorglitches())
 			|| (canLiftDarkRocks() && (canFly() || has("bottle") || canDash()))
 			|| glitchedLinkInDarkWorld() && canDash()
-				&& sdw.canEnter.majorglitches()));
+				&& sdw.canEnter.majorglitches());
 	}
   }
 }

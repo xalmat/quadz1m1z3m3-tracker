@@ -9,13 +9,15 @@ class DungeonsSkullWoods extends Dungeons {
 		new Location("Chest","Skull Woods - Bridge Room","","",regionName),
 		new Location("Chest","Skull Woods - Pot Prison","","",regionName),
 		new Location("Chest","Skull Woods - Pinball Room","","",regionName),
-		new Location("Boss","Skull Woods - Mothula","","",regionName)
+		new Location("Event","Skull Woods - Mothula","53.3%","5.4%",regionName)
 	],this);
 
 	this.boss = new BossMothula();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Skull Woods - Big Chest"].glitchless = function() {
 		return has("bigkey");
 	}
@@ -27,7 +29,7 @@ class DungeonsSkullWoods extends Dungeons {
 			&& has("firerod")
 			&& (has("swords.swordless") || hasSword())						// FIXME: Swordless
 			&& has("key",3)
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {

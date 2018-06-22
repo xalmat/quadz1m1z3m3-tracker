@@ -8,9 +8,11 @@ class LightWorld extends Hyrule {
 }
 class DarkWorldDeathMountain extends DarkWorld {
 }
+class ZebesPortals extends Hyrule {
+}
 class Dungeons extends Hyrule {
 	constructor(name,subname) {
 		super(name,subname);
-		this.boss = new Boss();
+		Dungeons.prototype.boss = new Boss();
 	}
 }

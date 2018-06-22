@@ -8,13 +8,15 @@ class DungeonsEasternPalace extends Dungeons {
 		new Location("Chest","Eastern Palace - Cannonball Chest","","",regionName),
 		new Location("Chest","Eastern Palace - Big Key Chest","","",regionName),
 		new Location("Chest","Eastern Palace - Map Chest","","",regionName),
-		new Location("Boss","Eastern Palace - Armos Knights","","",regionName)
+		new Location("Event","Eastern Palace - Armos Knights","46.8%","38.8%",regionName,{equipment:"%%lantern%%"})
 	],this);
 
 	this.boss = new BossArmosKnights();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Eastern Palace - Big Chest"].glitchless = function() {
 		return has("bigkey");
 	}
@@ -24,7 +26,7 @@ class DungeonsEasternPalace extends Dungeons {
 	this.locations["Eastern Palace - Armos Knights"].glitchless = function() {
 		return canShootArrows()
 			&& has("lantern") && has("bigkey")
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {

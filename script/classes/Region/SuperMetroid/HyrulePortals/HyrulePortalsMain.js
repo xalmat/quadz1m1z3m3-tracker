@@ -12,22 +12,22 @@ class HyrulePortalsMain extends HyrulePortals {
 
   initCasual() {
 	this.locations["ALttPR Portal: Link's Fortune Teller"].casualLogic = function() {
-		var cc = new CrateriaCentral();
+		let cc = new CrateriaCentral();
 		cc.initCasual();
 		return (cc.canEnter.casualLogic() && canAccessLightWorldPortal()) || canAccessCrateriaPortal();
 	}
 	this.locations["ALttPR Portal: Death Mountain Cave"].casualLogic = function() {
-		var nw = new NorfairWest();
+		let nw = new NorfairWest();
 		nw.initCasual();
 		return (nw.canEnter.casualLogic() && canAccessDeathMountainPortal()) || canAccessNorfairPortal();
 	}
 	this.locations["ALttPR Portal: Dark World Ice Cave Right"].casualLogic = function() {
-		var mi = new MaridiaInner();
+		let mi = new MaridiaInner();
 		mi.initCasual();
 		return (mi.canEnter.casualLogic() && canAccessDarkWorldPortal()) || canAccessMaridiaPortal();
 	}
 	this.locations["ALttPR Portal: Misery Mire East 'Entrance'"].casualLogic = function() {
-		var lnw = new LowerNorfairWest();
+		let lnw = new LowerNorfairWest();
 		lnw.initCasual();
 		return (lnw.canEnter.casualLogic() && canAccessMiseryMirePortal()) || canAccessLowerNorfairPortal();
 	}

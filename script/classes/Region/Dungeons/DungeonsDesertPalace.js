@@ -8,13 +8,15 @@ class DungeonsDesertPalace extends Dungeons {
 		new Location("Dash","Desert Palace - Torch","","",regionName),
 		new Location("Chest","Desert Palace - Big Key Chest","","",regionName),
 		new Location("Chest","Desert Palace - Compass Chest","","",regionName),
-		new Location("Boss","Desert Palace - Lanmolas","","",regionName)
+		new Location("Event","Desert Palace - Lanmolas","3.8%","78.4%",regionName)
 	],this);
 
 	this.boss = new BossLanmolas();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Desert Palace - Big Chest"].glitchless = function() {
 		return has("bigkey");
 	}
@@ -28,7 +30,7 @@ class DungeonsDesertPalace extends Dungeons {
 	this.locations["Desert Palace - Lanmolas"].glitchless = function() {
 		return canLiftRocks() && canLightTorches()
 			&& has("bigkey") && has("key")
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -43,6 +45,8 @@ class DungeonsDesertPalace extends Dungeons {
   }
 
   initOverworldGlitches() {
+    let boss = this.boss;
+
 	this.initNoMajorGlitches();
 
 	this.locations["Desert Palace - Lanmolas"].owglitches = function() {

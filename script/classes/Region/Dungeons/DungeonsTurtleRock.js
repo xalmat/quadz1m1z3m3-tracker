@@ -14,13 +14,15 @@ class DungeonsTurtleRock extends Dungeons {
 		new Location("Chest","Turtle Rock - Eye Bridge - Bottom Right","","",regionName),
 		new Location("Chest","Turtle Rock - Eye Bridge - Top Left","","",regionName),
 		new Location("Chest","Turtle Rock - Eye Bridge - Top Right","","",regionName),
-		new Location("Boss","Turtle Rock - Trinexx","","",regionName)
+		new Location("Event","Turtle Rock - Trinexx","96.9%","7.0%",regionName,{equipment:"%%medallion0%%%%lantern%%"})
 	],this);
 
 	this.boss = new BossTrinexx();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Turtle Rock - Chain Chomps"].glitchless = function() {
 		return has("key");
 	}
@@ -46,14 +48,14 @@ class DungeonsTurtleRock extends Dungeons {
 	this.locations["Turtle Rock - Eye Bridge - Top Left"].glitchless =
 	this.locations["Turtle Rock - Eye Bridge - Top Right"].glitchless = function() {
 		return has("lantern") && has("somaria") && has("bigkey") && has("key",3)
-			&& (canInvul() || canBlockLasers()));
+			&& (canInvul() || canBlockLasers());
 	}
 
 	this.locations["Turtle Rock - Trinexx"].glitchless = function() {
 		return has("key",4)
 			&& has("lantern")
 			&& has("bigkey") && has("somaria")
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -63,7 +65,7 @@ class DungeonsTurtleRock extends Dungeons {
 		return (has("trockmedallion") && canActivateMedallions())
 			&& has("moonpearl") && has("somaria")
 			&& canLiftDarkRocks() && has("hammer")
-			&& edm.canEnter.noglitches();
+			&& edm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
 		return this.locations["Turtle Rock - Trinexx"].glitchless();
@@ -98,9 +100,9 @@ class DungeonsTurtleRock extends Dungeons {
 		return (upper() && has("key"))
 			|| middle();
 	}
-	this.location["Turtle Rock - Roller Room - Left"].owglitches =
-	this.location["Turtle Rock - Roller Room - Right"].owglitches =
-	this.location["Turtle Rock - Compass Chest"].owglitches = function() {
+	this.locations["Turtle Rock - Roller Room - Left"].owglitches =
+	this.locations["Turtle Rock - Roller Room - Right"].owglitches =
+	this.locations["Turtle Rock - Compass Chest"].owglitches = function() {
 		return has("firerod") && has("somaria")
 			&& (upper()
 				|| (middle() && has("key",2)
@@ -163,7 +165,7 @@ class DungeonsTurtleRock extends Dungeons {
 			&& (upper()
 				|| (middle() && has("key",2)
 					|| has("key",4)))
-				|| (lower() && has("lantern") && has("key",4)));
+				|| (lower() && has("lantern") && has("key",4));
 	}
 	this.locations["Turtle Rock - Big Chest"].majorglitches = function() {
 		return has("bigkey")

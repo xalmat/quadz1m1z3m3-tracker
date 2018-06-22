@@ -630,7 +630,7 @@ chests.zelda3[25] = {
     isAvailable: function () {
         const availability = new Availability();
         for (let k = 0; k < 10; k++) {
-            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === greenPendant && trackerData.zelda3.items["boss" + k] === 2) {
+            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === GREENPENDANT && trackerData.zelda3.items["boss" + k] === 2) {
                 availability.glitchless = "available";
                 break;
             }
@@ -1836,7 +1836,7 @@ chests.zelda3[61] = {
         // Crystal check
         let crystalCount = 0;
         for (let k = 0; k < 10; k++) {
-            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === redCrystal && trackerData.zelda3.items["boss" + k] === 2) {
+            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === OJCRYSTAL && trackerData.zelda3.items["boss" + k] === 2) {
                 crystalCount++;
                 if (crystalCount === 2) {
                     break;
@@ -1899,7 +1899,7 @@ chests.zelda3[62] = {
         const availability = new Availability();
         let pendantCount = 0;
         for (let k = 0; k < 10; k++) {
-            if (((trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === badPendant) || (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === greenPendant)) && trackerData.zelda3.items["boss" + k] === 2) {
+            if (((trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === OFFPENDANT) || (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === GREENPENDANT)) && trackerData.zelda3.items["boss" + k] === 2) {
                 pendantCount++;
                 if (pendantCount === 3) {
                     break;

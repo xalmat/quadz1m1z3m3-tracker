@@ -103,13 +103,81 @@ function has(item, amount = -1) {
 		}
 	}
 
+	if(item.indexOf("state") > -1) {
+		if(item.indexOf("open") > -1 && trackerOptions.zelda3.mapState == "open") {
+			return true;
+		}
+	}
+	if(item.indexOf("swords") > -1) {
+		if(item.indexOf("swordless") > -1 && trackerOptions.zelda3.mapSwords == false) {
+			return true;
+		}
+	}
+
 	if(
 		item.indexOf("key") > -1 ||		// FIXME: Keys for Dungeons
 		item.indexOf("crystal") > -1 ||	// FIXME: Crystals for GT & Pyramid Fairy
 		item.indexOf("pendant") > -1 ||	// FIXME: Pendants for Saha & Pedestal
 		item.indexOf("medallion") > -1	// FIXME: Medallions for Mire & TR
 	) {
-		ret = true;
+		let checkBK = item.indexOf("bigkey") > -1;
+		let checkKey = item.indexOf("key") > -1;
+		let checkCrystal = item.indexOf("crystal") > -1;
+		let checkRedCrystal = checkCrystal && (item.indexOf('5') > -1 || item.indexOf('6') > -1);
+		let checkPendant = item.indexOf("pendant") > -1;
+		let checkGreenPendant = checkPendant && (item.indexOf("green") > -1);
+		let checkPrize = checkCrystal || checkPendant;
+		let checkMedallion = item.indexOf("medallion") > -1;
+
+		if(checkBK) {
+			return true;
+		} else if(checkKey) {
+			return true;
+		} else if(checkPrize) {
+			trackerData.zelda3.gotprizes = [0,0,0,0];
+			for(let k = 0; k < 10; k++) {
+				for(let j = 0; j < 4; j++) {
+					if(
+						trackerData.zelda3 &&
+						trackerData.zelda3.prizes &&
+						trackerData.zelda3.prizes[k] == j &&
+						trackerData.zelda3.items["boss" + k] === 2
+					) {
+						trackerData.zelda3.gotprizes[j] += 1;
+					}
+				}
+			}
+
+			let prizes = trackerData.zelda3.gotprizes;
+
+			if(item.indexOf("crystal") > -1) {
+				if(item.indexOf("all") > -1) {
+					return prizes[CRYSTAL] == 5 && prizes[OJCRYSTAL] == 2;
+				} else if(item.indexOf("5") > -1) {
+					return prizes[OJCRYSTAL] >= 1;
+				} else if(item.indexOf("6") > -1) {
+					return prizes[OJCRYSTAL] == 2;
+				}
+			} else if(item.indexOf("pendant") > -1) {
+				if(item.indexOf("all") > -1) {
+					return prizes[OFFPENDANT] == 2 && prizes[GREENPENDANT] == 1;
+				} else if(item.indexOf("red") > -1) {
+					return prizes[OFFPENDANT] >= 1;
+				} else if(item.indexOf("blue") > -1) {
+					return prizes[OFFPENDANT] == 2;
+				} else if(item.indexOf("green") > -1) {
+					return prizes[GREENPENDANT] == 1;
+				}
+			}
+		} else if(checkMedallion) {
+			let dung = "";
+			if(item.indexOf("mire") > -1) {
+				dung = "mire";
+			} else if(item.indexOf("trock") > -1) {
+				dung = "trock";
+			}
+			return true;
+		}
 	}
 
 	return ret;

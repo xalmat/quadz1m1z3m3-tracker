@@ -8,13 +8,15 @@ class DungeonsTowerOfHera extends Dungeons {
 		new Location("Chest","Tower of Hera - Map Chest","","",regionName),
 		new Location("Chest","Tower of Hera - Compass Chest","","",regionName),
 		new Location("BigChest","Tower of Hera - Big Chest","","",regionName),
-		new Location("Boss","Tower of Hera - Moldorm","","",regionName)
+		new Location("Event","Tower of Hera - Moldorm","31.0%","5.5%",regionName)
 	],this);
 
 	this.boss = new BossMoldorm();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Tower of Hera - Big Key Chest"].glitchless = function() {
 		return canLightTorches() && has("key");
 	}
@@ -24,7 +26,7 @@ class DungeonsTowerOfHera extends Dungeons {
 	}
 	this.locations["Tower of Hera - Moldorm"].glitchless = function() {
 		return has("key") && has("bigkey")
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -53,6 +55,8 @@ class DungeonsTowerOfHera extends Dungeons {
   }
 
   initMajorGlitches() {
+	  let boss = this.boss;
+
 	  this.initOverworldGlitches();
 
 	  let wdm = new DeathMountainWest();
@@ -64,12 +68,12 @@ class DungeonsTowerOfHera extends Dungeons {
 	  let main = function() {
 		  return canDash()
 	  	|| ((has("mirror") || (canGrapple() && has("hammer")))
-	  		&& wdm.canEnter.majorglitches();
+	  		&& wdm.canEnter.majorglitches());
 	  };
 
 	  let mire = function() {
 		  return ((has("key",2) || has("key",3))
-	  	&& mm.canEnter.majorglitches();
+	  	&& mm.canEnter.majorglitches());
 	  };
 
 	  this.locations["Tower of Hera - Big Key Chest"].majorglitches = function() {
@@ -86,7 +90,7 @@ class DungeonsTowerOfHera extends Dungeons {
 	  this.locations["Tower of Hera - Moldorm"].majorglitches = function() {
 		  return ((main() && has("bigkey"))
 		  		|| mire())
-		  	&& this.boss.canBeat();
+		  	&& boss.canBeat();
 	  }
 
 	  this.canEnter.majorglitches = function() {

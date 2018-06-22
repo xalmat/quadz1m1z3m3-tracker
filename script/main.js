@@ -6,6 +6,7 @@ trackerOptions[selectedGame] = {
   showlabels: true,
   editmode: false,
   mapState: "open",
+  mapSwords: true,
   selected: {}
 };
 trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
@@ -46,6 +47,7 @@ trackerData[selectedGame] = {
   dungeonchests: dungeonchestsInit[selectedGame],
   dungeonbeaten: dungeonbeatenInit[selectedGame],
   prizes: prizesInit[selectedGame],
+  gotprizes: [0,0,0,0],
   medallions: medallionsInit[selectedGame],
   chestsopened: chestsopenedInit[selectedGame]
 };
@@ -537,6 +539,31 @@ function setMapOrientation(H) {
     saveCookie();
 }
 
+function setSwords(swords) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerOptions[selectedGame].mapSwords = !swords;
+
+	let eles = document.getElementsByClassName("sword");
+	for(let ele in eles) {
+		ele = eles[ele];
+		if(typeof ele == "object") {
+			if(ele.classList) {
+				if(trackerOptions[selectedGame].mapSwords) {
+					ele.classList.remove("swordless");
+					ele.classList.add(getHas("sword") > 0);
+				} else {
+					ele.classList.remove(getHas("sword") > 0);
+					ele.classList.add("swordless");
+				}
+			}
+		}
+	}
+
+	refreshMap();
+	saveCookie();
+}
+
 function setState(state) {
 	if(selectedGame != "zelda3") { return; }
 
@@ -736,6 +763,9 @@ function populateMapdiv(useGame = "zelda3") {
             s.className = "mapspan chest opened";
         else
             s.className = "mapspan chest " + chests[useGame][k].isAvailable().getClassName();
+		if(chests[useGame][k].x == "" && chests[useGame][k].y == "") {
+			s.style.display = "none";
+		}
         mapdiv.appendChild(s);
     }
 
@@ -750,6 +780,9 @@ function populateMapdiv(useGame = "zelda3") {
         s.style.left = dungeons[useGame][k].x;
         s.style.top = dungeons[useGame][k].y;
         s.className = "mapspan boss " + dungeons[useGame][k].isBeatable().getClassName();
+		if(dungeons[useGame][k].x == "" && dungeons[useGame][k].y == "") {
+			s.style.display = "none";
+		}
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
@@ -761,6 +794,9 @@ function populateMapdiv(useGame = "zelda3") {
         s.style.left = dungeons[useGame][k].x;
         s.style.top = dungeons[useGame][k].y;
         s.className = "mapspan dungeon " + dungeons[useGame][k].canGetChest().getClassName();
+		if(dungeons[useGame][k].x == "" && dungeons[useGame][k].y == "") {
+			s.style.display = "none";
+		}
         mapdiv.appendChild(s);
     }
 }
@@ -1010,6 +1046,9 @@ Vue.component('tracker-cell', {
   },
   methods: {
     clickCell: function(amt) {
+	  if((trackerOptions[selectedGame].mapSwords == false) && (this.itemName.indexOf("sword") > -1)) {
+		  return;
+	  }
 	  var itemValue = this.trackerData[selectedGame].items[this.itemName];
       if(this.trackerOptions[selectedGame].editmode) {
           Vue.set(vm.itemRows[this.rowIndex], this.columnIndex, this.trackerOptions[selectedGame].selected.item || 'blank');

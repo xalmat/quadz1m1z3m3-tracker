@@ -1,4 +1,4 @@
-class ZebesPortalsMain extends Region {
+class ZebesPortalsMain extends ZebesPortals {
   constructor(name = "ZebesPortals", subname = "Main") {
 	super(name,subname);
 	let regionName = name + subname;
@@ -12,23 +12,27 @@ class ZebesPortalsMain extends Region {
 
   initNoMajorGlitches() {
 	this.locations["SM Portal: Crateria Map Room"].glitchless = function() {
-		var lws = new LightWorldSouth();
+		let lws = new LightWorldSouth();
 		lws.initNoMajorGlitches();
+
 		return (lws.canEnter.glitchless() && canAccessCrateriaPortal()) || canAccessLightWorldPortal();
 	}
 	this.locations["SM Portal: Norfair Map Room"].glitchless = function() {
-		var dmw = new DeathMountainWest();
+		let dmw = new DeathMountainWest();
 		dmw.initNoMajorGlitches();
+
 		return (dmw.canEnter.glitchless() && canAccessNorfairPortal()) || canAccessDeathMountainPortal();
 	}
 	this.locations["SM Portal: Maridia Missile Refill"].glitchless = function() {
-		var dws = new DarkWorldSouth();
+		let dws = new DarkWorldSouth();
 		dws.initNoMajorGlitches();
+
 		return (dws.canEnter.glitchless() && canAccessMaridiaPortal()) || canAccessDarkWorldPortal();
 	}
 	this.locations["SM Portal: Lower Norfair Golden Torizo Energy Refill"].glitchless = function() {
-		var dwm = new DarkWorldMire();
+		let dwm = new DarkWorldMire();
 		dwm.initNoMajorGlitches();
+
 		return (dwm.canEnter.glitchless() && canAccessLowerNorfairPortal()) || canAccessMiseryMirePortal();
 	}
 

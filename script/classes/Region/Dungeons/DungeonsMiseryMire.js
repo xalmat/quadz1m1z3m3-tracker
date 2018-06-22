@@ -10,13 +10,15 @@ class DungeonsMiseryMire extends Dungeons {
 		new Location("Chest","Misery Mire - Bridge Chest","","",regionName),
 		new Location("Chest","Misery Mire - Map Chest","","",regionName),
 		new Location("Chest","Misery Mire - Spike Chest","","",regionName),
-		new Location("Boss","Vitreous","","",regionName)
+		new Location("Event","Misery Mire - Vitreous","55.8%","82.9%",regionName,{equipment:"%%medallion0%%%%lantern%%"})
 	],this);
 
 	this.boss = new BossVitreous();
   }
 
   initNoMajorGlitches() {
+    let boss = this.boss;
+
 	this.locations["Misery Mire - Big Chest"].glitchless = function() {
 		return has("bigkey");
 	}
@@ -34,10 +36,10 @@ class DungeonsMiseryMire extends Dungeons {
 			&& has("key",3);
 	}
 
-	this.locations["Vitreous"].glitchless = function() {
+	this.locations["Misery Mire - Vitreous"].glitchless = function() {
 		return has("somaria") && has("lantern")
 			&& has("bigkey")
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -79,8 +81,7 @@ class DungeonsMiseryMire extends Dungeons {
 			))
 			|| has("key",3)
 			&& (toh.locations["Tower of Hera - Moldorm"].majorglitches()
-				|| sp.locations["Swamp Palace - Arrghus"].majorglitches())
-			);
+				|| sp.locations["Swamp Palace - Arrghus"].majorglitches());
 	  }
   }
 }

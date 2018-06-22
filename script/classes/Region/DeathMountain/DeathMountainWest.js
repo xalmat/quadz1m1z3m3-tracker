@@ -30,11 +30,11 @@ class DeathMountainWest extends DeathMountain {
   }
 
   initOverworldGlitches() {
-    initNoMajorGlitches();
+    this.initNoMajorGlitches();
 
     this.locations["Ether Tablet"].owglitches = function() {
-		var toh = new TowerOfHera();
-		toh.owglitches();
+		let toh = new DungeonsTowerOfHera();
+		toh.canEnter.owglitches();
 
 		return canActivateTablets()
 			&& toh.canEnter.owglitches();
@@ -51,7 +51,7 @@ class DeathMountainWest extends DeathMountain {
   }
 
   initMajorGlitches() {
-	initOverworldGlitches();
+	this.initOverworldGlitches();
 
 	this.canEnter.majorglitches = function() {
 		return (canDashSM() || has("bottle")

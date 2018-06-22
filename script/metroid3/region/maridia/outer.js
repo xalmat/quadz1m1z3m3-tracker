@@ -1,6 +1,6 @@
 // Maridia: Outer
 function canEnterMaridiaOuter() {
-	var ret = canEnterNorfairWest() && canUsePowerBombs();
+	let ret = canEnterNorfairWest() && canUsePowerBombs();
 	if(trackerOptions.mapLogic == "casualLogic") {
 		ret = ret && canSwimSM();
 	} else {

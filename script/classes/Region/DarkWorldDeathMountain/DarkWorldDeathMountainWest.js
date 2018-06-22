@@ -9,7 +9,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 
   initNoMajorGlitches() {
 	  this.locations["Spike Cave"].glitchless = function() {
-		var wdm = new DeathMountainWest();
+		let wdm = new DeathMountainWest();
 		wdm.initNoMajorGlitches();
 
 		return has("moonpearl") && has("hammer") && canLiftRocks()
@@ -20,10 +20,10 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
   }
 
   initMajorGlitches() {
-	initOverworldGlitches();
+	this.initOverworldGlitches();
 
-	this.locations["Spike Cave"].majorglitches() = function() {
-		var wdm = new DeathMountainWest();
+	this.locations["Spike Cave"].majorglitches = function() {
+		let wdm = new DeathMountainWest();
 		wdm.initMajorGlitches();
 
 		return has("hammer") && canLiftRocks()

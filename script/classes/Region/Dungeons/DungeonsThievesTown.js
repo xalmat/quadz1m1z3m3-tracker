@@ -10,13 +10,15 @@ class DungeonsThievesTown extends Dungeons {
 		new Location("Chest","Thieves' Town - Ambush Chest","","",regionName),
 		new Location("BigChest","Thieves' Town - Big Chest","","",regionName),
 		new Location("Chest","Thieves' Town - Blind's Cell","","",regionName),
-		new Location("Boss","Thieves' Town - Blind","","",regionName)
+		new Location("Event","Thieves' Town - Blind","56.4%","47.9%",regionName)
 	],this);
 
 	this.boss = new BossBlind();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Thieves' Town - Attic"].glitchless = function() {
 		return has("key") && has("bigkey");
 	}
@@ -28,7 +30,7 @@ class DungeonsThievesTown extends Dungeons {
 	}
 	this.locations["Thieves' Town - Blind"].glitchless = function() {
 		return has("key") && has("bigkey")
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {

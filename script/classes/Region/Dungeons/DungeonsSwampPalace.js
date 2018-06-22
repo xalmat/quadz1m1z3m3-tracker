@@ -12,13 +12,15 @@ class DungeonsSwampPalace extends Dungeons {
 		new Location("Chest","Swamp Palace - Flooded Room - Left","","",regionName),
 		new Location("Chest","Swamp Palace - Flooded Room - Right","","",regionName),
 		new Location("SpawnableChest","Swamp Palace - Waterfall Room","","",regionName),
-		new Location("Boss","Swamp Palace - Arrghus","","",regionName)
+		new Location("Event","Swamp Palace - Arrghus","73.5%","91.0%",regionName,{equipment:"%%mirror%%"})
 	],this);
 
 	this.boss = new BossArrghus();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Swamp Palace - Big Chest"].glitchless = function() {
 		return has("key")
 			&& has("hammer")
@@ -47,7 +49,7 @@ class DungeonsSwampPalace extends Dungeons {
 		return has("key")
 			&& has("hammer")
 			&& canGrapple()
-			&& this.boss.canBeat();
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -76,7 +78,7 @@ class DungeonsSwampPalace extends Dungeons {
 
 	  let main = function() { return has("moonpearl") && has("mirror") && canSwim() && sdw.canEnter.majorglitches(); };
 	  let hera = function() { toh.locations["Tower of Hera - Big Chest"].majorglitches(); };
-	  let mire = function() { has("key",3) && dwm.canEnter.majorglitches(); };
+	  let mire = function() { has("key",3) && mm.canEnter.majorglitches(); };
 
 	  this.locations["Swamp Palace - Compass Chest"].majorglitches =
 	  this.locations["Swamp Palace - Big Key Chest"].majorglitches =

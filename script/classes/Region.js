@@ -18,10 +18,10 @@ class Region {
 	};
     Region.prototype.initNone = function() { };
     Region.prototype.initNoMajorGlitches = function() { };
-    Region.prototype.initOverworldGlitches = function() { initNoMajorGlitches(); };
-    Region.prototype.initMajorGlitches = function() { initOverworldGlitches(); };
+    Region.prototype.initOverworldGlitches = function() { this.initNoMajorGlitches(); };
+    Region.prototype.initMajorGlitches = function() { this.initOverworldGlitches(); };
     Region.prototype.initCasual = function() { };
-    Region.prototype.initTournament = function() { initCasual(); };
+    Region.prototype.initTournament = function() { this.initCasual(); };
     this.locations = [];
   }
 }

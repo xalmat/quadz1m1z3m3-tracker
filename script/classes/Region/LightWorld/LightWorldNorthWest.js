@@ -7,16 +7,18 @@ class LightWorldNorthWest extends LightWorld {
 		new Location("Chest","King's Tomb","30.8%","29.6%",regionName,{equipment:"%%boots%% + %%glove2%%/%%mirror%%"}),
 		new Location("Chest","Kakariko Tavern","8.1%","57.8%",regionName),
 		new Location("Chest","Chicken House","4.4%","54.2%",regionName,{equipment:"%%bomb%%"}),
-		new Location("Chest","Kakariko Well - Top","1.7%","41.0%",regionName,{equipment:"%%bomb%%"}),
-		new Location("Chest","Kakariko Well - Left","1.7%","41.0%",regionName),
-		new Location("Chest","Kakariko Well - Middle","1.7%","41.0%",regionName),
-		new Location("Chest","Kakariko Well - Right","1.7%","41.0%",regionName),
-		new Location("Chest","Kakariko Well - Bottom","1.7%","41.0%",regionName),
-		new Location("Chest","Blind's Hideout - Top","6.4%","41.0%",regionName,{equipment:"%%bomb%%"}),
-		new Location("Chest","Blind's Hideout - Left","6.4%","41.0%",regionName),
-		new Location("Chest","Blind's Hideout - Right","6.4%","41.0%",regionName),
-		new Location("Chest","Blind's Hideout - Far Left","6.4%","41.0%",regionName),
-		new Location("Chest","Blind's Hideout - Far Right","6.4%","41.0%",regionName),
+//		new Location("Chest","Kakariko Well - Top","1.7%","41.0%",regionName,{equipment:"%%bomb%%"}),
+//		new Location("Chest","Kakariko Well - Left","1.7%","41.0%",regionName),
+//		new Location("Chest","Kakariko Well - Middle","1.7%","41.0%",regionName),
+//		new Location("Chest","Kakariko Well - Right","1.7%","41.0%",regionName),
+//		new Location("Chest","Kakariko Well - Bottom","1.7%","41.0%",regionName),
+		new Location("Chest","Kakariko Well","1.7%","41.0%",regionName,{equipment:"(4 + %%bomb%%)"}),
+//		new Location("Chest","Blind's Hideout - Top","6.4%","41.0%",regionName,{equipment:"%%bomb%%"}),
+//		new Location("Chest","Blind's Hideout - Left","6.4%","41.0%",regionName),
+//		new Location("Chest","Blind's Hideout - Right","6.4%","41.0%",regionName),
+//		new Location("Chest","Blind's Hideout - Far Left","6.4%","41.0%",regionName),
+//		new Location("Chest","Blind's Hideout - Far Right","6.4%","41.0%",regionName),
+		new Location("Chest","Blind's Hideout","6.4%","41.0%",regionName,{equipment:"(4 + %%bomb%%)"}),
 		new Location("Chest","Pegasus Rocks","19.5%","29.3%",regionName,{equipment:"%%boots%%"}),
 		new Location("NPC","Bottle Merchant","4.5%","46.8%",regionName,{equipment:"100 Rupees"}),
 		new Location("NPC","Magic Bat","16.0%","58.0%",regionName,{equipment:"%%hammer%%/%%boots%% + %%powder%%"}),
@@ -30,10 +32,10 @@ class LightWorldNorthWest extends LightWorld {
 
   initNoMajorGlitches() {
 	this.locations["Master Sword Pedestal"].glitchless = function() {
-		return has("pendantblue") && has("pendantred") && has("pendantgreen");
+		return has("pendantred") && has("pendantblue") && has("pendantgreen");
 	}
 	this.locations["King's Tomb"].glitchless = function() {
-		var nwdw = new DarkWorldNorthWest();
+		let nwdw = new DarkWorldNorthWest();
 		nwdw.initNoMajorGlitches();
 
 		return canDash() && (canLiftDarkRocks()
@@ -55,7 +57,7 @@ class LightWorldNorthWest extends LightWorld {
 		return has("agahnim") && canDash();
 	}
 	this.locations["Graveyard Ledge"].glitchless = function() {
-		var nwdw = new DarkWorldNorthWest();
+		let nwdw = new DarkWorldNorthWest();
 		nwdw.initNoMajorGlitches();
 
 		return has("mirror") && has("moonpearl")
@@ -75,7 +77,7 @@ class LightWorldNorthWest extends LightWorld {
 			|| (has("mirror") && has("moonpearl")));
 	}
 	this.locations["Magic Bat"].owglitches = function() {
-		var nwdw = new DarkWorldNorthWest();
+		let nwdw = new DarkWorldNorthWest();
 		nwdw.initOverworldGlitches();
 
 		return has("powder")
@@ -85,12 +87,12 @@ class LightWorldNorthWest extends LightWorld {
 					&& nwdw.canEnter.owglitches()));
 	}
 	this.locations["Graveyard Ledge"].owglitches = function() {
-		var nwdw = new DarkWorldNorthWest();
+		let nwdw = new DarkWorldNorthWest();
 		nwdw.initOverworldGlitches();
 
 		return canDash()
 			|| (has("mirror") && has("moonpearl")
-				&& nwdw.canEnter.owglitches()))
+				&& nwdw.canEnter.owglitches());
 	}
   }
 

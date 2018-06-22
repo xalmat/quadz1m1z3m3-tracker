@@ -16,18 +16,20 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 		new Location("Chest","Palace of Darkness - Dark Basement - Right","","",regionName),
 		new Location("Chest","Palace of Darkness - Dark Maze - Top","","",regionName),
 		new Location("Chest","Palace of Darkness - Dark Maze - Bottom","","",regionName),
-		new Location("Boss","Helmasaur King","","",regionName)
+		new Location("Event","Palace of Darkness - Helmasaur King","97.0%","40.0%",regionName,{equipment:"%%lantern%%"})
 	],this);
 
 	this.boss = new BossHelmasaurKing();
   }
 
   initNoMajorGlitches() {
+	let boss = this.boss;
+
 	this.locations["Palace of Darkness - The Arena - Ledge"].glitchless = function() {
 		return canShootArrows();
 	}
 	this.locations["Palace of Darkness - Big Key Chest"].glitchless = function() {
-		return (has("hammer") && canShootArrows() && has("lantern");	// FIXME: Has key settings
+		return (has("hammer") && canShootArrows() && has("lantern"));	// FIXME: Has key settings
 	}
 	this.locations["Palace of Darkness - The Arena - Bridge"].glitchless = function() {
 		return (canShootArrows() && has("hammer"));	// FIXME: Has key settings
@@ -56,8 +58,8 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 		return has("lantern") && (has("hammer") && canShootArrows());	// FIXME: Has key settings
 	}
 
-	this.locations["Helmasaur King"].glitchless = function() {
-		return this.boss.canBeat()
+	this.locations["Palace of Darkness - Helmasaur King"].glitchless = function() {
+		return boss.canBeat()
 			&& has("hammer") && has("lantern") && canShootArrows()
 			&& has("bigkey") && has("key",6);
 	}
