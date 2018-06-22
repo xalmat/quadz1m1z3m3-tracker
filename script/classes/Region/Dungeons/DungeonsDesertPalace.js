@@ -1,6 +1,6 @@
 class DungeonsDesertPalace extends Dungeons {
-  constructor(name = "Dungeons", subname = "DesertPalace") {
-	super(name,subname);
+  constructor(name = "Dungeons", subname = "DesertPalace", buildLocations = true) {
+	super(name,subname,buildLocations);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([
 		new Location("BigChest","Desert Palace - Big Chest","","",regionName),
@@ -17,20 +17,22 @@ class DungeonsDesertPalace extends Dungeons {
   initNoMajorGlitches() {
 	let boss = this.boss;
 
-	this.locations["Desert Palace - Big Chest"].glitchless = function() {
-		return has("bigkey");
-	}
-	this.locations["Desert Palace - Big Key Chest"].glitchless =
-	this.locations["Desert Palace - Compass Chest"].glitchless = function() {
-		return has("key");
-	}
-	this.locations["Desert Palace - Torch"].glitchless = function() {
-		return canDash();
-	}
-	this.locations["Desert Palace - Lanmolas"].glitchless = function() {
-		return canLiftRocks() && canLightTorches()
-			&& has("bigkey") && has("key")
-			&& boss.canBeat();
+	if(this.buildLocations) {
+		this.locations["Desert Palace - Big Chest"].glitchless = function() {
+			return has("bigkey");
+		}
+		this.locations["Desert Palace - Big Key Chest"].glitchless =
+		this.locations["Desert Palace - Compass Chest"].glitchless = function() {
+			return has("key");
+		}
+		this.locations["Desert Palace - Torch"].glitchless = function() {
+			return canDash();
+		}
+		this.locations["Desert Palace - Lanmolas"].glitchless = function() {
+			return canLiftRocks() && canLightTorches()
+				&& has("bigkey") && has("key")
+				&& boss.canBeat();
+		}
 	}
 
 	this.canEnter.glitchless = function() {
@@ -49,20 +51,22 @@ class DungeonsDesertPalace extends Dungeons {
 
 	this.initNoMajorGlitches();
 
-	this.locations["Desert Palace - Lanmolas"].owglitches = function() {
-		let dwm = new DarkWorldMire();
-		dwm.initOverworldGlitches();
+	if(this.buildLocations) {
+		this.locations["Desert Palace - Lanmolas"].owglitches = function() {
+			let dwm = new DarkWorldMire("","",false);
+			dwm.initOverworldGlitches();
 
-		return canLightTorches()
-			&& has("bigkey") && has("key")
-			&& this.boss.canBeat()
-			&& ((canRead() && canLiftRocks())
-				|| canDash()
-				|| (has("mirror") && dwm.canEnter.owglitches()));
+			return canLightTorches()
+				&& has("bigkey") && has("key")
+				&& this.boss.canBeat()
+				&& ((canRead() && canLiftRocks())
+					|| canDash()
+					|| (has("mirror") && dwm.canEnter.owglitches()));
+		}
 	}
 
 	this.canEnter.owglitches = function() {
-		let dwm = new DarkWorldMire();
+		let dwm = new DarkWorldMire("","",false);
 		dwm.initOverworldGlitches();
 
 		return (canRead()

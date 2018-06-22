@@ -1,17 +1,19 @@
 class DungeonsIcePalace extends Dungeons {
-  constructor(name = "Dungeons", subname = "IcePalace") {
-	super(name,subname);
+  constructor(name = "Dungeons", subname = "IcePalace", buildLocations = true) {
+	super(name,subname,buildLocations);
 	let regionName = name + subname;
-	this.locations = new LocationCollection([
-		new Location("Chest","Ice Palace - Big Key Chest","","",regionName),
-		new Location("Chest","Ice Palace - Compass Chest","","",regionName),
-		new Location("Chest","Ice Palace - Map Chest","","",regionName),
-		new Location("SpawnableChest","Ice Palace - Spike Room","","",regionName),
-		new Location("SpawnableChest","Ice Palace - Freezor Chest","","",regionName),
-		new Location("Chest","Ice Palace - Iced T Room","","",regionName),
-		new Location("BigChest","Ice Palace - Big Chest","","",regionName),
-		new Location("Event","Ice Palace - Kholdstare","89.8%","85.8%",regionName)
-	],this);
+	if(this.buildLocations) {
+		this.locations = new LocationCollection([
+			new Location("Chest","Ice Palace - Big Key Chest","","",regionName),
+			new Location("Chest","Ice Palace - Compass Chest","","",regionName),
+			new Location("Chest","Ice Palace - Map Chest","","",regionName),
+			new Location("SpawnableChest","Ice Palace - Spike Room","","",regionName),
+			new Location("SpawnableChest","Ice Palace - Freezor Chest","","",regionName),
+			new Location("Chest","Ice Palace - Iced T Room","","",regionName),
+			new Location("BigChest","Ice Palace - Big Chest","","",regionName),
+			new Location("Event","Ice Palace - Kholdstare","89.8%","85.8%",regionName)
+		],this);
+	}
 
 	this.boss = new BossKholdstare();
   }
@@ -64,7 +66,7 @@ class DungeonsIcePalace extends Dungeons {
 	  this.initOverworldGlitches();
 
 	  this.canEnter.majorglitches = function() {
-		  let sdw = new DarkWorldSouth();
+		  let sdw = new DarkWorldSouth("","",false);
 
 		  return (canLiftDarkRocks()
 		  	|| (has("mirror") && glitchedLinkInDarkWorld()
