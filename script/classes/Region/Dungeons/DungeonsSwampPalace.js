@@ -80,32 +80,32 @@ class DungeonsSwampPalace extends Dungeons {
 	  let mm = new DungeonsMiseryMire("","",false);
 	  mm.initMajorGlitches();
 
-	  let main = function() { return has("moonpearl") && has("mirror") && canSwim() && sdw.canEnter.majorglitches(); };
-	  let hera = function() { toh.locations["Tower of Hera - Big Chest"].majorglitches(); };
-	  let mire = function() { has("key",3) && mm.canEnter.majorglitches(); };
+	  let main = function() { return has("moonpearl") && has("mirror") && canSwim() && sdw.canEnter.majorGlitches(); };
+	  let hera = function() { toh.locations["Tower of Hera - Big Chest"].majorGlitches(); };
+	  let mire = function() { has("key",3) && mm.canEnter.majorGlitches(); };
 
 	  if(this.buildLocations) {
-		  this.locations["Swamp Palace - Compass Chest"].majorglitches =
-		  this.locations["Swamp Palace - Big Key Chest"].majorglitches =
-		  this.locations["Swamp Palace - West Chest"].majorglitches = function() {
+		  this.locations["Swamp Palace - Compass Chest"].majorGlitches =
+		  this.locations["Swamp Palace - Big Key Chest"].majorGlitches =
+		  this.locations["Swamp Palace - West Chest"].majorGlitches = function() {
 			  return has("key") && canSwim()
 			  	&& (mire()
 			  		|| (main() && has("hammer")));
 		  }
-		  this.locations["Swamp Palace - Big Chest"].majorglitches = function() {
+		  this.locations["Swamp Palace - Big Chest"].majorGlitches = function() {
 			  return has("key") && canSwim()
 			  	&& (mire() && (has("bigkey") || has("bigkey") || has("bigkey"))
 			  		|| (main() && has("hammer") && has("bigkey")));
 		  }
-		  this.locations["Swamp Palace - Flooded Room - Left"].majorglitches =
-		  this.locations["Swamp Palace - Flooded Room - Right"].majorglitches =
-		  this.locations["Swamp Palace - Waterfall Room"].majorglitches = function() {
+		  this.locations["Swamp Palace - Flooded Room - Left"].majorGlitches =
+		  this.locations["Swamp Palace - Flooded Room - Right"].majorGlitches =
+		  this.locations["Swamp Palace - Waterfall Room"].majorGlitches = function() {
 			  return has("key") && canGrapple() && canSwim()
 			  	&& (mire()
 			  		|| (main() && has("hammer")));
 		  }
 	  }
-	  this.locations["Swamp Palace - Arrghus"].majorglitches = function() {
+	  this.locations["Swamp Palace - Arrghus"].majorGlitches = function() {
 		  return has("key") && canGrapple() && canSwim()
 		  	&& (mire()
 		  		|| (main() && has("hammer")))
@@ -114,14 +114,14 @@ class DungeonsSwampPalace extends Dungeons {
 		  			&& (has("firerod") || has("icerod"))));
 	  }
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  return (main()
 		  	|| mire());
 	  }
-	  this.canComplete.majorglitches = function() {
+	  this.canComplete.majorGlitches = function() {
 		  return main && has("key") && canGrapple()
 		  	&& (has("hammer") || mire())
-		  	&& this.locations["Swamp Palace - Arrghus"].majorglitches();
+		  	&& this.locations["Swamp Palace - Arrghus"].majorGlitches();
 	  }
   }
 }

@@ -37,29 +37,29 @@ class DeathMountainWest extends DeathMountain {
     this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-	    this.locations["Ether Tablet"].owglitches = function() {
+	    this.locations["Ether Tablet"].owGlitches = function() {
 			let toh = new DungeonsTowerOfHera("","",false);
-			toh.canEnter.owglitches();
+			toh.canEnter.owGlitches();
 
 			return canActivateTablets()
-				&& toh.canEnter.owglitches();
+				&& toh.canEnter.owGlitches();
 	    }
-	    this.locations["Spectacle Rock"].owglitches = function() {
+	    this.locations["Spectacle Rock"].owGlitches = function() {
 			return canDash()
 				|| has("mirror");
 	    }
 	}
 
-    this.canEnter.owglitches = function() {
+    this.canEnter.owGlitches = function() {
 		return (canDash()
 			|| canFly() || (canLiftRocks() && has("lantern")));
     }
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
-	this.canEnter.majorglitches = function() {
+	this.canEnter.majorGlitches = function() {
 		return (canDashSM() || has("bottle")
 			|| canFly() || (canLiftRocks() && has("lantern")));
 	}

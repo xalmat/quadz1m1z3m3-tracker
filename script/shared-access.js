@@ -15,10 +15,8 @@ Object.defineProperty(Availability.prototype, 'casualLogic', {
         return this._casualLogic;
     },
     set: function (value) {
-		this._glitchless = value;
         this._casualLogic = value;
-        this._owGlitches = value;
-        this._majorGlitches = value;
+        this._tourneyLogic = value;
     }
 });
 
@@ -48,9 +46,7 @@ Object.defineProperty(Availability.prototype, 'tourneyLogic', {
         return this._tourneyLogic;
     },
     set: function (value) {
-        this._owGlitches = value;
 		this._tourneyLogic = value;
-        this._majorGlitches = value;
     }
 });
 

@@ -62,29 +62,29 @@ class DungeonsMiseryMire extends Dungeons {
   initMajorGlitches() {
 	  this.initOverworldGlitches();
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let dwm = new DarkWorldMire("","",false);
 
 		  return (has("miremedallion") && canActivateMedallions())
 		  	&& (has("moonpearl") || (has("bottle") && canDash()))
 		  	&& (canDash() || canGrapple())
-		  	&& dwm.canEnter.majorglitches();
+		  	&& dwm.canEnter.majorGlitches();
 	  }
-	  this.canComplete.majorglitches = function() {
+	  this.canComplete.majorGlitches = function() {
 		  let toh = new DungeonsTowerOfHera("","",false);
 		  toh.initMajorGlitches();
 
 		  let sp = new DungeonsSwampPalace("","",false);
 		  sp.initMajorGlitches();
 
-		  return (this.canEnter.majorglitches()
+		  return (this.canEnter.majorGlitches()
 		  	&& has("somaria") && has("lantern")
 		  	&& has("bigkey") && (
 					hasSword() || has("hammer") || canShootArrows()
 			))
 			|| has("key",3)
-			&& (toh.locations["Tower of Hera - Moldorm"].majorglitches()
-				|| sp.locations["Swamp Palace - Arrghus"].majorglitches());
+			&& (toh.locations["Tower of Hera - Moldorm"].majorGlitches()
+				|| sp.locations["Swamp Palace - Arrghus"].majorGlitches());
 	  }
   }
 }

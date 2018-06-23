@@ -83,31 +83,31 @@ class LightWorldSouth extends LightWorld {
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-		this.locations["Hobo"].owglitches = function() {
+		this.locations["Hobo"].owGlitches = function() {
 			return true;
 		}
-		this.locations["Bombos Tablet"].owglitches = function() {
+		this.locations["Bombos Tablet"].owGlitches = function() {
 			let sdw = new DarkWorldSouth("","",false);
 			sdw.initOverworldGlitches();
 
 			return canActivateTablets()
 				&& (canDash()
-					|| (has("mirror") && sdw.canEnter.owglitches()));
+					|| (has("mirror") && sdw.canEnter.owGlitches()));
 		}
-		this.locations["Cave 45"].owglitches = function() {
+		this.locations["Cave 45"].owGlitches = function() {
 			let sdw = new DarkWorldSouth("","",false);
 			sdw.initOverworldGlitches();
 
 			return canDash()
-				|| (has("mirror") && sdw.canEnter.owglitches());
+				|| (has("mirror") && sdw.canEnter.owGlitches());
 		}
-		this.locations["Checkerboard Cave"].owglitches = function() {
+		this.locations["Checkerboard Cave"].owGlitches = function() {
 			let dwm = new DarkWorldMire("","",false);
 			return canLiftRocks()
 				&& (canDash()
-					|| (has("mirror") && dwm.canEnter.owglitches()));
+					|| (has("mirror") && dwm.canEnter.owGlitches()));
 		}
-		this.locations["Lake Hylia Island"].owglitches = function() {
+		this.locations["Lake Hylia Island"].owGlitches = function() {
 			let sdw = new DarkWorldSouth("","",false);
 			sdw.initOverworldGlitches();
 
@@ -116,24 +116,24 @@ class LightWorldSouth extends LightWorld {
 
 			return canDash()
 				|| (canSwim() && has("mirror")
-					&& ((has("moonpearl") && sdw.canEnter.owglitches())
-						|| nedw.canEnter.owglitches()));
+					&& ((has("moonpearl") && sdw.canEnter.owGlitches())
+						|| nedw.canEnter.owGlitches()));
 		}
 	}
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
-		this.locations["Lake Hylia Island"].majorglitches = function() {
+		this.locations["Lake Hylia Island"].majorGlitches = function() {
 			let nedw = new DarkWorldNorthEast("","",false);
-			nedw.initMajorGlitches();
+			nedw.initmajorGlitches();
 
 			return canDash()
 				|| (canSwim() && has("mirror")
 					&& (glitchedLinkInDarkWorld()
-						|| nedw.canEnter.majorglitches()));
+						|| nedw.canEnter.majorGlitches()));
 		}
 	}
   }

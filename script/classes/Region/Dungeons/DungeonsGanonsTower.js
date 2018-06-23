@@ -144,7 +144,7 @@ class DungeonsGanonsTower extends Dungeons {
   initOverworldGlitches() {
 	  this.initNoMajorGlitches();
 
-	  this.canEnter.owglitches = function() {
+	  this.canEnter.owGlitches = function() {
 		  return canDash() && has("moonpearl");
 	  }
   }
@@ -152,10 +152,10 @@ class DungeonsGanonsTower extends Dungeons {
   initMajorGlitches() {
 	  this.initOverworldGlitches();
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let dmw = new DeathMountainWest("","",false);
 
-		  return dmw.canEnter.majorglitches();
+		  return dmw.canEnter.majorGlitches();
 	  }
   }
 }

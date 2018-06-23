@@ -57,7 +57,7 @@ class DungeonsIcePalace extends Dungeons {
   initOverworldGlitches() {
 	  this.initNoMajorGlitches();
 
-	  this.canEnter.owglitches = function() {
+	  this.canEnter.owGlitches = function() {
 		  return canLiftDarkRocks() && canMeltThings();
 	  }
   }
@@ -65,12 +65,12 @@ class DungeonsIcePalace extends Dungeons {
   initMajorGlitches() {
 	  this.initOverworldGlitches();
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let sdw = new DarkWorldSouth("","",false);
 
 		  return (canLiftDarkRocks()
 		  	|| (has("mirror") && glitchedLinkInDarkWorld()
-		  		&& sdw.canEnter.majorglitches()));
+		  		&& sdw.canEnter.majorGlitches()));
 	  }
   }
 }

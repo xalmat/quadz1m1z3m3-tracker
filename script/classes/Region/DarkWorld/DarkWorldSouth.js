@@ -34,7 +34,7 @@ class DarkWorldSouth extends DarkWorld {
 
 	if(this.buildLocations) {
 		for(var loc in this.locations) {
-			this.locations[loc].owglitches = function() {
+			this.locations[loc].owGlitches = function() {
 				return has("moonpearl");
 			}
 		}
@@ -50,7 +50,7 @@ class DarkWorldSouth extends DarkWorld {
 				|| (has("agahnim") && (has("hammer")
 					|| (canGrapple() && (canLiftRocks() || canSwim()))))))
 			|| ((has("mirror") || (canDash() && has("moonpearl")))
-				&& wdm.canEnter.owglitches()));
+				&& wdm.canEnter.owGlitches()));
 	}
   }
 
@@ -59,7 +59,7 @@ class DarkWorldSouth extends DarkWorld {
 
 	if(this.buildLocations) {
 		for(var loc in this.locations) {
-			this.locations[loc].majorglitches = function() {
+			this.locations[loc].majorGlitches = function() {
 				return glitchedLinkInDarkWorld();
 			}
 		}
@@ -74,7 +74,7 @@ class DarkWorldSouth extends DarkWorld {
 				|| (has("hammer") && canLiftRocks())
 				|| (has("agahnim") && (has("hammer")
 					|| (canGrapple() && (canLiftRocks() || canSwim()))))))
-			|| wdm.canEnter.owglitches());
+			|| wdm.canEnter.owGlitches());
 	}
   }
 }

@@ -49,44 +49,44 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-//		this.locations["Hookshot Cave - Top Right"].owglitches =
-//		this.locations["Hookshot Cave - Top Left"].owglitches =
-//		this.locations["Hookshot Cave - Bottom Left"].owglitches = function() {
-		this.locations["Hookshot Cave"].owglitches = function() {
+//		this.locations["Hookshot Cave - Top Right"].owGlitches =
+//		this.locations["Hookshot Cave - Top Left"].owGlitches =
+//		this.locations["Hookshot Cave - Bottom Left"].owGlitches = function() {
+		this.locations["Hookshot Cave"].owGlitches = function() {
 			return canLiftRocks() && has("moonpearl") && canGrapple();
 		}
-//		this.locations["Hookshot Cave - Bottom Right"].owglitches = function() {
-		this.locations["Hookshot Cave - Bonk Chest"].owglitches = function() {
+//		this.locations["Hookshot Cave - Bottom Right"].owGlitches = function() {
+		this.locations["Hookshot Cave - Bonk Chest"].owGlitches = function() {
 			return canLiftRocks() && has("moonpearl") && (canGrapple() || canDash());
 		}
 	}
 
-	this.canEnter.owglitches = function() {
+	this.canEnter.owGlitches = function() {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initOverworldGlitches();
 		let edm = new DeathMountainEast("","",false);
 		edm.initOverworldGlitches();
 
 		return ((canDash() && has("moonpearl"))
-			|| (has("mirror") && wdm.canEnter.owglitches())
+			|| (has("mirror") && wdm.canEnter.owGlitches())
 			|| ((canLiftDarkRocks() || (has("hammer") && canDash()))
-				&& edm.canEnter.owglitches()));
+				&& edm.canEnter.owGlitches()));
 	}
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
-	this.canEnter.majorglitches = function() {
+	this.canEnter.majorGlitches = function() {
 		let edm = new DeathMountainEast("","",false);
-		edm.initMajorGlitches();
+		edm.initmajorGlitches();
 		let wdm = new DeathMountainWest("","",false);
-		wdm.initMajorGlitches();
+		wdm.initmajorGlitches();
 
 		return ((has("moonpearl") || (has("bottle") && canDash()))
 			|| ((canLiftDarkRocks() || (has("hammer") && canDash()))
-				&& edm.canEnter.majorglitches())
-			|| (has("mirror") && wdm.canEnter.majorglitches()));
+				&& edm.canEnter.majorGlitches())
+			|| (has("mirror") && wdm.canEnter.majorGlitches()));
 	}
   }
 }

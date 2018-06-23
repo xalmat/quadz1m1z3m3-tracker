@@ -47,44 +47,44 @@ class DeathMountainEast extends DeathMountain {
     this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-	    this.locations["Mimic Cave"].owglitches = function() {
+	    this.locations["Mimic Cave"].owGlitches = function() {
 			let edwdm = new DarkWorldDeathMountainEast("","",false);
 			edwdm.initOverworldGlitches();
 
 			return has("hammer") && has("mirror")
-				&& edwdm.canEnter.owglitches();
+				&& edwdm.canEnter.owGlitches();
 		}
-		this.locations["Floating Island"].owglitches = function() {
+		this.locations["Floating Island"].owGlitches = function() {
 			let edwdm = new DarkWorldDeathMountainEast("","",false);
 			edwdm.initOverworldGlitches();
 
 			return canDash()
 				|| (has("mirror") && has("moonpearl")
-					&& canLiftRocks() && edwdm.canEnter.owglitches());
+					&& canLiftRocks() && edwdm.canEnter.owGlitches());
 		}
 	}
 
-    this.canEnter.owglitches = function() {
+    this.canEnter.owGlitches = function() {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initOverworldGlitches();
 
 		return (canDash()
 			|| ((canGrapple() || has("mirror"))
-				&& wdm.canEnter.owglitches()));
+				&& wdm.canEnter.owGlitches()));
     }
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
-		this.locations["Floating Island"].majorglitches = function() {
+		this.locations["Floating Island"].majorGlitches = function() {
 			let edwdm = new DarkWorldDeathMountainEast("","",false);
-			edwdm.initMajorGlitches();
+			edwdm.initmajorGlitches();
 
 			return canDash()
 				|| (has("mirror") && glitchedLinkInDarkWorld()
-					&& canLiftRocks() && edwdm.canEnter.majorglitches());
+					&& canLiftRocks() && edwdm.canEnter.majorGlitches());
 		}
 	}
   }

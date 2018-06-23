@@ -354,7 +354,7 @@ label {
     color: rgb(0,0,0);
 }
 
-.chest .agahnim, .legend .agahnim{
+.chest.agahnim, .legend .agahnim{
     background-color: rgb(0,255,255);
     color: rgb(0,0,0);
 }

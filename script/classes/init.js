@@ -13,7 +13,7 @@ function initClasses(useGame) {
 					var regionObject = eval("new " + regionClassName + "()");
 
 					if(useGame == "zelda3") {
-						regionObject.initMajorGlitches();
+						regionObject.initmajorGlitches();
 					}
 					if(useGame == "metroid3") {
 						regionObject.initTournament();
@@ -47,8 +47,8 @@ function initClasses(useGame) {
 						if(useGame == "zelda3") {
 							props.canAccess = {
 								glitchless: location.glitchless,
-								owglitches: location.owglitches,
-								majorglitches: location.majorglitches
+								owGlitches: location.owGlitches,
+								majorGlitches: location.majorGlitches
 							};
 						}
 						if(useGame == "metroid3") {
@@ -92,6 +92,12 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
 										}
+										if(regionObjects[this.region].canEnter.owGlitches() && this.canAccess.owGlitches()) {
+											availability.glitchless = "available";
+										}
+										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
+											availability.glitchless = "available";
+										}
 									}
 									if(selectedGame == "metroid3") {
 										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
@@ -124,12 +130,12 @@ function initClasses(useGame) {
 										var tmp = "portal portal-metroid3";
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = tmp + " active";
-											availability.owglitches = tmp + " active";
-											availability.majorglitches = tmp + " active";
+											availability.owGlitches = tmp + " active";
+											availability.majorGlitches = tmp + " active";
 										} else {
 											availability.glitchless = tmp + " inactive";
-											availability.owglitches = tmp + " inactive";
-											availability.majorglitches = tmp + " inactive";
+											availability.owGlitches = tmp + " inactive";
+											availability.majorGlitches = tmp + " inactive";
 										}
 									}
 									if(selectedGame == "metroid3") {
@@ -152,11 +158,11 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
 										}
-										if(regionObjects[this.region].canEnter.owglitches() && this.canAccess.owglitches()) {
-											availability.owglitches = "available";
+										if(regionObjects[this.region].canEnter.owGlitches() && this.canAccess.owGlitches()) {
+											availability.owGlitches = "available";
 										}
-										if(regionObjects[this.region].canEnter.majorglitches() && this.canAccess.majorglitches()) {
-											availability.majorglitches = "available";
+										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
+											availability.majorGlitches = "available";
 										}
 									}
 									if(selectedGame == "metroid3") {

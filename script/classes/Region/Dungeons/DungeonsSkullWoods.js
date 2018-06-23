@@ -50,11 +50,11 @@ class DungeonsSkullWoods extends Dungeons {
   initOverworldGlitches() {
 	  this.initNoMajorGlitches();
 
-	  this.canEnter.owglitches = function() {
+	  this.canEnter.owGlitches = function() {
 		  let nwdw = new DarkWorldNorthWest("","",false);
 		  nwdw.initOverworldGlitches();
 
-		  return nwdw.canEnter.owglitches();
+		  return nwdw.canEnter.owGlitches();
 	  }
   }
 }

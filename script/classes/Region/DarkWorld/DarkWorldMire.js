@@ -29,36 +29,36 @@ class DarkWorldMire extends DarkWorld {
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-//		this.locations["Mire Shed - Left"].owglitches =
-//		this.locations["Mire Shed - Right"].owglitches = function() {
-		this.locations["Mire Shed"].owglitches = function() {
+//		this.locations["Mire Shed - Left"].owGlitches =
+//		this.locations["Mire Shed - Right"].owGlitches = function() {
+		this.locations["Mire Shed"].owGlitches = function() {
 			return has("moonpearl") || has("mirror");
 		}
 	}
 
-	this.canEnter.owglitches = function() {
+	this.canEnter.owGlitches = function() {
 		let sdw = new DarkWorldSouth("","",false);
 		sdw.initOverworldGlitches();
 
 		return ((canLiftDarkRocks() && (canFly() || canDash()))
 			|| (has("moonpearl") && canDash()
-				&& sdw.canEnter.owglitches()));
+				&& sdw.canEnter.owGlitches()));
 	}
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
 	let wdm = new DeathMountainWest("","",false);
-	wdm.initMajorGlitches();
+	wdm.initmajorGlitches();
 	let sdw = new DarkWorldSouth("","",false);
-	sdw.initMajorGlitches();
+	sdw.initmajorGlitches();
 
-	this.canEnter.majorglitches = function() {
-		return ((has("bottle") && wdm.canEnter.majorglitches())
+	this.canEnter.majorGlitches = function() {
+		return ((has("bottle") && wdm.canEnter.majorGlitches())
 			|| (canLiftDarkRocks() && (canFly() || has("bottle") || canDash()))
 			|| glitchedLinkInDarkWorld() && canDash()
-				&& sdw.canEnter.majorglitches());
+				&& sdw.canEnter.majorGlitches());
 	}
   }
 }

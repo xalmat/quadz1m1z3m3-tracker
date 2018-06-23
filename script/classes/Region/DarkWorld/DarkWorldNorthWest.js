@@ -47,39 +47,39 @@ class DarkWorldNorthWest extends DarkWorld {
 	if(this.buildLocations) {
 		let locations = this.locations;
 
-		this.locations["Brewery"].owglitches = function() {
+		this.locations["Brewery"].owGlitches = function() {
 			return has("moonpearl");
 		}
-		this.locations["Hammer Pegs"].owglitches = function() {
+		this.locations["Hammer Pegs"].owGlitches = function() {
 			let nedw = new DarkWorldNorthEast("","",false);
 			nedw.initOverworldGlitches();
 
 			return has("hammer") && has("moonpearl")
 				&& (canLiftDarkRocks()
 					|| (canDash()
-						&& nedw.canEnter.owglitches()));
+						&& nedw.canEnter.owGlitches()));
 		}
-		this.locations["Bumper Cave"].owglitches = function() {
+		this.locations["Bumper Cave"].owGlitches = function() {
 			return has("moonpearl")
 				&& (canDash()
 					|| (canLiftRocks() && has("cape")));
 		}
-		this.locations["Blacksmith"].owglitches = function() {
+		this.locations["Blacksmith"].owGlitches = function() {
 			return has("moonpearl") && canLiftDarkRocks();
 		}
-		this.locations["Purple Chest"].owglitches = function() {
+		this.locations["Purple Chest"].owGlitches = function() {
 			let nedw = new DarkWorldNorthEast("","",false);
 			nedw.initOverworldGlitches();
 
-			return locations["Blacksmith"].owglitches()
+			return locations["Blacksmith"].owGlitches()
 				&& (has("moonpearl")
 					&& (canLiftDarkRocks()
 						|| (canDash()
-						&& nedw.canEnter.owglitches())));
+						&& nedw.canEnter.owGlitches())));
 		}
 	}
 
-	  this.canEnter.owglitches = function() {
+	  this.canEnter.owGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
 		  wdm.initOverworldGlitches();
 
@@ -89,52 +89,52 @@ class DarkWorldNorthWest extends DarkWorld {
 		  		|| (has("agahnim") && canGrapple()
 		  			&& (has("hammer") || canLiftRocks() || canSwim()))))
 		  	|| ((has("mirror") || (canDash() && has("moonpearl")))
-		  		&& wdm.canEnter.owglitches()));
+		  		&& wdm.canEnter.owGlitches()));
 	  }
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	  this.initOverworldGlitches();
 
 	if(this.buildLocations) {
 		  let locations = this.locations;
 
-		  this.locations["Brewery"].majorglitches = function() {
+		  this.locations["Brewery"].majorGlitches = function() {
 			  return glitchedLinkInDarkWorld();
 		  }
-		  this.locations["Hammer Pegs"].majorglitches = function() {
+		  this.locations["Hammer Pegs"].majorGlitches = function() {
 			  return has("hammer") && glitchedLinkInDarkWorld();
 		  }
-		  this.locations["Bumper Cave"].majorglitches = function() {
+		  this.locations["Bumper Cave"].majorGlitches = function() {
 			  return glitchedLinkInDarkWorld()
 			  	&& (canDash()
 			  		|| (canLiftRocks() && has("cape")));
 		  }
-		  this.locations["Blacksmith"].majorglitches = function() {
+		  this.locations["Blacksmith"].majorGlitches = function() {
 			  return glitchedLinkInDarkWorld() && canLiftDarkRocks();
 		  }
-		  this.locations["Purple Chest"].majorglitches = function() {
+		  this.locations["Purple Chest"].majorGlitches = function() {
 			  let nedw = new DarkWorldNorthEast("","",false);
-			  nedw.initMajorGlitches();
+			  nedw.initmajorGlitches();
 
-			  return locations["Blacksmith"].majorglitches()
+			  return locations["Blacksmith"].majorGlitches()
 			  	&& (has("mirror")
 			  		|| (glitchedLinkInDarkWorld() && canLiftDarkRocks())
 			  		|| (canDash() && glitchedLinkInDarkWorld()
-			  			&& nedw.canEnter.majorglitches()));
+			  			&& nedw.canEnter.majorGlitches()));
 		  }
 	  }
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
-		  wdm.initMajorGlitches();
+		  wdm.initmajorGlitches();
 
 		  return ((has("moonpearl")
 		  	&& (canLiftDarkRocks()
 		  		|| (has("hammer") && canLiftRocks())
 		  		|| (has("agahnim") && canGrapple()
 		  			&& (has("hammer") || canLiftRocks() || canSwim()))))
-		  	|| wdm.canEnter.majorglitches());
+		  	|| wdm.canEnter.majorGlitches());
 	  }
   }
 }

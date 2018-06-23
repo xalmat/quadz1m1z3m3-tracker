@@ -23,19 +23,19 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 	  }
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
-		this.locations["Spike Cave"].majorglitches = function() {
+		this.locations["Spike Cave"].majorGlitches = function() {
 			let wdm = new DeathMountainWest("","",false);
-			wdm.initMajorGlitches();
+			wdm.initmajorGlitches();
 
 			return has("hammer") && canLiftRocks()
 				&& (has("moonpearl") || (has("bottle") && canDash()))
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("cantTakeDamage")) || canExtendMagic()) && has("byrna")))
-				&& wdm.canEnter.majorglitches();
+				&& wdm.canEnter.majorGlitches();
 		}
 	}
   }

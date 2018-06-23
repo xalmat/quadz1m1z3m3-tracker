@@ -254,6 +254,7 @@ function getConfigObject() {
 // Event of clicking a chest on the map
 function toggleChest(x){
     trackerData[selectedGame].chestsopened[x] = !trackerData[selectedGame].chestsopened[x];
+    chests[selectedGame][x].isOpened = !chests[selectedGame][x].isOpened;
     updateAll();
 }
 

@@ -90,57 +90,57 @@ class DungeonsTurtleRock extends Dungeons {
 		&& (canDash() || has("somaria") || canGrapple()
 			|| has("variation.ohko")										// FIXME: OHKO
 				&& canInvul())
-		&& edwdm.canEnter.owglitches();
+		&& edwdm.canEnter.owGlitches();
 	};
 
 	let upper = function() {
 		return has("trockmedallion")
 		&& has("moonpearl") && has("somaria")
 		&& has("hammer") && (canLiftDarkRocks() || canDash())
-		&& edm.canEnter.owglitches();
+		&& edm.canEnter.owGlitches();
 	};
 
 	if(this.buildLocations) {
-		this.locations["Turtle Rock - Chain Chomps"].owglitches = function() {
+		this.locations["Turtle Rock - Chain Chomps"].owGlitches = function() {
 			return (upper() && has("key"))
 				|| middle();
 		}
-		this.locations["Turtle Rock - Roller Room - Left"].owglitches =
-		this.locations["Turtle Rock - Roller Room - Right"].owglitches =
-		this.locations["Turtle Rock - Compass Chest"].owglitches = function() {
+		this.locations["Turtle Rock - Roller Room - Left"].owGlitches =
+		this.locations["Turtle Rock - Roller Room - Right"].owGlitches =
+		this.locations["Turtle Rock - Compass Chest"].owGlitches = function() {
 			return has("firerod") && has("somaria")
 				&& (upper()
 					|| (middle() && has("key",2)
 						|| has("key",4)));
 		}
-		this.locations["Turtle Rock - Big Chest"].owglitches =
-		this.locations["Turtle Rock - Crystaroller Room"].owglitches = function() {
+		this.locations["Turtle Rock - Big Chest"].owGlitches =
+		this.locations["Turtle Rock - Crystaroller Room"].owGlitches = function() {
 			return has("bigkey") && ((upper() && has("key",2))
 				|| middle());
 		}
 	}
 
-	this.canEnter.owglitches = function() {
+	this.canEnter.owGlitches = function() {
 		return upper() || middle();
 	}
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	this.initOverworldGlitches();
 
 	let wdm = new DeathMountainWest("","",false);
-	wdm.initMajorGlitches();
+	wdm.initmajorGlitches();
 
 	let edwdm = new DarkWorldDeathMountainEast("","",false);
-	edwdm.initMajorGlitches();
+	edwdm.initmajorGlitches();
 
 	let edm = new DeathMountainEast("","",false);
-	edm.initMajorGlitches();
+	edm.initmajorGlitches();
 
 	let lower = function() {
 		return has("mirror") && (has("moonpearl")
 			|| (has("bottle") && canDash()))
-		&& wdm.canEnter.majorglitches();
+		&& wdm.canEnter.majorGlitches();
 	};
 
 	let middle = function() {
@@ -148,7 +148,7 @@ class DungeonsTurtleRock extends Dungeons {
 		&& (canDash() || has("somaria") || canGrapple()
 			|| has("variation.ohko")											// FIXME: OHKO
 				&& canInvul())
-		&& edwdm.canEnter.majorglitches();
+		&& edwdm.canEnter.majorGlitches();
 	};
 
 	let upper = function() {
@@ -156,43 +156,43 @@ class DungeonsTurtleRock extends Dungeons {
 		&& (has("moonpearl") || (has("bottle") && canDash()))
 		&& has("somaria") && has("hammer")
 		&& (canLiftDarkRocks() || canDash())
-		&& edm.canEnter.majorglitches();
+		&& edm.canEnter.majorGlitches();
 	}
 
 	if(this.buildLocations) {
-		this.locations["Turtle Rock - Chain Chomps"].majorglitches = function() {
+		this.locations["Turtle Rock - Chain Chomps"].majorGlitches = function() {
 			return (upper() && has("key"))
 				|| middle()
 				|| (lower() && has("lantern") && has("somaria"));
 		}
-		this.locations["Turtle Rock - Roller Room - Left"].majorglitches =
-		this.locations["Turtle Rock - Roller Room - Right"].majorglitches =
-		this.locations["Turtle Rock - Compass Chest"].majorglitches = function() {
+		this.locations["Turtle Rock - Roller Room - Left"].majorGlitches =
+		this.locations["Turtle Rock - Roller Room - Right"].majorGlitches =
+		this.locations["Turtle Rock - Compass Chest"].majorGlitches = function() {
 			return has("firerod") && has("somaria")
 				&& (upper()
 					|| (middle() && has("key",2)
 						|| has("key",4)))
 					|| (lower() && has("lantern") && has("key",4));
 		}
-		this.locations["Turtle Rock - Big Chest"].majorglitches = function() {
+		this.locations["Turtle Rock - Big Chest"].majorGlitches = function() {
 			return has("bigkey")
 				&& ((upper() && has("key",2))
 					|| (middle() && (canGrapple() || has("somaria")))
 					|| (lower() && has("lantern") && has("somaria")));
 		}
-		this.locations["Turtle Rock - Big Key Chest"].majorglitches = function() {
+		this.locations["Turtle Rock - Big Key Chest"].majorGlitches = function() {
 			return ((upper() || middle()) && has("key",2))
 				|| (lower() && has("lantern") && has("somaria") && has("key",4));
 		}
-		this.locations["Turtle Rock - Crystaroller Room"].majorglitches = function() {
+		this.locations["Turtle Rock - Crystaroller Room"].majorGlitches = function() {
 			return has("bigkey") && ((upper() && has("key",2))
 				|| middle()
 				|| (lower() & has("lantern") && has("somaria")));
 		}
-		this.locations["Turtle Rock - Eye Bridge - Bottom Left"].majorglitches =
-		this.locations["Turtle Rock - Eye Bridge - Bottom Right"].majorglitches =
-		this.locations["Turtle Rock - Eye Bridge - Top Left"].majorglitches =
-		this.locations["Turtle Rock - Eye Bridge - Top Right"].majorglitches = function() {
+		this.locations["Turtle Rock - Eye Bridge - Bottom Left"].majorGlitches =
+		this.locations["Turtle Rock - Eye Bridge - Bottom Right"].majorGlitches =
+		this.locations["Turtle Rock - Eye Bridge - Top Left"].majorGlitches =
+		this.locations["Turtle Rock - Eye Bridge - Top Right"].majorGlitches = function() {
 			return (lower()
 				|| ((upper() || middle()) &&
 					has("lantern") && has("somaria") && has("bigkey") && has("key",3)))
@@ -200,12 +200,12 @@ class DungeonsTurtleRock extends Dungeons {
 		}
 	}
 
-	this.canEnter.majorglitches = function() {
+	this.canEnter.majorGlitches = function() {
 		return (lower()
 			|| middle()
 			|| upper());
 	}
-	this.canComplete.majorglitches = function() {
+	this.canComplete.majorGlitches = function() {
 		return has("firerod") && has("icerod")
 			&& has("bigkey") && has("somaria")
 			&& (has("hammer") || hasSword(2))

@@ -52,7 +52,7 @@ class DungeonsDesertPalace extends Dungeons {
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-		this.locations["Desert Palace - Lanmolas"].owglitches = function() {
+		this.locations["Desert Palace - Lanmolas"].owGlitches = function() {
 			let dwm = new DarkWorldMire("","",false);
 			dwm.initOverworldGlitches();
 
@@ -61,17 +61,17 @@ class DungeonsDesertPalace extends Dungeons {
 				&& this.boss.canBeat()
 				&& ((canRead() && canLiftRocks())
 					|| canDash()
-					|| (has("mirror") && dwm.canEnter.owglitches()));
+					|| (has("mirror") && dwm.canEnter.owGlitches()));
 		}
 	}
 
-	this.canEnter.owglitches = function() {
+	this.canEnter.owGlitches = function() {
 		let dwm = new DarkWorldMire("","",false);
 		dwm.initOverworldGlitches();
 
 		return (canRead()
 			|| canDash()
-			|| (has("mirror") && dwm.canEnter.owglitches()));
+			|| (has("mirror") && dwm.canEnter.owGlitches()));
 	}
   }
 }

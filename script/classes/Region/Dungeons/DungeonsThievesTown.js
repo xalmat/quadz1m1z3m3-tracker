@@ -51,12 +51,12 @@ class DungeonsThievesTown extends Dungeons {
   initMajorGlitches() {
 	  this.initNoMajorGlitches();
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let nwdw = new DarkWorldNorthWest("","",false);
 		  nwdw.initMajorGlitches();
 
 		  return glitchedLinkInDarkWorld()
-		  	&& nwdw.canEnter.majorglitches();
+		  	&& nwdw.canEnter.majorGlitches();
 	  }
   }
 }

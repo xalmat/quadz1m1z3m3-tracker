@@ -56,25 +56,25 @@ class DarkWorldNorthEast extends DarkWorld {
 	  this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-		  this.locations["Catfish"].owglitches = function() {
+		  this.locations["Catfish"].owGlitches = function() {
 			  return has("moonpearl")
 			  	&& (canLiftDarkRocks() || canDash());
 		  }
-//		this.locations["Pyramid Fairy - Left"].owglitches =
-//		this.locations["Pyramid Fairy - Right"].owglitches = function() {
-		this.locations["Pyramid Fairy"].owglitches = function() {
+//		this.locations["Pyramid Fairy - Left"].owGlitches =
+//		this.locations["Pyramid Fairy - Right"].owGlitches = function() {
+		this.locations["Pyramid Fairy"].owGlitches = function() {
 			  let sdw = new DarkWorldSouth("","",false);
 			  sdw.initOverworldGlitches();
 
 			  return (has("mirror") && canSpinSpeed())
 			  	|| has("crystal5") && has("crystal6")	// FIXME: Need items for Crystals 5 & 6
-			  		&& sdw.canEnter.owglitches()
+			  		&& sdw.canEnter.owGlitches()
 			  			&& ((has("hammer") && has("moonpearl"))
 			  				|| (has("mirror") && has("agahnim")));
 		  }
 	  }
 
-	  this.canEnter.owglitches = function() {
+	  this.canEnter.owGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
 		  wdm.initOverworldGlitches();
 
@@ -84,35 +84,35 @@ class DarkWorldNorthEast extends DarkWorld {
 		  			|| (has("hammer") && canLiftRocks())))
 		  	|| (((has("mirror") && canSpinSpeed())
 		  		|| (has("moonpearl") && (has("mirror") || canDash())))
-		  			&& wdm.canEnter.owglitches()));
+		  			&& wdm.canEnter.owGlitches()));
 	  }
   }
 
-  initMajorGlitches() {
+  initmajorGlitches() {
 	  this.initOverworldGlitches();
 
 	if(this.buildLocations) {
-		  this.locations["Catfish"].majorglitches = function() {
+		  this.locations["Catfish"].majorGlitches = function() {
 			  return glitchedLinkInDarkWorld()
 			  	&& (canLiftRocks() || canDash());
 		  }
-//		this.locations["Pyramid Fairy - Left"].majorglitches =
-//		this.locations["Pyramid Fairy - Right"].majorglitches = function() {
-		this.locations["Pyramid Fairy"].majorglitches = function() {
+//		this.locations["Pyramid Fairy - Left"].majorGlitches =
+//		this.locations["Pyramid Fairy - Right"].majorGlitches = function() {
+		this.locations["Pyramid Fairy"].majorGlitches = function() {
 			  let sdw = new DarkWorldSouth("","",false);
-			  sdw.initMajorGlitches();
+			  sdw.initmajorGlitches();
 
 			  return (has("mirror") && canSpinSpeed())
 			  	|| (has("crystal5") && has("crystal6")
-			  		&& sdw.canEnter.majorglitches()
+			  		&& sdw.canEnter.majorGlitches()
 			  			&& ((has("hammer") && glitchedLinkInDarkWorld())
 			  				|| (has("mirror") && has("agahnim"))));
 		  }
 	  }
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
-		  wdm.initMajorGlitches();
+		  wdm.initmajorGlitches();
 
 		  return (has("agahnim")
 		  	|| (has("moonpearl")
@@ -121,7 +121,7 @@ class DarkWorldNorthEast extends DarkWorld {
 		  	|| ((has("bottle")
 		  		|| (has("mirror") && canSpinSpeed())
 		  		|| (has("moonpearl") && (has("mirror") || canDash())))
-		  			&& wdm.canEnter.majorglitches()))
+		  			&& wdm.canEnter.majorGlitches()))
 	  }
   }
 }

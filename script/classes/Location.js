@@ -10,8 +10,8 @@ class Location {
     this.casualLogic = function() { return true; },
     this.tourneyLogic = function() { return this.casualLogic(); },
     this.glitchless = function() { return true; },
-    this.owglitches = function() { return this.glitchless(); },
-    this.majorglitches = function() { return this.owglitches(); },
+    this.owGlitches = function() { return this.glitchless(); },
+    this.majorGlitches = function() { return this.owGlitches(); },
     this.region = region;
     this.spicy = typeof extra.spicy !== "undefined";
     this.equipment = typeof extra.equipment !== "undefined" ? extra.equipment : "";

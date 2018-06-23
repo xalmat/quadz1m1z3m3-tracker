@@ -82,7 +82,7 @@ class DungeonsPalaceOfDarkness extends Dungeons {
   initMajorGlitches() {
 	  this.initOverworldGlitches();
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  let nedw = new DarkWorldNorthEast("","",false);
 		  nedw.initMajorGlitches();
 
@@ -90,8 +90,8 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 		  wdm.initMajorGlitches();
 
 		  return (glitchedLinkInDarkWorld()
-		  	&& nedw.canEnter.majorglitches()
-		  	|| wdm.canEnter.majorglitches());
+		  	&& nedw.canEnter.majorGlitches()
+		  	|| wdm.canEnter.majorGlitches());
 	  }
   }
 }

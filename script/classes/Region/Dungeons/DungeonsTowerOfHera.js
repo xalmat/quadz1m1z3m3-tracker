@@ -48,13 +48,13 @@ class DungeonsTowerOfHera extends Dungeons {
   initOverworldGlitches() {
 	  this.initNoMajorGlitches();
 
-	  this.canEnter.owglitches = function() {
+	  this.canEnter.owGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
 		  wdm.initOverworldGlitches();
 
 		  return (canDash()
 		  	|| ((has("mirror") || (canGrapple() && has("hammer")))
-		  		&& wdm.canEnter.owglitches()));
+		  		&& wdm.canEnter.owGlitches()));
 	  }
   }
 
@@ -72,46 +72,46 @@ class DungeonsTowerOfHera extends Dungeons {
 	  let main = function() {
 		  return canDash()
 	  	|| ((has("mirror") || (canGrapple() && has("hammer")))
-	  		&& wdm.canEnter.majorglitches());
+	  		&& wdm.canEnter.majorGlitches());
 	  };
 
 	  let mire = function() {
 		  return ((has("key",2) || has("key",3))
-	  	&& mm.canEnter.majorglitches());
+	  	&& mm.canEnter.majorGlitches());
 	  };
 
 	  if(this.buildLocations) {
-		  this.locations["Tower of Hera - Big Key Chest"].majorglitches = function() {
+		  this.locations["Tower of Hera - Big Key Chest"].majorGlitches = function() {
 			  return canLightTorches() && has("key");
 		  }
-		  this.locations["Tower of Hera - Compass Chest"].majorglitches = function() {
+		  this.locations["Tower of Hera - Compass Chest"].majorGlitches = function() {
 			  return (main() && has("bigkey"))
 			  	|| mire();
 		  }
-		  this.locations["Tower of Hera - Big Chest"].majorglitches = function() {
+		  this.locations["Tower of Hera - Big Chest"].majorGlitches = function() {
 			  return (main() && has("bigkey"))
 			  	|| (mire() && (has("bigkey") || has("bigkey")));
 		  }
-		  this.locations["Tower of Hera - Moldorm"].majorglitches = function() {
+		  this.locations["Tower of Hera - Moldorm"].majorGlitches = function() {
 			  return ((main() && has("bigkey"))
 			  		|| mire())
 			  	&& boss.canBeat();
 		  }
 	  }
 
-	  this.canEnter.majorglitches = function() {
+	  this.canEnter.majorGlitches = function() {
 		  return (main()
 		  	|| mire());
 	  }
-	  this.canComplete.majorglitches = function() {
+	  this.canComplete.majorGlitches = function() {
 		  let sp = new DungeonsSwampPalace("","",false);
 		  sp.initMajorGlitches();
 
 		  return (((main() && has("bigkey"))
 		  		|| (mire() && (has("bigkey") || has("bigkey"))))
 		  	&& (hasSword() || has("hammer")))
-		  || (this.locations["Tower of Hera - Big Chest"].majorglitches()
-		  	&& sp.locations["Swamp Palace - Arrghus"].majorglitches());
+		  || (this.locations["Tower of Hera - Big Chest"].majorGlitches()
+		  	&& sp.locations["Swamp Palace - Arrghus"].majorGlitches());
 	  }
   }
 }
