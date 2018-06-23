@@ -93,10 +93,10 @@ function initClasses(useGame) {
 											availability.glitchless = "available";
 										}
 										if(regionObjects[this.region].canEnter.owGlitches() && this.canAccess.owGlitches()) {
-											availability.glitchless = "available";
+											availability.owGlitches = "available";
 										}
 										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
-											availability.glitchless = "available";
+											availability.majorGlitches = "available";
 										}
 									}
 									if(selectedGame == "metroid3") {
