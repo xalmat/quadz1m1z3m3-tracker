@@ -123,6 +123,8 @@ class LightWorldNorthWest extends LightWorld {
 			let aga1 = canBeatAga1("minor");
 			if(aga1 && canDash()) {
 				return aga1;
+			} else {
+				return "viewable";
 			}
 		}
 		this.locations["Graveyard Ledge"].minorGlitches = function() {

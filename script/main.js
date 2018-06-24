@@ -10,7 +10,7 @@ trackerOptions[selectedGame] = {
   mapSwords: true,
   selected: {}
 };
-trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
+trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "minorGlitches";
 
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
@@ -112,7 +112,7 @@ for(var gameName in gameNames) {
 
 var defaults = {
 	zelda3: {
-		mapLogic: "glitchless",
+		mapLogic: "minorGlitches",
 		mapState: "open",
 		mPos: "Side",
 		mZoom: 80,
@@ -895,7 +895,7 @@ function initTracker() {
     populateItemconfig();
 
     if(! document.querySelector('input[name="maplogic"]:checked')) {
-		var defaultLogic = selectedGame == "metroid3" ? "casualLogic" : "glitchless";
+		var defaultLogic = selectedGame == "metroid3" ? "casualLogic" : "minorGlitches";
 		var radios = document.querySelectorAll('input[name="maplogic"]');
 		for(var radio in radios) {
 			radio = radios[radio];
