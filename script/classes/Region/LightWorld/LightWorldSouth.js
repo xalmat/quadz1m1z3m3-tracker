@@ -79,8 +79,90 @@ class LightWorldSouth extends LightWorld {
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+		let region = this;
+
+		this.locations["Hobo"].minorGlitches = function() {
+			let ret = this.glitchless();
+			if(ret) {
+				return ret;
+			}
+			if(canFakeFlipper()) {
+				return "glitchavailable";
+			}
+		}
+		this.locations["Bombos Tablet"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
+			let sdw = new DarkWorldSouth("","",false);
+			sdw.initMinorGlitches();
+
+			if(canActivateTablets()
+				&& has("mirror") && sdw.canEnter.minorGlitches()) {
+				return sdw.canEnter.minorGlitches();
+			}
+		}
+		this.locations["Cave 45"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
+			let sdw = new DarkWorldSouth("","",false);
+			sdw.initMinorGlitches();
+
+			if(has("mirror") && sdw.canEnter.minorGlitches()) {
+				return sdw.canEnter.minorGlitches();
+			}
+		}
+		this.locations["Library"].minorGlitches = function() {
+			let ret = this.glitchless();
+			if(ret) {
+				return ret;
+			}
+			if(region.canEnter.glitchless()) {
+				return "viewable";
+			}
+		}
+		this.locations["Desert Ledge"].minorGlitches = function() {
+			let ret = this.glitchless();
+			if(ret) {
+				return ret;
+			}
+			if(region.canEnter.glitchless()) {
+				return "viewable";
+			}
+		}
+		this.locations["Lake Hylia Island"].minorGlitches = function() {
+			let ret = this.glitchless();
+			if(ret) {
+				return ret;
+			}
+			if(canSwim() && has("moonpearl") && has("mirror")) {
+				let dws = new DarkWorldSouth("","",false);
+				dws.initMinorGlitches();
+
+				if(dws.canEnter.minorGlitches()) {
+					return dws.canEnter.minorGlitches();
+				}
+			}
+			if(region.canEnter.glitchless()) {
+				return "viewable";
+			}
+		}
+	}
+  }
+
+  initOverworldGlitches() {
+	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		this.locations["Hobo"].owGlitches = function() {

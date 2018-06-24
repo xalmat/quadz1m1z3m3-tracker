@@ -114,6 +114,8 @@ function build_img_url(item) {
 		bomb0:		"bomb1",
 		boomerang0:	"boomerang1",
 		bottle:		"bottle0",
+		crystal5:	"dungeon" + OJCRYSTAL,
+		crystal6:	"dungeon" + OJCRYSTAL,
 		glove0:		"glove1",
 		lamp:		"lantern",
 		medallion1:	"bombos",

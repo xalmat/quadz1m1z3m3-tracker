@@ -29,8 +29,32 @@ class DarkWorldSouth extends DarkWorld {
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+	}
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+		let dwne = new DarkWorldNorthEast("","",false);
+		dwne.initMinorGlitches();
+
+		if(has("moonpearl")
+			&& ((dwne.canEnter.minorGlitches() && (has("hammer")
+				|| (canGrapple() && (canSwim() || canLiftRocks()))))
+				|| (has("hammer") && canLiftRocks())
+				|| canLiftDarkRocks())) {
+			return dwne.canEnter.minorGlitches();
+		}
+	}
+  }
+
+  initOverworldGlitches() {
+	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		for(var loc in this.locations) {
@@ -40,7 +64,7 @@ class DarkWorldSouth extends DarkWorld {
 		}
 	}
 
-	this.canEnter.owglitches = function() {
+	this.canEnter.owGlitches = function() {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initOverworldGlitches();
 

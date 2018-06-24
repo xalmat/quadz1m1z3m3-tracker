@@ -41,8 +41,45 @@ class DarkWorldNorthWest extends DarkWorld {
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+		this.locations["Bumper Cave"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
+			if(has("agahnim")) {
+				return "viewable";
+			}
+		}
+	}
+
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+
+		let nedw = new DarkWorldNorthEast("","",false);
+		nedw.initMinorGlitches();
+
+		if(has("moonpearl")
+			&& ((nedw.canEnter.minorGlitches()
+				&& (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
+				|| (has("hammer") && canLiftRocks())
+				|| canLiftDarkRocks())) {
+			return nedw.canEnter.minorGlitches();
+		}
+	}
+  }
+
+  initOverworldGlitches() {
+	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		let locations = this.locations;
