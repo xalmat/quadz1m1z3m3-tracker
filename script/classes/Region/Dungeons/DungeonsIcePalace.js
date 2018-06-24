@@ -20,22 +20,26 @@ class DungeonsIcePalace extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let region = this;
 
-	this.locations["Ice Palace - Big Key Chest"].glitchless =
-	this.locations["Ice Palace - Map Chest"].glitchless =
-	this.locations["Ice Palace - Spike Room"].glitchless = function() {
-		return has("hammer") && canLiftRocks()
-			&& (! has("variation.ohko")										// FIXME: OHKO
-				|| canInvul() || has("hookshot"))
-			&& (has("hookshot")
-				|| has("bigkey") ? has("hookshot") : has("key"));
+	if(this.buildLocations) {
+		this.locations["Ice Palace - Big Key Chest"].glitchless =
+		this.locations["Ice Palace - Map Chest"].glitchless =
+		this.locations["Ice Palace - Spike Room"].glitchless = function() {
+			return has("hammer") && canLiftRocks()
+				&& (! has("variation.ohko")										// FIXME: OHKO
+					|| canInvul() || has("hookshot"))
+				&& (has("hookshot")
+					|| has("bigkey") ? has("hookshot") : has("key"));
+		}
+		this.locations["Ice Palace - Freezor Chest"].glitchless = function() {
+			return canMeltThings();
+		}
+		this.locations["Ice Palace - Big Chest"].glitchless = function() {
+			return has("bigkey");
+		}
 	}
-	this.locations["Ice Palace - Freezor Chest"].glitchless = function() {
-		return canMeltThings();
-	}
-	this.locations["Ice Palace - Big Chest"].glitchless = function() {
-		return has("bigkey");
-	}
+
 	this.locations["Ice Palace - Kholdstare"].glitchless = function() {
 		return has("hammer") && canMeltThings() && canLiftRocks()
 			&& boss.canBeat()
@@ -50,12 +54,70 @@ class DungeonsIcePalace extends Dungeons {
 			&& canLiftDarkRocks() && canMeltThings();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Kholdstare"].glitchless();
+		return region.locations["Ice Palace - Kholdstare"].glitchless();
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	  this.initNoMajorGlitches();
+
+	  let boss = this.boss;
+	  let dungeon = this;
+
+	  this.canEnter.minorGlitches = function() {
+		  let ret = this.glitchless();
+
+		  if(ret) {
+			  return ret;
+		  }
+		  if(canLiftDarkRocks() && canMeltThings()) {
+			  if(has("moonpearl") && canSwim()) {
+				  return true;
+			  } else {
+				  return "glitchavailable";
+			  }
+		  }
+	  }
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[7];
+
+		  if(dungeon.canEnter.glitchless()) {
+			  if(has("hammer") && canLiftRocks()) {
+				  if(canGrapple()) {
+					  return true;
+				  } else if(canInvul()) {
+					  if(mychests >= 2) {
+						  return true;
+					  } else {
+						  return "partial";
+					  }
+				  } else {
+					  return "partial";
+				  }
+			  } else {
+				  return "partial";
+			  }
+		  }
+		  if(dungeon.canEnter.minorGlitches()) {
+			  if(has("hammer") && canLiftRocks()) {
+				  if(canGrapple()) {
+					  return "glitchavailable";
+				  } else {
+					  if(mychests >= 2) {
+						  return "glitchavailable";
+					  } else {
+						  return "glitchpartial";
+					  }
+				  }
+			  } else {
+				  return "glitchpartial";
+			  }
+		  }
+	  }
+  }
+
+  initOverworldGlitches() {
+	  this.initMinorGlitches();
 
 	  this.canEnter.owGlitches = function() {
 		  return canLiftDarkRocks() && canMeltThings();

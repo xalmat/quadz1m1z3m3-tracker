@@ -50,7 +50,7 @@
                 <span style="float:right;"><input type="checkbox" name="showmap" id="showmap" checked='checked' onchange="showTracker('mapdiv', this)"><label for="showmap">Enabled</label><br /><label><input type="checkbox" id="mapRegions" onchange="showRegions(this)" />Regions</label></span>
                 <div class="zelda3-option">
 	                <span style="white-space:nowrap;">Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)"><span id='mapdivsize'>100%</span></span><br />
-	                Orientation:
+	                Orientation:<br />
 	                <input type='radio' name='maporientation' id="mOrien1" value='Horizontal' checked='checked' onclick="setMapOrientation(false)"><label for="mOrien1">Horizontal</label>
 	                <input type='radio' name='maporientation' id="mOrien2" value='Verical' onclick="setMapOrientation(true)"><label for="mOrien2">Vertical</label>
 	            </div>
@@ -85,7 +85,7 @@
 					<!-- Metroid 3 -->
                     <fieldset>
 						<legend>Skill Logic</legend>
-	                    <input type='radio' name='maplogic' id="m3mLogic1" value='casualLogic' onclick='setLogic("casualLogic")'><label for="m3mLogic1">Casual</label>
+	                    <input type='radio' name='maplogic' id="m3mLogic1" value='casualLogic' checked="checked" onclick='setLogic("casualLogic")'><label for="m3mLogic1">Casual</label>
 						<input type='radio' name='maplogic' id="m3mLogic2" value='tourneyLogic' onclick='setLogic("tourneyLogic")'><label for="m3mLogic2">Tournament</label>
                     </fieldset>
 	                <fieldset>
@@ -117,6 +117,15 @@
                         </tr>
                         <tr class="metroid3-option">
                             <th class="opened">Opened</th>
+                        </tr>
+                    </table>
+                </fieldset>
+                <fieldset class="zelda3-option">
+                	<legend>Dungeon Legend</legend>
+                    <table border="0" cellspacing="0" id="legend" class="legend" style="width:100%;">
+                        <tr>
+                            <th class="partial zelda3-option">Partial</th>
+                            <th class="glitchpartial zelda3-option">Glitch Partial</th>
                         </tr>
                     </table>
                 </fieldset>

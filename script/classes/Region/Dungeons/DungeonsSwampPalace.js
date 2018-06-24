@@ -22,6 +22,7 @@ class DungeonsSwampPalace extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let region = this;
 
 	if(this.buildLocations) {
 		this.locations["Swamp Palace - Big Chest"].glitchless = function() {
@@ -48,12 +49,13 @@ class DungeonsSwampPalace extends Dungeons {
 				&& has("hammer")
 				&& canGrapple();
 		}
-		this.locations["Swamp Palace - Arrghus"].glitchless = function() {
-			return has("key")
-				&& has("hammer")
-				&& canGrapple()
-				&& boss.canBeat();
-		}
+	}
+
+	this.locations["Swamp Palace - Arrghus"].glitchless = function() {
+		return has("key")
+			&& has("hammer")
+			&& canGrapple()
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -64,8 +66,45 @@ class DungeonsSwampPalace extends Dungeons {
 			&& sdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Swamp Palace - Arrghus"].glitchless();
+		return region.locations["Swamp Palace - Arrghus"].glitchless();
 	}
+  }
+
+  initMinorGlitches() {
+	  this.initNoMajorGlitches();
+
+	  let dungeon = this;
+
+	  this.canEnter.minorGlitches = function() {
+		  let sdw = new DarkWorldSouth("","",false);
+		  sdw.initMinorGlitches();
+
+		  if(has("moonpearl")
+		  	&& has("mirror")
+		  	&& canSwim()) {
+				if(sdw.canEnter.minorGlitches()) {
+					return sdw.canEnter.minorGlitches();
+				}
+		  }
+	  }
+
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[4];
+
+		  if(dungeon.canEnter.glitchless()) {
+			  if(has("hammer")) {
+				  if(canGrapple() || mychests >= 5) {
+					  return true;
+				  } else if(mychests >= 3) {
+					  return "partial";
+				  }
+			  } else {
+				  return "partial";
+			  }
+		  } else if(dungeon.canEnter.minorGlitches()) {
+			  return dungeon.canEnter.minorGlitches();
+		  }
+	  }
   }
 
   initMajorGlitches() {

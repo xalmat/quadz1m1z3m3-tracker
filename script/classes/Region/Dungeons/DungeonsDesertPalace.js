@@ -16,6 +16,7 @@ class DungeonsDesertPalace extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Desert Palace - Big Chest"].glitchless = function() {
@@ -28,11 +29,11 @@ class DungeonsDesertPalace extends Dungeons {
 		this.locations["Desert Palace - Torch"].glitchless = function() {
 			return canDash();
 		}
-		this.locations["Desert Palace - Lanmolas"].glitchless = function() {
-			return canLiftRocks() && canLightTorches()
-				&& has("bigkey") && has("key")
-				&& boss.canBeat();
-		}
+	}
+	this.locations["Desert Palace - Lanmolas"].glitchless = function() {
+		return canLiftRocks() && canLightTorches()
+			&& has("bigkey") && has("key")
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -42,7 +43,23 @@ class DungeonsDesertPalace extends Dungeons {
 		);
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Desert Palace - Lanmolas"].glitchless();
+		return dungeon.locations["Desert Palace - Lanmolas"].glitchless();
+	}
+	this.canGetChest.glitchless = function() {
+		let mychests = trackerData.zelda3.dungeonchests[1];
+		if(
+			canDash()
+			&& (mychests === 2
+				|| (boss.canBeat()
+					&& canLightTorches()
+					&& canLiftRocks()
+				)
+			)
+		) {
+			return "available";
+		} else {
+			return "partial";
+		}
 	}
   }
 

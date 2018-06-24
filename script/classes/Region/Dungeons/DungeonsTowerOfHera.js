@@ -18,6 +18,7 @@ class DungeonsTowerOfHera extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Tower of Hera - Big Key Chest"].glitchless = function() {
@@ -27,10 +28,10 @@ class DungeonsTowerOfHera extends Dungeons {
 		this.locations["Tower of Hera - Big Chest"].glitchless = function() {
 			return has("bigkey");
 		}
-		this.locations["Tower of Hera - Moldorm"].glitchless = function() {
-			return has("key") && has("bigkey")
-				&& boss.canBeat();
-		}
+	}
+	this.locations["Tower of Hera - Moldorm"].glitchless = function() {
+		return has("key") && has("bigkey")
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -41,12 +42,58 @@ class DungeonsTowerOfHera extends Dungeons {
 			&& wdm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Tower of Hera - Moldorm"].glitchless();
+		return dungeon.locations["Tower of Hera - Moldorm"].glitchless();
+	}
+	this.canGetChest.glitchless = function() {
+		let mychests = trackerData.zelda3.dungeonchests[2];
+		if(this.canEnter.glitchless) {
+			if(canLightTorches() && (mychests === 2 || hasSword() || has("hammer"))) {
+				return true;
+			} else {
+				return "partial";
+			}
+		}
+	}
+  }
+
+  initMinorGlitches() {
+	this.initNoMajorGlitches();
+
+	let region = this;
+
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+
+		let wdm = new DeathMountainWest("","",false);
+		wdm.initMinorGlitches();
+
+		ret = (has("mirror") || (canGrapple() && has("hammer")));
+		if(ret) {
+			if(wdm.canEnter.minorGlitches()) {
+				return wdm.canEnter.minorGlitches();
+			}
+		}
+	}
+
+	this.canGetChest.minorGlitches = function() {
+		let mychests = trackerData.zelda3.dungeonchests[2];
+		if(region.canEnter.minorGlitches()) {
+			if(canLightTorches() && (mychests === 2 || hasSword() || has("hammer"))) {
+				return "glitchavailable";
+			} else {
+				return "glitchpartial";
+			}
+		}
+		return false;
 	}
   }
 
   initOverworldGlitches() {
-	  this.initNoMajorGlitches();
+	  this.initMinorGlitches();
 
 	  this.canEnter.owGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);

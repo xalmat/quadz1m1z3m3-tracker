@@ -19,6 +19,7 @@ class DungeonsSkullWoods extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let region = this;
 
 	if(this.buildLocations) {
 		this.locations["Skull Woods - Big Chest"].glitchless = function() {
@@ -27,13 +28,14 @@ class DungeonsSkullWoods extends Dungeons {
 		this.locations["Skull Woods - Bridge Room"].glitchless = function() {
 			return has("moonpearl") && has("firerod");
 		}
-		this.locations["Skull Woods - Mothula"].glitchless = function() {
-			return has("moonpearl")
-				&& has("firerod")
-				&& (has("swords.swordless") || hasSword())						// FIXME: Swordless
-				&& has("key",3)
-				&& boss.canBeat();
-		}
+	}
+
+	this.locations["Skull Woods - Mothula"].glitchless = function() {
+		return has("moonpearl")
+			&& has("firerod")
+			&& hasSword()
+			&& has("key",3)
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -43,12 +45,46 @@ class DungeonsSkullWoods extends Dungeons {
 		return has("moonpearl") && nwdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Skull Woods - Mothula"].glitchless();
+		return region.locations["Skull Woods - Mothula"].glitchless();
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	  this.initNoMajorGlitches();
+
+	  let dungeon = this;
+
+	  this.canEnter.minorGlitches = function() {
+		  let nwdw = new DarkWorldNorthWest("","",false);
+		  nwdw.initMinorGlitches();
+
+		  if(has("moonpearl")) {
+			  if(nwdw.canEnter.minorGlitches()) {
+				  return nwdw.canEnter.minorGlitches();
+			  }
+		  }
+	  }
+
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[5];
+
+		  if(dungeon.canEnter.glitchless()) {
+			  if(has("moonpearl")
+			  	&& has("firerod")
+			  	&& (hasSword() || mychests === 2)) {
+				  return true;
+			  } else {
+				  return "partial";
+			  }
+		  }
+		  if(dungeon.canEnter.minorGlitches()) {
+			  return dungeon.canEnter.minorGlitches();
+		  }
+	  }
+  }
+
+  initOverworldGlitches() {
+	  this.initMinorGlitches();
 
 	  this.canEnter.owGlitches = function() {
 		  let nwdw = new DarkWorldNorthWest("","",false);

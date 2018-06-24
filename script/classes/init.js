@@ -13,7 +13,7 @@ function initClasses(useGame) {
 					var regionObject = eval("new " + regionClassName + "()");
 
 					if(useGame == "zelda3") {
-						regionObject.initmajorGlitches();
+						regionObject.initMajorGlitches();
 					}
 					if(useGame == "metroid3") {
 						regionObject.initTournament();
@@ -90,15 +90,36 @@ function initClasses(useGame) {
 								isBeatable: function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3") {
+										// No Glitches
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
 										}
-										if(regionObjects[this.region].canEnter.minorGlitches() && this.canAccess.minorGlitches()) {
-											availability.minorGlitches = "available";
+
+										// Minor Glitches
+										let regionAccess = regionObjects[this.region].canEnter.minorGlitches();
+										let localAccess = regionObjects[this.region].canComplete.minorGlitches();
+										if(regionAccess && localAccess) {
+											if(typeof regionAccess == "string" || typeof localAccess == "string") {
+												if(typeof localAccess == "string") {
+													availability.minorGlitches = localAccess;
+												} else if(typeof regionAccess == "string") {
+													availability.minorGlitches = regionAccess;
+												} else {
+													availability.minorGlitches = "available";
+												}
+											} else {
+												availability.minorGlitches = "available";
+											}
+										} else {
+											availability.minorGlitches = "unavailable";
 										}
+
+										// Overworld Glitches
 										if(regionObjects[this.region].canEnter.owGlitches() && this.canAccess.owGlitches()) {
 											availability.owGlitches = "available";
 										}
+
+										// Major Glitches
 										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
 											availability.majorGlitches = "available";
 										}
@@ -114,7 +135,27 @@ function initClasses(useGame) {
 									return availability;
 								},
 								canGetChest: function() {
-									return this.isBeatable();
+									const availability = new Availability();
+									if(selectedGame == "zelda3") {
+										let regionAccess = regionObjects[this.region].canEnter.minorGlitches();
+										let localAccess = regionObjects[this.region].canGetChest.minorGlitches();
+										if(regionAccess && localAccess) {
+											if(typeof regionAccess == "string" || typeof localAccess == "string") {
+												if(typeof regionAccess == "string") {
+													availability.minorGlitches = regionAccess;
+												} else if(typeof localAccess == "string") {
+													availability.minorGlitches = localAccess;
+												} else {
+													availability.minorGlitches = "available";
+												}
+											} else {
+												availability.minorGlitches = "available";
+											}
+										} else {
+											availability.minorGlitches = "unavailable";
+										}
+									}
+									return availability;
 								}
 							};
 							dungeon = Object.assign(props,dungeon);

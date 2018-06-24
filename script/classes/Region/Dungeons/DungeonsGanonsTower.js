@@ -49,6 +49,7 @@ class DungeonsGanonsTower extends Dungeons {
 	let boss_bottom = this.boss_bottom;
 	let boss_middle = this.boss_middle;
 	let boss_top = this.boss_top;
+	let region = this;
 
 	if(this.buildLocations) {
 		this.locations["Ganon's Tower - Bob's Torch"].glitchless = function() {
@@ -136,13 +137,147 @@ class DungeonsGanonsTower extends Dungeons {
 			&& dwdme.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Ganon's Tower - Moldorm's Chest"].glitchless()
+		return region.locations["Ganon's Tower - Moldorm Chest"].glitchless()
 			&& boss.canBeat();
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	  this.initNoMajorGlitches();
+
+	  let dungeon = this;
+
+	  this.canEnter.minorGlitches = function() {
+		  let crystalCount = 0;
+		  for(let k = 0; k < 10; k++) {
+			  if(((trackerData.zelda3.prizes[k] === OJCRYSTAL) || (trackerData.zelda3.prizes[k] === CRYSTAL)) && trackerData.zelda3.items["boss" + k] === 2) {
+				  crystalCount++;
+				  if(crystalCount === 7) {
+					  break;
+				  }
+			  }
+		  }
+		  let ret = crystalCount === 7 && has("moonpearl");
+		  let dwdme = new DarkWorldDeathMountainEast("","",false);
+		  dwdme.initMinorGlitches();
+
+		  if(ret) {
+			  if(dwdme.canEnter.minorGlitches()) {
+				  return dwdme.canEnter.minorGlitches();
+			  }
+		  }
+	  }
+	  this.canGetChest.minorGlitches = function() {
+		  let smallKeysNeeded = 0;
+		  let bigKeyNeeded = 0;
+		  let bigKeyGuaranteed = 0;
+
+		  // Hope Room x2
+		  let minAvailableChests = 2;
+		  let maxAvailableChests = 2;
+
+		  // Bob's Torch
+		  if(canDash()) {
+			  minAvailableChests++;
+			  maxAvailableChests++;
+		  }
+
+		  //DMs Room x4 + Randomizer Room x4 + Firesnake Room
+		  if (has("hammer") && canGrapple()) {
+			  minAvailableChests += 9;
+			  maxAvailableChests += 9;
+			  smallKeysNeeded = 4;
+		  }
+
+		  // Map Chest
+		  if (has("hammer")
+		  	&& (canDash() || canGrapple())) {
+				minAvailableChests++;
+				maxAvailableChests++;
+		  }
+
+		  // Bob's Chest + Big Key Room x3
+		  if ((has("hammer") && canGrapple())
+		  	|| (has("firerod") && has("somaria"))) {
+				minAvailableChests += 4;
+				maxAvailableChests += 4;
+				smallKeysNeeded = Math.max(3, smallKeysNeeded);
+		  }
+
+		  // Tile Room
+		  if (has("somaria")) {
+			  minAvailableChests++;
+			  maxAvailableChests++;
+		  }
+
+		  // Compass Room x4
+		  if (has("firerod") && has("somaria")) {
+			  minAvailableChests += 4;
+			  maxAvailableChests += 4;
+			  smallKeysNeeded = Math.max(4, smallKeysNeeded);
+ 		  }
+
+ 		  // Big Chest
+ 		  if (has("hammer")
+ 		  	&& canDash()
+ 		  	&& canGrapple()
+ 		  	&& has("somaria")
+ 		  	&& has("firerod")) {
+				minAvailableChests++;
+				maxAvailableChests++;
+				bigKeyNeeded = 1;
+				bigKeyGuaranteed = true;
+		  }
+
+		  // Mini Helmasaur Room x2 + Pre-Moldorm Chest
+		  if (has("bow") && canLightTorches()) {
+			  if (bigKeyGuaranteed) {
+				  minAvailableChests += 3;
+			  }
+			  maxAvailableChests += 3;
+			  smallKeysNeeded = Math.max(3, smallKeysNeeded);
+			  bigKeyNeeded = 1;
+		  }
+
+		  // Moldorm Chest
+		  if (canGrapple()
+		  	&& has("bow")
+		  	&& canLightTorches()
+		  	&& (has("hammer") || hasSword())) {
+				if (bigKeyGuaranteed) {
+					minAvailableChests++;
+				}
+				maxAvailableChests++;
+				smallKeysNeeded = Math.max(4, smallKeysNeeded);
+				bigKeyNeeded = 1;
+		  }
+
+		  let maxItemsAvailable = Math.min(20, maxAvailableChests - smallKeysNeeded - bigKeyNeeded);
+
+		  // 4 keys + big key + map + compass
+
+		  let minItemsAvailable = Math.max(0, minAvailableChests - 7);
+
+		  let mychests = trackerData.zelda3.dungeonchests[10];
+
+		  if(dungeon.canEnter.glitchless()) {
+			  if(mychests > (20 - minItemsAvailable)) {
+				  return true;
+			  } else if(mychests > (20 - maxItemsAvailable)) {
+				  return "partial";
+			  }
+		  } else if(dungeon.canEnter.minorGlitches()) {
+			  if(mychests > (20 - minItemsAvailable)) {
+				  return "glitchavailable";
+			  } else if(mychests > (20 - maxItemsAvailable)) {
+				  return "glitchpartial";
+			  }
+		  }
+	}
+  }
+
+  initOverworldGlitches() {
+	  this.initMinorGlitches();
 
 	  this.canEnter.owGlitches = function() {
 		  return canDash() && has("moonpearl");

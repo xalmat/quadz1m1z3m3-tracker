@@ -26,6 +26,7 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Palace of Darkness - The Arena - Ledge"].glitchless = function() {
@@ -75,8 +76,40 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 		return has("moonpearl") && nedw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Helmasaur King"].glitchless();
+		return dungeon.locations["Palace of Darkness - Helmasaur King"].glitchless();
 	}
+  }
+
+  initMinorGlitches() {
+	  this.initNoMajorGlitches();
+
+	  let dungeon = this;
+
+	  this.canEnter.minorGlitches = function() {
+		  let nedw = new DarkWorldNorthEast("","",false);
+		  nedw.initMinorGlitches();
+
+		  if(has("moonpearl") && nedw.canEnter.minorGlitches()) {
+			  return nedw.canEnter.minorGlitches();
+		  }
+	  }
+
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[3];
+		  if(dungeon.canEnter.glitchless()) {
+			  if(has("bow") && (mychests >=2 || has("hammer"))) {
+				  if(has("lantern")) {
+					  return "available";
+				  } else {
+					  return "partial";
+				  }
+			  } else {
+				  return "partial";
+			  }
+		  } else if(dungeon.canEnter.minorGlitches()) {
+			  return dungeon.canEnter.minorGlitches();
+		  }
+	  }
   }
 
   initMajorGlitches() {

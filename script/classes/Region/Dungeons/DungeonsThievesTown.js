@@ -20,6 +20,7 @@ class DungeonsThievesTown extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let region = this;
 
 	if(this.buildLocations) {
 		this.locations["Thieves' Town - Attic"].glitchless = function() {
@@ -31,10 +32,11 @@ class DungeonsThievesTown extends Dungeons {
 		this.locations["Thieves' Town - Blind's Cell"].glitchless = function() {
 			return has("bigkey");
 		}
-		this.locations["Thieves' Town - Blind"].glitchless = function() {
-			return has("key") && has("bigkey")
-				&& boss.canBeat();
-		}
+	}
+
+	this.locations["Thieves' Town - Blind"].glitchless = function() {
+		return has("key") && has("bigkey")
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -44,12 +46,45 @@ class DungeonsThievesTown extends Dungeons {
 		return has("moonpearl") && nwdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Thieves' Town - Blind"].glitchless();
+		return region.locations["Thieves' Town - Blind"].glitchless();
 	}
   }
 
-  initMajorGlitches() {
+  initMinorGlitches() {
 	  this.initNoMajorGlitches();
+
+	  let boss = this.boss;
+	  let dungeon = this;
+
+	  this.canEnter.minorGlitches = function() {
+		  let dwnw = new DarkWorldNorthWest("","",false);
+		  dwnw.initMinorGlitches();
+
+		  if(has("moonpearl")) {
+			  if(dwnw.canEnter.minorGlitches()) {
+				  return dwnw.canEnter.minorGlitches();
+			  }
+		  }
+	  }
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[6];
+
+		  if(dungeon.canEnter.glitchless()) {
+			  if(has("hammer")
+			  	|| mychests >= 3
+			  	|| (boss.canBeat() && mychests >= 2)) {
+				  return true;
+			  } else {
+				  return "partial";
+			  }
+		  } else if(dungeon.canEnter.minorGlitches()) {
+			  return dungeon.canEnter.minorGlitches();
+		  }
+	  }
+  }
+
+  initMajorGlitches() {
+	  this.initOverworldGlitches();
 
 	  this.canEnter.majorGlitches = function() {
 		  let nwdw = new DarkWorldNorthWest("","",false);

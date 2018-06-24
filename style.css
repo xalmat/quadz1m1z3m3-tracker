@@ -348,6 +348,13 @@ input {
     margin-top: -12px;
 }
 
+.zelda3 .legend th {
+    width: 130px;
+}
+.metroid3 .legend th {
+    width: 260px;
+}
+
 .unavailable{
     background-color: rgb(255,0,0);
 }
@@ -363,11 +370,11 @@ input {
 }
 
 .partial{
-    background-color: rgb(0,255,0);
+    background-color: rgb(255,255,0);
     color: rgb(0,0,0);
 }
 
-.chest.agahnim, .legend .agahnim{
+.chest.agahnim, .dungeon.agahnim, .legend .agahnim{
     background-color: rgb(0,255,255);
     color: rgb(0,0,0);
 }
@@ -381,7 +388,7 @@ input {
 }
 
 .glitchpartial{
-    background-color: rgb(0,127,0);
+    background-color: rgb(127,127,0);
     color: rgb(0,0,0);
 }
 

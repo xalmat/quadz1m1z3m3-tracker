@@ -1,8 +1,8 @@
 class Region {
   constructor(name,subname,buildLocations = true) {
-    Region.prototype.name = name;
-    Region.prototype.subname = subname;
-    Region.prototype.buildLocations = buildLocations;
+    this.name = name;
+    this.subname = subname;
+    this.buildLocations = buildLocations;
     this.canEnter = {
 		glitchless: function() { return true; },
 		minorGlitches: function() { return this.glitchless(); },
@@ -23,7 +23,7 @@ class Region {
     Region.prototype.initNoMajorGlitches = function() { };
     Region.prototype.initMinorGlitches = function() { this.initNoMajorGlitches(); };
     Region.prototype.initOverworldGlitches = function() { this.initMinorGlitches(); };
-    Region.prototype.initmajorGlitches = function() { this.initOverworldGlitches(); };
+    Region.prototype.initMajorGlitches = function() { this.initOverworldGlitches(); };
     Region.prototype.initCasual = function() { };
     Region.prototype.initTournament = function() { this.initCasual(); };
     this.locations = [];

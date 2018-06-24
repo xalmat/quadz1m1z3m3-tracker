@@ -24,6 +24,7 @@ class DungeonsTurtleRock extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
+	let region = this;
 
 	if(this.buildLocations) {
 		this.locations["Turtle Rock - Chain Chomps"].glitchless = function() {
@@ -54,12 +55,13 @@ class DungeonsTurtleRock extends Dungeons {
 				&& (canInvul() || canBlockLasers());
 		}
 
-		this.locations["Turtle Rock - Trinexx"].glitchless = function() {
-			return has("key",4)
-				&& has("lantern")
-				&& has("bigkey") && has("somaria")
-				&& boss.canBeat();
-		}
+	}
+
+	this.locations["Turtle Rock - Trinexx"].glitchless = function() {
+		return has("key",4)
+			&& has("lantern")
+			&& has("bigkey") && has("somaria")
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -72,12 +74,131 @@ class DungeonsTurtleRock extends Dungeons {
 			&& edm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Turtle Rock - Trinexx"].glitchless();
+		return region.locations["Turtle Rock - Trinexx"].glitchless();
 	}
   }
 
+  initMinorGlitches() {
+	  this.initNoMajorGlitches();
+
+	  let boss = this.boss;
+	  let dungeon = this;
+
+	  this.hasMedallion = function() {
+		  let medallions = ["medallion0","bombos","ether","quake"];
+		  let myMedallion = medallions[trackerData.zelda3.medallions[9]];
+		  return has(myMedallion) || (has("bombos") && has("ether") && has("quake"));
+	  }
+	  this.mayHaveMedallion = function() {
+		  let myMedallion = trackerData.zelda3.medallions[9];
+		  return  !(myMedallion === 1 && !has("bombos"))
+		  		|| (myMedallion === 2 && !has("ether"))
+		  		|| (myMedallion === 3 && !has("quake"))
+		  		|| (!has("bombos") && !has("ether") && !has("quake"));
+	  }
+
+
+	  let lower = function() {
+		  // Do nothing until Major Glitches
+		  return false;
+	  }
+	  let middle = function() {
+		  // Glitchless does nothing
+		  return false;
+	  }
+	  let upperCan = function() {
+		  let ret = dungeon.hasMedallion()
+		  	&& hasSword()
+		  	&& has("moonpearl")
+		  	&& has("somaria")
+		  	&& canLiftDarkRocks();
+		  let edm = new DeathMountainEast("","",false);
+		  edm.initMinorGlitches();
+
+		  if(ret) {
+			  if(dungeon.canEnter.glitchless()) {
+				  return ret;
+			  } else if(dungeon.canEnter.minorGlitches()) {
+				  return dungeon.canEnter.minorGlitches();
+			  }
+		  }
+	  }
+	  let upperMay = function() {
+		  let ret = dungeon.mayHaveMedallion()
+		  	&& hasSword()
+		  	&& has("moonpearl")
+		  	&& has("somaria")
+		  	&& canLiftDarkRocks();
+		  let edm = new DeathMountainEast();
+		  edm.initMinorGlitches();
+
+		  if(ret) {
+			  if(dungeon.canEnter.glitchless()) {
+				  return ret;
+			  } else if(dungeon.canEnter.minorGlitches()) {
+				  return dungeon.canEnter.minorGlitches();
+			  }
+		  }
+	  }
+
+	  this.canEnter.minorGlitches = function() {
+		  return upperCan();
+	  }
+	  this.mayEnter.minorGlitches = function() {
+		  return upperMay();
+	  }
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[9];
+		  if(dungeon.canEnter.glitchless()) {
+			  if(has("firerod")) {
+				  if(has("lantern") && (canInvul() || canBlockLasers())) {
+					  if(mychests >= 2 || dungeon.isBeatable().glitchless === "available") {
+						  return true;
+					  } else {
+						  return "partial";
+					  }
+				  } else if(mychests >= 2) {
+					  return "partial";
+				  } else {
+					  return "glitchpartial";
+				  }
+			  } else {
+				  if(has("lantern") && (canInvul() || canBlockLasers())) {
+					  return "partial";
+				  } else if(mychests >= 4) {
+					  return "partial";
+				  } else {
+					  return "glitchpartial";
+				  }
+			  }
+		  } else if(dungeon.mayEnter.glitchless()) {
+			  if(has("firerod")) {
+				  if(has("lantern") && canInvul() || canBlockLasers()) {
+					  return "possible";
+				  } else if(mychests >= 4) {
+					  return "possible";
+				  } else {
+					  return "glitchpossible";
+				  }
+			  }
+		  } else if(dungeon.canEnter.minorGlitches()) {
+			  if(has("firerod")) {
+				  if(mychests >= 2
+				  	|| dungeon.isBeatable().glitchless === "available"
+				  	|| dungeon.isBeatable().glitchless === "glitchavailable") {
+						return "glitchavailable";
+				  } else {
+					  return "glitchpartial";
+				  }
+			  } else {
+				  return "glitchpartial";
+			  }
+		  }
+	  }
+  }
+
   initOverworldGlitches() {
-	this.initNoMajorGlitches();
+	this.initMinorGlitches();
 
 	let edwdm = new DarkWorldDeathMountainEast("","",false);
 	edwdm.initOverworldGlitches();

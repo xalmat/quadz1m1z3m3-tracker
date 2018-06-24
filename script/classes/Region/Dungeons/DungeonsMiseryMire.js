@@ -20,6 +20,7 @@ class DungeonsMiseryMire extends Dungeons {
 
   initNoMajorGlitches() {
     let boss = this.boss;
+    let region = this;
 
 	if(this.buildLocations) {
 		this.locations["Misery Mire - Big Chest"].glitchless = function() {
@@ -38,11 +39,12 @@ class DungeonsMiseryMire extends Dungeons {
 			return canLightTorches()
 				&& has("key",3);
 		}
-		this.locations["Misery Mire - Vitreous"].glitchless = function() {
-			return has("somaria") && has("lantern")
-				&& has("bigkey")
-				&& boss.canBeat();
-		}
+	}
+
+	this.locations["Misery Mire - Vitreous"].glitchless = function() {
+		return has("somaria") && has("lantern")
+			&& has("bigkey")
+			&& boss.canBeat();
 	}
 
 	this.canEnter.glitchless = function() {
@@ -55,8 +57,85 @@ class DungeonsMiseryMire extends Dungeons {
 			&& dwm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return this.locations["Vitreous"].glitchless();
+		return region.locations["Misery Mire - Vitreous"].glitchless();
 	}
+  }
+
+  initMinorGlitches() {
+	  this.initNoMajorGlitches();
+
+	  let boss = this.boss;
+	  let dungeon = this;
+
+	  this.hasMedallion = function() {
+		  let medallions = ["medallion0","bombos","ether","quake"];
+		  let myMedallion = medallions[trackerData.zelda3.medallions[8]];
+		  return has(myMedallion) || (has("bombos") && has("ether") && has("quake"));
+	  }
+	  this.mayHaveMedallion = function() {
+		  let myMedallion = trackerData.zelda3.medallions[8];
+		  return  !(myMedallion === 1 && !has("bombos"))
+		  		|| (myMedallion === 2 && !has("ether"))
+		  		|| (myMedallion === 3 && !has("quake"))
+		  		|| (!has("bombos") && !has("ether") && !has("quake"));
+	  }
+	  this.canEnter.minorGlitches = function() {
+		  let dwm = new DarkWorldMire("","",false);
+		  dwm.initMinorGlitches();
+
+		  if(dungeon.hasMedallion()
+		  	&& hasSword()
+		  	&& has("moonpearl")
+		  	&& (canDash() || canGrapple())) {
+				if(dwm.canEnter.glitchless()) {
+					return true;
+				} else if(dwm.canEnter.minorGlitches()) {
+					return dwm.canEnter.minorGlitches();
+				}
+		  }
+	  }
+	  this.mayEnter.minorGlitches = function() {
+		  let dwm = new DarkWorldMire("","",false);
+		  dwm.initMinorGlitches();
+
+		  if(dungeon.mayHaveMedallion()
+		  	&& hasSword()
+		  	&& has("moonpearl")
+		  	&& (canDash() || canGrapple())) {
+			  if(dwm.canEnter.glitchless()) {
+				  return true;
+			  } else if(dwm.canEnter.minorGlitches()) {
+				  return dwm.canEnter.minorGlitches();
+			  }
+		  }
+	  }
+	  this.canGetChest.minorGlitches = function() {
+		  let mychests = trackerData.zelda3.dungeonchests[8];
+
+		  let dwm = new DarkWorldMire("","",false);
+		  dwm.initMinorGlitches();
+
+		  if(dungeon.canEnter.glitchless()) {
+			  if(canLightTorches()) {
+				  if(mychests === 2
+				  	&& (canInvul()
+				  		|| (has("somaria") && boss.canBeat()))) {
+						return true;
+				  } else if(mychests == 1
+				  	&& canInvul()
+				  		&& has("somaria")
+				  		&& boss.canBeat()) {
+						return true;
+				  } else {
+					  return "partial";
+				  }
+			  } else {
+				  return "partial";
+			  }
+		  } else if(dwm.canEnter.minorGlitches()) {
+			  return dwm.canEnter.minorGlitches();
+		  }
+	  }
   }
 
   initMajorGlitches() {
