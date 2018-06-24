@@ -25,8 +25,27 @@ class DarkWorldMire extends DarkWorld {
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+//		this.locations["Mire Shed - Left"].minorGlitches =
+//		this.locations["Mire Shed - Right"].minorGlitches = function() {
+		this.locations["Mire Shed"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+			if(has("mirror")) {
+				return "glitchavailable";
+			}
+		}
+	}
+  }
+
+  initOverworldGlitches() {
+	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 //		this.locations["Mire Shed - Left"].owGlitches =

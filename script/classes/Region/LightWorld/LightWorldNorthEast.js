@@ -45,20 +45,69 @@ class LightWorldNorthEast extends LightWorld {
 	}
   }
 
-  initOverworldGlitches() {
+  initMinorGlitches() {
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
-		this.locations["King Zora"].owglitches = function() {
+		let region = this;
+
+		this.locations["King Zora"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+			if(canFakeFlipper()) {
+				return "glitchavailable";
+			}
+		}
+		this.locations["Zora Ledge"].minorGlitches = function() {
+			let ret = this.glitchless();
+			let kz = region.locations["King Zora"].minorGlitches();
+
+			if(ret) {
+				return ret;
+			}
+			if(canWaterwalkStored()) {
+				return "glitchavailable";
+			}
+			if(kz) {
+				if(typeof kz == "boolean") {
+					return "viewable";
+				} else if(typeof kz == "string" && kz.indexOf("glitch") > -1) {
+					return "glitchviewable";
+				}
+			}
+		}
+//		this.locations["Waterfall Fairy - Left"].minorglitches =
+//		this.locations["Waterfall Fairy - Right"].minorglitches =
+		this.locations["Waterfall Fairy"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+			if(canWaterwalk()) {
+				return "glitchavailable";
+			}
+		}
+	}
+  }
+
+  initOverworldGlitches() {
+	this.initMinorGlitches();
+
+	if(this.buildLocations) {
+		this.locations["King Zora"].owGlitches = function() {
 			return true;
 		}
-		this.locations["Zora Ledge"].owglitches = function() {
+		this.locations["Zora Ledge"].owGlitches = function() {
 			return canSwim()
 				|| (canDash() && has("moonpearl"));
 		}
-//		this.locations["Waterfall Fairy - Left"].owglitches =
-//		this.locations["Waterfall Fairy - Right"].owglitches =
-		this.locations["Waterfall Fairy"].owglitches = function() {
+//		this.locations["Waterfall Fairy - Left"].owGlitches =
+//		this.locations["Waterfall Fairy - Right"].owGlitches =
+		this.locations["Waterfall Fairy"].owGlitches = function() {
 			return canSwim() || has("moonpearl");
 		}
 	}

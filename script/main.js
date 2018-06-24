@@ -5,6 +5,7 @@ trackerOptions[selectedGame] = {
   showmedals: true,
   showlabels: true,
   editmode: false,
+  mapOHKO: false,
   mapState: "open",
   mapSwords: true,
   selected: {}
@@ -464,6 +465,20 @@ function showLabel(sender) {
     saveCookie();
 }
 
+function showRegions(sender) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerOptions[selectedGame].showRegions = sender.checked;
+	if(sender.checked) {
+		document.getElementById("mapoverlay").classList.remove("off");
+		document.getElementById("mapoverlay").classList.add("on");
+	} else {
+		document.getElementById("mapoverlay").classList.remove("on");
+		document.getElementById("mapoverlay").classList.add("off");
+	}
+	saveCookie();
+}
+
 function setOrder(mode) {
     if (mode == 1) { // Below
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
@@ -540,10 +555,19 @@ function setMapOrientation(H) {
     saveCookie();
 }
 
-function setSwords(swords) {
+function setOHKO(sender) {
 	if(selectedGame != "zelda3") { return; }
 
-	trackerOptions[selectedGame].mapSwords = !swords;
+	trackerOptions[selectedGame].mapOHKO = sender.checked;
+
+	refreshMap();
+	saveCookie();
+}
+
+function setSwords(sender) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerOptions[selectedGame].mapSwords = !sender.checked;
 
 	let eles = document.getElementsByClassName("sword");
 	for(let ele in eles) {
@@ -581,6 +605,7 @@ function setLogic(logic) {
 
 function setSMChestSkin(skin) {
 	document.getElementById("mapdiv").className = ("mapdiv " + skin);
+	document.getElementById("legend").className = ("legend " + skin);
 }
 
 function showSettings(sender) {
@@ -1043,7 +1068,14 @@ Vue.component('tracker-cell', {
         return "url(" + build_img_url("medallion" + this.trackerData[selectedGame].medallions[this.bossNum]) + ")";
       }
       return null;
-    }
+    },
+    ohkoImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
+	  if(this.itemLabel.toLowerCase() == "tunic" && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].mapOHKO) {
+		return "url(images/misc/ohko.png)";
+	  }
+	  return null;
+	}
   },
   methods: {
     clickCell: function(amt) {

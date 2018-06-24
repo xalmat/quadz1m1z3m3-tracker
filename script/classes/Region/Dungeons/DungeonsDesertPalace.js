@@ -58,7 +58,7 @@ class DungeonsDesertPalace extends Dungeons {
 
 			return canLightTorches()
 				&& has("bigkey") && has("key")
-				&& this.boss.canBeat()
+				&& boss.canBeat()
 				&& ((canRead() && canLiftRocks())
 					|| canDash()
 					|| (has("mirror") && dwm.canEnter.owGlitches()));

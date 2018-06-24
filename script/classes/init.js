@@ -47,6 +47,7 @@ function initClasses(useGame) {
 						if(useGame == "zelda3") {
 							props.canAccess = {
 								glitchless: location.glitchless,
+								minorGlitches: location.minorGlitches,
 								owGlitches: location.owGlitches,
 								majorGlitches: location.majorGlitches
 							};
@@ -92,6 +93,9 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
 										}
+										if(regionObjects[this.region].canEnter.minorGlitches() && this.canAccess.minorGlitches()) {
+											availability.minorGlitches = "available";
+										}
 										if(regionObjects[this.region].canEnter.owGlitches() && this.canAccess.owGlitches()) {
 											availability.owGlitches = "available";
 										}
@@ -130,10 +134,12 @@ function initClasses(useGame) {
 										var tmp = "portal portal-metroid3";
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = tmp + " active";
+											availability.minorGlitches = tmp + " active";
 											availability.owGlitches = tmp + " active";
 											availability.majorGlitches = tmp + " active";
 										} else {
 											availability.glitchless = tmp + " inactive";
+											availability.minorGlitches = tmp + " inactive";
 											availability.owGlitches = tmp + " inactive";
 											availability.majorGlitches = tmp + " inactive";
 										}
@@ -157,6 +163,23 @@ function initClasses(useGame) {
 									if(selectedGame == "zelda3") {
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
+										}
+										let regionAccess = regionObjects[this.region].canEnter.minorGlitches();
+										let localAccess = this.canAccess.minorGlitches();
+										if(regionAccess && localAccess) {
+											if(typeof regionAccess == "string" || typeof localAccess == "string") {
+												if(typeof localAccess == "string") {
+													availability.minorGlitches = localAccess;
+												} else if(typeof regionAccess == "string") {
+													availability.minorGlitches = regionAccess;
+												} else {
+													availability.minorGlitches = "available";
+												}
+											} else {
+												availability.minorGlitches = "available";
+											}
+										} else {
+											availability.minorGlitches = "unavailable";
 										}
 										if(regionObjects[this.region].canEnter.owGlitches() && this.canAccess.owGlitches()) {
 											availability.owGlitches = "available";

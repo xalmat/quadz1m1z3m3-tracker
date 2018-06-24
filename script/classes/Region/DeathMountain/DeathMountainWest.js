@@ -33,8 +33,61 @@ class DeathMountainWest extends DeathMountain {
 	}
   }
 
+  initMinorGlitches() {
+	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+		this.locations["Old Man"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+			if(canDarkNav()) {
+				return "glitchavailable";
+			}
+		}
+		this.locations["Ether Tablet"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+			if(canDarkNav() && has("mirror")) {
+				if(canActivateTablets()) {
+					return "glitchavailable";
+				}
+				if(canRead()) {
+					return "glitchviewable";
+				}
+			}
+		}
+		this.locations["Spectacle Rock"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+			if(canDarkNav()) {
+				return "glitchviewable";
+			}
+		}
+	}
+
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+		if(canLiftRocks() && canDarkNav()) {
+			return "glitchavailable";
+		}
+	}
+  }
+
   initOverworldGlitches() {
-    this.initNoMajorGlitches();
+    this.initMinorGlitches();
 
 	if(this.buildLocations) {
 	    this.locations["Ether Tablet"].owGlitches = function() {

@@ -8,7 +8,7 @@ class DarkWorldNorthEast extends DarkWorld {
 			new Location("Standing","Pyramid","79.0%","43.5%",regionName),
 //			new Location("Chest","Pyramid Fairy - Left","73.5%","48.5%",regionName),
 //			new Location("Chest","Pyramid Fairy - Right","73.5%","48.5%",regionName),
-			new Location("Chest","Pyramid Fairy","73.5%","48.5%",regionName,{equipment:"%%crystal5%%%%crystal6%%"}),
+			new Location("Chest","Pyramid Fairy","73.5%","48.5%",regionName,{equipment:"%%crystal5%%%%crystal6%%%%bomb2%%"}),
 //			new Location("Event","Ganon","75.0%","40.0%",regionName)
 			new Location("Boss","Ganon","","",regionName)
 		],this);
@@ -34,10 +34,10 @@ class DarkWorldNorthEast extends DarkWorld {
 	}
 
 	this.canEnter.glitchless = function() {
-		return (has("agahnim")
-			|| (has("hammer") && canLiftDarkRocks() && has("moonpearl"))
-			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))
-			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl")));
+		return (has("agahnim")													// Castle Gate Warp
+			|| (has("hammer") && canLiftDarkRocks() && has("moonpearl"))		// Swamp Warp
+			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
+			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl")));	// From Maridia, swim through lake
 	}
 
 	this.canComplete.glitchless = function() {
@@ -52,8 +52,56 @@ class DarkWorldNorthEast extends DarkWorld {
 	}
   }
 
+  initMinorGlitches() {
+	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+//		this.locations["Pyramid Fairy - Left"].minorGlitches =
+//		this.locations["Pyramid Fairy - Right"].minorGlitches = function() {
+		this.locations["Pyramid Fairy"].minorGlitches = function() {
+			let sdw = new DarkWorldSouth("","",false);
+			sdw.initMinorGlitches();
+
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
+			let aga1 = canBeatAga1("minor");
+
+			if(has("crystal5") && has("crystal6") && has("moonpearl")	// FIXME: Need items for Crystals 5 & 6
+				&& sdw.canEnter.minorGlitches()
+					&& (has("hammer")
+						|| (has("mirror") && aga1))) {
+				return aga1;
+			}
+		}
+	}
+
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+
+		let aga1 = canBeatAga1("minor");
+		if(aga1																	// Castle Gate Warp
+			|| (has("hammer") && canLiftDarkRocks() && has("moonpearl"))		// Swamp Warp
+			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
+			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl"))) {	// From Maridia, swim through lake
+			if(aga1) {
+				return aga1;
+			} else {
+				return "glitchavailable";
+			}
+		}
+	}
+  }
+
   initOverworldGlitches() {
-	  this.initNoMajorGlitches();
+	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		  this.locations["Catfish"].owGlitches = function() {

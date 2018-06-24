@@ -43,8 +43,36 @@ class DeathMountainEast extends DeathMountain {
 	}
   }
 
+  initMinorGlitches() {
+	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+		this.locations["Spiral Cave"].minorGlitches =
+		this.locations["Paradox Cave"].minorGlitches = function() {
+			return true;
+		}
+		this.locations["Floating Island"].minorGlitches = function() {
+			return "glitchviewable";
+		}
+	}
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+		let wdm = new DeathMountainWest("","",false);
+		wdm.initMinorGlitches();
+
+		if(ret) {
+			return ret;
+		}
+		if(wdm.canEnter.minorGlitches()
+			&& ((has("hammer") && has("mirror"))
+			|| canGrapple())) {
+			return wdm.canEnter.minorGlitches();
+		}
+	}
+  }
+
   initOverworldGlitches() {
-    this.initNoMajorGlitches();
+    this.initMinorGlitches();
 
 	if(this.buildLocations) {
 	    this.locations["Mimic Cave"].owGlitches = function() {

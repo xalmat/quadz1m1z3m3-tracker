@@ -1,6 +1,7 @@
-function Availability(glitchless = 'unavailable', owGlitches = 'unavailable', majorGlitches = 'unavailable') {
+function Availability(glitchless = 'unavailable', minorGlitches = 'unavailable', owGlitches = 'unavailable', majorGlitches = 'unavailable') {
     this._glitchless	= glitchless;
     this._casualLogic	= glitchless;
+    this._minorGlitches	= minorGlitches;
     this._owGlitches	= owGlitches;
     this._tourneyLogic	= owGlitches;
     this._majorGlitches	= majorGlitches;
@@ -26,6 +27,18 @@ Object.defineProperty(Availability.prototype, 'glitchless', {
     },
     set: function (value) {
         this._glitchless = value;
+        this._minorGlitches = value;
+        this._owGlitches = value;
+        this._majorGlitches = value;
+    }
+});
+
+Object.defineProperty(Availability.prototype, 'minorGlitches', {
+    get: function () {
+        return this._minorGlitches;
+    },
+    set: function (value) {
+        this._minorGlitches = value;
         this._owGlitches = value;
         this._majorGlitches = value;
     }
@@ -106,6 +119,11 @@ function has(item, amount = -1) {
 	}
 	if(item.indexOf("swords") > -1) {
 		if(item.indexOf("swordless") > -1 && trackerOptions.zelda3.mapSwords == false) {
+			return true;
+		}
+	}
+	if(item.indexOf("variation") > -1) {
+		if(item.indexOf("ohko") > -1 && trackerOptions.zelda3.mapOHKO) {
 			return true;
 		}
 	}
@@ -200,7 +218,7 @@ function hasSword(min_level = 1) {
 		case 3:
 			return has("sword",3);
 		case 2:
-			return has("sword",2);
+			return has("sword",2) || (has("swords.swordless") && has("hammer"));
 		case 1:
 			return has("sword",1);
 		default:
@@ -276,6 +294,46 @@ function canGetGoodBee() {
 		&& has("bottle")
 		&& (canDash()
 			|| (hasSword() && has("quake")));
+}
+
+function canBeatAga1(logic) {
+	let darkNav = logic == "minor" && canDarkNav();
+	let haveLamp = has("lantern");
+    let ret = !has("agahnim")
+            && (has("cape") || hasSword(2))
+            && hasSword();
+
+    if(ret) {
+		if(haveLamp) {
+			return "agahnim";
+		} else if(darkNav) {
+			return "glitchagahnim";
+		}
+	} else {
+		return false;
+	}
+}
+
+function canDarkNav() {
+	return !has("lantern");
+}
+
+function canFakeFlipper() {
+	return !canSwim();
+}
+
+function canWaterwalk() {
+	return canFakeFlipper() && has("moonpearl");
+}
+
+function canWaterwalkStored() {
+//	return canWaterwalk();
+	return false;
+}
+
+function canFakePowder() {
+	let potionShop = chests.zelda3.find(function(e) { return e.name == "Potion Shop"; } );
+	return has("somaria") && has("mushroom") && !potionShop.isOpened;
 }
 
 function glitchedLinkInDarkWorld() {

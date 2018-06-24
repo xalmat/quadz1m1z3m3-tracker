@@ -17,13 +17,38 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 
 			return has("moonpearl") && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
-					|| (((! has("cantTakeDamage")) || canExtendMagic()) && has("byrna")))
+					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.glitchless();
 		  }
 	  }
   }
 
-  initmajorGlitches() {
+  initMinorGlitches() {
+	this.initNoMajorGlitches();
+
+	if(this.buildLocations) {
+		this.locations["Spike Cave"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
+			let wdm = new DeathMountainWest("","",false);
+			wdm.initMinorGlitches();
+
+			if(has("moonpearl") && has("hammer") && canLiftRocks()
+				&& ((canExtendMagic() && has("cape"))
+					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
+				&& wdm.canEnter.minorGlitches()) {
+
+				return wdm.canEnter.minorGlitches();
+			}
+		}
+	}
+  }
+
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -34,7 +59,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			return has("hammer") && canLiftRocks()
 				&& (has("moonpearl") || (has("bottle") && canDash()))
 				&& ((canExtendMagic() && has("cape"))
-					|| (((! has("cantTakeDamage")) || canExtendMagic()) && has("byrna")))
+					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.majorGlitches();
 		}
 	}
