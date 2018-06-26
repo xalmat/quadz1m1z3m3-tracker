@@ -12,6 +12,9 @@
     </head>
 
     <body>
+    	<div id="beta" class="zelda3-option zelda3-regions">
+    		BETA: Only supports Minor Glitches!
+    	</div>
         <div width='100%' id="caption">
             &nbsp;
         </div>
@@ -47,7 +50,7 @@
             </fieldset>
             <fieldset>
                 <legend>Map Tracker</legend>
-                <span style="float:right;"><input type="checkbox" name="showmap" id="showmap" checked='checked' onchange="showTracker('mapdiv', this)"><label for="showmap">Enabled</label><br /><label><input type="checkbox" id="mapRegions" onchange="showRegions(this)" />Regions</label></span>
+                <span style="float:right;"><input type="checkbox" name="showmap" id="showmap" checked='checked' onchange="showTracker('mapdiv', this)"><label for="showmap">Enabled</label><br /><label><span class="zelda3-option"><input type="checkbox" id="mapRegions" onchange="showRegions(this)" />Regions</label></span></span>
                 <div class="zelda3-option">
 	                <span style="white-space:nowrap;">Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)"><span id='mapdivsize'>100%</span></span><br />
 	                Orientation:<br />
@@ -68,16 +71,15 @@
                     	<legend>Game State</legend>
                     	<input type='radio' name='mapstate' id="mState1" value='standard' onclick='setState("standard")'><label for="mState1">Standard</label>
                     	<input type='radio' name='mapstate' id="mState2" value='open' checked='checked' onclick='setState("open")'><label for="mState2">Open</label><br />
-                    	<input type='checkbox' name='swordless' id="swordless" onclick='setSwords(this)'><label for="swordless">Swordless</label>
-                    	<input type='checkbox' name='ohko' id="ohko" onclick='setOHKO(this)'><label for="ohko">OHKO</label>
+                    	<span class="zelda3-regions"><input type='checkbox' name='swordless' id="swordless" onclick='setSwords(this)'><label for="swordless">Swordless</label></span>
+                    	<span class="zelda3-regions"><input type='checkbox' name='ohko' id="ohko" onclick='setOHKO(this)'><label for="ohko">OHKO</label></span>
                     </fieldset>
                     <fieldset>
 						<legend>Glitch Logic</legend>
-						<input type='radio' name='maplogic' id="z3mLogic1" value='glitchless' checked="checked" onclick='setLogic("minorGlitches")'><label for="z3mLogic1">No Glitches</label>
-<!--						<input type='radio' name='maplogic' id="z3mLogic1" value='glitchless' onclick='setLogic("glitchless")'><label for="z3mLogic1">No Glitches</label>
-						<input type='radio' name='maplogic' id="z3mLogic2" value='minorGlitches' onclick='setLogic("minorGlitches")'><label for="z3mLogic2">Minor</label><br />
-						<input type='radio' name='maplogic' id="z3mLogic3" value='owGlitches' onclick='setLogic("owGlitches")'><label for="z3mLogic3">Overworld</label>
-						<input type='radio' name='maplogic' id="z3mLogic4" value='majorGlitches' onclick='setLogic("majorGlitches")'><label for="z3mLogic4">Major</label>-->
+						<span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic1" value='glitchless' onclick='setLogic("glitchless")'><label for="z3mLogic1">No Glitches</label></span>
+						<span class="zelda3-regions"><input type='radio' name='maplogic' id="z3mLogic2" value='minorGlitches' checked='checked' onclick='setLogic("minorGlitches")'><label for="z3mLogic2">Minor</label></span>
+						<span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic3" value='owGlitches' onclick='setLogic("owGlitches")'><label for="z3mLogic3">Overworld</label></span><br />
+						<span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic4" value='majorGlitches' onclick='setLogic("majorGlitches")'><label for="z3mLogic4">Major</label></span>
                     </fieldset>
                 </fieldset>
                 <fieldset class="metroid3-option">
@@ -120,7 +122,7 @@
                         </tr>
                     </table>
                 </fieldset>
-                <fieldset class="zelda3-option">
+                <fieldset class="zelda3-option zelda3-regions">
                 	<legend>Dungeon Legend</legend>
                     <table border="0" cellspacing="0" id="legend" class="legend" style="width:100%;">
                         <tr>

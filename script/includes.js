@@ -73,6 +73,24 @@ scripts.push("script/classes/init.js");
 
 var regionNames = {
 	zelda3: {
+		dungeons:		["main"],
+		overworld:		["main"],
+		zebes:			["z3-m3"],
+	},
+	metroid3: {
+		crateria:		["central","east","west"],
+		brinstar:		["blue","green","pink","red","kraid"],
+		norfair:		["crocomire","east","west"],
+		wreckedship:	["main"],
+		maridia:		["inner","outer"],
+		lowernorfair:	["west","east"],
+		tourian:		["main"],
+		hyruleportals:	["main"],
+	}
+};
+
+if(zeldaMode == "regions") {
+	regionNames.zelda3 = {
 		dungeons:		[
 						 "easternpalace",
 						 "desertpalace",
@@ -93,18 +111,8 @@ var regionNames = {
 		deathmountain:	["east","west"],
 		lightworld:		["northeast","northwest","south"],
 		zebesportals:	["main"],
-	},
-	metroid3: {
-		crateria:		["central","east","west"],
-		brinstar:		["blue","green","pink","red","kraid"],
-		norfair:		["crocomire","east","west"],
-		wreckedship:	["main"],
-		maridia:		["inner","outer"],
-		lowernorfair:	["west","east"],
-		tourian:		["main"],
-		hyruleportals:	["main"],
 	}
-};
+}
 
 for(var gameName in regionNames) {
 	if(gameName == selectedGame) {
@@ -114,13 +122,19 @@ for(var gameName in regionNames) {
 			for(var segment in region) {
 				var segmentName = region[segment];
 				var url = "";
-				url += "script/classes/Region/";
 
-				if(selectedGame == "metroid3") {
-					url += "SuperMetroid/";
+				if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions")) {
+					url += "script/classes/Region/";
+
+					if(selectedGame == "metroid3") {
+						url += "SuperMetroid/";
+					}
+
+					url += fix_region(regionName) + '/' + fix_region(regionName) + fix_region(segmentName) + ".js";
+				} else if(gameName == "zelda3" && zeldaMode == "oldstyle") {
+					url += "script/zelda3/region/" + regionName + '/' + segmentName + ".js";
 				}
 
-				url += fix_region(regionName) + '/' + fix_region(regionName) + fix_region(segmentName) + ".js";
 				scripts.push(url);
 			}
 		}
@@ -133,4 +147,7 @@ scripts.push("script/main.js");
 LazyLoad.js(scripts, function () {
 	init(initClasses,selectedGame);
 	init(initTracker,selectedGame);
+	if(selectedGame == "zelda3") {
+		document.body.classList.add("zelda3-" + zeldaMode);
+	}
 });

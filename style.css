@@ -205,8 +205,22 @@ input {
     top: 0;
 }
 
+#beta {
+    background-color: #000000;
+    float: right;
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+}
 #selectGame a {
     color: #aaaaff;
+}
+.zelda3.zelda3-oldstyle .zelda3-regions {
+    display: none;
+}
+.zelda3.zelda3-regions .zelda3-oldstyle {
+    display: none;
 }
 .zelda3 .mapdiv,
 .zelda3 .mapdiv #mapoverlay{

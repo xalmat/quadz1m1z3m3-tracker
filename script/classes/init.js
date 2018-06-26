@@ -1,7 +1,10 @@
 function initClasses(useGame) {
 	var boss = 0;
-	var regionObjects = {};
 	for(var gameName in regionNames) {
+		// GTFO if we're using the oldstyle database
+		if(gameName == "zelda3" && zeldaMode == "oldstyle") {
+			continue;
+		}
 		if(gameName == useGame) {
 			game = regionNames[gameName];
 			var i = 1;

@@ -1,13 +1,9 @@
 var trackerOptions = {};
 trackerOptions[selectedGame] = {
-  showchests: true,
-  showprizes: true,
-  showmedals: true,
   showlabels: true,
   editmode: false,
   mapOHKO: false,
   mapState: "open",
-  mapSwords: true,
   selected: {}
 };
 trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "minorGlitches";
@@ -112,13 +108,17 @@ for(var gameName in gameNames) {
 
 var defaults = {
 	zelda3: {
-		mapLogic: "minorGlitches",
-		mapState: "open",
+		mapLogic: (zeldaMode == "regions") ? "minorGlitches" : "glitchless",
+  		mapState: "open",
+  		mapSwords: true,
 		mPos: "Side",
 		mZoom: 80,
 		chest: true,
 		medal: true,
-		prize: true
+		prize: true,
+  		showchests: true,
+  		showprizes: true,
+  		showmedals: true,
 	},
 	metroid3: {
 		chestskin: "lights",
@@ -259,7 +259,7 @@ function toggleChest(x){
     updateAll();
 }
 
-var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a> | <a href="?game=metroid3">Zebes</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a></span>';
+var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a><a href="?game=zelda3&amp;zeldaMode=regions">*</a> | <a href="?game=metroid3">Zebes</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a></span>';
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
@@ -894,8 +894,19 @@ function initTracker() {
     populateMapdiv(useGame);
     populateItemconfig();
 
-    if(! document.querySelector('input[name="maplogic"]:checked')) {
+	var selector = 'input[name="maplogic"]';
+	if(selectedGame == "metroid3") {
+		selector += '[id~="z3mLogic"]';
+	} else {
+		selector += '[id~="m3mLogic"]';
+	}
+	selector += '';
+	selector += ':checked';
+    if(! document.querySelector(selector)) {
 		var defaultLogic = selectedGame == "metroid3" ? "casualLogic" : "minorGlitches";
+		if(selectedGame == "zelda3" && zeldaMode == "oldstyle") {
+			defaultLogic = "glitchless";
+		}
 		var radios = document.querySelectorAll('input[name="maplogic"]');
 		for(var radio in radios) {
 			radio = radios[radio];

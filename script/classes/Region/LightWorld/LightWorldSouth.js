@@ -104,6 +104,17 @@ class LightWorldSouth extends LightWorld {
 			let sdw = new DarkWorldSouth("","",false);
 			sdw.initMinorGlitches();
 
+			if(has("mirror") && sdw.canEnter.minorGlitches()) {
+				let glitch = sdw.canEnter.minorGlitches();
+				let type = typeof glitch;
+				if(canActivateTablets()) {
+					return type == "string" ? glitch : "available";
+				}
+				if(canRead()) {
+					return type == "string" ? glitch : "viewable";
+				}
+			}
+
 			if(canActivateTablets()
 				&& has("mirror") && sdw.canEnter.minorGlitches()) {
 				return sdw.canEnter.minorGlitches();

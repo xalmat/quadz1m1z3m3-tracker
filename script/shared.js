@@ -29,7 +29,9 @@ var gameNames = ["zelda3","metroid3"];
 var chests = {};
 var dungeons = {};
 var cookieDefault = {};
+var regionObjects = {};
 var regionNames = {};
+var zeldaMode = (getParameterByName("zeldaMode",window.location) != null) ? getParameterByName("zeldaMode",window.location) : "oldstyle";
 for(var gameName in gameNames) {
 	gameName = gameNames[gameName];
 	chests[gameName] = [];
