@@ -1,6 +1,6 @@
 // Maridia: Inner
 function canEnterMaridiaInner() {
-	var ret = canEnterMaridiaOuter();
+	let ret = canEnterMaridiaOuter();
 	if(trackerOptions.mapLogic == "casualLogic") {
 		ret = ret && (canFlySM() || canGrappleSM() || canDashSM() || canAccessMaridiaPortal());
 	} else {

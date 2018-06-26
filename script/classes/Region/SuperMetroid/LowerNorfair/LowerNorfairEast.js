@@ -26,7 +26,7 @@ class LowerNorfairEast extends LowerNorfair {
 	}
 
     this.canEnter.casualLogic = function() {
-		var lnw = new LowerNorfairWest();
+		let lnw = new LowerNorfairWest();
 		lnw.initCasual();
 		return lnw.canEnter.casualLogic()
 			&& canUsePowerBombs()
@@ -42,7 +42,7 @@ class LowerNorfairEast extends LowerNorfair {
     this.initCasual();
 
 	this.canEnter.tourneyLogic = function() {
-		var lnw = new LowerNorfairWest();
+		let lnw = new LowerNorfairWest();
 		lnw.initTournament();
 		return lnw.canEnter.tourneyLogic()
 			&& (canDestroyBombWalls() || canDashSM())

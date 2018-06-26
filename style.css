@@ -10,10 +10,6 @@ a {
     color: rgb(128,128,255);
 }
 
-#legend {
-    float: right;
-}
-
 .flexcontainer {
     display: flex;
 }
@@ -28,7 +24,7 @@ a {
 }
 
 .settings{
-    background-color: rgb(0,0,0);	
+    background-color: rgb(0,0,0);
     position: absolute;
     right:0;
     bottom:0;
@@ -92,17 +88,6 @@ input {
     *display: inline;     /* for IE7*/
     zoom:1;              /* for IE7*/
     vertical-align:middle;
-    margin-left:20px
-}
-
-label {
-    display:inline-block;
-    *display: inline;     /* for IE7*/
-    zoom:1;              /* for IE7*/
-    float: left;
-    padding-top: 5px;
-    text-align: right;
-    width: 140px;
 }
 
 .lonk{
@@ -160,6 +145,11 @@ label {
     opacity: 0.25;
 }
 
+.swordless {
+    opacity: 1;
+    background-image: url(images/misc/swordless.png) !important;
+}
+
 .mini{
     width: 16px;
     height: 16px;
@@ -215,18 +205,40 @@ label {
     top: 0;
 }
 
+#beta {
+    background-color: #000000;
+    float: right;
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+}
 #selectGame a {
     color: #aaaaff;
 }
-.zelda3 .mapdiv{
+.zelda3.zelda3-oldstyle .zelda3-regions {
+    display: none;
+}
+.zelda3.zelda3-regions .zelda3-oldstyle {
+    display: none;
+}
+.zelda3 .mapdiv,
+.zelda3 .mapdiv #mapoverlay{
     background: url("images/zelda3/maps/map.png") no-repeat;
     width: 884px;
     height: 442px;
 }
-.zelda3 .mapvdiv{
+.zelda3 .mapvdiv,
+.zelda3 .mapvdiv #mapoverlay{
     background: url("images/zelda3/maps/mapv.png") no-repeat;
     width: 438px;
     height: 888px;
+}
+.zelda3 .mapdiv #mapoverlay.on {
+    background-image: url("images/zelda3/maps/mapregions.png");
+}
+.zelda3 .mapvdiv #mapoverlay.on {
+    background-image: url("images/zelda3/maps/mapvregions.png");
 }
 .zelda3 .metroid3-option {
     display: none;
@@ -260,16 +272,22 @@ label {
     margin-left: 0;
     margin-top: 0;
 }
-.metroid3 .chest.unavailable, .metroid3 .chest.available, .metroid3 .chest.opened {
+.metroid3 .chest.unavailable,
+.metroid3 .chest.available,
+.metroid3 .chest.opened,
+.metroid3 .legend * {
     background-repeat: no-repeat;
 }
-.metroid3 .chest.unavailable {
+.metroid3 .chest.unavailable,
+.metroid3 .legend .unavailable {
     background-image: url("images/metroid3/chests/unavailable.png") !important;
 }
-.metroid3 .chest.available {
+.metroid3 .chest.available,
+.metroid3 .legend .available {
     background-image: url("images/metroid3/chests/available.png") !important;
 }
-.metroid3 .chest.opened {
+.metroid3 .chest.opened,
+.metroid3 .legend .opened {
     background-image: url("images/metroid3/chests/opened.png") !important;
 }
 .metroid3 .chest.portal.active {
@@ -280,13 +298,16 @@ label {
     background-color: #ffaaff;
     background-image: url("images/metroid3/chests/inactivewarp.gif") !important;
 }
-.metroid3 .icons-itemball-nolights .chest.unavailable {
+.metroid3 .icons-itemball-nolights .chest.unavailable,
+.metroid3 .legend.icons-itemball-nolights .unavailable {
     background-image: url("images/metroid3/chests/icon-itemball-nolights/unavailable.png") !important;
 }
-.metroid3 .icons-itemball-nolights .chest.available {
+.metroid3 .icons-itemball-nolights .chest.available,
+.metroid3 .legend.icons-itemball-nolights .available {
     background-image: url("images/metroid3/chests/icon-itemball-nolights/available.png") !important;
 }
-.metroid3 .icons-itemball-nolights .chest.opened {
+.metroid3 .icons-itemball-nolights .chest.opened,
+.metroid3 .legend.icons-itemball-nolights .opened {
     background-image: url("images/metroid3/chests/icon-itemball-nolights/opened.png") !important;
 }
 .zelda3 .chest.portal.active {
@@ -297,8 +318,15 @@ label {
 }
 .metroid3 .icons-nothing .chest.available,
 .metroid3 .icons-nothing .chest.unavailable,
-.metroid3 .icons-nothing .chest.opened {
+.metroid3 .icons-nothing .chest.opened,
+.metroid3 .legend.icons-nothing .available,
+.metroid3 .legend.icons-nothing .unavailable,
+.metroid3 .legend.icons-nothing .opened {
     background-image: url() !important;
+}
+.metroid3 .icons-nothing .chest.available,
+.metroid3 .icons-nothing .chest.unavailable,
+.metroid3 .icons-nothing .chest.opened {
     border: 1px solid #000000;
 }
 .metroid3 .icons-nothing .chest.portal.portal-zelda3.active {
@@ -334,6 +362,13 @@ label {
     margin-top: -12px;
 }
 
+.zelda3 .legend th {
+    width: 130px;
+}
+.metroid3 .legend th {
+    width: 260px;
+}
+
 .unavailable{
     background-color: rgb(255,0,0);
 }
@@ -343,17 +378,17 @@ label {
     color: rgb(0,0,0);
 }
 
-.possible{
+.viewable, .possible{
     background-color: rgb(255,255,0);
     color: rgb(0,0,0);
 }
 
 .partial{
-    background-color: rgb(0,255,0);
+    background-color: rgb(255,255,0);
     color: rgb(0,0,0);
 }
 
-.agahnim{
+.chest.agahnim, .dungeon.agahnim, .legend .agahnim{
     background-color: rgb(0,255,255);
     color: rgb(0,0,0);
 }
@@ -362,12 +397,12 @@ label {
     background-color: rgb(0,127,0);
 }
 
-.glitchpossible{
+.glitchviewable, .glitchpossible{
     background-color: rgb(192,192,0);
 }
 
 .glitchpartial{
-    background-color: rgb(0,127,0);
+    background-color: rgb(127,127,0);
     color: rgb(0,0,0);
 }
 

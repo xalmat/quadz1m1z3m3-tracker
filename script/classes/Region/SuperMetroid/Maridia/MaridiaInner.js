@@ -54,7 +54,7 @@ class MaridiaInner extends Maridia {
 	}
 
     this.canEnter.casualLogic = function() {
-		var mo = new MaridiaOuter();
+		let mo = new MaridiaOuter();
 		mo.initCasual();
 		return mo.canEnter.casualLogic() &&
 			(canFlySM() || canGrappleSM() || canDashSM() || canAccessMaridiaPortal());

@@ -354,7 +354,7 @@ chests.zelda3[13] = {
                     availability.owGlitches = 'glitchpossible';
                 }
             }
-            else if (canEnterWestDeathMountain('majorGlitches', true) && (has("moonpearl") || (has("bottle",1) && canDash()))) {
+            else if (canEnterWestDeathMountain('majorGlitches', true) && (has("moonpearl") || (has("bottle") && canDash()))) {
                 if (canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('majorGlitches', false)) {
                         availability.majorGlitches = 'available';
@@ -630,7 +630,7 @@ chests.zelda3[25] = {
     isAvailable: function () {
         const availability = new Availability();
         for (let k = 0; k < 10; k++) {
-            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === greenPendant && trackerData.zelda3.items["boss" + k] === 2) {
+            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === GREENPENDANT && trackerData.zelda3.items["boss" + k] === 2) {
                 availability.glitchless = "available";
                 break;
             }
@@ -688,7 +688,7 @@ chests.zelda3[27] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (has("bottle",1)) {
+        if (has("bottle")) {
             availability.glitchless = "available";
         }
         return availability;
@@ -782,7 +782,7 @@ chests.zelda3[30] = {
         const availability = new Availability();
         if (canRead() && (has("mirror") || (has("hammer") && canGrapple()))) {
             if (canEnterWestDeathMountain('glitchless', false)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.glitchless = 'available';
                 }
                 else {
@@ -790,7 +790,7 @@ chests.zelda3[30] = {
                 }
             }
             else if (canEnterWestDeathMountain('glitchless', true)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.glitchless = 'glitchavailable';
                 }
                 else {
@@ -800,7 +800,7 @@ chests.zelda3[30] = {
         }
         if (canRead()) {
             if (canEnterWestDeathMountain('owGlitches', false) && dungeons.zelda3[2].canEnter('owGlitches', false, false)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.owGlitches = 'available';
                 }
                 else {
@@ -808,7 +808,7 @@ chests.zelda3[30] = {
                 }
             }
             else if (canEnterWestDeathMountain('owGlitches', true) && dungeons.zelda3[2].canEnter('owGlitches', false, true)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else {
@@ -818,7 +818,7 @@ chests.zelda3[30] = {
         }
         if (canRead()) {
             if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].canEnter('majorGlitches', false, false)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.majorGlitches = 'available';
                 }
                 else {
@@ -829,7 +829,7 @@ chests.zelda3[30] = {
                 availability.majorGlitches = 'possible';
             }
             else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].canEnter('majorGlitches', false, true)) {
-                if (has("sword",2)) {
+                if (hasSword(2)) {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else {
@@ -839,10 +839,10 @@ chests.zelda3[30] = {
             else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', false, true)) {
                 availability.majorGlitches = 'glitchpossible';
             }
-            else if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].mayEnter('majorGlitches', true, false) && has("sword",2)) {
+            else if (canEnterWestDeathMountain('majorGlitches', false) && dungeons.zelda3[2].mayEnter('majorGlitches', true, false) && hasSword(2)) {
                 availability.majorGlitches = 'agahnim';
             }
-            else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', true, true) && has("sword",2)) {
+            else if (canEnterWestDeathMountain('majorGlitches', true) && dungeons.zelda3[2].mayEnter('majorGlitches', true, true) && hasSword(2)) {
                 availability.majorGlitches = 'glitchagahnim';
             }
         }
@@ -858,14 +858,14 @@ chests.zelda3[31] = {
     isAvailable: function () {
         const availability = new Availability();
         if (canRead() && has("mirror") && canEnterSouthDarkWorld('glitchless', false, false)) {
-            if (has("sword",2)) {
+            if (hasSword(2)) {
                 availability.glitchless = 'available';
             }
             else {
                 availability.glitchless = 'possible';
             }
         }
-        else if (canRead() && has("mirror") && has("sword",2)) {
+        else if (canRead() && has("mirror") && hasSword(2)) {
             if (canEnterSouthDarkWorld('glitchless', true, false)) {
                 availability.glitchless = 'agahnim';
             }
@@ -874,14 +874,14 @@ chests.zelda3[31] = {
             }
         }
         if (canRead() && (canDash() || (has("mirror") && canEnterSouthDarkWorld('owGlitches', false, false)))) {
-            if (has("sword",2)) {
+            if (hasSword(2)) {
                 availability.owGlitches = 'available';
             }
             else {
                 availability.owGlitches = 'possible';
             }
         }
-        else if (canRead() && has("mirror") && has("sword",2)) {
+        else if (canRead() && has("mirror") && hasSword(2)) {
             if (canEnterSouthDarkWorld('owGlitches', true, false)) {
                 availability.owGlitches = 'agahnim';
             }
@@ -891,14 +891,14 @@ chests.zelda3[31] = {
         }
         if (canRead()
                 && (canDash() || (has("mirror") && canEnterSouthDarkWorld('majorGlitches', false, false)))) {
-            if (has("sword",2)) {
+            if (hasSword(2)) {
                 availability.majorGlitches = 'available';
             }
             else {
                 availability.majorGlitches = 'possible';
             }
         }
-        else if (canRead() && has("mirror") && has("sword",2)) {
+        else if (canRead() && has("mirror") && hasSword(2)) {
             if (canEnterSouthDarkWorld('majorGlitches', true, false)) {
                 availability.majorGlitches = 'agahnim';
             }
@@ -1836,7 +1836,7 @@ chests.zelda3[61] = {
         // Crystal check
         let crystalCount = 0;
         for (let k = 0; k < 10; k++) {
-            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === redCrystal && trackerData.zelda3.items["boss" + k] === 2) {
+            if (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === OJCRYSTAL && trackerData.zelda3.items["boss" + k] === 2) {
                 crystalCount++;
                 if (crystalCount === 2) {
                     break;
@@ -1899,7 +1899,7 @@ chests.zelda3[62] = {
         const availability = new Availability();
         let pendantCount = 0;
         for (let k = 0; k < 10; k++) {
-            if (((trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === badPendant) || (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === greenPendant)) && trackerData.zelda3.items["boss" + k] === 2) {
+            if (((trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === OFFPENDANT) || (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === GREENPENDANT)) && trackerData.zelda3.items["boss" + k] === 2) {
                 pendantCount++;
                 if (pendantCount === 3) {
                     break;

@@ -1,6 +1,7 @@
-function Availability(glitchless = 'unavailable', owGlitches = 'unavailable', majorGlitches = 'unavailable') {
+function Availability(glitchless = 'unavailable', minorGlitches = 'unavailable', owGlitches = 'unavailable', majorGlitches = 'unavailable') {
     this._glitchless	= glitchless;
     this._casualLogic	= glitchless;
+    this._minorGlitches	= minorGlitches;
     this._owGlitches	= owGlitches;
     this._tourneyLogic	= owGlitches;
     this._majorGlitches	= majorGlitches;
@@ -15,10 +16,8 @@ Object.defineProperty(Availability.prototype, 'casualLogic', {
         return this._casualLogic;
     },
     set: function (value) {
-		this._glitchless = value;
         this._casualLogic = value;
-        this._owGlitches = value;
-        this._majorGlitches = value;
+        this._tourneyLogic = value;
     }
 });
 
@@ -28,6 +27,18 @@ Object.defineProperty(Availability.prototype, 'glitchless', {
     },
     set: function (value) {
         this._glitchless = value;
+        this._minorGlitches = value;
+        this._owGlitches = value;
+        this._majorGlitches = value;
+    }
+});
+
+Object.defineProperty(Availability.prototype, 'minorGlitches', {
+    get: function () {
+        return this._minorGlitches;
+    },
+    set: function (value) {
+        this._minorGlitches = value;
         this._owGlitches = value;
         this._majorGlitches = value;
     }
@@ -48,9 +59,7 @@ Object.defineProperty(Availability.prototype, 'tourneyLogic', {
         return this._tourneyLogic;
     },
     set: function (value) {
-        this._owGlitches = value;
 		this._tourneyLogic = value;
-        this._majorGlitches = value;
     }
 });
 
@@ -77,6 +86,16 @@ function getHas(item) {
 function has(item, amount = -1) {
 	var ret = false;
 	var val = -1;
+
+	var globalReplace = {
+		lamp: "lantern",
+		pearl: "moonpearl"
+	};
+
+	if(item in globalReplace) {
+		item = globalReplace[item];
+	}
+
 	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
 		ret = true;
 		val = trackerData[selectedGame].items[item];
@@ -92,6 +111,89 @@ function has(item, amount = -1) {
 			ret = false;
 		}
 	}
+
+	if(item.indexOf("state") > -1) {
+		if(item.indexOf("open") > -1 && trackerOptions.zelda3.mapState == "open") {
+			return true;
+		}
+	}
+	if(item.indexOf("swords") > -1) {
+		if(item.indexOf("swordless") > -1 && trackerOptions.zelda3.mapSwords == false) {
+			return true;
+		}
+	}
+	if(item.indexOf("variation") > -1) {
+		if(item.indexOf("ohko") > -1 && trackerOptions.zelda3.mapOHKO) {
+			return true;
+		}
+	}
+
+	if(
+		item.indexOf("key") > -1 ||		// FIXME: Keys for Dungeons
+		item.indexOf("crystal") > -1 ||	// FIXME: Crystals for GT & Pyramid Fairy
+		item.indexOf("pendant") > -1 ||	// FIXME: Pendants for Saha & Pedestal
+		item.indexOf("medallion") > -1	// FIXME: Medallions for Mire & TR
+	) {
+		let checkBK = item.indexOf("bigkey") > -1;
+		let checkKey = item.indexOf("key") > -1;
+		let checkCrystal = item.indexOf("crystal") > -1;
+		let checkRedCrystal = checkCrystal && (item.indexOf('5') > -1 || item.indexOf('6') > -1);
+		let checkPendant = item.indexOf("pendant") > -1;
+		let checkGreenPendant = checkPendant && (item.indexOf("green") > -1);
+		let checkPrize = checkCrystal || checkPendant;
+		let checkMedallion = item.indexOf("medallion") > -1;
+
+		if(checkBK) {
+			return true;
+		} else if(checkKey) {
+			return true;
+		} else if(checkPrize) {
+			trackerData.zelda3.gotprizes = [0,0,0,0];
+			for(let k = 0; k < 10; k++) {
+				for(let j = 0; j < 4; j++) {
+					if(
+						trackerData.zelda3 &&
+						trackerData.zelda3.prizes &&
+						trackerData.zelda3.prizes[k] == j &&
+						trackerData.zelda3.items["boss" + k] === 2
+					) {
+						trackerData.zelda3.gotprizes[j] += 1;
+					}
+				}
+			}
+
+			let prizes = trackerData.zelda3.gotprizes;
+
+			if(item.indexOf("crystal") > -1) {
+				if(item.indexOf("all") > -1) {
+					return prizes[CRYSTAL] == 5 && prizes[OJCRYSTAL] == 2;
+				} else if(item.indexOf("5") > -1) {
+					return prizes[OJCRYSTAL] >= 1;
+				} else if(item.indexOf("6") > -1) {
+					return prizes[OJCRYSTAL] == 2;
+				}
+			} else if(item.indexOf("pendant") > -1) {
+				if(item.indexOf("all") > -1) {
+					return prizes[OFFPENDANT] == 2 && prizes[GREENPENDANT] == 1;
+				} else if(item.indexOf("red") > -1) {
+					return prizes[OFFPENDANT] >= 1;
+				} else if(item.indexOf("blue") > -1) {
+					return prizes[OFFPENDANT] == 2;
+				} else if(item.indexOf("green") > -1) {
+					return prizes[GREENPENDANT] == 1;
+				}
+			}
+		} else if(checkMedallion) {
+			let dung = "";
+			if(item.indexOf("mire") > -1) {
+				dung = "mire";
+			} else if(item.indexOf("trock") > -1) {
+				dung = "trock";
+			}
+			return true;
+		}
+	}
+
 	return ret;
 }
 
@@ -99,6 +201,29 @@ function has(item, amount = -1) {
 // ALttP Ability Functions
 function canDash() {
 	return has("boots");
+}
+
+function canActivateTablets() {
+	return has("book") && hasSword(2);
+}
+
+function canActivateMedallions() {
+	return hasSword() || has("swords.swordless");	// FIXME: Swordless
+}
+
+function hasSword(min_level = 1) {
+	switch(min_level) {
+		case 4:
+			return has("sword",4);
+		case 3:
+			return has("sword",3);
+		case 2:
+			return has("sword",2) || (has("swords.swordless") && has("hammer"));
+		case 1:
+			return has("sword",1);
+		default:
+			return has("sword") || (has("swords.swordless") && has("hammer"));
+	}
 }
 
 function canGrapple() {
@@ -130,7 +255,7 @@ function canLightTorches() {
 }
 
 function canMeltThings() {
-    return has("firerod") || (has("bombos") && has("sword",1));
+    return has("firerod") || (has("bombos") && canActivateMedallions());
 }
 
 function canFly() {
@@ -153,6 +278,64 @@ function canExtendMagic() {
     return has("mpupgrade",1) || has("bottle",1);
 }
 
+function canKillMostThings(enemies = 5) {
+	return (hasSword()
+		&& (has("swords.uncle") || has("swords.swordless")))		// FIXME: Swords Uncle/Swordless
+		|| has("somaria")
+		|| (has("bombs") && enemies < 6)
+		|| (has("byrna") && (enemies < 6 || canExtendMagic()))
+		|| canShootArrows()
+		|| has("hammer")
+		|| has("firerod");
+}
+
+function canGetGoodBee() {
+	return has("net")
+		&& has("bottle")
+		&& (canDash()
+			|| (hasSword() && has("quake")));
+}
+
+function canBeatAga1(logic) {
+	let darkNav = logic == "minor" && canDarkNav();
+	let haveLamp = has("lantern");
+    let ret = !has("agahnim")
+            && (has("cape") || hasSword(2))
+            && hasSword();
+
+    if(ret) {
+		if(haveLamp) {
+			return "agahnim";
+		} else if(darkNav) {
+			return "glitchagahnim";
+		}
+	} else {
+		return false;
+	}
+}
+
+function canDarkNav() {
+	return !has("lantern");
+}
+
+function canFakeFlipper() {
+	return !canSwim();
+}
+
+function canWaterwalk() {
+	return canFakeFlipper() && has("moonpearl");
+}
+
+function canWaterwalkStored() {
+//	return canWaterwalk();
+	return false;
+}
+
+function canFakePowder() {
+	let potionShop = chests.zelda3.find(function(e) { return e.name == "Potion Shop"; } );
+	return has("somaria") && has("mushroom") && !potionShop.isOpened;
+}
+
 function glitchedLinkInDarkWorld() {
     return has("moonpearl") || has("bottle",1);
 }
@@ -160,8 +343,8 @@ function glitchedLinkInDarkWorld() {
 function canGoBeatAgahnim1(allowOutOfLogicGlitches) {
     return !has("agahnim")
             && (has("lantern") || allowOutOfLogicGlitches)
-            && (has("cape") || has("sword",2))
-            && has("sword",1);
+            && (has("cape") || hasSword(2))
+            && hasSword();
 }
 
 function canEnterNorthEastDarkWorld(logic, agahnimCheck, allowOutOfLogicGlitches) {
@@ -302,7 +485,7 @@ function canEnterEastDeathMountain(logic, allowOutOfLogicGlitches) {
 function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
     if (logic === 'majorGlitches') {
         return has("moonpearl")
-                || (has("bottle",1) && canDash())
+                || (has("bottle") && canDash())
                 || ((canLiftDarkRocks() || (has("hammer") && canDash())) && canEnterEastDeathMountain('majorGlitches', allowOutOfLogicGlitches))
                 || (has("mirror") && canEnterWestDeathMountain('majorGlitches', allowOutOfLogicGlitches));
     }
@@ -318,7 +501,7 @@ function canEnterEastDarkWorldDeathMountain(logic, allowOutOfLogicGlitches) {
 
 // app/Support/ItemCollection.php
 // SM Ability functions
-function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Attack
+function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Attack; Can pass through barriers that must be destroyed
 	return (canMorph()
 		&& (canUseMorphBombs()
 			|| canUsePowerBombs()))
@@ -337,6 +520,9 @@ function canCrystalFlash() {	// Refill HP
 		&& has("powerbomb",3)
 		&& canMorph();
 }
+function canCwj() {	// FIXME: Not Casual
+	return true;
+}
 function canDashSM() {	// SM: Speed Booster
 	return has("speed");
 }
@@ -348,6 +534,9 @@ function canFlySM() {	// SM: Infinite Bomb Jump or Space Jump
 }
 function canGrappleSM() {	// SM: Grapple Beam
 	return has("grappling");
+}
+function canGravityJump() {	// FIXME: Not Casual
+	return canSwimSM();
 }
 function canHellRun() {	// Varia or enough health
 	return heatProof() || hasEnergyReserves(5);
@@ -376,11 +565,17 @@ function canOpenRedDoors() {
 function canOpenYellowDoors() {
 	return canUsePowerBombs();
 }
-function canPassBombPassages() {	// Not sure why Power Bombs; Infinite Bomb Jump
+function canPassBombPassages() {	// Power Bombs || Infinite Bomb Jump
 	return canUsePowerBombs() || canIbj();
+}
+function canShortCharge() {	// FIXME: Not Casual
+	return canDashSM();
 }
 function canSpringBall() {
 	return canMorph() && has("springball");
+}
+function canSpringBallJump() {	// FIXME: Not Casual
+	return has("springball");
 }
 function canSwimSM() {	// SM: Gravity Suit
 	return has("gravity");
@@ -389,7 +584,13 @@ function canUseMorphBombs() {
 	return canMorph() && has("bombs");
 }
 function canUsePowerBombs() {
-	return canMorph() && has("powerbomb",1);
+	return canMorph() && has("powerbomb");
+}
+function canWalljump() {
+	return true;
+}
+function canYba($amount = 1) {	// FIXME: Not Casual
+	return has("bottle",$amount);
 }
 function hasEnergyReserves(amount) {	// Total Energy Tanks (including Reserve Tanks)
 	return getHas("etank") + getHas("rtank") >= amount;

@@ -1,6 +1,6 @@
 // Wrecked Ship
 function canEnterWreckedShip() {
-	var ret = canOpenYellowDoors() && canOpenGreenDoors();
+	let ret = canOpenYellowDoors() && canOpenGreenDoors();
 	if(trackerOptions[selectedGame].mapLogic == "casualLogic") {
 		ret = ret && (canDashSM() || canGrappleSM() || has("space") || has("springball"));
 	}

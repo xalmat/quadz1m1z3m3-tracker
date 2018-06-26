@@ -37,7 +37,7 @@ class BrinstarGreen extends Brinstar {
 		return canUsePowerBombs();
 	}
 	this.locations["Super Missile (green Brinstar bottom)"].casualLogic = function() {
-		return canUsePowerBombs && canOpenGreenDoors();
+		return canUsePowerBombs() && canOpenGreenDoors();
 	}
 
     this.canEnter.casualLogic = function() {

@@ -1,6 +1,6 @@
 // Brinstar: Pink
 function canEnterBrinstarPink() {
-	var ret = canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()) || canOpenYellowDoors();
+	let ret = canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()) || canOpenYellowDoors();
 
 	if(trackerOptions.mapLogic == "tourneyLogic") {
 		ret = ret || (canAccessNorfairPortal() && canMorph() && (has("ice") || has("hijump") || canFlySM()));

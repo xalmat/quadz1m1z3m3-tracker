@@ -1,14 +1,12 @@
 var trackerOptions = {};
 trackerOptions[selectedGame] = {
-  showchests: true,
-  showprizes: true,
-  showmedals: true,
   showlabels: true,
   editmode: false,
+  mapOHKO: false,
   mapState: "open",
   selected: {}
 };
-trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "glitchless";
+trackerOptions[selectedGame].mapLogic = (selectedGame == "metroid3") ? "casualLogic" : "minorGlitches";
 
 var chestsopenedInit = {};
 chestsopenedInit[selectedGame] = [];
@@ -46,6 +44,7 @@ trackerData[selectedGame] = {
   dungeonchests: dungeonchestsInit[selectedGame],
   dungeonbeaten: dungeonbeatenInit[selectedGame],
   prizes: prizesInit[selectedGame],
+  gotprizes: [0,0,0,0],
   medallions: medallionsInit[selectedGame],
   chestsopened: chestsopenedInit[selectedGame]
 };
@@ -109,13 +108,17 @@ for(var gameName in gameNames) {
 
 var defaults = {
 	zelda3: {
-		mapLogic: "glitchless",
-		mapState: "open",
+		mapLogic: (zeldaMode == "regions") ? "minorGlitches" : "glitchless",
+  		mapState: "open",
+  		mapSwords: true,
 		mPos: "Side",
 		mZoom: 80,
 		chest: true,
 		medal: true,
-		prize: true
+		prize: true,
+  		showchests: true,
+  		showprizes: true,
+  		showmedals: true,
 	},
 	metroid3: {
 		chestskin: "lights",
@@ -252,10 +255,11 @@ function getConfigObject() {
 // Event of clicking a chest on the map
 function toggleChest(x){
     trackerData[selectedGame].chestsopened[x] = !trackerData[selectedGame].chestsopened[x];
+    chests[selectedGame][x].isOpened = !chests[selectedGame][x].isOpened;
     updateAll();
 }
 
-var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a> | <a href="?game=metroid3">Zebes</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a></span>';
+var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a><a href="?game=zelda3&amp;zeldaMode=regions">*</a> | <a href="?game=metroid3">Zebes</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a></span>';
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
@@ -461,6 +465,20 @@ function showLabel(sender) {
     saveCookie();
 }
 
+function showRegions(sender) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerOptions[selectedGame].showRegions = sender.checked;
+	if(sender.checked) {
+		document.getElementById("mapoverlay").classList.remove("off");
+		document.getElementById("mapoverlay").classList.add("on");
+	} else {
+		document.getElementById("mapoverlay").classList.remove("on");
+		document.getElementById("mapoverlay").classList.add("off");
+	}
+	saveCookie();
+}
+
 function setOrder(mode) {
     if (mode == 1) { // Below
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
@@ -537,6 +555,40 @@ function setMapOrientation(H) {
     saveCookie();
 }
 
+function setOHKO(sender) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerOptions[selectedGame].mapOHKO = sender.checked;
+
+	refreshMap();
+	saveCookie();
+}
+
+function setSwords(sender) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerOptions[selectedGame].mapSwords = !sender.checked;
+
+	let eles = document.getElementsByClassName("sword");
+	for(let ele in eles) {
+		ele = eles[ele];
+		if(typeof ele == "object") {
+			if(ele.classList) {
+				if(trackerOptions[selectedGame].mapSwords) {
+					ele.classList.remove("swordless");
+					ele.classList.add(getHas("sword") > 0);
+				} else {
+					ele.classList.remove(getHas("sword") > 0);
+					ele.classList.add("swordless");
+				}
+			}
+		}
+	}
+
+	refreshMap();
+	saveCookie();
+}
+
 function setState(state) {
 	if(selectedGame != "zelda3") { return; }
 
@@ -553,6 +605,7 @@ function setLogic(logic) {
 
 function setSMChestSkin(skin) {
 	document.getElementById("mapdiv").className = ("mapdiv " + skin);
+	document.getElementById("legend").className = ("legend " + skin);
 }
 
 function showSettings(sender) {
@@ -736,6 +789,9 @@ function populateMapdiv(useGame = "zelda3") {
             s.className = "mapspan chest opened";
         else
             s.className = "mapspan chest " + chests[useGame][k].isAvailable().getClassName();
+		if(chests[useGame][k].x == "" && chests[useGame][k].y == "") {
+			s.style.display = "none";
+		}
         mapdiv.appendChild(s);
     }
 
@@ -750,6 +806,9 @@ function populateMapdiv(useGame = "zelda3") {
         s.style.left = dungeons[useGame][k].x;
         s.style.top = dungeons[useGame][k].y;
         s.className = "mapspan boss " + dungeons[useGame][k].isBeatable().getClassName();
+		if(dungeons[useGame][k].x == "" && dungeons[useGame][k].y == "") {
+			s.style.display = "none";
+		}
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
@@ -761,6 +820,9 @@ function populateMapdiv(useGame = "zelda3") {
         s.style.left = dungeons[useGame][k].x;
         s.style.top = dungeons[useGame][k].y;
         s.className = "mapspan dungeon " + dungeons[useGame][k].canGetChest().getClassName();
+		if(dungeons[useGame][k].x == "" && dungeons[useGame][k].y == "") {
+			s.style.display = "none";
+		}
         mapdiv.appendChild(s);
     }
 }
@@ -832,8 +894,19 @@ function initTracker() {
     populateMapdiv(useGame);
     populateItemconfig();
 
-    if(! document.querySelector('input[name="maplogic"]:checked')) {
-		var defaultLogic = selectedGame == "metroid3" ? "casualLogic" : "glitchless";
+	var selector = 'input[name="maplogic"]';
+	if(selectedGame == "metroid3") {
+		selector += '[id~="z3mLogic"]';
+	} else {
+		selector += '[id~="m3mLogic"]';
+	}
+	selector += '';
+	selector += ':checked';
+    if(! document.querySelector(selector)) {
+		var defaultLogic = selectedGame == "metroid3" ? "casualLogic" : "minorGlitches";
+		if(selectedGame == "zelda3" && zeldaMode == "oldstyle") {
+			defaultLogic = "glitchless";
+		}
 		var radios = document.querySelectorAll('input[name="maplogic"]');
 		for(var radio in radios) {
 			radio = radios[radio];
@@ -1006,10 +1079,20 @@ Vue.component('tracker-cell', {
         return "url(" + build_img_url("medallion" + this.trackerData[selectedGame].medallions[this.bossNum]) + ")";
       }
       return null;
-    }
+    },
+    ohkoImage: function() {
+	  if(selectedGame != "zelda3") { return null; }
+	  if(this.itemLabel.toLowerCase() == "tunic" && this.trackerOptions[selectedGame] && this.trackerOptions[selectedGame].mapOHKO) {
+		return "url(images/misc/ohko.png)";
+	  }
+	  return null;
+	}
   },
   methods: {
     clickCell: function(amt) {
+	  if((trackerOptions[selectedGame].mapSwords == false) && (this.itemName.indexOf("sword") > -1)) {
+		  return;
+	  }
 	  var itemValue = this.trackerData[selectedGame].items[this.itemName];
       if(this.trackerOptions[selectedGame].editmode) {
           Vue.set(vm.itemRows[this.rowIndex], this.columnIndex, this.trackerOptions[selectedGame].selected.item || 'blank');

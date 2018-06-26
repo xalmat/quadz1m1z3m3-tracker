@@ -2,10 +2,10 @@ String.prototype.ucfirst = function () {
 	return this.substr(0,1).toUpperCase() + this.slice(1);
 }
 
-const blueCrystal = 0;
-const redCrystal = 1;
-const badPendant = 2;
-const greenPendant = 3;
+const CRYSTAL = 0;
+const OJCRYSTAL = 1;
+const OFFPENDANT = 2;
+const GREENPENDANT = 3;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -29,7 +29,9 @@ var gameNames = ["zelda3","metroid3"];
 var chests = {};
 var dungeons = {};
 var cookieDefault = {};
+var regionObjects = {};
 var regionNames = {};
+var zeldaMode = (getParameterByName("zeldaMode",window.location) != null) ? getParameterByName("zeldaMode",window.location) : "oldstyle";
 for(var gameName in gameNames) {
 	gameName = gameNames[gameName];
 	chests[gameName] = [];
@@ -68,7 +70,9 @@ function fix_itemlabel(item) {
 
 	if((ret.indexOf("boss") === 0) || (ret.indexOf("chest") === 0)) {
 		var start = ret.indexOf("boss") === 0 ? 4 : 5;
-		ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
+		if(dungeons[selectedGame][ret.slice(start)]) {
+			ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
+		}
 	}
 	var beams = ["charge","ice","wave","plasma","grappling"];
 	if(beams.indexOf(ret) > -1) {
@@ -107,19 +111,24 @@ function build_img_url(item) {
     }
 
     var globalReplaceItem = {
+		agahnim:	"agahnim1",
 		bomb:		"bomb1",
 		bomb0:		"bomb1",
 		boomerang0:	"boomerang1",
+		bottle:		"bottle0",
+		crystal5:	"dungeon" + OJCRYSTAL,
+		crystal6:	"dungeon" + OJCRYSTAL,
 		glove0:		"glove1",
+		lamp:		"lantern",
 		medallion1:	"bombos",
 		medallion2:	"ether",
 		medallion3:	"quake",
-		pendant0:	"dungeon" + greenPendant,
+		pendant0:	"dungeon" + GREENPENDANT,
 		shield0:	"shield1",
 		sword0:		"sword1",
 	};
-	globalReplaceItem["blueCrystal"] = "dungeon" + blueCrystal;
-	globalReplaceItem["redCrystal"] = "dungeon" + redCrystal;
+	globalReplaceItem["blueCrystal"] = "dungeon" + CRYSTAL;
+	globalReplaceItem["redCrystal"] = "dungeon" + OJCRYSTAL;
 
 	if(globalReplaceItem[item]) {
 		item = globalReplaceItem[item];
@@ -153,9 +162,9 @@ function mini(item) {
 		pendant1:	"Pendant of Power",
 		pendant2:	"Pendant of Wisdom",
 	};
-	globalReplaceTitle["dungeon" + greenPendant] = "Pendant of Courage";
-	globalReplaceTitle["dungeon" + blueCrystal] = "Blue Crystal";
-	globalReplaceTitle["dungeon" + redCrystal] = "Red Crystal";
+	globalReplaceTitle["dungeon" + GREENPENDANT] = "Pendant of Courage";
+	globalReplaceTitle["dungeon" + CRYSTAL] = "Blue Crystal";
+	globalReplaceTitle["dungeon" + OJCRYSTAL] = "Red Crystal";
 
 	if(globalReplaceTitle[item]) {
 		title = globalReplaceTitle[item].ucfirst();

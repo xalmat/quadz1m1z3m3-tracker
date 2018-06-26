@@ -19,7 +19,7 @@ class BrinstarPink extends Brinstar {
 	this.locations["Super Missile (pink Brinstar)"].casualLogic = function() {
 		return canPassBombPassages() && canOpenGreenDoors();
 	}
-	this.locations["Charge Beam"].setRequirements = function() {
+	this.locations["Charge Beam"].casualLogic = function() {
 		return canPassBombPassages();
 	}
 	this.locations["Power Bomb (pink Brinstar)"].casualLogic = function() {
