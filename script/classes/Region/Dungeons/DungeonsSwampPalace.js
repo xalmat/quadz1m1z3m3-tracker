@@ -22,7 +22,7 @@ class DungeonsSwampPalace extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
-	let region = this;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Swamp Palace - Big Chest"].glitchless = function() {
@@ -66,7 +66,7 @@ class DungeonsSwampPalace extends Dungeons {
 			&& sdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Swamp Palace - Arrghus"].glitchless();
+		return dungeon.locations["Swamp Palace - Arrghus"].glitchless();
 	}
   }
 

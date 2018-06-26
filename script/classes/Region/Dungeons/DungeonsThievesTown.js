@@ -20,7 +20,7 @@ class DungeonsThievesTown extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
-	let region = this;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Thieves' Town - Attic"].glitchless = function() {
@@ -46,7 +46,7 @@ class DungeonsThievesTown extends Dungeons {
 		return has("moonpearl") && nwdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Thieves' Town - Blind"].glitchless();
+		return dungeon.locations["Thieves' Town - Blind"].glitchless();
 	}
   }
 

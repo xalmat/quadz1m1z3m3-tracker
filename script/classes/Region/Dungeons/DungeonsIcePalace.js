@@ -20,7 +20,7 @@ class DungeonsIcePalace extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
-	let region = this;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Ice Palace - Big Key Chest"].glitchless =
@@ -54,7 +54,7 @@ class DungeonsIcePalace extends Dungeons {
 			&& canLiftDarkRocks() && canMeltThings();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Ice Palace - Kholdstare"].glitchless();
+		return dungeon.locations["Ice Palace - Kholdstare"].glitchless();
 	}
   }
 

@@ -49,7 +49,7 @@ class DungeonsGanonsTower extends Dungeons {
 	let boss_bottom = this.boss_bottom;
 	let boss_middle = this.boss_middle;
 	let boss_top = this.boss_top;
-	let region = this;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Ganon's Tower - Bob's Torch"].glitchless = function() {
@@ -137,7 +137,7 @@ class DungeonsGanonsTower extends Dungeons {
 			&& dwdme.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Ganon's Tower - Moldorm Chest"].glitchless()
+		return dungeon.locations["Ganon's Tower - Moldorm Chest"].glitchless()
 			&& boss.canBeat();
 	}
   }

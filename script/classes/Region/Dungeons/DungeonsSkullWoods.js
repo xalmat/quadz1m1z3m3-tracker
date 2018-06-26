@@ -19,7 +19,7 @@ class DungeonsSkullWoods extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
-	let region = this;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Skull Woods - Big Chest"].glitchless = function() {
@@ -45,7 +45,7 @@ class DungeonsSkullWoods extends Dungeons {
 		return has("moonpearl") && nwdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Skull Woods - Mothula"].glitchless();
+		return dungeon.locations["Skull Woods - Mothula"].glitchless();
 	}
   }
 

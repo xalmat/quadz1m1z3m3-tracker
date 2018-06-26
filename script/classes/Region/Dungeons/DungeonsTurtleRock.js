@@ -24,7 +24,7 @@ class DungeonsTurtleRock extends Dungeons {
 
   initNoMajorGlitches() {
 	let boss = this.boss;
-	let region = this;
+	let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Turtle Rock - Chain Chomps"].glitchless = function() {
@@ -74,7 +74,7 @@ class DungeonsTurtleRock extends Dungeons {
 			&& edm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Turtle Rock - Trinexx"].glitchless();
+		return dungeon.locations["Turtle Rock - Trinexx"].glitchless();
 	}
   }
 

@@ -46,7 +46,7 @@ class DungeonsTowerOfHera extends Dungeons {
 	}
 	this.canGetChest.glitchless = function() {
 		let mychests = trackerData.zelda3.dungeonchests[2];
-		if(this.canEnter.glitchless) {
+		if(dungeon.canEnter.glitchless()) {
 			if(canLightTorches() && (mychests === 2 || hasSword() || has("hammer"))) {
 				return true;
 			} else {
@@ -59,7 +59,7 @@ class DungeonsTowerOfHera extends Dungeons {
   initMinorGlitches() {
 	this.initNoMajorGlitches();
 
-	let region = this;
+	let dungeon = this;
 
 	this.canEnter.minorGlitches = function() {
 		let ret = this.glitchless();
@@ -81,11 +81,20 @@ class DungeonsTowerOfHera extends Dungeons {
 
 	this.canGetChest.minorGlitches = function() {
 		let mychests = trackerData.zelda3.dungeonchests[2];
-		if(region.canEnter.minorGlitches()) {
+		let glitch = dungeon.canEnter.minorGlitches();
+		let type = typeof glitch;
+
+		let ret = dungeon.canGetChest.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+
+		if(glitch) {
 			if(canLightTorches() && (mychests === 2 || hasSword() || has("hammer"))) {
-				return "glitchavailable";
+				return type == "string" ? glitch : true;
 			} else {
-				return "glitchpartial";
+				return type == "string" ? "glitchpartial" : "partial";
 			}
 		}
 		return false;
@@ -106,9 +115,9 @@ class DungeonsTowerOfHera extends Dungeons {
   }
 
   initMajorGlitches() {
-	  let boss = this.boss;
-
 	  this.initOverworldGlitches();
+
+	  let boss = this.boss;
 
 	  let wdm = new DeathMountainWest("","",false);
 	  wdm.initMajorGlitches();

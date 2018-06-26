@@ -20,7 +20,7 @@ class DungeonsMiseryMire extends Dungeons {
 
   initNoMajorGlitches() {
     let boss = this.boss;
-    let region = this;
+    let dungeon = this;
 
 	if(this.buildLocations) {
 		this.locations["Misery Mire - Big Chest"].glitchless = function() {
@@ -57,7 +57,7 @@ class DungeonsMiseryMire extends Dungeons {
 			&& dwm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
-		return region.locations["Misery Mire - Vitreous"].glitchless();
+		return dungeon.locations["Misery Mire - Vitreous"].glitchless();
 	}
   }
 
