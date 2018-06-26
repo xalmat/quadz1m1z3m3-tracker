@@ -52,6 +52,12 @@ class DeathMountainEast extends DeathMountain {
 			return true;
 		}
 		this.locations["Floating Island"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
 			return "glitchviewable";
 		}
 	}
