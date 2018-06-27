@@ -35,7 +35,7 @@ class DarkWorldNorthEast extends DarkWorld {
 
 	this.canEnter.glitchless = function() {
 		return (has("agahnim")													// Castle Gate Warp
-			|| (has("hammer") && canLiftDarkRocks() && has("moonpearl"))		// Swamp Warp
+			|| (has("hammer") && canLiftRocks() && has("moonpearl"))			// Swamp Warp
 			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
 			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl")));	// From Maridia, swim through lake
 	}
@@ -88,7 +88,7 @@ class DarkWorldNorthEast extends DarkWorld {
 
 		let aga1 = canBeatAga1("minor");
 		if(aga1																	// Castle Gate Warp
-			|| (has("hammer") && canLiftDarkRocks() && has("moonpearl"))		// Swamp Warp
+			|| (has("hammer") && canLiftRocks() && has("moonpearl"))			// Swamp Warp
 			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
 			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl"))) {	// From Maridia, swim through lake
 			if(aga1) {
