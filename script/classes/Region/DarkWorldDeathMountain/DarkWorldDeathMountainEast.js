@@ -74,7 +74,7 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
 	}
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	this.canEnter.majorGlitches = function() {

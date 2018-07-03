@@ -3,7 +3,7 @@ function canEnterNorfairEast() {
 	return (((canDestroyBombWalls() || trackerData[selectedGame].speed)
 		&& (canOpenGreenDoors() && canMorph()))
 		|| canAccessNorfairPortal())
-		&& (trackerOptions.mapLogic == "casualLogic" ? has("varia") : canHellRun())
+		&& (trackerData.mapLogic == "casualLogic" ? has("varia") : canHellRun())
 		&& (canFlySM() || trackerData[selectedGame].hijump || (canDashSM() && canUsePowerBombs()) || (heatProof() && (trackerData[selectedGame].ice || canDashSM())));
 }
 chests.metroid3[55] = {

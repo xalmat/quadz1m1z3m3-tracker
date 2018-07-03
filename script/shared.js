@@ -32,6 +32,7 @@ var cookieDefault = {};
 var regionObjects = {};
 var regionNames = {};
 var zeldaMode = (getParameterByName("zeldaMode",window.location) != null) ? getParameterByName("zeldaMode",window.location) : "oldstyle";
+var metroidMode = (getParameterByName("metroidMode",window.location) != null) ? getParameterByName("metroidMode",window.location) : "";
 for(var gameName in gameNames) {
 	gameName = gameNames[gameName];
 	chests[gameName] = [];
@@ -39,10 +40,24 @@ for(var gameName in gameNames) {
 	cookieDefault[gameName] = {};
 }
 
-var roomid = "smalttpr";
+var roomid = (getParameterByName("roomid",window.location) != null) ? getParameterByName("roomid",window.location) : "smalttpr";
 var authAttempted = false;
 
 function destroyFirebase() {
+}
+
+function tokenize(input) {
+	let output = input;
+	let replacements = {
+		' ': '-',
+		'"': '',
+		"'": ''
+	};
+	for(let search in replacements) {
+		let replace = replacements[search];
+		output = output.replace(search,replace);
+	}
+	return output.toLowerCase();
 }
 
 function fix_itemlabel(item) {

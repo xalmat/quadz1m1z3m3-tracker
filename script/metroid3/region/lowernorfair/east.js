@@ -1,7 +1,7 @@
 // Lower Norfair: East
 function canEnterLowerNorfairEast() {
 	let ret = canEnterLowerNorfairWest();
-	if(trackerOptions.mapLogic == "tourneyLogic") {
+	if(trackerData.mapLogic == "tourneyLogic") {
 		ret = ret
 		&& (canDestroyBombWalls() || canDashSM())
 		&& (canFlySM() || canHiJump() || (has("ice") && has("charge")))
@@ -18,7 +18,7 @@ function canEnterLowerNorfairEast() {
 			)
 		);
 	}
-	if(trackerOptions.mapLogic == "casualLogic") {
+	if(trackerData.mapLogic == "casualLogic") {
 		ret = ret
 		&& canUsePowerBombs()
 		&& canFlySM()

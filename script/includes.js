@@ -149,5 +149,7 @@ LazyLoad.js(scripts, function () {
 	init(initTracker,selectedGame);
 	if(selectedGame == "zelda3") {
 		document.body.classList.add("zelda3-" + zeldaMode);
+	} else if(selectedGame == "metroid3" && metroidMode != "") {
+		document.body.classList.add("metroid3-" + metroidMode);
 	}
 });

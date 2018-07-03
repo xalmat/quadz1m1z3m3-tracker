@@ -2,10 +2,10 @@
 function canEnterBrinstarPink() {
 	let ret = canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()) || canOpenYellowDoors();
 
-	if(trackerOptions.mapLogic == "tourneyLogic") {
+	if(trackerData.mapLogic == "tourneyLogic") {
 		ret = ret || (canAccessNorfairPortal() && canMorph() && (has("ice") || has("hijump") || canFlySM()));
 	}
-	if(trackerOptions.mapLogic == "casualLogic") {
+	if(trackerData.mapLogic == "casualLogic") {
 		ret = ret || (canAccessNorfairPortal() && canMorph() && has("wave") && (has("ice") || has("hijump") || canFlySM()));
 	}
 

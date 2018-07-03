@@ -7,7 +7,7 @@ function Availability(glitchless = 'unavailable', minorGlitches = 'unavailable',
     this._majorGlitches	= majorGlitches;
 
     this.getClassName = function () {
-        return this[trackerOptions[selectedGame].mapLogic];
+        return this[trackerData[selectedGame].mapLogic];
     }
 }
 
@@ -113,17 +113,17 @@ function has(item, amount = -1) {
 	}
 
 	if(item.indexOf("state") > -1) {
-		if(item.indexOf("open") > -1 && trackerOptions.zelda3.mapState == "open") {
+		if(item.indexOf("open") > -1 && trackerData.zelda3.mapState == "open") {
 			return true;
 		}
 	}
 	if(item.indexOf("swords") > -1) {
-		if(item.indexOf("swordless") > -1 && trackerOptions.zelda3.mapSwords == false) {
+		if(item.indexOf("swordless") > -1 && trackerData.zelda3.mapSwords == false) {
 			return true;
 		}
 	}
 	if(item.indexOf("variation") > -1) {
-		if(item.indexOf("ohko") > -1 && trackerOptions.zelda3.mapOHKO) {
+		if(item.indexOf("ohko") > -1 && trackerData.zelda3.mapOHKO) {
 			return true;
 		}
 	}

@@ -20,7 +20,7 @@
         </div>
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
-                <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
+                <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerData"></tracker-table>
 		        <table id='itemconfig' class='itemconfig' style='display:none'></table>
             </div>
             <div id='mapdiv' class='mapdiv'>
@@ -51,8 +51,8 @@
             <fieldset>
                 <legend>Map Tracker</legend>
                 <span style="float:right;"><input type="checkbox" name="showmap" id="showmap" checked='checked' onchange="showTracker('mapdiv', this)"><label for="showmap">Enabled</label><br /><label><span class="zelda3-option"><input type="checkbox" id="mapRegions" onchange="showRegions(this)" />Regions</label></span></span>
+				<span class="zelda3-option metroid3-accessibility" style="white-space:nowrap;">Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)"><span id='mapdivsize'>100%</span></span><br />
                 <div class="zelda3-option">
-	                <span style="white-space:nowrap;">Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)"><span id='mapdivsize'>100%</span></span><br />
 	                Orientation:<br />
 	                <input type='radio' name='maporientation' id="mOrien1" value='Horizontal' checked='checked' onclick="setMapOrientation(false)"><label for="mOrien1">Horizontal</label>
 	                <input type='radio' name='maporientation' id="mOrien2" value='Verical' onclick="setMapOrientation(true)"><label for="mOrien2">Vertical</label>
@@ -71,8 +71,8 @@
                     	<legend>Game State</legend>
                     	<input type='radio' name='mapstate' id="mState1" value='standard' onclick='setState("standard")'><label for="mState1">Standard</label>
                     	<input type='radio' name='mapstate' id="mState2" value='open' checked='checked' onclick='setState("open")'><label for="mState2">Open</label><br />
-                    	<span class="zelda3-regions"><input type='checkbox' name='swordless' id="swordless" onclick='setSwords(this)'><label for="swordless">Swordless</label></span>
-                    	<span class="zelda3-regions"><input type='checkbox' name='ohko' id="ohko" onclick='setOHKO(this)'><label for="ohko">OHKO</label></span>
+                    	<span class="zelda3-regions"><input type='checkbox' name='swordless' id="swordless" onchange='setSwords(this)'><label for="swordless">Swordless</label></span>
+                    	<span class="zelda3-regions"><input type='checkbox' name='ohko' id="ohko" onchange='setOHKO(this)'><label for="ohko">OHKO</label></span>
                     </fieldset>
                     <fieldset>
 						<legend>Glitch Logic</legend>
@@ -144,26 +144,26 @@
                     <div :style="{ width: (maxRowLength - itemRow.length) * 32 + 'px', display:'inline-block' }" class="rowSpacer"></div>
                     <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
                     :column-index="itemColumnIndex" :row-index="itemRowIndex"
-                    :tracker-data="trackerData" :tracker-options="trackerOptions" :key="itemColumnIndex + '-' + itemRowIndex"></tracker-cell>
-                    <button v-if="trackerOptions && trackerOptions[selectedGame].editmode" @click.prevent.stop="removeItem(itemRowIndex)"
+                    :tracker-data="trackerData" :tracker-options="trackerData" :key="itemColumnIndex + '-' + itemRowIndex"></tracker-cell>
+                    <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="removeItem(itemRowIndex)"
                         :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
-                    <button v-if="trackerOptions && trackerOptions[selectedGame].editmode" @click.prevent.stop="addItem(itemRowIndex)"
+                    <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="addItem(itemRowIndex)"
                         :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
                 </div>
-                <button v-if="trackerOptions && trackerOptions[selectedGame].editmode" @click.prevent.stop="addRow">Add row</button>
+                <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="addRow">Add row</button>
             </div>
         </script>
 
         <script type="text/x-template" id="tracker-cell">
             <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative', backgroundSize: '64px 64px', imageRendering: 'pixelated' }"
              :title="itemLabel"
-             :class="[itemLabel.toLowerCase(), isActive ? 'true':'false']" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
+             :class="[tokenize(itemLabel), isActive ? 'true':'false', ohkoClass, swordlessClass]" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
                 <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
                 <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>
                 <span v-if="chestImage" @click.stop="clickChestBack" @contextmenu.prevent.stop="clickChestForward" :class="'chestImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage, backgroundSize: '32px 32px' }"></span>
                 <span v-if="prizeImage" @click.stop="clickPrizeForward" @contextmenu.prevent.stop="clickPrizeBack" :class="'prizeImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage, backgroundSize: '32px 32px' }"></span>
                 <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :class="'medallionImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage, backgroundSize: '32px 32px' }"></span>
-                <span v-if="ohkoImage" :class="'ohko'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: ohkoImage, backgroundSize: '32px 32px' }"></span>
+                <span v-if="isTunic" :class="'ohko'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px' }"></span>
             </div>
         </script>
     </body>

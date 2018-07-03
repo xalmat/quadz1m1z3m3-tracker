@@ -1711,7 +1711,7 @@ chests.zelda3[55] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (!(trackerOptions[selectedGame].mapState == "open") || has("lantern") || canLiftRocks()) {
+        if (!(trackerData[selectedGame].mapState == "open") || has("lantern") || canLiftRocks()) {
             availability.glitchless = 'available';
         } else {
             availability.glitchless = 'unavailable';
@@ -1944,7 +1944,7 @@ chests.zelda3[64] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (!(trackerOptions[selectedGame].mapState == "open") || has("lantern")) {
+        if (!(trackerData[selectedGame].mapState == "open") || has("lantern")) {
             availability.glitchless = 'available';
         } else {
             availability.glitchless = 'unavailable';

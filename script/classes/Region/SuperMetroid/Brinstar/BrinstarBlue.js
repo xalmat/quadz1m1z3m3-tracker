@@ -24,10 +24,10 @@ class BrinstarBlue extends Brinstar {
 		return canMorph();
 	}
 	this.locations["Missile (blue Brinstar top)"].casualLogic = function() {
-		return canOpenYellowDoors();
+		return canUsePowerBombs();
 	}
 	this.locations["Missile (blue Brinstar behind missile)"].casualLogic = function() {
-		return canOpenYellowDoors();
+		return canUsePowerBombs();
 	}
 	this.locations["Energy Tank, Brinstar Ceiling"].casualLogic = function() {
 		return canFlySM() || has("hijump") || canDashSM() || has("ice");

@@ -150,6 +150,10 @@ input {
     background-image: url(images/misc/swordless.png) !important;
 }
 
+.tunic.ohko .ohko {
+    background-image: url(images/misc/ohko.png) !important;
+}
+
 .mini{
     width: 16px;
     height: 16px;
@@ -245,6 +249,12 @@ input {
 }
 .metroid3 .zelda3-option {
     display: none;
+}
+.metroid3 .metroid3-accessibility {
+    display: none;
+}
+.metroid3.metroid3-accessibility .metroid3-accessibility {
+    display: inline;
 }
 .metroid3 .mapdiv {
     background: url("images/metroid3/maps/map.png") no-repeat;

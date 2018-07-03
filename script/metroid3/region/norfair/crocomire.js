@@ -3,8 +3,8 @@ function canEnterNorfairCrocomire() {
 	return (((canDestroyBombWalls() || canDashSM())
 		&& (canOpenGreenDoors() && canMorph()))
 		|| canAccessNorfairPortal())
-		&& (trackerOptions.mapLogic == "casualLogic" ? heatProof() : hasEnergyReserves(3))
-		&& (trackerOptions.mapLogic == "casualLogic" ? ((canUsePowerBombs && canDashSM()) || has("wave")) : true)
+		&& (trackerData.mapLogic == "casualLogic" ? heatProof() : hasEnergyReserves(3))
+		&& (trackerData.mapLogic == "casualLogic" ? ((canUsePowerBombs && canDashSM()) || has("wave")) : true)
 		&& canOpenGreenDoors()
 		&& (((canFlySM() || canHiJump()) && canMorph()) || canDashSM());
 }
