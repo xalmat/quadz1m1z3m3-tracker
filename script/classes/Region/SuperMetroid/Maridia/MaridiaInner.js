@@ -89,7 +89,10 @@ class MaridiaInner extends Maridia {
 	}
 
 	this.canEnter.tourneyLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors();
+		let mo = new MaridiaOuter();
+		mo.initTournament();
+		return mo.canEnter.tourneyLogic() &&
+			(canSwimSM() || (canGrappleSM() && canHiJump() && has("ice")));
 	}
   }
 }
