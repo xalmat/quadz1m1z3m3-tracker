@@ -130,7 +130,7 @@ class DarkWorldNorthWest extends DarkWorld {
 	  }
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	  this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -152,7 +152,7 @@ class DarkWorldNorthWest extends DarkWorld {
 		  }
 		  this.locations["Purple Chest"].majorGlitches = function() {
 			  let nedw = new DarkWorldNorthEast("","",false);
-			  nedw.initmajorGlitches();
+			  nedw.initMajorGlitches();
 
 			  return locations["Blacksmith"].majorGlitches()
 			  	&& (has("mirror")
@@ -164,7 +164,7 @@ class DarkWorldNorthWest extends DarkWorld {
 
 	  this.canEnter.majorGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
-		  wdm.initmajorGlitches();
+		  wdm.initMajorGlitches();
 
 		  return ((has("moonpearl")
 		  	&& (canLiftDarkRocks()

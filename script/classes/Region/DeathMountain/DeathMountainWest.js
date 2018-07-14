@@ -109,7 +109,7 @@ class DeathMountainWest extends DeathMountain {
     }
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	this.canEnter.majorGlitches = function() {

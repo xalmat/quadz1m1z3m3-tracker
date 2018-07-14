@@ -215,13 +215,13 @@ class LightWorldSouth extends LightWorld {
 	}
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
 		this.locations["Lake Hylia Island"].majorGlitches = function() {
 			let nedw = new DarkWorldNorthEast("","",false);
-			nedw.initmajorGlitches();
+			nedw.initMajorGlitches();
 
 			return canDash()
 				|| (canSwim() && has("mirror")
