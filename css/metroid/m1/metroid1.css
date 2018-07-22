@@ -1,0 +1,8 @@
+.metroid1 .mapdiv {
+    background: url(../../../images/metroid1/maps/map.png) no-repeat;
+    width: 630px;
+    height: 651px;
+    top: 20px;
+    left: 350px;
+    position: absolute;
+}
