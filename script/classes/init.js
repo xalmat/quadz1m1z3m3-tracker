@@ -15,10 +15,10 @@ function initClasses(useGame) {
 					var regionClassName = fix_region(regionName) + fix_region(segmentName);
 					var regionObject = eval("new " + regionClassName + "()");
 
-					if(useGame == "zelda3") {
+					if(useGame == "zelda3" || useGame == "zelda1") {
 						regionObject.initMajorGlitches();
 					}
-					if(useGame == "metroid3") {
+					if(useGame == "metroid3" || useGame == "metroid1") {
 						regionObject.initTournament();
 					}
 
@@ -47,7 +47,7 @@ function initClasses(useGame) {
 							type: location.type,
 							region: location.region,
 						};
-						if(useGame == "zelda3") {
+						if(useGame == "zelda3" || useGame == "zelda1") {
 							props.canAccess = {
 								glitchless: location.glitchless,
 								minorGlitches: location.minorGlitches,
@@ -55,7 +55,7 @@ function initClasses(useGame) {
 								majorGlitches: location.majorGlitches
 							};
 						}
-						if(useGame == "metroid3") {
+						if(useGame == "metroid3" || useGame == "metroid1") {
 							props.canAccess = {
 								casualLogic: location.casualLogic,
 								tourneyLogic: location.tourneyLogic
@@ -92,7 +92,7 @@ function initClasses(useGame) {
 								label: label.join(''),
 								isBeatable: function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										// No Glitches
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
@@ -127,7 +127,7 @@ function initClasses(useGame) {
 											availability.majorGlitches = "available";
 										}
 									}
-									if(selectedGame == "metroid3") {
+									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
 										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
 											availability.casualLogic = "available";
 										}
@@ -139,7 +139,7 @@ function initClasses(useGame) {
 								},
 								canGetChest: function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										let regionAccess = regionObjects[this.region].canEnter.minorGlitches();
 										let localAccess = regionObjects[this.region].canGetChest.minorGlitches();
 										if(regionAccess && localAccess) {
@@ -174,7 +174,7 @@ function initClasses(useGame) {
 							if(location.type == "Portal") {						// Portal
 								chest.isAvailable = function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										var tmp = "portal portal-metroid3";
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = tmp + " active";
@@ -188,9 +188,9 @@ function initClasses(useGame) {
 											availability.majorGlitches = tmp + " inactive";
 										}
 									}
-									if(selectedGame == "metroid3") {
+									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
 										var tmp = "portal portal-zelda3";
-										if(regionObjects[this.region].canEnter.casualLogic() || this.canAccess.casualLogic()) {
+										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
 											availability.casualLogic = tmp + " active";
 											availability.tourneyLogic = tmp + " active";
 										} else {
@@ -204,7 +204,7 @@ function initClasses(useGame) {
 								chest.isSpicy = location.spicy;
 								chest.isAvailable = function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
 										}
@@ -232,7 +232,7 @@ function initClasses(useGame) {
 											availability.majorGlitches = "available";
 										}
 									}
-									if(selectedGame == "metroid3") {
+									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
 										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
 											availability.casualLogic = "available";
 										}

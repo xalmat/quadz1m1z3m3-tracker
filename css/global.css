@@ -1,0 +1,286 @@
+body{
+    background-color: rgb(0,0,0);
+    margin: 0;
+    margin-top: 20px;
+    color: white;
+}
+
+a {
+    color: rgb(128,128,255);
+}
+
+.flexcontainer {
+    display: flex;
+}
+.flexreverse {
+    flex-direction: column-reverse;
+}
+.settings{
+    background-color: rgb(0,0,0);
+    position: absolute;
+    right:0;
+    bottom:0;
+    z-index : 10;
+    display: none;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+#settingsbutton{
+    position: absolute;
+    right:0;
+    bottom:0;
+    z-index : 11;	
+    background-color: rgb(0,0,0);	
+    color: red;
+}
+
+.tracker{
+    background-color: rgb(0,0,0);
+    position: relative;
+    left: 0;
+    top: 0;
+    empty-cells: show;
+    border-spacing: 0;
+    border: 0;
+}
+
+.tracker td{
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    background-repeat: no-repeat;
+}
+
+.tracker .halfcell {
+    width: 32px;
+    height: 64px;	
+}
+
+.itemconfig {
+    border-spacing: 0;
+    border: 1px solid white;
+    margin-top: 5px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.stoops{
+    width: 128px;
+    height: 128px;
+    background-size: 200% 200%;
+}
+
+input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display:inline-block;
+    *display: inline;     /* for IE7*/
+    zoom:1;              /* for IE7*/
+    vertical-align:middle;
+}
+
+.lonk{
+    width: 64px;
+    height: 64px;
+    border-spacing: 0;
+    border: 0;
+}
+
+.corner{
+    width: 32px;
+    height: 32px;
+    color: lightgray;
+    font: 26px 'VT323', monospace;
+    cursor: default;
+    text-shadow: 0 0 3px black;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.editcell {
+    font-size: 20px;
+}
+
+.textCounter {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font: 40px 'VT323', monospace;
+    cursor: default;
+    color: #fdd549;
+    user-select: none;
+    text-shadow: -2px -2px 1px black;
+}
+.medallionImage, .prizeImage {
+    background-color: rgb(0,0,0);
+    border-radius: 50%;
+}
+.medallionImage {
+    border-top-right-radius: 0;
+}
+.prizeImage {
+    border-bottom-right-radius: 0;
+}
+
+.true{
+    opacity: 1;
+}
+
+.false{
+    opacity: 0.25;
+}
+
+.swordless {
+    opacity: 1;
+    background-image: url(../images/misc/swordless.png) !important;
+}
+
+.tunic.ohko .ohko {
+    background-image: url(../images/misc/ohko.png) !important;
+}
+
+.mini{
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+.boss{
+    width: 24px;
+    height: 24px;
+
+    background: no-repeat center;
+    background-size: 75% 75%;
+
+    position: absolute;
+    margin-left: -12px;
+    margin-top: -12px;
+
+    z-index: 2;
+}
+
+.dungeon{
+    width: 48px;
+    height: 48px;
+    background-size: 100% 100%;
+
+    position: absolute;
+    margin-left: -24px;
+    margin-top: -24px;
+}
+
+.itemdiv{
+    position: relative;
+    transform-origin: top left;
+    left: 0;
+    top: 0;
+}
+
+.mapdiv{
+    background-size: 100% 100%;
+    transform-origin: top left;
+
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.mapvdiv{
+    background-size: cover;
+    transform-origin: top left;
+
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+#beta {
+    background-color: #000000;
+    float: right;
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+}
+#selectGame a {
+    color: #aaaaff;
+}
+.chest{
+    width: 24px;
+    height: 24px;
+    background-size: 100% 100%;
+
+    position: absolute;
+    margin-left: -12px;
+    margin-top: -12px;
+}
+
+.unavailable{
+    background-color: rgb(255,0,0);
+}
+
+.available{
+    background-color: rgb(0,255,0);
+    color: rgb(0,0,0);
+}
+
+.viewable, .possible{
+    background-color: rgb(255,255,0);
+    color: rgb(0,0,0);
+}
+
+.partial{
+    background-color: rgb(255,255,0);
+    color: rgb(0,0,0);
+}
+
+.chest.agahnim, .dungeon.agahnim, .legend .agahnim{
+    background-color: rgb(0,255,255);
+    color: rgb(0,0,0);
+}
+
+.glitchavailable{
+    background-color: rgb(0,127,0);
+}
+
+.glitchviewable, .glitchpossible{
+    background-color: rgb(192,192,0);
+}
+
+.glitchpartial{
+    background-color: rgb(127,127,0);
+    color: rgb(0,0,0);
+}
+
+.glitchagahnim {
+    background-color: rgb(0,160,160);
+}
+
+.opened{
+    background-color: rgb(127,127,127);
+}
+
+.important {
+    background-color: rgb(255,160,0);
+}
+
+#credits {
+    text-align: center; 
+    color:grey; 
+    width:300px;
+}
+
+#caption {
+    background-color: rgb(0,0,0);
+    position: fixed;
+    top: 0 !important;
+    text-align: left;
+    z-index: 100;
+}
