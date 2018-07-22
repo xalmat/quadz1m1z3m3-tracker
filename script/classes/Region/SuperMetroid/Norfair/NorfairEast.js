@@ -19,31 +19,32 @@ class NorfairEast extends Norfair {
 	this.locations["Missile (lava room)"].casualLogic = function() {
 		return canMorph();
 	}
-	this.locations["Reserve Tank, Norfair"].casualLogic = function() {
-		return canMorph()
-			&& canOpenGreenDoors()
-			&& (canFlySM() || canGrappleSM() || canHiJump() || has("ice"));
-	}
+	this.locations["Reserve Tank, Norfair"].casualLogic =
 	this.locations["Missile (Norfair Reserve Tank)"].casualLogic = function() {
 		return canMorph()
-			&& canOpenGreenDoors()
-			&& (canFlySM() || canGrappleSM() || canHiJump() || has("ice"));
+			&& (canFlySM() || (canGrappleSM() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));
 	}
 	this.locations["Missile (bubble Norfair green door)"].casualLogic = function() {
-		return canOpenGreenDoors()
-			&& (canFlySM() || canGrappleSM() || canHiJump() || has("ice"));
+		return canFlySM() || (canGrappleSM() && canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
+	}
+	this.locations["Missile (Speed Booster)"].casualLogic =
+	this.locations["Speed Booster"].casualLogic = function() {
+		return canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
 	}
 	this.locations["Wave Beam"].casualLogic = function() {
-		return (canOpenGreenDoors() && canMorph() && (canGrappleSM() || canFlySM())
-			&& canHiJump() || has("ice"));
+		return canMorph() && (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
+	}
+	this.locations["Missile (Wave Beam)"].casualLogic = function() {
+		return (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));
 	}
 
     this.canEnter.casualLogic = function() {
-      return (((canDestroyBombWalls() || canDashSM())
-      	&& (canOpenGreenDoors() && canMorph()))
-      	|| canAccessNorfairPortal())
-      	&& heatProof()
-      	&& (canFlySM() || canHiJump() || (canDashSM() && canUsePowerBombs()) || (heatProof() && (has("ice") || canDashSM())));
+		return (((canDestroyBombWalls() || canDashSM())
+			&& (canOpenGreenDoors() && canMorph()))
+			|| canAccessNorfairPortal())
+			&& heatProof()
+			&& canOpenGreenDoors()
+			&& (canFlySM() || canHiJump() || canDashSM());
     }
   }
 
@@ -61,7 +62,8 @@ class NorfairEast extends Norfair {
 			&& (canOpenGreenDoors() && canMorph()))
 			|| canAccessNorfairPortal())
 			&& canHellRun()
-			&& (canFlySM() || canHiJump() || (canDashSM() && canUsePowerBombs()) || (heatProof() && (has("ice") || canDashSM())));
+			&& (canOpenGreenDoors() && (canFlySM() || canHiJump() || canSpringBallJump() || (heatProof() && (has("ice") || canDashSM())))
+				|| (canDashSM() && canUsePowerBombs()));
 	}
   }
 }

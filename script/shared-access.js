@@ -508,11 +508,16 @@ function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Atta
 	|| has("screw");
 }
 function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
-	return (canFlySM() || canHiJump() || canDashSM())
-		&& canIbj()
-			|| (canOpenYellowDoors() && has("powerbomb",2))
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
+		return (canMorph() && (canFlySM() || canDashSM()))
+			&& (canIbj()
+				|| (canUsePowerBombs() && has("powerbomb",2))
+				|| has("screw"));
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
+		return (canMorph() && (canUseMorphBombs() || has("powerbomb",2)))
 			|| has("screw")
-			|| (canDashSM() && canOpenYellowDoors() && hasEnergyReserves(2));
+			|| (canDashSM() && canUsePowerBombs() && hasEnergyReserves(2));
+	}
 }
 function canCrystalFlash() {	// Refill HP
 	return has("missile",2)
@@ -641,12 +646,21 @@ function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") 
 	return canFly() && canLiftDarkRocks();
 }
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
-	return has("moonpearl")
-		&& canSwim()
-		&& (((has("agahnim")
-			|| (has("hammer") && canLiftRocks() && has("moonpearl"))
-			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))) && (has("hammer")
-			|| (canGrapple() && (canSwim() || canLiftRocks()))))
-			|| (has("hammer") && canLiftRocks())
-			|| canLiftDarkRocks());
+	if(trackerData.metroid3.mapLogic == "casual") {
+		return has("moonpearl")
+			&& canSwim()
+			&& canSwimSM()
+			&& canMorph()
+			&& (canBeatAga1()
+				|| (has("hammer") && canLiftRocks())
+				|| canLiftDarkRocks());
+	} else if(trackerData.metroid3.mapLogic == "tournament") {
+		return has("moonpearl")
+			&& canSwim()
+			&& (canSpringBallJump() || canHiJump() || canSwimSM())
+			&& canMorph()
+			&& (canBeatAga1()
+				|| (has("hammer") && canLiftRocks())
+				|| canLiftDarkRocks());
+	}
 }

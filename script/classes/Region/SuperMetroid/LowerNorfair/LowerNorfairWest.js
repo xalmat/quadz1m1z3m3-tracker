@@ -12,7 +12,7 @@ class LowerNorfairWest extends LowerNorfair {
 
   initCasual() {
 	this.locations["Missile (Gold Torizo)"].casualLogic = function() {
-		return (canUsePowerBombs() && has("space"));
+		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
 	}
 	this.locations["Super Missile (Gold Torizo)"].casualLogic = function() {
 		return canDestroyBombWalls()
@@ -23,19 +23,20 @@ class LowerNorfairWest extends LowerNorfair {
 			&& (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()));
 	}
 	this.locations["Gold Torizo"].casualLogic = function() {
-		return (canUsePowerBombs() && has("space"));
+		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
 	}
 
     this.canEnter.casualLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initCasual();
-		return ne.canEnter.casualLogic()
-			&& (canUsePowerBombs() || canAccessLowerNorfairPortal())
-			&& heatProof()
-			&& ((canSwimSM() && has("space")) || canAccessLowerNorfairPortal());
+		return heatProof()
+				&& ((ne.canEnter.casualLogic()
+			&& canUsePowerBombs()
+			&& (canSwimSM() && has("space")))
+			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls()));
     }
     this.canComplete.casualLogic = function() {
-		return (canUsePowerBombs() && has("space"));
+		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
     }
   }
 

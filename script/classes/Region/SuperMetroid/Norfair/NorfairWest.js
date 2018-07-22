@@ -13,16 +13,19 @@ class NorfairWest extends Norfair {
 
   initCasual() {
 	this.locations["Ice Beam"].casualLogic = function() {
-		return canPassBombPassages() && heatProof() && canDashSM();
+		return canOpenGreenDoors() && canPassBombPassages() && heatProof() && canDashSM();
 	}
 	this.locations["Missile (below Ice Beam)"].casualLogic = function() {
-		return (canUsePowerBombs() || has("wave")) && heatProof() && canDashSM();
+		return canOpenGreenDoors() && canUsePowerBombs() && heatProof() && canDashSM();
+	}
+	this.locations["Energy Tank (Hi-Jump Boots)"].casualLogic = function() {
+		return canOpenRedDoors();
 	}
 	this.locations["Hi-Jump Boots"].casualLogic = function() {
-		return canPassBombPassages();
+		return canOpenRedDoors() && canPassBombPassages();
 	}
 	this.locations["Missile (Hi-Jump Boots)"].casualLogic = function() {
-		return canPassBombPassages();
+		return canOpenRedDoors() && canMorph();
 	}
 
     this.canEnter.casualLogic = function() {

@@ -26,12 +26,18 @@ class LowerNorfairEast extends LowerNorfair {
 	}
 
     this.canEnter.casualLogic = function() {
-		let lnw = new LowerNorfairWest();
-		lnw.initCasual();
-		return lnw.canEnter.casualLogic()
-			&& canUsePowerBombs()
-      		&& canFlySM()
-      		&& heatProof();
+		let ne = new NorfairEast();
+		ne.initCasual();
+		return heatProof()
+			&& ((ne.canEnter.casualLogic()
+					&& canUsePowerBombs()
+					&& (has("space") && canSwimSM()))
+				|| (canAccessLowerNorfairPortal()
+					&& canDestroyBombWalls()
+					&& canOpenGreenDoors()
+					&& canUsePowerBombs()
+					&& (canFlySM() || canDashSM())))
+			&& (canFlySM() || canHiJump());
     }
     this.canComplete.casualLogic = function() {
       return this.locations["Ridley"].casualLogic();
@@ -42,18 +48,18 @@ class LowerNorfairEast extends LowerNorfair {
     this.initCasual();
 
 	this.canEnter.tourneyLogic = function() {
-		let lnw = new LowerNorfairWest();
-		lnw.initTournament();
-		return lnw.canEnter.tourneyLogic()
-			&& (canDestroyBombWalls() || canDashSM())
-			&& (canFlySM() || canHiJump() || (has("ice") && has("charge")))
-				&& canPassBombPassages()
-				&& ((heatProof() && (canHiJump() || canSwimSM()))
-					|| (heatProof()
-					&& (canIbj()
-						|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-						|| (canSpringBall() && canUsePowerBombs())
-						|| canDashSM())));
+		let ne = new NorfairEast();
+		ne.initTournament();
+
+		return heatProof()
+			&& ((ne.canEnter.tourneyLogic()
+				&& canUsePowerBombs()
+				&& (canHiJump() || canSwimSM()))
+			|| (canAccessLowerNorfairPortal()
+				&& canDestroyBombWalls()
+				&& (canFlySM() || canSpringBallJump() || canDashSM())))
+			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
+			&& (canPassBombPassages() || (has("screw") && has("space")));
 	}
   }
 }

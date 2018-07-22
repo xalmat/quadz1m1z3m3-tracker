@@ -21,8 +21,9 @@ class MaridiaOuter extends Maridia {
 	this.canEnter.casualLogic = function() {
 		let nw = new NorfairWest();
 		nw.initCasual();
-		return nw.canEnter.casualLogic()
-			&& canUsePowerBombs()
+		return ((nw.canEnter.casualLogic()
+				&& canUsePowerBombs())
+				|| canAccessMaridiaPortal())
 			&& canSwimSM();
 	}
     this.canComplete.casualLogic = function() {
@@ -36,14 +37,18 @@ class MaridiaOuter extends Maridia {
 	this.locations["Missile (green Maridia shinespark)"].tourneyLogic = function() {
 		return canSwimSM() && canDashSM();
 	}
+    this.locations["Energy Tank, Mama turtle"].tourneyLogic = function() {
+		return canFlySM() || canDashSM() || canGrappleSM() || canSpringBallJump();
+	}
 
 	this.canEnter.tourneyLogic = function() {
 		let nw = new NorfairWest();
 		nw.initTournament();
-		return nw.canEnter.casualLogic()
+		return nw.canEnter.tourneyLogic()
 			&& canUsePowerBombs()
-			&& (canSwimSM()
-				|| (canHiJump() && (canSpringBall() || has("ice"))));
+			&& (canDashSM()
+				|| (canHiJump() && (canSpringBallJump() || has("ice")))))
+			|| canAccessMaridiaPortal();
 	}
   }
 }
