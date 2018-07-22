@@ -54,7 +54,7 @@ class MaridiaInner extends Maridia {
 	}
 
     this.canEnter.casualLogic = function() {
-		let mo = new MaridiaOuter();
+		let mo = new MaridiaOuter("","",false);
 		mo.initCasual();
 		return mo.canEnter.casualLogic() &&
 			(canFlySM() || canGrappleSM() || canDashSM() || canAccessMaridiaPortal());
@@ -89,7 +89,7 @@ class MaridiaInner extends Maridia {
 	}
 
 	this.canEnter.tourneyLogic = function() {
-		let mo = new MaridiaOuter();
+		let mo = new MaridiaOuter("","",false);
 		mo.initTournament();
 		return mo.canEnter.tourneyLogic() &&
 			(canSwimSM() || (canGrappleSM() && canHiJump() && has("ice")));

@@ -82,7 +82,7 @@ class LowerNorfairWest extends LowerNorfair {
 					|| canDashSM())));
 	}
 	this.canEnter.tourneyLogic = function() {
-		let ne = new NorfairEast();
+		let ne = new NorfairEast("","",false);
 		ne.initTournament();
 		return ne.canEnter.tourneyLogic()
 			&& canUsePowerBombs()
