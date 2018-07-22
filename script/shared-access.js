@@ -646,20 +646,20 @@ function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") 
 	return canFly() && canLiftDarkRocks();
 }
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
-	if(trackerData.metroid3.mapLogic == "casual") {
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
 		return has("moonpearl")
 			&& canSwim()
 			&& canSwimSM()
 			&& canMorph()
-			&& (canBeatAga1()
+			&& (has("agahnim")
 				|| (has("hammer") && canLiftRocks())
 				|| canLiftDarkRocks());
-	} else if(trackerData.metroid3.mapLogic == "tournament") {
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
 		return has("moonpearl")
 			&& canSwim()
 			&& (canSpringBallJump() || canHiJump() || canSwimSM())
 			&& canMorph()
-			&& (canBeatAga1()
+			&& (has("agahnim")
 				|| (has("hammer") && canLiftRocks())
 				|| canLiftDarkRocks());
 	}
