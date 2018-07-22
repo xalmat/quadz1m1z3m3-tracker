@@ -9,7 +9,7 @@ class TourianMain extends Tourian {
 
   initCasual() {
 	  this.locations["Mother Brain"].casualLogic = function() {
-		  return canMorph() && has("ice") && has("kraidtotem") && has("ridleytotem");
+		  return canMorph() && has("ice") && (has("kraid") || has("kraidtotem")) && (has("ridley") || has("ridleytotem"));
 	  }
   }
 }
