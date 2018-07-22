@@ -44,7 +44,7 @@ class MaridiaOuter extends Maridia {
 	this.canEnter.tourneyLogic = function() {
 		let nw = new NorfairWest();
 		nw.initTournament();
-		return nw.canEnter.tourneyLogic()
+		return (nw.canEnter.tourneyLogic()
 			&& canUsePowerBombs()
 			&& (canDashSM()
 				|| (canHiJump() && (canSpringBallJump() || has("ice")))))

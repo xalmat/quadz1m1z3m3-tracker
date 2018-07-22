@@ -32,7 +32,7 @@ class NorfairEast extends Norfair {
 		return canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
 	}
 	this.locations["Wave Beam"].casualLogic = function() {
-		return canMorph() && (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
+		return canMorph() && (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));
 	}
 	this.locations["Missile (Wave Beam)"].casualLogic = function() {
 		return (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));

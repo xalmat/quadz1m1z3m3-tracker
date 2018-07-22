@@ -24,7 +24,7 @@ class WreckedShipMain extends WreckedShip {
 	this.locations["Reserve Tank, Wrecked Ship"].casualLogic = function() {
 		return has("phantoon") && (canDashSM()
 			&& canUsePowerBombs()
-			&& (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
+			&& (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3)));
 	}
 	this.locations["Missile (Gravity Suit)"].casualLogic =
 	this.locations["Gravity Suit"].casualLogic = function() {
