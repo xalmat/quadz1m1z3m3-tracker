@@ -6,3 +6,7 @@
     left: 350px;
     position: absolute;
 }
+
+.metroid1 .metroid3-option {
+    display: none;
+}
