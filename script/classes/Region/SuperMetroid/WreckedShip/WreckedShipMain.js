@@ -54,13 +54,13 @@ class WreckedShipMain extends WreckedShip {
 	this.initCasual();
 
 	this.locations["Reserve Tank, Wrecked Ship"].tourneyLogic = function() {
-		return has("phantoon") && (canUsePowerBombs() && canDashSM() && (heatProof() || hasEnergyReserves(3)));
+		return has("phantoon") && (canUsePowerBombs() && canDashSM() && (heatProof() || hasEnergyReserves(2)));
 	}
 	this.locations["Missile (Gravity Suit)"].tourneyLogic = function() {
-		return has("phantoon") && (heatProof() || hasEnergyReserves(2));
+		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
 	}
 	this.locations["Gravity Suit"].tourneyLogic = function() {
-		return has("phantoon") && (heatProof() || hasEnergyReserves(2));
+		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
 	}
 	this.locations["Energy Tank (Wrecked Ship)"].tourneyLogic = function() {
 		return has("phantoon")

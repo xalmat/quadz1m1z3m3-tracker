@@ -32,9 +32,15 @@ class CrateriaEast extends Crateria {
   initTournament() {
     this.initCasual();
 
+	this.locations["Missile (outside Wrecked Ship top)"].tourneyLogic =
+	this.locations["Missile (outside Wrecked Ship middle)"].tourneyLogic = function() {
+		return canOpenGreenDoors() && canPassBombPassages();
+	}
+
     this.canEnter.tourneyLogic = function() {
 		return (canUsePowerBombs() && canOpenGreenDoors())
-			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()));
+			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()))
+			|| (canAccessMaridiaPortal() && canHiJump() && canOpenGreenDoors());
 	}
   }
 }

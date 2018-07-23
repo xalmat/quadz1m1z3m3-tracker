@@ -47,7 +47,7 @@ class LightWorldSouth extends LightWorld {
 			return has("mirror") && sdw.canEnter.glitchless();
 		}
 		this.locations["Checkerboard Cave"].glitchless = function() {
-			return canFly() && canLiftDarkRocks() && has("mirror");
+			return ((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal()) && has("mirror");
 		}
 		this.locations["Library"].glitchless = function() {
 			return canDash();

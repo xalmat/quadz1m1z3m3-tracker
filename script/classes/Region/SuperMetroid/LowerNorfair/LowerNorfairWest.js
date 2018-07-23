@@ -46,30 +46,19 @@ class LowerNorfairWest extends LowerNorfair {
     this.locations["Missile (Gold Torizo)"].tourneyLogic = function() {
 		return canUsePowerBombs()
 			&& has("space")
-			&& ((heatProof() && (canHiJump() || canSwimSM()))
-			|| (heatProof()
-				&& (canIbj()
-					|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-					|| (canSpringBall() && canUsePowerBombs())
-					|| canDashSM())));
+			&& heatProof()
+			&& (canHiJump() || canSwimSM()
+				|| (canAccessLowerNorfairPortal() &&
+					(canFlySM() || canSpringBallJump() || canDashSM())));
 	}
 
 	this.locations["Super Missile (Gold Torizo)"].tourneyLogic = function() {
-		return canDestroyBombWalls()
-			&& heatProof()
-			&& (canIbj()
-				|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-				|| (canSpringBall() && canUsePowerBombs())
-				|| canDashSM());
+		return canDestroyBombWalls() && heatProof();
 	}
 
 	this.locations["Screw Attack"].tourneyLogic = function() {
 		return canDestroyBombWalls()
-			&& ((canIbj()
-				|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-				|| (canSpringBall() && canUsePowerBombs())
-					|| canDashSM())
-					|| canAccessLowerNorfairPortal());
+			&& (heatProof() || canAccessLowerNorfairPortal());
 	}
 
     this.locations["Gold Torizo"].tourneyLogic = function() {
@@ -83,12 +72,12 @@ class LowerNorfairWest extends LowerNorfair {
 					|| canDashSM())));
 	}
 	this.canEnter.tourneyLogic = function() {
-		let ne = new NorfairEast();
+		let ne = new NorfairEast("","",false);
 		ne.initTournament();
 		return ne.canEnter.tourneyLogic()
 			&& canUsePowerBombs()
 			&& (heatProof() && (canHiJump() || canSwimSM()))
-			|| (canAccessLowerNorfairPortal() && canHellRun() && canDestroyBombWalls());
+			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls());
 	}
   }
 }

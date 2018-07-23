@@ -51,10 +51,17 @@ class NorfairEast extends Norfair {
   initTournament() {
     this.initCasual();
 
+    this.locations["Reserve Tank, Norfair"].tourneyLogic =
+    this.locations["Missile (Norfair Reserve Tank)"].tourneyLogic = function() {
+		return canMorph() && canOpenGreenDoors();
+	}
+	this.locations["Missile (bubble Norfair green door)"].tourneyLogic =
+	this.locations["Missile (Speed Booster)"].tourneyLogic =
+	this.locations["Speed Booster"].tourneyLogic = function() {
+		return canOpenGreenDoors();
+	}
     this.locations["Wave Beam"].tourneyLogic = function() {
-		return canOpenGreenDoors()
-			&& (canMorph() || canGrappleSM())
-			&& (canFlySM() || canHiJump() || has("ice"));
+		return canOpenRedDoors() && (canMorph() || canGrappleSM() || (canHiJump() && heatProof()) || has("space"));
 	}
 
 	this.canEnter.tourneyLogic = function() {

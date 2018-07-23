@@ -51,10 +51,10 @@ class NorfairCrocomire extends Norfair {
 		return (canFlySM() || canGrappleSM() || (canHiJump() && (canDashSM() || canSpringBallJump() || (heatProof() && has("ice"))))) && canHellRun();
 	}
 	this.locations["Missile (Grapple Beam)"].tourneyLogic = function() {
-		return (canFlySM() || canDashSM() || canGrappleSM()) && canMorph();
+		return canDashSM() || (canMorph() && (canFlySM() || canGrappleSM()));
 	}
 	this.locations["Grapple Beam"].tourneyLogic = function() {
-		return (canFlySM() || canHiJump() || canGrappleSM() || canMorph());
+		return (has("space") || canMorph() || canGrappleSM() || (canHiJump() && canDashSM()));
 	}
 
 	this.canEnter.tourneyLogic = function() {
@@ -63,8 +63,9 @@ class NorfairCrocomire extends Norfair {
 			|| canAccessNorfairPortal())
 			&& canOpenGreenDoors()
 			&& (hasEnergyReserves(2) && canDashSM() || canHellRun())
-				&& ((canFlySM() || canHiJump() || canSpringBallJump() || (heatProof() && has("ice"))) || canDashSM())
-				&& (canPassBombPassages() || canDashSM() || (heatProof() && canMorph()));
+			&& ((canFlySM() || canHiJump() || canSpringBallJump() || (heatProof() && has("ice"))) || canDashSM())
+			&& (canPassBombPassages() || canDashSM() || (heatProof() && canMorph()))
+		|| (canAccessLowerNorfairPortal() && has("screw") && has("space") && heatProof() && canOpenGreenDoors() && hasEnergyReserves(2));
 	}
   }
 }

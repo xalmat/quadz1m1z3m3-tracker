@@ -627,11 +627,15 @@ function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Re
 		&& canOpenYellowDoors();
 }
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)
-	return canOpenYellowDoors()
-		&& canOpenGreenDoors()
-		&& (canSwimSM()
-			|| (canHiJump() && has("ice") && canGrappleSM()))
-		&& (has("ice") || (canDashSM() && canSwimSM()));
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
+		return canUsePowerBombs() && canOpenGreenDoors() && canSwimSM() && canDashSM();
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
+		return canUsePowerBombs()
+			&& canOpenGreenDoors()
+			&& (has("charge") || (canOpenGreenDoors() && canOpenRedDoors()))
+			&& (canSwimSM() || (canHiJump() && has("ice") && canGrappleSM()))
+			&& (has("ice") || (canDashSM() && canSwimSM()));
+	}
 }
 
 // ALttP -> SM portals

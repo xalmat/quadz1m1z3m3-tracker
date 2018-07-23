@@ -39,10 +39,19 @@ class NorfairWest extends Norfair {
     this.initCasual();
 
     this.locations["Ice Beam"].tourneyLogic = function() {
-		return canMorph() && (heatProof() || hasEnergyReserves(3));
+		return canOpenGreenDoors() && canMorph() && (heatProof() || hasEnergyReserves(3));
 	}
 	this.locations["Missile (below Ice Beam)"].tourneyLogic = function() {
-		return (canUsePowerBombs() && canHellRun()) || (heatProof() && canDashSM());
+		return (canOpenGreenDoors() && canUsePowerBombs() && (hasEnergyReserves(3) || heatProof())) || (heatProof() && canDashSM() && canOpenGreenDoors());
+	}
+	this.locations["Energy Tank (Hi-Jump Boots)"].tourneyLogic = function() {
+		return canOpenRedDoors();
+	}
+	this.locations["Hi-Jump Boots"].tourneyLogic = function() {
+		return canOpenRedDoors() && canPassBombPassages();
+	}
+	this.locations["Missile (Hi-Jump Boots)"].tourneyLogic = function() {
+		return canOpenRedDoors() && canMorph();
 	}
   }
 }
