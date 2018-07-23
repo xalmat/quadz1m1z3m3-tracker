@@ -376,7 +376,7 @@ for(let crumb in crumbs) {
 
 	selectGame += ' | ';
 }
-selectGame += '<a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a>';
+selectGame += '<a href="faq.html">FAQ</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a>';
 
 selectGame += '</span>';
 

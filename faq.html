@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>SMALttPR Tracker FAQ</title>
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+<style type="text/css">
+.findrom {
+  float: right;
+}
+.findrom img {
+  height:          100px;
+  image-rendering: pixelated;
+}
+button {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+</style>
+<script>
+function clearStorage() {
+  localStorage.removeItem("smalttpr");
+  localStorage.removeItem("lozmx");
+}
+</script>
+</head>
+<body>
+<div class="findrom"><a href="https://itemrando.supermetroid.run/"><img src="http://alttp.mymm1.com/game/findrom-metroid3.png" /></a><a href="http://alttpr.com/"><img src="http://alttp.mymm1.com/game/findrom.png" /></a><br /><a href="http://www.romhacking.net/utilities/1257/"><img src="http://alttp.mymm1.com/game/findrom-m1r.gif" /></a><a href="https://sites.google.com/site/zeldarandomizer/"><img src="http://alttp.mymm1.com/game/findrom-z1r.png" /></a></div>
+
+<h1>SMALttPR Tracker FAQ</h1>
+
+<h2>Why does it clear everything when I reload the page or open a new one?</h2>
+<p>That's just how it's written right now. The <a href="http://github.com/miketrethewey/smalttpr-tracker">code is public</a>. If you can figure out how to stop it from doing that, please let me know.</p>
+
+<h2>Why is it broken?</h2>
+<dl>
+  <dt><a href="https://kb.iu.edu/d/ahic">Clear your cache</a>
+    <dd>If I've pushed an update to the scripts, there are over 50 individual files and if any of the ones that you're loading from cache are out of date, it won't work as expected.</dd>
+  </dt>
+  <dt>Clear your <code>localstorage</code>
+    <dd>If you've got stale data in your <code>localstorage</code>, it can be throwing it off. <button onclick="clearStorage()">This button</button> will try to clear it for both SMALttPR & LoZMx.</dd>
+  </dt>
+</dl>
+
+<h2>I found a bug that the above didn't fix!</h2>
+<p>Please contact me either on GitHub or on Discord.</p>
+
+<h2>What games does it support?</h2>
+<dl>
+  <dt><a href="http://smalttp.speega.me/">SMALttPR</a>
+    <dd>Super Metroid/A Link to the Past Randomizer</dd>
+  </dt>
+  <dt><a href="http://www.metalmachine.info/home/lozmx">LoZMx</a>
+    <dd>Legend of Zelda/Metroid Randomizer</dd>
+  </dt>
+</dl>
+<h2>Can it support the individual games from the above Randomizers?</h2>
+<p>Yes.</p>
+
+<h2>Make it support [insert game here]!</h2>
+<p>Sure. If you write the definition files. The code is kind of scary.</p>
+
+<h2>This thing sucks!</h2>
+<p>Write your own.</p>
+</body>
+</html>
