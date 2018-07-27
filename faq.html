@@ -3,17 +3,23 @@
 <title>SMALttPR Tracker FAQ</title>
 <link rel="stylesheet" type="text/css" href="css/global.css" />
 <style type="text/css">
+body {
+  margin: 0;
+}
+button {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+#selectGame a.bare {
+  text-decoration: none;
+}
 .findrom {
   float: right;
 }
 .findrom img {
   height:          100px;
   image-rendering: pixelated;
-}
-button {
-  background-color: #000000;
-  border: 1px solid #ffffff;
-  color: #ffffff;
 }
 </style>
 <script>
@@ -25,6 +31,8 @@ function clearStorage() {
 </head>
 <body>
 <div class="findrom"><a href="https://itemrando.supermetroid.run/"><img src="http://alttp.mymm1.com/game/findrom-metroid3.png" /></a><a href="http://alttpr.com/"><img src="http://alttp.mymm1.com/game/findrom.png" /></a><br /><a href="http://www.romhacking.net/utilities/1257/"><img src="http://alttp.mymm1.com/game/findrom-m1r.gif" /></a><a href="https://sites.google.com/site/zeldarandomizer/"><img src="http://alttp.mymm1.com/game/findrom-z1r.png" /></a></div>
+
+<div id="selectGame">[ SMALttPR<a href="index.html?game=zelda3" class="bare">*</a> | LoZMx<a href="index.html?game=zelda1" class="bare">*</a> | <a href="faq.html">FAQ</a> | <a href="https://github.com/miketrethewey/smalttpr-tracker/">GitHub</a> ]</div>
 
 <h1>SMALttPR Tracker FAQ</h1>
 
@@ -42,11 +50,15 @@ function clearStorage() {
 </dl>
 
 <h2>I found a bug that the above didn't fix!</h2>
+<h3>It's a logic bug!</h3>
+<p>Make sure that the version of my app (found in the upper-right hand corner) matches the version of the game you're playing (usually found on the generator website's page). If it doesn't, the generator's probably been updated since I released this version of the site.<br />
+Check to see if the GitHub page for my tracker has a <a href="https://github.com/miketrethewey/smalttpr-tracker/branches">branch</a> being prepared for the new version. If not, please contact me either on GitHub or Discord.</p>
+<h3>It's just busted!</h3>
 <p>Please contact me either on GitHub or on Discord.</p>
 
 <h2>What games does it support?</h2>
 <dl>
-  <dt><a href="http://smalttp.speega.me/">SMALttPR</a>
+  <dt><a href="http://smalttp.speedga.me/">SMALttPR</a>
     <dd>Super Metroid/A Link to the Past Randomizer</dd>
   </dt>
   <dt><a href="http://www.metalmachine.info/home/lozmx">LoZMx</a>

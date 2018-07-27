@@ -1,3 +1,5 @@
+effectiveVersion = "v9.2";
+
 class SuperMetroid extends Region {
 }
 class Brinstar extends SuperMetroid {

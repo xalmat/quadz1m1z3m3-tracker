@@ -26,6 +26,7 @@ function extend(obj, src) {
 }
 
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
+var effectiveVersion = "";
 var gameNames = [];
 
 if(selectedGame == "zelda3" || selectedGame == "metroid3") {

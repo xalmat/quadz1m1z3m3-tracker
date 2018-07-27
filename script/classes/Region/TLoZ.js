@@ -1,3 +1,5 @@
+effectiveVersion = "v1.22.9";
+
 class TLoZ extends Region {
 }
 class Overworld extends TLoZ {

@@ -1,3 +1,6 @@
+.zelda3-regions #beta {
+  display: block !important;
+}
 .zelda3 .mapvdiv #mapoverlay.on {
     background-image: url(../../../images/zelda3/maps/mapvregions.png);
 }

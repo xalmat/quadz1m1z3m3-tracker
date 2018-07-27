@@ -1,3 +1,5 @@
+effectiveVersion = "v29.2";
+
 class ALttP extends Region {
 }
 class DarkWorld extends ALttP {

@@ -115,11 +115,20 @@ function isAmmo(key) {
 }
 
 function setCookie(obj) {
-    window.localStorage.setItem(roomid, JSON.stringify(obj));
+	try {
+	    window.localStorage.setItem(roomid, JSON.stringify(obj));
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function getCookie() {
-    var str = window.localStorage.getItem(roomid);
+	var str = null;
+	try {
+	    str = window.localStorage.getItem(roomid);
+	} catch (e) {
+		// do nothing
+	}
     if(!str) {
 		var ret = {};
 		for(var gameName in gameNames) {
@@ -1062,6 +1071,9 @@ function initTracker() {
 			trackerData.zelda3.mapOHKO = false;
 		}
 		saveCookie();
+	}
+	if(effectiveVersion != "") {
+		document.getElementById("version").innerHTML = effectiveVersion;
 	}
 
 	window.addEventListener('storage', function(event) {
