@@ -29,7 +29,7 @@ class BrinstarPink extends Brinstar {
 		return canMorph() && (canOpenYellowDoors() || canOpenGreenDoors() || canAccessNorfairPortal());
 	}
 	this.locations["Energy Tank, Waterway"].casualLogic = function() {
-		return canUsePowerBombs() && canOpenRedDoors() && canDashSM() && hasEnergyReserves(1);
+		return canUsePowerBombs() && canOpenRedDoors() && canDashSM() && (hasEnergyReserves(1) || canSwimSM());
 	}
 	this.locations["Energy Tank, Brinstar Gate"].casualLogic = function() {
 		return canUsePowerBombs() && has("wave") && hasEnergyReserves(1);
