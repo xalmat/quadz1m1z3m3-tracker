@@ -15,8 +15,17 @@ class LowerNorfairEast extends LowerNorfair {
   }
 
   initCasual() {
+	this.locations["Missile (Mickey Mouse room)"].casualLogic = function() {
+		return canMorph() && canDestroyBombWalls();
+	}
+	this.locations["Power Bomb (lower Norfair above fire flea room)"].casualLogic = function() {
+		return canPassBombPassages();
+	}
 	this.locations["Power Bomb (Power Bombs of shame)"].casualLogic = function() {
 		return canUsePowerBombs();
+	}
+	this.locations["Missile (lower Norfair near Wave Beam)"].casualLogic = function() {
+		return canMorph() && canDestroyBombWalls();
 	}
 	this.locations["Energy Tank, Ridley"].casualLogic = function() {
 		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
