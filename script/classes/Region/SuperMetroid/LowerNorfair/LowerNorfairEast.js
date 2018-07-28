@@ -57,18 +57,20 @@ class LowerNorfairEast extends LowerNorfair {
     this.initCasual();
 
 	this.canEnter.tourneyLogic = function() {
-		let lnw = new LowerNorfairWest("","",false);
-		lnw.initTournament();
-		return lnw.canEnter.tourneyLogic()
-			&& (canDestroyBombWalls() || canDashSM())
-			&& (canFlySM() || canHiJump() || (has("ice") && has("charge")))
-				&& canPassBombPassages()
-				&& ((heatProof() && (canHiJump() || canSwimSM()))
-					|| (heatProof()
-					&& (canIbj()
-						|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-						|| (canSpringBall() && canUsePowerBombs())
-						|| canDashSM())));
+		let ne = new NorfairEast("","",false);
+		ne.initTournament();
+
+		return heatProof()
+			&& ((ne.canEnter.tourneyLogic()
+				&& canUsePowerBombs()
+				&& (canHiJump() || canSwimSM()))
+			|| (canAccessLowerNorfairPortal()
+				&& canDestroyBombWalls()
+				&& canOpenGreenDoors()
+				&& (canFlySM() || canSpringBallJump() || canDashSM())))
+			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
+			&& (canPassBombPassages() || (has("screw") && has("space")))
+			&& (canMorph() || hasEnergyReserves(5));
 	}
   }
 }
