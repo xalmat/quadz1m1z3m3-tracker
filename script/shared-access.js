@@ -514,11 +514,16 @@ function canDestroyBombWalls() {	// Morph Ball, Bombs || Power Bombs, Screw Atta
 	|| has("screw");
 }
 function canEnterAndLeaveGauntlet() {	// Gauntlet area is complicated apparently
-	return (canFlySM() || canHiJump() || canDashSM())
-		&& canIbj()
-			|| (canOpenYellowDoors() && has("powerbomb",2))
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
+		return (canMorph() && (canFlySM() || canDashSM()))
+			&& (canIbj()
+				|| (canUsePowerBombs() && has("powerbomb",2))
+				|| has("screw"));
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
+		return (canMorph() && (canUseMorphBombs() || has("powerbomb",2)))
 			|| has("screw")
-			|| (canDashSM() && canOpenYellowDoors() && hasEnergyReserves(2));
+			|| (canDashSM() && canUsePowerBombs() && hasEnergyReserves(2));
+	}
 }
 function canCrystalFlash() {	// Refill HP
 	return has("missile",2)
@@ -628,11 +633,15 @@ function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Re
 		&& canOpenYellowDoors();
 }
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)
-	return canOpenYellowDoors()
-		&& canOpenGreenDoors()
-		&& (canSwimSM()
-			|| (canHiJump() && has("ice") && canGrappleSM()))
-		&& (has("ice") || (canDashSM() && canSwimSM()));
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
+		return canUsePowerBombs() && canOpenGreenDoors() && canSwimSM() && canDashSM();
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
+		return canUsePowerBombs()
+			&& canOpenGreenDoors()
+			&& (has("charge") || (canOpenGreenDoors() && canOpenRedDoors()))
+			&& (canSwimSM() || (canHiJump() && has("ice") && canGrappleSM()))
+			&& (has("ice") || (canDashSM() && canSwimSM()));
+	}
 }
 
 // ALttP -> SM portals
@@ -647,12 +656,21 @@ function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") 
 	return canFly() && canLiftDarkRocks();
 }
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
-	return has("moonpearl")
-		&& canSwim()
-		&& (((has("agahnim")
-			|| (has("hammer") && canLiftRocks() && has("moonpearl"))
-			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))) && (has("hammer")
-			|| (canGrapple() && (canSwim() || canLiftRocks()))))
-			|| (has("hammer") && canLiftRocks())
-			|| canLiftDarkRocks());
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
+		return has("moonpearl")
+			&& canSwim()
+			&& canSwimSM()
+			&& canMorph()
+			&& (has("agahnim")
+				|| (has("hammer") && canLiftRocks())
+				|| canLiftDarkRocks());
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
+		return has("moonpearl")
+			&& canSwim()
+			&& (canSpringBallJump() || canHiJump() || canSwimSM())
+			&& canMorph()
+			&& (has("agahnim")
+				|| (has("hammer") && canLiftRocks())
+				|| canLiftDarkRocks());
+	}
 }

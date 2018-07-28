@@ -108,13 +108,13 @@ class DeathMountainEast extends DeathMountain {
     }
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
 		this.locations["Floating Island"].majorGlitches = function() {
 			let edwdm = new DarkWorldDeathMountainEast("","",false);
-			edwdm.initmajorGlitches();
+			edwdm.initMajorGlitches();
 
 			return canDash()
 				|| (has("mirror") && glitchedLinkInDarkWorld()

@@ -22,14 +22,13 @@ class WreckedShipMain extends WreckedShip {
 		return has("phantoon");
 	}
 	this.locations["Reserve Tank, Wrecked Ship"].casualLogic = function() {
-		return has("phantoon") && canDashSM()
-			&& (canGrappleSM() || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
+		return has("phantoon") && (canDashSM()
+			&& canUsePowerBombs()
+			&& (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3)));
 	}
-	this.locations["Missile (Gravity Suit)"].casualLogic = function() {
-		return has("phantoon") && (canGrappleSM() || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
-	}
+	this.locations["Missile (Gravity Suit)"].casualLogic =
 	this.locations["Gravity Suit"].casualLogic = function() {
-		return has("phantoon") && (canGrappleSM() || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
+		return has("phantoon") && (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
 	}
 	this.locations["Energy Tank (Wrecked Ship)"].casualLogic = function() {
 		return has("phantoon")
@@ -42,7 +41,9 @@ class WreckedShipMain extends WreckedShip {
 	}
 
     this.canEnter.casualLogic = function() {
-      return canUsePowerBombs() && canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || canSpringBall());
+		return canOpenGreenDoors() &&
+			((canUsePowerBombs() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump()))
+				|| (canAccessMaridiaPortal() && canSwimSM() && canPassBombPassages()));
     }
     this.canComplete.casualLogic = function() {
       return this.locations["Phantoon"].casualLogic();
@@ -53,13 +54,13 @@ class WreckedShipMain extends WreckedShip {
 	this.initCasual();
 
 	this.locations["Reserve Tank, Wrecked Ship"].tourneyLogic = function() {
-		return has("phantoon") && (canDashSM() && (heatProof() || hasEnergyReserves(3)));
+		return has("phantoon") && (canUsePowerBombs() && canDashSM() && (heatProof() || hasEnergyReserves(2)));
 	}
 	this.locations["Missile (Gravity Suit)"].tourneyLogic = function() {
-		return has("phantoon") && (heatProof() || hasEnergyReserves(2));
+		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
 	}
 	this.locations["Gravity Suit"].tourneyLogic = function() {
-		return has("phantoon") && (heatProof() || hasEnergyReserves(2));
+		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
 	}
 	this.locations["Energy Tank (Wrecked Ship)"].tourneyLogic = function() {
 		return has("phantoon")
@@ -69,13 +70,13 @@ class WreckedShipMain extends WreckedShip {
 			|| canHiJump()
 			|| has("space")
 			|| canDashSM()
-			|| canSpringBall()
+			|| canSpringBallJump()
 			|| canSwimSM()
 		);
 	}
 
 	this.canEnter.tourneyLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors();
+		return canOpenGreenDoors() && (canUsePowerBombs() || (canAccessMaridiaPortal() && (canHiJump() || canSwimSM()) && canPassBombPassages()));
 	}
   }
 }

@@ -23,19 +23,26 @@ class MaridiaInner extends Maridia {
   }
 
   initCasual() {
+	this.locations["Super Missile (yellow Maridia)"].casualLogic =
+	this.locations["Missile (yellow Maridia super missile)"].casualLogic =
+	this.locations["Missile (yellow Maridia false wall)"].casualLogic = function() {
+		return canPassBombPassages();
+	}
 	this.locations["Plasma Beam"].casualLogic = function() {
 		return canDefeatDraygon()
-			&& (has("plasma") || has("screw"))
-			&& (canFlySM() || canHiJump());
+			&& (has("screw") || has("plasma"))
+			&& (canHiJump() || canFlySM());
 	}
-	this.locations["Missile (pink Maridia)"].casualLogic = function() {
-		return canDashSM();
+	this.locations["Missile (left Maridia sand pit room)"].casualLogic =
+	this.locations["Reserve Tank, Maridia"].casualLogic = function() {
+		return canPassBombPassages();
 	}
+	this.locations["Missile (pink Maridia)"].casualLogic =
 	this.locations["Super Missile (pink Maridia)"].casualLogic = function() {
 		return canDashSM();
 	}
 	this.locations["Spring Ball"].casualLogic = function() {
-		return (canGrappleSM() && (has("space") || canHiJump()));
+		return canUsePowerBombs() && (canGrappleSM() && (has("space") || canHiJump()));
 	}
 	this.locations["Missile (Draygon)"].casualLogic = function() {
 		return canDefeatBotwoon();
@@ -54,10 +61,14 @@ class MaridiaInner extends Maridia {
 	}
 
     this.canEnter.casualLogic = function() {
-		let mo = new MaridiaOuter("","",false);
-		mo.initCasual();
-		return mo.canEnter.casualLogic() &&
-			(canFlySM() || canGrappleSM() || canDashSM() || canAccessMaridiaPortal());
+		let nw = new NorfairWest("","",false);
+		nw.initCasual();
+
+		return ((nw.canEnter.casualLogic()
+				&& canUsePowerBombs()
+				&& (canFlySM() || canDashSM() || canGrappleSM()))
+				|| canAccessMaridiaPortal())
+			&& canSwimSM();
     }
     this.canComplete.casualLogic = function() {
 		return canDefeatBotwoon() && canDefeatDraygon();
@@ -67,32 +78,51 @@ class MaridiaInner extends Maridia {
   initTournament() {
 	this.initCasual();
 
+	this.locations["Super Missile (yellow Maridia)"].tourneyLogic =
+	this.locations["Missile (yellow Maridia super missile)"].tourneyLogic =
+	this.locations["Missile (yellow Maridia false wall)"].tourneyLogic = function() {
+		return canPassBombPassages() && (canSwimSM() || has("ice") || (canHiJump() && canSpringBallJump()));
+	}
 	this.locations["Plasma Beam"].tourneyLogic = function() {
 		return canDefeatDraygon()
-			&& (canDashSM()
-				|| (((has("charge") && (hasEnergyReserves(6) || (heatProof() && hasEnergyReserves(1)))) || has("plasma") || has("screw")) && (canFlySM() || canHiJump())));
+			&& ((has("charge") && hasEnergyReserves(3)) || has("screw") || has("plasma") || has("speed"))
+			&& (canHiJump() || canSpringBallJump() || canFlySM() || canDashSM());
+	}
+	this.locations["Missile (left Maridia sand pit room)"].tourneyLogic =
+	this.locations["Reserve Tank, Maridia"].tourneyLogic = function() {
+		return (canHiJump() && (has("space") || canSpringBallJump())) || canSwimSM();
+	}
+	this.locations["Missile (right Maridia sand pit room)"].tourneyLogic = function() {
+		return canHiJump() || canSwimSM();
 	}
 	this.locations["Power Bomb (right Maridia sand pit room)"].tourneyLogic = function() {
+		return (canHiJump() && canSpringBallJump()) || canSwimSM();
+	}
+	this.locations["Missile (pink Maridia)"].tourneyLogic =
+	this.locations["Super Missile (pink Maridia)"].tourneyLogic = function() {
 		return canSwimSM();
 	}
-	this.locations["Missile (pink Maridia)"].tourneyLogic = function() {
-		return canSwimSM() && canDashSM();
-	}
-	this.locations["Super Missile (pink Maridia)"].tourneyLogic = function() {
-		return canSwimSM() && canDashSM();
-	}
 	this.locations["Spring Ball"].tourneyLogic = function() {
-		return canSwimSM() && (canGrappleSM() && (canFlySM() || canHiJump()));
+		return canGrappleSM()
+			&& canUsePowerBombs()
+			&& ((canSwimSM() && (canFlySM() || canHiJump()))
+			|| (canHiJump() && canSpringBallJump() && has("space")));
+	}
+	this.locations["Missile (Draygon)"].tourneyLogic = function() {
+		return canDefeatBotwoon() && canSwimSM();
 	}
 	this.locations["Space Jump"].tourneyLogic = function() {
 		return has("draygon") && canDefeatDraygon();
 	}
 
 	this.canEnter.tourneyLogic = function() {
-		let mo = new MaridiaOuter("","",false);
-		mo.initTournament();
-		return mo.canEnter.tourneyLogic() &&
-			(canSwimSM() || (canGrappleSM() && canHiJump() && has("ice")));
+		let nw = new NorfairWest("","",false);
+		nw.initTournament();
+
+		return nw.canEnter.tourneyLogic()
+			&& canUsePowerBombs()
+			&& (canSwimSM() || (canHiJump() && (has("ice") || canSpringBallJump()) && canGrappleSM()))
+			|| canAccessMaridiaPortal();
 	}
   }
 }

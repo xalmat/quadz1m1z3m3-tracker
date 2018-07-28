@@ -49,17 +49,15 @@ class BrinstarGreen extends Brinstar {
     this.initCasual();
 
 	this.locations["Super Missile (green Brinstar top)"].tourneyLogic = function() {
-		return (canDashSM() || canDestroyBombWalls())
-			&& canOpenRedDoors()
+		return canOpenRedDoors()
 			&& (canMorph() || canDashSM());
 	}
 	this.locations["Reserve Tank, Brinstar"].tourneyLogic = function() {
-		return (canDashSM() || canDestroyBombWalls())
-			&& canOpenRedDoors()
+		return canOpenRedDoors()
 			&& (canMorph() || canDashSM());
 	}
 	this.locations["Missile (green Brinstar behind missile)"].tourneyLogic = function() {
-		return canPassBombPassages() && canOpenRedDoors();
+		return (canPassBombPassages() || (canMorph() && has("screw")) && canOpenRedDoors());
 	}
 	this.locations["Missile (green Brinstar behind reserve tank)"].tourneyLogic = function() {
 		return canOpenRedDoors() && canMorph();

@@ -54,7 +54,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 	if(this.buildLocations) {
 		this.locations["Spike Cave"].majorGlitches = function() {
 			let wdm = new DeathMountainWest("","",false);
-			wdm.initmajorGlitches();
+			wdm.initMajorGlitches();
 
 			return has("hammer") && canLiftRocks()
 				&& (has("moonpearl") || (has("bottle") && canDash()))

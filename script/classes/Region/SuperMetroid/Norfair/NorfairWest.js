@@ -13,16 +13,19 @@ class NorfairWest extends Norfair {
 
   initCasual() {
 	this.locations["Ice Beam"].casualLogic = function() {
-		return canPassBombPassages() && heatProof() && canDashSM();
+		return canOpenGreenDoors() && canPassBombPassages() && heatProof() && canDashSM();
 	}
 	this.locations["Missile (below Ice Beam)"].casualLogic = function() {
-		return (canUsePowerBombs() || has("wave")) && heatProof() && canDashSM();
+		return canOpenGreenDoors() && canUsePowerBombs() && heatProof() && canDashSM();
+	}
+	this.locations["Energy Tank (Hi-Jump Boots)"].casualLogic = function() {
+		return canOpenRedDoors();
 	}
 	this.locations["Hi-Jump Boots"].casualLogic = function() {
-		return canPassBombPassages();
+		return canOpenRedDoors() && canPassBombPassages();
 	}
 	this.locations["Missile (Hi-Jump Boots)"].casualLogic = function() {
-		return canPassBombPassages();
+		return canOpenRedDoors() && canMorph();
 	}
 
     this.canEnter.casualLogic = function() {
@@ -36,10 +39,19 @@ class NorfairWest extends Norfair {
     this.initCasual();
 
     this.locations["Ice Beam"].tourneyLogic = function() {
-		return canMorph() && (heatProof() || hasEnergyReserves(3));
+		return canOpenGreenDoors() && canMorph() && (heatProof() || hasEnergyReserves(3));
 	}
 	this.locations["Missile (below Ice Beam)"].tourneyLogic = function() {
-		return (canUsePowerBombs() && canHellRun()) || (heatProof() && canDashSM());
+		return (canOpenGreenDoors() && canUsePowerBombs() && (hasEnergyReserves(3) || heatProof())) || (heatProof() && canDashSM() && canOpenGreenDoors());
+	}
+	this.locations["Energy Tank (Hi-Jump Boots)"].tourneyLogic = function() {
+		return canOpenRedDoors();
+	}
+	this.locations["Hi-Jump Boots"].tourneyLogic = function() {
+		return canOpenRedDoors() && canPassBombPassages();
+	}
+	this.locations["Missile (Hi-Jump Boots)"].tourneyLogic = function() {
+		return canOpenRedDoors() && canMorph();
 	}
   }
 }

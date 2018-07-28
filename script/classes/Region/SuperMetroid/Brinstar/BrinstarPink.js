@@ -23,16 +23,16 @@ class BrinstarPink extends Brinstar {
 		return canPassBombPassages();
 	}
 	this.locations["Power Bomb (pink Brinstar)"].casualLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors();
+		return canUsePowerBombs() && canOpenGreenDoors() && hasEnergyReserves(1);
 	}
 	this.locations["Missile (green Brinstar pipe)"].casualLogic = function() {
-		return canMorph() && (canOpenYellowDoors() || canOpenGreenDoors());
+		return canMorph() && (canOpenYellowDoors() || canOpenGreenDoors() || canAccessNorfairPortal());
 	}
 	this.locations["Energy Tank, Waterway"].casualLogic = function() {
-		return canUsePowerBombs() && canOpenRedDoors() && canDashSM();
+		return canUsePowerBombs() && canOpenRedDoors() && canDashSM() && (hasEnergyReserves(1) || canSwimSM());
 	}
 	this.locations["Energy Tank, Brinstar Gate"].casualLogic = function() {
-		return canUsePowerBombs() && has("wave");
+		return canUsePowerBombs() && has("wave") && hasEnergyReserves(1);
 	}
 	this.locations["Spore Spawn"].casualLogic = function() {
 		return canPassBombPassages() && canOpenGreenDoors();
@@ -41,7 +41,7 @@ class BrinstarPink extends Brinstar {
     this.canEnter.casualLogic = function() {
 		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
 			|| canUsePowerBombs()
-			|| (canAccessNorfairPortal() && canMorph() && has("wave") && (has("ice") || canHiJump() || canFlySM()));
+			|| (canAccessNorfairPortal() && canMorph() && has("wave") && (has("ice") || canHiJump() || has("space")));
     }
     this.canComplete.casualLogic = function() {
       return this.locations["Spore Spawn"].casualLogic();
@@ -51,6 +51,9 @@ class BrinstarPink extends Brinstar {
   initTournament() {
     this.initCasual();
 
+	this.locations["Power Bomb (pink Brinstar)"].tourneyLogic = function() {
+		return canUsePowerBombs() && canOpenGreenDoors();
+	}
     this.locations["Energy Tank, Brinstar Gate"].tourneyLogic = function() {
 		return canUsePowerBombs() && (has("wave") || (canOpenGreenDoors() && canHiJump()));
 	}
@@ -58,7 +61,7 @@ class BrinstarPink extends Brinstar {
 	this.canEnter.tourneyLogic = function() {
 		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
 			|| canUsePowerBombs()
-			|| (canAccessNorfairPortal() && canMorph() && (has("ice") || canHiJump() || canFlySM()));
+			|| (canAccessNorfairPortal() && canMorph() && (has("ice") || canHiJump() || canSpringBallJump() || canFlySM()));
 	}
   }
 }
