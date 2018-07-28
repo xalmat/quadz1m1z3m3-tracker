@@ -15,17 +15,8 @@ class LowerNorfairEast extends LowerNorfair {
   }
 
   initCasual() {
-	this.locations["Missile (Mickey Mouse room)"].casualLogic = function() {
-		return canMorph() && canDestroyBombWalls();
-	}
-	this.locations["Power Bomb (lower Norfair above fire flea room)"].casualLogic = function() {
-		return canPassBombPassages();
-	}
 	this.locations["Power Bomb (Power Bombs of shame)"].casualLogic = function() {
 		return canUsePowerBombs();
-	}
-	this.locations["Missile (lower Norfair near Wave Beam)"].casualLogic = function() {
-		return canMorph() && canDestroyBombWalls();
 	}
 	this.locations["Energy Tank, Ridley"].casualLogic = function() {
 		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
@@ -35,18 +26,12 @@ class LowerNorfairEast extends LowerNorfair {
 	}
 
     this.canEnter.casualLogic = function() {
-		let ne = new NorfairEast("","",false);
-		ne.initCasual();
-		return heatProof()
-			&& ((ne.canEnter.casualLogic()
-					&& canUsePowerBombs()
-					&& (has("space") && canSwimSM()))
-				|| (canAccessLowerNorfairPortal()
-					&& canDestroyBombWalls()
-					&& canOpenGreenDoors()
-					&& canUsePowerBombs()
-					&& (canFlySM() || canDashSM())))
-			&& (canFlySM() || canHiJump());
+		let lnw = new LowerNorfairWest("","",false);
+		lnw.initCasual();
+		return lnw.canEnter.casualLogic()
+			&& canUsePowerBombs()
+      		&& canFlySM()
+      		&& heatProof();
     }
     this.canComplete.casualLogic = function() {
       return this.locations["Ridley"].casualLogic();
@@ -57,20 +42,18 @@ class LowerNorfairEast extends LowerNorfair {
     this.initCasual();
 
 	this.canEnter.tourneyLogic = function() {
-		let ne = new NorfairEast("","",false);
-		ne.initTournament();
-
-		return heatProof()
-			&& ((ne.canEnter.tourneyLogic()
-				&& canUsePowerBombs()
-				&& (canHiJump() || canSwimSM()))
-			|| (canAccessLowerNorfairPortal()
-				&& canDestroyBombWalls()
-				&& canOpenGreenDoors()
-				&& (canFlySM() || canSpringBallJump() || canDashSM())))
-			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
-			&& (canPassBombPassages() || (has("screw") && has("space")))
-			&& (canMorph() || hasEnergyReserves(5));
+		let lnw = new LowerNorfairWest("","",false);
+		lnw.initTournament();
+		return lnw.canEnter.tourneyLogic()
+			&& (canDestroyBombWalls() || canDashSM())
+			&& (canFlySM() || canHiJump() || (has("ice") && has("charge")))
+				&& canPassBombPassages()
+				&& ((heatProof() && (canHiJump() || canSwimSM()))
+					|| (heatProof()
+					&& (canIbj()
+						|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
+						|| (canSpringBall() && canUsePowerBombs())
+						|| canDashSM())));
 	}
   }
 }
