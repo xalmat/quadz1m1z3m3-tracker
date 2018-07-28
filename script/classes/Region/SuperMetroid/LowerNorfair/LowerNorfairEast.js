@@ -35,12 +35,18 @@ class LowerNorfairEast extends LowerNorfair {
 	}
 
     this.canEnter.casualLogic = function() {
-		let lnw = new LowerNorfairWest("","",false);
-		lnw.initCasual();
-		return lnw.canEnter.casualLogic()
-			&& canUsePowerBombs()
-      		&& canFlySM()
-      		&& heatProof();
+		let ne = new NorfairEast("","",false);
+		ne.initCasual();
+		return heatProof()
+			&& ((ne.canEnter.casualLogic()
+					&& canUsePowerBombs()
+					&& (has("space") && canSwimSM()))
+				|| (canAccessLowerNorfairPortal()
+					&& canDestroyBombWalls()
+					&& canOpenGreenDoors()
+					&& canUsePowerBombs()
+					&& (canFlySM() || canDashSM())))
+			&& (canFlySM() || canHiJump());
     }
     this.canComplete.casualLogic = function() {
       return this.locations["Ridley"].casualLogic();
