@@ -177,7 +177,7 @@ for(var gameName in regionNames) {
 					let dirs = {
 						zelda3:		"ALttP",
 						metroid3:	"SuperMetroid",
-						zelda1:		"TLoz",
+						zelda1:		"TLoZ",
 						metroid1:	"Metroid",
 					};
 
