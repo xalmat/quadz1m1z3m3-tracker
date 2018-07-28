@@ -79,9 +79,9 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
 
 	this.canEnter.majorGlitches = function() {
 		let edm = new DeathMountainEast("","",false);
-		edm.initmajorGlitches();
+		edm.initMajorGlitches();
 		let wdm = new DeathMountainWest("","",false);
-		wdm.initmajorGlitches();
+		wdm.initMajorGlitches();
 
 		return ((has("moonpearl") || (has("bottle") && canDash()))
 			|| ((canLiftDarkRocks() || (has("hammer") && canDash()))

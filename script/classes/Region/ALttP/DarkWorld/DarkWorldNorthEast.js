@@ -136,7 +136,7 @@ class DarkWorldNorthEast extends DarkWorld {
 	  }
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	  this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -148,7 +148,7 @@ class DarkWorldNorthEast extends DarkWorld {
 //		this.locations["Pyramid Fairy - Right"].majorGlitches = function() {
 		this.locations["Pyramid Fairy"].majorGlitches = function() {
 			  let sdw = new DarkWorldSouth("","",false);
-			  sdw.initmajorGlitches();
+			  sdw.initMajorGlitches();
 
 			  return (has("mirror") && canSpinSpeed())
 			  	|| (has("crystal5") && has("crystal6")
@@ -160,7 +160,7 @@ class DarkWorldNorthEast extends DarkWorld {
 
 	  this.canEnter.majorGlitches = function() {
 		  let wdm = new DeathMountainWest("","",false);
-		  wdm.initmajorGlitches();
+		  wdm.initMajorGlitches();
 
 		  return (has("agahnim")
 		  	|| (has("moonpearl")

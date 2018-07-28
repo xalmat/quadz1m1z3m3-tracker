@@ -31,7 +31,7 @@ class DungeonsDesertPalace extends Dungeons {
 		}
 	}
 	this.locations["Desert Palace - Lanmolas"].glitchless = function() {
-		return canLiftRocks() && canLightTorches()
+		return (canLiftRocks() || (canAccessMiseryMirePortal() && has("mirror"))) && canLightTorches()
 			&& has("bigkey") && has("key")
 			&& boss.canBeat();
 	}

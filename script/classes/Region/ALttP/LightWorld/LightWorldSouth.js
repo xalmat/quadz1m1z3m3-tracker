@@ -47,7 +47,7 @@ class LightWorldSouth extends LightWorld {
 			return has("mirror") && sdw.canEnter.glitchless();
 		}
 		this.locations["Checkerboard Cave"].glitchless = function() {
-			return canFly() && canLiftDarkRocks() && has("mirror");
+			return ((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal()) && has("mirror");
 		}
 		this.locations["Library"].glitchless = function() {
 			return canDash();
@@ -215,13 +215,13 @@ class LightWorldSouth extends LightWorld {
 	}
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
 		this.locations["Lake Hylia Island"].majorGlitches = function() {
 			let nedw = new DarkWorldNorthEast("","",false);
-			nedw.initmajorGlitches();
+			nedw.initMajorGlitches();
 
 			return canDash()
 				|| (canSwim() && has("mirror")

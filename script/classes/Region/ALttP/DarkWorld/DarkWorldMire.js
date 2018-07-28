@@ -65,13 +65,13 @@ class DarkWorldMire extends DarkWorld {
 	}
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	let wdm = new DeathMountainWest("","",false);
-	wdm.initmajorGlitches();
+	wdm.initMajorGlitches();
 	let sdw = new DarkWorldSouth("","",false);
-	sdw.initmajorGlitches();
+	sdw.initMajorGlitches();
 
 	this.canEnter.majorGlitches = function() {
 		return ((has("bottle") && wdm.canEnter.majorGlitches())

@@ -33,7 +33,7 @@ class BrinstarRed extends Brinstar {
     this.canEnter.casualLogic = function() {
       return (canDestroyBombWalls() || canDashSM())
       	&& (canOpenGreenDoors() && canMorph())
-      	|| (canAccessNorfairPortal() && (has("ice") || canHiJump() || canFlySM()));
+      	|| (canAccessNorfairPortal() && (has("ice") || canHiJump() || has("space")));
     }
   }
 
@@ -45,12 +45,17 @@ class BrinstarRed extends Brinstar {
 			&& canOpenRedDoors()
 			&& (canGrappleSM()
 				|| has("space")
-				|| (heatProof() && hasEnergyReserves(3) && canIbj())
-				|| (hasEnergyReserves(6) && canIbj())
-			);
+				|| (heatProof() && hasEnergyReserves(3) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump()))
+				|| (hasEnergyReserves(5) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump())));
 	}
 	this.locations["Power Bomb (red Brinstar spike room)"].tourneyLogic = function() {
 		return canOpenGreenDoors();
+	}
+
+	this.canEnter.tourneyLogic = function() {
+		return ((canDestroyBombWalls() || canDashSM())
+			&& (canOpenGreenDoors() && canMorph()))
+			|| (canAccessNorfairPortal() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()));
 	}
   }
 }

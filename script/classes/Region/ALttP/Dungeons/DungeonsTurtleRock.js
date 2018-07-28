@@ -246,17 +246,17 @@ class DungeonsTurtleRock extends Dungeons {
 	}
   }
 
-  initmajorGlitches() {
+  initMajorGlitches() {
 	this.initOverworldGlitches();
 
 	let wdm = new DeathMountainWest("","",false);
-	wdm.initmajorGlitches();
+	wdm.initMajorGlitches();
 
 	let edwdm = new DarkWorldDeathMountainEast("","",false);
-	edwdm.initmajorGlitches();
+	edwdm.initMajorGlitches();
 
 	let edm = new DeathMountainEast("","",false);
-	edm.initmajorGlitches();
+	edm.initMajorGlitches();
 
 	let lower = function() {
 		return has("mirror") && (has("moonpearl")
