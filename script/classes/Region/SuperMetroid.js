@@ -1,4 +1,4 @@
-effectiveVersion = "v9.2";
+effectiveVersion = "v10";
 
 class SuperMetroid extends Region {
 }
