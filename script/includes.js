@@ -27,6 +27,9 @@ function fix_region(str) {
 	if(str.toLowerCase().indexOf("crocomire") > -1) {
 		str = str.replace("crocoMire","Crocomire");
 	}
+	if(str.toLowerCase().indexOf("overworld") > -1) {
+		str = str.replace("overWorld","Overworld");
+	}
 	return str.ucfirst();
 }
 
@@ -34,8 +37,9 @@ var scripts = [
 	"script/items.js",
 	"script/shared-access.js",
 	"script/" + selectedGame + "/items.js",
-	"script/zelda3/item-limits.js",
-	"script/metroid3/item-limits.js"
+];
+
+var sheets = [
 ];
 
 scripts.push("script/classes/Boss.js");
@@ -67,15 +71,59 @@ for(var gameName in bosses) {
 scripts.push("script/classes/Location.js");
 scripts.push("script/classes/LocationCollection.js");
 scripts.push("script/classes/Region.js");
-scripts.push("script/classes/Region/Hyrule.js");
-scripts.push("script/classes/Region/SuperMetroid.js");
+
+let lozmx = selectedGame == "metroid1" || selectedGame == "zelda1";
+let smalttpr = selectedGame == "metroid3" || selectedGame == "zelda3";
+
+if(lozmx) {
+	scripts.push("script/classes/Region/TLoZ.js");
+	scripts.push("script/classes/Region/Metroid.js");
+	scripts.push("script/zelda3/item-limits.js");
+	scripts.push("script/metroid3/item-limits.js");
+	scripts.push("script/zelda1/item-limits.js");
+} else if(smalttpr) {
+	scripts.push("script/classes/Region/ALttP.js");
+	scripts.push("script/classes/Region/SuperMetroid.js");
+	scripts.push("script/zelda3/item-limits.js");
+	scripts.push("script/metroid3/item-limits.js");
+}
+
+let universe = selectedGame.substr(0,selectedGame.length - 1);
+sheets.push("css/" + universe + '/' + universe.substr(0,1) + selectedGame.substr(-1) + '/' + universe + selectedGame.substr(-1) + ".css");
+
+if(selectedGame != "zelda3") {
+	sheets.push("css/zelda/notzelda3.css");
+}
+if(selectedGame != "metroid3") {
+	sheets.push("css/metroid/notmetroid3.css");
+}
+if(selectedGame != "metroid1") {
+	sheets.push("css/metroid/notmetroid1.css");
+}
+if(universe == "metroid") {
+	sheets.push("css/metroid/metroid.css");
+} else {
+	sheets.push("css/metroid/notmetroid.css");
+}
+
 scripts.push("script/classes/init.js");
 
 var regionNames = {
+	zelda1: {
+		overworld:		["caves","items","shops"],
+	},
 	zelda3: {
 		dungeons:		["main"],
 		overworld:		["main"],
 		zebes:			["z3-m3"],
+	},
+	metroid1: {
+		brinstar:		["main"],
+		kraid:			["main"],
+		norfair:		["main"],
+		ridley:			["main"],
+		tourian:		["main"],
+		hyruleportals:	["main"],
 	},
 	metroid3: {
 		crateria:		["central","east","west"],
@@ -91,26 +139,26 @@ var regionNames = {
 
 if(zeldaMode == "regions") {
 	regionNames.zelda3 = {
-		dungeons:		[
-						 "easternpalace",
-						 "desertpalace",
-						 "towerofhera",
-						 "palaceofdarkness",
-						 "swamppalace",
-						 "skullwoods",
-						 "thievestown",
-						 "icepalace",
-						 "miserymire",
-						 "turtlerock",
-						 "ganonstower",
-						 "hyrulecastleescape",
-						 "hyrulecastletower",
+		dungeons: [
+								"easternpalace",
+								"desertpalace",
+								"towerofhera",
+								"palaceofdarkness",
+								"swamppalace",
+								"skullwoods",
+								"thievestown",
+								"icepalace",
+								"miserymire",
+								"turtlerock",
+								"ganonstower",
+								"hyrulecastleescape",
+								"hyrulecastletower",
 		],
-		darkworld:		["mire","northeast","northwest","south"],
+		darkworld:				["mire","northeast","northwest","south"],
 		darkworlddeathmountain:	["east","west"],
-		deathmountain:	["east","west"],
-		lightworld:		["northeast","northwest","south"],
-		zebesportals:	["main"],
+		deathmountain:			["east","west"],
+		lightworld:				["northeast","northwest","south"],
+		zebesportals:			["main"],
 	}
 }
 
@@ -123,12 +171,17 @@ for(var gameName in regionNames) {
 				var segmentName = region[segment];
 				var url = "";
 
-				if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions")) {
+				if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions") || lozmx) {
 					url += "script/classes/Region/";
 
-					if(selectedGame == "metroid3") {
-						url += "SuperMetroid/";
-					}
+					let dirs = {
+						zelda3:		"ALttP",
+						metroid3:	"SuperMetroid",
+						zelda1:		"TLoz",
+						metroid1:	"Metroid",
+					};
+
+					url += dirs[selectedGame] + '/';
 
 					url += fix_region(regionName) + '/' + fix_region(regionName) + fix_region(segmentName) + ".js";
 				} else if(gameName == "zelda3" && zeldaMode == "oldstyle") {
@@ -141,8 +194,11 @@ for(var gameName in regionNames) {
     }
 }
 
-scripts.push("https://unpkg.com/vue/dist/vue.min.js");
+scripts.push("script/vue/vue-2.5.16-min.js");
 scripts.push("script/main.js");
+
+LazyLoad.css(sheets, function () {
+});
 
 LazyLoad.js(scripts, function () {
 	init(initClasses,selectedGame);

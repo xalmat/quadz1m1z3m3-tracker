@@ -1,0 +1,15 @@
+.zelda1 .mapdiv{
+    background: url(../../../images/zelda1/maps/map.png) no-repeat;
+    width: calc(4096px / 4);
+    height: calc(1408px / 4);
+    background-size: calc(4096px / 4) calc(1408px / 4);
+    image-rendering: pixelated;
+}
+.zelda1 .chest, .zelda1 .chest {
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    margin-left: 0;
+    margin-top: 0;
+}
+

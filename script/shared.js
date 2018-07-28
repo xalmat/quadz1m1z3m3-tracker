@@ -6,6 +6,7 @@ const CRYSTAL = 0;
 const OJCRYSTAL = 1;
 const OFFPENDANT = 2;
 const GREENPENDANT = 3;
+const Z1FACTOR = 4;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -25,7 +26,15 @@ function extend(obj, src) {
 }
 
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
-var gameNames = ["zelda3","metroid3"];
+var effectiveVersion = "";
+var gameNames = [];
+
+if(selectedGame == "zelda3" || selectedGame == "metroid3") {
+	gameNames = ["zelda3","metroid3"];
+} else if(selectedGame == "zelda1" || selectedGame == "metroid1") {
+	gameNames = ["zelda1","metroid1"];
+}
+
 var chests = {};
 var dungeons = {};
 var cookieDefault = {};
@@ -40,7 +49,14 @@ for(var gameName in gameNames) {
 	cookieDefault[gameName] = {};
 }
 
-var roomid = (getParameterByName("roomid",window.location) != null) ? getParameterByName("roomid",window.location) : "smalttpr";
+var roomid = getParameterByName("roomid",window.location);
+if(roomid === null) {
+	if(selectedGame == "zelda3" || selectedGame == "metroid3") {
+		roomid = "smalttpr";
+	} else if(["zelda1","metroid1"].indexOf(selectedGame) > -1) {
+		roomid = "lozmx";
+	}
+}
 var authAttempted = false;
 
 function destroyFirebase() {
@@ -78,6 +94,9 @@ function fix_itemlabel(item) {
 		"springball":	"Spring Ball",
 		"supermissile": "Super Missile",
 		"xray":			"X-Ray Scope",
+		"kraidtotem":	"Kraid Totem",
+		"ridleytotem":	"Ridley Totem",
+		"triforcepiece":"Triforce Piece",
 	};
 	if(names[ret]) {
 		ret = names[ret];
@@ -89,7 +108,7 @@ function fix_itemlabel(item) {
 			ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
 		}
 	}
-	var beams = ["charge","ice","wave","plasma","grappling"];
+	var beams = ["charge","ice","wave","plasma","grappling","long"];
 	if(beams.indexOf(ret) > -1) {
 		ret += " Beam";
 	}
@@ -102,6 +121,9 @@ function fix_itemlabel(item) {
 		ret[1] = ret[1].ucfirst();
 		ret = ret.join(" ");
 	}
+	if(ret.indexOf("triforcepiece") === 0) {
+		ret = "Triforce Piece " + ret.substr(-1);
+	}
 	ret = ret.ucfirst();
 	return ret;
 }
@@ -111,17 +133,23 @@ function build_img_url(item) {
     var useGame = selectedGame;
 
     var zelda3items = gameItems.zelda3;
+    var zelda1items = gameItems.zelda1;
     var metroid3items = gameItems.metroid3;
+    var metroid1items = gameItems.metroid1;
 
     if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
         if(item == "bomb") {
             useGame = "zelda3";
         } else if(item == "bombs") {
             useGame = "metroid3";
-        } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
-            useGame = "zelda3";
         } else if(metroid3items.indexOf(item) > -1 || metroid3items.indexOf(item.substr(0,item.length-1)) > -1) {
             useGame = "metroid3";
+        } else if(metroid1items.indexOf(item) > -1 || metroid1items.indexOf(item.substr(0,item.length-1)) > -1) {
+            useGame = "metroid1";
+        } else if(selectedGame == "zelda1") {
+            useGame = "zelda1";
+        } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
+            useGame = "zelda3";
         }
     }
 
@@ -131,6 +159,7 @@ function build_img_url(item) {
 		bomb0:		"bomb1",
 		boomerang0:	"boomerang1",
 		bottle:		"bottle0",
+		candle0:	"candle1",
 		crystal5:	"dungeon" + OJCRYSTAL,
 		crystal6:	"dungeon" + OJCRYSTAL,
 		glove0:		"glove1",
@@ -139,6 +168,7 @@ function build_img_url(item) {
 		medallion2:	"ether",
 		medallion3:	"quake",
 		pendant0:	"dungeon" + GREENPENDANT,
+		ring0:		"ring1",
 		shield0:	"shield1",
 		sword0:		"sword1",
 	};

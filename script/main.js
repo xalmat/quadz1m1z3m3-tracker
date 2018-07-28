@@ -31,7 +31,11 @@ for(var i = 0; i < dungeons[selectedGame].length; i++) {
     dungeons[selectedGame][i].titleStripped = title.trim();
 }
 
-var trackerData = {"zelda3":{},"metroid3":{}};
+var trackerData = {};
+for(let gameName in gameNames) {
+	gameName = gameNames[gameName];
+	trackerData[gameName] = {};
+}
 let defaultData = {
 	items: itemsInit,
 	chestsimportant: chestsimportantInit[selectedGame],
@@ -49,6 +53,10 @@ for(let key in defaultData) {
 	if(trackerData[selectedGame][key] === undefined) {
 		trackerData[selectedGame][key] = val;
 	}
+}
+if(selectedGame == "zelda1") {
+	cookieDefault.zelda1.items.bottle = false;
+	trackerData.zelda1.items.bottle = false;
 }
 
 let defaultBoth = {
@@ -78,6 +86,10 @@ if(selectedGame == "zelda3") {
 	bosses = 11;
 } else if(selectedGame == "metroid3") {
 	bosses = 10;
+} else if(selectedGame == "zelda1") {
+	bosses = 10;
+} else if(selectedGame == "metroid1") {
+	bosses = 3;
 }
 for(var i = 0; i < bosses; i++) {
 	trackerData[selectedGame].items["boss" + i] = 1;
@@ -103,11 +115,20 @@ function isAmmo(key) {
 }
 
 function setCookie(obj) {
-    window.localStorage.setItem(roomid, JSON.stringify(obj));
+	try {
+	    window.localStorage.setItem(roomid, JSON.stringify(obj));
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function getCookie() {
-    var str = window.localStorage.getItem(roomid);
+	var str = null;
+	try {
+	    str = window.localStorage.getItem(roomid);
+	} catch (e) {
+		// do nothing
+	}
     if(!str) {
 		var ret = {};
 		for(var gameName in gameNames) {
@@ -156,11 +177,19 @@ let defaultOptions = {
   		showPrizes: true,
   		showMedals: true,
 	},
+	zelda1: {
+		mapLogic: "glitchless",
+		mPos: "Above"
+	},
 	metroid3: {
 		chestSkin: "lights",
 		mapLogic: "casualLogic",
 		mPos: "Above",
 		mZoom: 100
+	},
+	metroid1: {
+		mapLogic: "casualLogic",
+		mPos: "Above"
 	}
 };
 for(let gameName in gameNames) {
@@ -329,7 +358,36 @@ function toggleChest(x){
     updateAll();
 }
 
-var selectGame = '<span id="selectGame">[ <a href="?game=zelda3">Hyrule</a><a href="?game=zelda3&amp;zeldaMode=regions">*</a> | <a href="?game=metroid3">Zebes</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a></span>';
+var selectGame = '<span id="selectGame">[ ';
+
+var crumbs = {};
+if(roomid == "smalttpr") {
+	crumbs = {
+		Hyrule: "?game=zelda3",
+		Zebes: "?game=metroid3",
+		LoZMx: "?game=zelda1"
+	};
+} else if(roomid == "lozmx") {
+	crumbs = {
+		Hyrule: "?game=zelda1",
+		Zebes: "?game=metroid1",
+		SMALttPR: "?game=zelda3",
+	};
+}
+for(let crumb in crumbs) {
+	let title = crumb;
+	let url = crumbs[crumb];
+
+	selectGame += '<a href="' + url + '">' + title + '</a>';
+	if(roomid == "smalttpr" && title == "Hyrule") {
+		selectGame += '<a href="?game=zelda3&zeldaMode=regions">*</a>';
+	}
+
+	selectGame += ' | ';
+}
+selectGame += '<a href="faq.html">FAQ</a> | <a href="http://github.com/miketrethewey/smalttpr-tracker/">GitHub</a>';
+
+selectGame += '</span>';
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
@@ -585,7 +643,7 @@ function setZoom(target, sender) {
 
 var prevH = false;
 function setMapOrientation(H) {
-	if(selectedGame == "metroid3") { return; }
+	if(selectedGame != "zelda3") { return; }
 
     if (H === prevH) {
         return;
@@ -992,7 +1050,9 @@ function initTracker() {
     updateAll();
 
     var games = {
+		zelda1:		"TLoZ",
 		zelda3:		"ALttP",
+		metroid1:	"Metroid",
 		metroid3:	"Super Metroid",
 	};
     var game = games[selectedGame];
@@ -1011,6 +1071,9 @@ function initTracker() {
 			trackerData.zelda3.mapOHKO = false;
 		}
 		saveCookie();
+	}
+	if(effectiveVersion != "") {
+		document.getElementById("version").innerHTML = effectiveVersion;
 	}
 
 	window.addEventListener('storage', function(event) {

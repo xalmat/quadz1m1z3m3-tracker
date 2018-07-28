@@ -3,7 +3,7 @@
     <head>
         <title>Item Tracker</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="stylesheet" href="css/global.css" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 
         <script src="script/loader/lazyload.js"></script>
@@ -12,8 +12,11 @@
     </head>
 
     <body>
-    	<div id="beta" class="zelda3-option zelda3-regions">
-    		BETA: Only supports Minor Glitches!
+    	<div id="note">
+	    	<div id="beta" class="zelda3-option zelda3-regions" style="display: none;">
+	    		BETA: Only supports Minor Glitches!
+	    	</div>
+    		<span id="version"></span>
     	</div>
         <div width='100%' id="caption">
             &nbsp;
@@ -57,7 +60,7 @@
 	                <input type='radio' name='maporientation' id="mOrien1" value='Horizontal' checked='checked' onclick="setMapOrientation(false)"><label for="mOrien1">Horizontal</label>
 	                <input type='radio' name='maporientation' id="mOrien2" value='Verical' onclick="setMapOrientation(true)"><label for="mOrien2">Vertical</label>
 	            </div>
-	            <div class="metroid3-option" style="clear:right;"></div>
+	            <div class="metroid-option" style="clear:right;"></div>
                 <fieldset class="zelda3-option">
 	                <legend>Position</legend>
 	                <input type='radio' name='mapposition' id="mPos1" value='Above' onclick="setOrder(0)"><label for="mPos1">Above</label>
@@ -82,13 +85,14 @@
 						<span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic4" value='majorGlitches' onclick='setLogic("majorGlitches")'><label for="z3mLogic4">Major</label></span>
                     </fieldset>
                 </fieldset>
-                <fieldset class="metroid3-option">
-                    <legend>Super Metroid Options</legend>
+                <fieldset class="metroid-option">
+                    <legend class="metroid1-option">Metroid Options</legend>
+                    <legend class="metroid3-option">Super Metroid Options</legend>
 					<!-- Metroid 3 -->
-                    <fieldset>
+                    <fieldset class="metroid3-option">
 						<legend>Skill Logic</legend>
-	                    <input type='radio' name='maplogic' id="m3mLogic1" value='casualLogic' checked="checked" onclick='setLogic("casualLogic")'><label for="m3mLogic1">Casual</label>
-						<input type='radio' name='maplogic' id="m3mLogic2" value='tourneyLogic' onclick='setLogic("tourneyLogic")'><label for="m3mLogic2">Tournament</label>
+	                    <input type='radio' name='maplogic' id="m3mLogic1" value='casualLogic' checked="checked" onclick='setLogic("casualLogic")'><label for="m3mLogic1">Normal</label>
+						<input type='radio' name='maplogic' id="m3mLogic2" value='tourneyLogic' onclick='setLogic("tourneyLogic")'><label for="m3mLogic2">Hard</label>
                     </fieldset>
 	                <fieldset>
 	                    <legend>Item Skin</legend>

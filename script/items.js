@@ -37,6 +37,7 @@ gameItems.zelda3 = [
     "byrna",
     "net",
     "silvers",
+    "woods",
     "mpupgrade",
     "bomb",
     "heartcontainer",
@@ -62,6 +63,24 @@ gameItems.zelda3 = [
     "dungeon1",
     "dungeon2",
     "dungeon3"
+];
+gameItems.zelda1 = [
+	"ring",
+	"magicrod",
+	"candle",
+	"bracelet",
+	"ladder",
+	"raft",
+	"magicalkey",
+	"letter",
+	"triforcepiece1",
+	"triforcepiece2",
+	"triforcepiece3",
+	"triforcepiece4",
+	"triforcepiece5",
+	"triforcepiece6",
+	"triforcepiece7",
+	"triforcepiece8"
 ];
 gameItems.metroid3 = [
     "charge",
@@ -101,6 +120,11 @@ gameItems.metroid3 = [
     "boss8",
     "boss9"
 ];
+gameItems.metroid1 = [
+	"long",
+	"kraidtotem",
+	"ridleytotem"
+];
 
 var itemsInit = {
     blank: false,
@@ -137,11 +161,31 @@ var itemsInit = {
     moonpearl: false,
     mpupgrade: 0,
     silvers: false,
+    woods: false,
 
     heartcontainer: 0,
     heartpiece: 0,
 
     agahnim: 0,
+
+	bracelet: false,
+    candle: 0,
+    food: false,
+    ladder: false,
+    letter: false,
+    magicalkey: false,
+    magicalrod: false,
+    raft: false,
+    recorder: false,
+    ring: 0,
+    triforcepiece1: false,
+    triforcepiece2: false,
+    triforcepiece3: false,
+    triforcepiece4: false,
+    triforcepiece5: false,
+    triforcepiece6: false,
+    triforcepiece7: false,
+    triforcepiece8: false,
 
     charge: false,
     ice: false,
@@ -166,6 +210,10 @@ var itemsInit = {
     phantoon: false,
     draygon: false,
     ridley: false,
-    etank:0,
-    rtank:0
+    etank: 0,
+    rtank: 0,
+
+    long: false,
+    kraidtotem: false,
+    ridleytotem: false
 };

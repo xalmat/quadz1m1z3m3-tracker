@@ -1,0 +1,36 @@
+.zelda3-regions #beta {
+  display: block !important;
+}
+.zelda3 .mapvdiv #mapoverlay.on {
+    background-image: url(../../../images/zelda3/maps/mapvregions.png);
+}
+.zelda3.zelda3-oldstyle .zelda3-regions {
+    display: none;
+}
+.zelda3.zelda3-regions .zelda3-oldstyle {
+    display: none;
+}
+.zelda3 .mapdiv,
+.zelda3 .mapdiv #mapoverlay{
+    background: url(../../../images/zelda3/maps/map.png) no-repeat;
+    width: 884px;
+    height: 442px;
+}
+.zelda3 .mapvdiv,
+.zelda3 .mapvdiv #mapoverlay{
+    background: url(../../../images/zelda3/maps/mapv.png) no-repeat;
+    width: 438px;
+    height: 888px;
+}
+.zelda3 .mapdiv #mapoverlay.on {
+    background-image: url(../../../images/zelda3/maps/mapregions.png);
+}
+.zelda3 .chest.portal.active {
+    background-image: url(../../../images/zelda3/chests/warp.gif) !important;
+}
+.zelda3 .chest.portal.inactive {
+    background-image: url(../../../images/zelda3/chests/inactivewarp.gif) !important;
+}
+.zelda3 .legend th {
+    width: 130px;
+}
