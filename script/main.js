@@ -847,6 +847,9 @@ function refreshChests() {
         } else {
 			document.getElementById(k).className += " " + chests[selectedGame][k].isAvailable().getClassName();
 		}
+		if(chests[selectedGame][k].isImportant) {
+			document.getElementById(k).classList.add("important");
+		}
 		if(chests[selectedGame][k].isSpicy) {
 			document.getElementById(k).classList.add("spicy");
 		}
