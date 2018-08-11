@@ -627,10 +627,17 @@ function canAccessDeathMountainPortal() { // Norfair Map Room -> DM (Old Man exi
 	&& (canOpenGreenDoors() && canMorph()));
 }
 function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Refill) -> Mire (Great Fairy, east "Entrance")
-	return heatProof()
-		&& canOpenGreenDoors()
-		&& (canHiJump() || canSwimSM())
-		&& canOpenYellowDoors();
+	if(trackerData.metroid3.mapLogic == "casualLogic") {
+		return heatProof()
+			&& canOpenGreenDoors()
+			&& canOpenYellowDoors()
+			&& (canSwimSM() && has("space"));
+	} else if(trackerData.metroid3.mapLogic == "tourneyLogic") {
+		return heatProof()
+			&& canOpenGreenDoors()
+			&& (canHiJump() || canSwimSM())
+			&& canOpenYellowDoors();
+	}
 }
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)
 	if(trackerData.metroid3.mapLogic == "casualLogic") {
