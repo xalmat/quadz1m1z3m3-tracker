@@ -100,6 +100,9 @@ if(selectedGame != "metroid3") {
 if(selectedGame != "metroid1") {
 	sheets.push("css/metroid/notmetroid1.css");
 }
+if(universe == "zelda") {
+	sheets.push("css/zelda/zelda.css");
+}
 if(universe == "metroid") {
 	sheets.push("css/metroid/metroid.css");
 } else {

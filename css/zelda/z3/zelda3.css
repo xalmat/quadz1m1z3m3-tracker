@@ -25,12 +25,6 @@
 .zelda3 .mapdiv #mapoverlay.on {
     background-image: url(../../../images/zelda3/maps/mapregions.png);
 }
-.zelda3 .chest.portal.active {
-    background-image: url(../../../images/zelda3/chests/warp.gif) !important;
-}
-.zelda3 .chest.portal.inactive {
-    background-image: url(../../../images/zelda3/chests/inactivewarp.gif) !important;
-}
 .zelda3 .legend th {
     width: 130px;
 }

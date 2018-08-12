@@ -10,7 +10,13 @@ class OverworldItems extends Overworld {
 
   initNoMajorGlitches() {
 	  this.locations["Off the East Shore"].glitchless = function() {
-		  return has("ladder");
+		  let ret = has("ladder");
+
+		  if(ret) {
+			  return ret;
+		  } else {
+			  return "viewable";
+		  }
 	  }
   }
 }

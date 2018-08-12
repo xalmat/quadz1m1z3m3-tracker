@@ -1,0 +1,6 @@
+.zelda3 .chest.portal.active, .zelda1 .chest.portal.active {
+    background-image: url(../../images/zelda3/chests/warp.gif) !important;
+}
+.zelda3 .chest.portal.inactive, .zelda1 .chest.portal.inactive {
+    background-image: url(../../images/zelda3/chests/inactivewarp.gif) !important;
+}

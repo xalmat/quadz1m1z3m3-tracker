@@ -168,14 +168,18 @@ function initClasses(useGame) {
 						} else {												// Point of Interest
 							var chest = {
 								isImportant: false,
-								isOpened: false
+								isOpened: false,
+								isPortal: false
 							};
 
 							if(location.type == "Portal") {						// Portal
+								chest.isPortal = true;
 								chest.isAvailable = function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
-										var tmp = "portal portal-metroid3";
+										var tmp = "portal portal-";
+										tmp += altGames[selectedGame];
+
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = tmp + " active";
 											availability.minorGlitches = tmp + " active";
@@ -189,7 +193,9 @@ function initClasses(useGame) {
 										}
 									}
 									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
-										var tmp = "portal portal-zelda3";
+										var tmp = "portal portal-";
+										tmp += altGames[selectedGame];
+
 										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
 											availability.casualLogic = tmp + " active";
 											availability.tourneyLogic = tmp + " active";

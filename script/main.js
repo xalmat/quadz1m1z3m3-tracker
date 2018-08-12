@@ -1,10 +1,13 @@
 var chestsopenedInit = {};
 var chestsimportantInit = {};
+var chestsportalInit = {};
 chestsopenedInit[selectedGame] = [];
 chestsimportantInit[selectedGame] = [];
+chestsportalInit[selectedGame] = [];
 for(var i = 0; i < chests[selectedGame].length; i++) {
     chestsopenedInit[selectedGame].push(false);
     chestsimportantInit[selectedGame].push(false);
+    chestsportalInit[selectedGame].push(false);
     var d = document.createElement("div");
     d.innerHTML = chests[selectedGame][i].name;
     var title = d.textContent.trim() || d.innerText.trim() || d.innerHTML.trim();
@@ -40,6 +43,7 @@ let defaultData = {
 	items: itemsInit,
 	chestsimportant: chestsimportantInit[selectedGame],
 	chestsopened: chestsopenedInit[selectedGame],
+	chestsportal: chestsportalInit[selectedGame],
 	dungeonchests: dungeonchestsInit[selectedGame],
 	dungeonbeaten: dungeonbeatenInit[selectedGame],
 	medallions: medallionsInit[selectedGame],
@@ -146,6 +150,7 @@ var cookiekeys = [
 	'gameName',	// both games
 	'chestsImportant',
 	'chestsOpened',
+	'chestsPortal',
 	'items',
 	'iZoom',
 	'map',
@@ -340,7 +345,7 @@ function getConfigObject() {
 
     configobj.itemValues = trackerData[selectedGame].items;
 
-	let savedProperties = ["chestsopened","chestsimportant","dungeonsbeaten","dungeonchests"];
+	let savedProperties = ["chestsopened","chestsimportant","chestsportal","dungeonsbeaten","dungeonchests"];
 
     for(let key in savedProperties) {
 		key = savedProperties[key];
@@ -400,20 +405,133 @@ function unhighlight(x){
 //    document.getElementById("caption").innerHTML = selectGame;
 }
 
+function chestClass(x) {
+	let ele = document.getElementById(x);
+	let chest = chests[selectedGame][x];
+	let className = "";
+	let availability = "";
+
+	switch(trackerData[selectedGame].mapLogic) {
+		case "glitchless":
+			availability = chest.isAvailable().glitchless;
+			break;
+		case "minorGlitches":
+			availability = chest.isAvailable().minorGlitches;
+			break;
+		case "owGlitches":
+			availability = chest.isAvailable().owGlitches;
+			break;
+		case "majorGlitches":
+			availability = chest.isAvailable().majorGlitches;
+			break;
+		case "casualLogic":
+			availability = chest.isAvailable().casualLogic;
+			break;
+		case "tourneyLogic":
+			availability = chest.isAvailable().tourneyLogic;
+			break;
+	}
+
+	// Base classes for a chest
+	let classNames = ["mapspan","chest"];
+	for(let add in classNames) {
+		className += classNames[add] + " ";
+	}
+	if(chest.isImportant) {
+		className += "important ";
+	}
+	if(chest.isOpened) {
+		className += "opened ";
+	}
+	if(chest.isPortal) {
+		className += "portal ";
+		className += "portal-" + altGames[selectedGame] + " ";
+	}
+
+	className += availability;
+	return className;
+}
+
 function toggleImportant(x) {
 	var ele = document.getElementById(x);
 	var chest = chests[selectedGame][x];
-	let isImportant = chest.isImportant;
-	if(isImportant) {
-		chest.isImportant = false;
-		ele.classList.remove("important");
+	let makeImportant = !chest.isImportant;
+	let className = "important";
+
+	chest.isImportant = makeImportant;
+
+	if(makeImportant) {
+		ele.classList.add(className);
 	} else {
-		chest.isImportant = true;
-		ele.classList.add("important");
+		ele.classList.remove(className);
 	}
-	trackerData[selectedGame].chestsimportant[x] = !isImportant;
+	trackerData[selectedGame].chestsimportant[x] = makeImportant;
 
 	saveCookie();
+}
+
+function togglePortal(x) {
+	var ele = document.getElementById(x);
+	var chest = chests[selectedGame][x];
+	let makePortal = !chest.isPortal;
+	let className = "portal-";
+	className += altGames[selectedGame];
+
+	chest.isPortal = makePortal;
+
+	let classNames = ["mapspan","chest","portal","active"];
+	if(makePortal) {
+		ele.className = "";
+		for(let add in classNames) {
+			ele.classList.add(classNames[add]);
+		}
+		ele.classList.add(className);
+	} else {
+		let add = "";
+		ele.classList.remove("portal");
+		ele.classList.remove(className);
+		ele.classList.remove("active");
+		console.log(trackerData[selectedGame].mapLogic);
+
+		switch(trackerData[selectedGame].mapLogic) {
+			case "glitchless":
+				add = chest.isAvailable().glitchless;
+				break;
+			case "minorGlitches":
+				add = chest.isAvailable().minorGlitches;
+				break;
+			case "owGlitches":
+				add = chest.isAvailable().owGlitches;
+				break;
+			case "majorGlitches":
+				add = chest.isAvailable().majorGlitches;
+				break;
+			case "casualLogic":
+				add = chest.isAvailable().casualLogic;
+				break;
+			case "tourneyLogic":
+				add = chest.isAvailable().tourneyLogic;
+				break;
+		}
+
+		if(add != "") {
+			ele.className += " ";
+			ele.classList.add(add);
+		}
+
+		if(chest.isImportant) {
+			ele.classList.add("important");
+		}
+
+		if(chest.isOpened) {
+			ele.classList.add("opened");
+		}
+	}
+
+	trackerData[selectedGame].chestsportal[x] = makePortal;
+
+	saveCookie();
+	console.log(chestClass(x));
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
@@ -537,6 +655,8 @@ function clickChest(e) {
 		case 1:
 			if(e.ctrlKey) {
 				toggleImportant(x);
+			} else if(e.shiftKey) {
+				togglePortal(x);
 			} else {
 				toggleChest(x);
 			}

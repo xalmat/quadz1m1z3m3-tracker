@@ -28,6 +28,12 @@ function extend(obj, src) {
 var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
 var effectiveVersion = "";
 var gameNames = [];
+var altGames = {
+	zelda3: "metroid3",
+	zelda1: "metroid1",
+	metroid3: "zelda3",
+	metroid1: "zelda1"
+};
 
 if(selectedGame == "zelda3" || selectedGame == "metroid3") {
 	gameNames = ["zelda3","metroid3"];
