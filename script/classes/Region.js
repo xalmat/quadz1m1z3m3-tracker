@@ -12,7 +12,7 @@ class Region {
 		tourneyLogic: function() { return this.casualLogic(); }
 	};
     this.canComplete = {
-		glitchless: function() { return canEnter.glitchless(); },
+		glitchless: function() { return false; },
 		minorGlitches: function() { return this.glitchless(); },
 		owGlitches: function() { return this.minorGlitches(); },
 		majorGlitches: function() { return this.owGlitches(); },

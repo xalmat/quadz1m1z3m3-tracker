@@ -610,6 +610,17 @@ function heatProof() {	// Varia Suit
 	return has("varia");
 }
 
+// TLoZ Ability functions
+function canShootArrowsZ1() {
+	return canShootArrows() && (has("woods") || has("silvers"));
+}
+function canLightBushes() {
+	return has("candle");
+}
+function canSwimZ1() {
+	return has("raft");
+}
+
 // SM Bosses
 function canDefeatBotwoon() {
 	return has("ice") || canDashSM() || canAccessMaridiaPortal();

@@ -18,13 +18,20 @@ class BrinstarMain extends Brinstar {
 
   initCasual() {
 	this.locations["Varia Suit Room"].casualLogic = function() {
-		return canUseMorphBombs() && (has("ice") || canHiJump());
+		let ret = false;
+		if(canUseMorphBombs() && canHiJump()) {
+			ret = true;
+		}
+		if(canMorph() && has("wave") && canHiJump()) {
+			ret = true;
+		}
+		return ret;
 	}
 	this.locations["First room in Green Area"].casualLogic = function() {
-		return canUseMorphBombs();
+		return canMorph() && (canUseMorphBombs() || has("wave"));
 	}
 	this.locations["Second room in Green Area"].casualLogic = function() {
-		return canUseMorphBombs() || has("ice");
+		return canUseMorphBombs();
 	}
 	this.locations["Ice Beam Room - Brinstar"].casualLogic = function() {
 		return canUseMorphBombs();

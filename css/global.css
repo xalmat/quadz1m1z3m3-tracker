@@ -271,6 +271,13 @@ input {
     background-color: rgb(255,160,0);
 }
 
+.smalttpr .lozmx-option {
+    display: none;
+}
+.lozmx .smalttpr-option {
+    display: none;
+}
+
 #credits {
     text-align: center;
     color:grey;

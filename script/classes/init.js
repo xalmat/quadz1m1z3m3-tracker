@@ -169,7 +169,8 @@ function initClasses(useGame) {
 							var chest = {
 								isImportant: false,
 								isOpened: false,
-								isPortal: false
+								isPortal: false,
+								isVanilla: true
 							};
 
 							if(location.type == "Portal") {						// Portal
@@ -208,6 +209,7 @@ function initClasses(useGame) {
 								};
 							} else {											// Chest
 								chest.isSpicy = location.spicy;
+								chest.isVanilla = location.vanilla;
 								chest.isAvailable = function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3" || selectedGame == "zelda1") {

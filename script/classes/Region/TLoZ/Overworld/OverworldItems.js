@@ -3,12 +3,12 @@ class OverworldItems extends Overworld {
 	super(name,subname);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([
-		new Location("","At Bracelet Armos",	1248/Z1FACTOR,	416/Z1FACTOR,regionName),
-		new Location("","Off the East Shore",	4032/Z1FACTOR,  960/Z1FACTOR,regionName)
+		new Location("","At Bracelet Armos",	1248/Z1FACTOR,	416/Z1FACTOR,regionName),	// 0x24
+		new Location("","Off the East Shore",	4032/Z1FACTOR,  960/Z1FACTOR,regionName,{equipment:"%%ladder%%"})	// 0x5F
 	],this);
   }
 
-  initNoMajorGlitches() {
+  initMinorGlitches() {
 	  this.locations["Off the East Shore"].glitchless = function() {
 		  let ret = has("ladder");
 

@@ -61,6 +61,10 @@
 	                <input type='radio' name='maporientation' id="mOrien2" value='Verical' onclick="setMapOrientation(true)"><label for="mOrien2">Vertical</label>
 	            </div>
 	            <div class="metroid-option" style="clear:right;"></div>
+	            <fieldset class="lozmx-option">
+	            	<legend>LoZMx Options</legend>
+	            	<input type="checkbox" name="nonvanilla" id="nonvanilla" onchange="showNonVanilla(this)"><label for="nonvanilla">Non-Vanilla slots?</label>
+	            </fieldset>
                 <fieldset class="zelda3-option">
 	                <legend>Position</legend>
 	                <input type='radio' name='mapposition' id="mPos1" value='Above' onclick="setOrder(0)"><label for="mPos1">Above</label>

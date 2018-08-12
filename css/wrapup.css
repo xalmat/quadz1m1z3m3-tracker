@@ -1,0 +1,15 @@
+.hidden,
+.chest.hidden,
+.chest.hidden.available,
+.chest.hidden.glitchavailable,
+.chest.hidden.unavailable,
+.chest.hidden.possible,
+.chest.hidden.glitchpossible,
+.chest.hidden.viewable,
+.chest.hidden.glitchviewable {
+  background-image: url() !important;
+  background-color: #000132;
+}
+.hidden * {
+  display: none;
+}

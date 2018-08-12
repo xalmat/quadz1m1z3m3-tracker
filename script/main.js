@@ -160,6 +160,7 @@ var cookiekeys = [
 	'mapLogic',
 	'mPos',
 	'mZoom',
+	"nonVanilla",
 	'showLabels',
 	'mapOHKO',	// zelda3-only
 	'mapState',
@@ -183,7 +184,7 @@ let defaultOptions = {
   		showMedals: true,
 	},
 	zelda1: {
-		mapLogic: "glitchless",
+		mapLogic: "minorGlitches",
 		mPos: "Above"
 	},
 	metroid3: {
@@ -252,6 +253,10 @@ function setConfigObject(configobj) {
     var maplogics = ["glitchless","minorGlitches","owGlitches","majorGlitches","casualLogic","tourneyLogic"];
     document.getElementsByName('maplogic')[maplogics.indexOf(configobj[selectedGame].mapLogic)].click();		// Map Logic
 
+	if(roomid == "lozmx") {
+		document.getElementsByName('nonvanilla')[0].checked = !!configobj[selectedGame].nonVanilla;				// Non-Vanilla slots? (LoZMx only)
+		document.getElementsByName('nonvanilla')[0].onchange();
+	}
 	if(selectedGame == "metroid3") {
 	    var chestskins = ["lights","nolights","nothing"];
 	    document.getElementsByName('chestskin')[chestskins.indexOf(configobj[selectedGame].chestSkin)].click();	// Chest Skin (Lights, No Lights, Nothing) (M3 only)
@@ -329,6 +334,9 @@ function getConfigObject() {
     configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value;			// Map Position (Above, Below, Side) (Z3 only)
     configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value;			// Map Logic
     configobj[selectedGame].mapOHKO = document.getElementsByName('ohko')[0].checked;							// OHKO? (Z3 only)
+    if(roomid == "lozmx") {
+		configobj[selectedGame].nonVanilla = !document.getElementsByName('nonvanilla')[0].checked;				// Non-vanilla slots? (LoZMx only)
+	}
     if(selectedGame == "zelda3") {
 	    configobj[selectedGame].mapSwords = !document.getElementsByName('swordless')[0].checked;				// Swords? (Z3 only)
 	} else if(selectedGame == "metroid3") {
@@ -880,6 +888,13 @@ function setSMChestSkin(skin) {
     saveCookie();
 }
 
+function showNonVanilla(sender) {
+	trackerData[selectedGame].nonVanilla = sender.checked;
+
+	refreshMap();
+	saveCookie();
+}
+
 function showSettings(sender) {
     if (trackerData[selectedGame].editMode) {
         trackerData[selectedGame].showChests = document.getElementsByName('showchest')[0].checked;
@@ -961,6 +976,19 @@ function refreshMapMedallion(d) {
 
 function refreshChests() {
     for(k=0; k<chests[selectedGame].length; k++){
+		if(roomid == "lozmx") {
+			let showAll = trackerData[selectedGame].nonVanilla;
+			let thisV = chests[selectedGame][k].isVanilla;
+			if(!thisV) {
+				if(!showAll) {
+					document.getElementById(k).classList.add("hidden");
+					continue;
+				} else {
+					document.getElementById(k).classList.remove("hidden");
+				}
+			}
+		}
+
 		document.getElementById(k).className = "mapspan chest";
         if(trackerData[selectedGame].chestsopened[k]){
 			document.getElementById(k).classList.add("opened");
@@ -1165,6 +1193,7 @@ function useTourneyConfig() {
 
 function initTracker() {
 	var useGame = arguments[0];
+	document.body.classList.add(roomid);
     document.body.classList.add(selectedGame);
     populateMapdiv(useGame);
     populateItemconfig();

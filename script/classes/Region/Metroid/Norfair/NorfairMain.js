@@ -34,7 +34,7 @@ class NorfairMain extends Norfair {
 		  return has("ice") || canHiJump();
 	  }
 	  this.locations["Ice Beam Room - Norfair"].casualLogic = function() {
-		  return (has("ice") || canHiJump()) || canUseMorphBombs();
+		  return (has("ice") || canHiJump()) && canUseMorphBombs();
 	  }
 	  this.locations["Left from Lobby, then Down, then Right"].casualLogic = function() {
 		  return canUseMorphBombs();

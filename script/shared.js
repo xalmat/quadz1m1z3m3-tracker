@@ -142,6 +142,7 @@ function build_img_url(item) {
     var zelda1items = gameItems.zelda1;
     var metroid3items = gameItems.metroid3;
     var metroid1items = gameItems.metroid1;
+    let filext = "png";
 
     if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
         if(item == "bomb") {
@@ -158,6 +159,9 @@ function build_img_url(item) {
             useGame = "zelda3";
         }
     }
+    if(selectedGame == "zelda1" && item == "boss52") {
+		filext = "gif";
+	}
 
     var globalReplaceItem = {
 		agahnim:	"agahnim1",
@@ -165,6 +169,7 @@ function build_img_url(item) {
 		bomb0:		"bomb1",
 		boomerang0:	"boomerang1",
 		bottle:		"bottle0",
+		candle:		"candle1",
 		candle0:	"candle1",
 		crystal5:	"dungeon" + OJCRYSTAL,
 		crystal6:	"dungeon" + OJCRYSTAL,
@@ -202,7 +207,7 @@ function build_img_url(item) {
 	if(category != "misc") {
 		url += useGame + '/';
 	}
-	url += category + '/' + item + ".png";
+	url += category + '/' + item + '.' + filext;
     return url;
 }
 

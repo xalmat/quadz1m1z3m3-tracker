@@ -5,6 +5,17 @@
     background-size: calc(4096px / 4) calc(1408px / 4);
     image-rendering: pixelated;
 }
+.zelda1 .boss, .zelda1 .boss {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.zelda1 .dungeon, .zelda1 .dungeon {
+    width: 33px;
+    height: 33px;
+
+    margin-left: 0;
+    margin-top: 0;
+}
 .zelda1 .chest, .zelda1 .chest {
     background-size: 16px 16px;
     width: 16px;

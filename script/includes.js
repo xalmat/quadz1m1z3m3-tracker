@@ -19,6 +19,7 @@ function fix_region(str) {
 					"norfair",
 					"ship",
 					"portals",
+					"caves",
 	];
 	for(var check in replace) {
 		check = replace[check];
@@ -57,6 +58,14 @@ var bosses = {
 		"Kholdstare",
 		"Vitreous",
 		"Trinexx"
+	],
+	zelda1: [
+		"Aquamentus",
+		"Digdogger",
+		"Dodongo",
+		"Gleeok",
+		"Gohma",
+		"Manhandla"
 	],
 };
 
@@ -109,11 +118,13 @@ if(universe == "metroid") {
 	sheets.push("css/metroid/notmetroid.css");
 }
 
+sheets.push("css/wrapup.css");
 scripts.push("script/classes/init.js");
 
 var regionNames = {
 	zelda1: {
-		overworld:		["caves","items","shops"],
+		overworld:		["caves","secretcaves","items","shops"],
+		dungeons:		["level1","level2","level3","level4","level5","level6","level7","level8","level9"],
 	},
 	zelda3: {
 		dungeons:		["main"],
