@@ -118,9 +118,14 @@ function has(item, amount = -1) {
 		}
 	}
 
-	if(item.indexOf("state") > -1) {
-		if(item.indexOf("open") > -1 && trackerData.zelda3.mapState == "open") {
-			return true;
+	if((selectedGame == "zelda3" || selectedGame == "metroid3") && item.indexOf("state") > -1) {
+		let open = trackerData.zelda3.mapState == "open";
+		let inverted = trackerData.zelda3.mapState == "inverted";
+		if(item.indexOf("open") > -1) {
+			return open;
+		}
+		if(item.indexOf("inverted") > -1) {
+			return inverted;
 		}
 	}
 	if(item.indexOf("swords") > -1) {
@@ -317,6 +322,49 @@ function canBeatAga1(logic) {
 		}
 	} else {
 		return false;
+	}
+}
+
+function isBunny(regionName = "",regionSubname = "") {
+    let darkRegions = [
+    	"PalaceOfDarkness",
+    	"SwampPalace",
+    	"ThievesTown",
+    	"SkullWoods",
+    	"IcePalace",
+    	"MiseryMire",
+    	"TurtleRock"
+    ];
+
+    let notBunny = "light";
+    let bunny = "dark";
+
+    if(has("state.inverted")) {
+		notBunny = "dark";
+		bunny = "light";
+	} else {
+		darkRegions.push("GanonsTower");
+	}
+
+	let world = "light";
+	if(((regionName.toLowerCase().indexOf("dark")) > -1) || (darkRegions.indexOf(regionName) > -1)) {
+		world = "dark";
+	}
+
+	return (world == bunny) && !has("moonpearl");
+}
+
+function canAccessLightWorld() {
+	if(!has("state.inverted")) {
+		return true;
+	} else if(has("state.inverted")) {
+		let warps = new HyruleWarpsMain();
+		warps.initNoMajorGlitches();
+		let south = warps.locations["South Hyrule Teleporter (Dark)"].glitchless();
+		let east = warps.locations["East Hyrule Teleporter (Dark)"].glitchless();
+		let west = warps.locations["Kakariko Teleporter (Dark)"].glitchless();
+
+		return south || east || west;
 	}
 }
 

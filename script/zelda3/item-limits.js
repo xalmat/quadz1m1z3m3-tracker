@@ -24,7 +24,9 @@ var iMin = {
 	boss7: 1,
 	boss8: 1,
 	boss9: 1,
-    boss10: 1
+    boss10: 1,
+    boss11: 1,
+    boss12: 1
 };
 itemsMin = extend(itemsMin,iMin);
 
@@ -45,7 +47,7 @@ var iMax = {
 	boss1: 2,
 	boss2: 2,
 
-    agahnim: 1,
+    agahnim: 2,
 
 	boss3: 2,
 	boss4: 2,
@@ -55,6 +57,8 @@ var iMax = {
 	boss8: 2,
 	boss9: 2,
     boss10: 2,
+    boss11: 2,
+    boss12: 2,
 
 	chest0: 3,
     chest1: 2,
@@ -66,6 +70,8 @@ var iMax = {
     chest7: 3,
     chest8: 2,
     chest9: 5,
-    chest10: 20
+    chest10: 20,
+    chest11: 0,
+    chest12: 0
 };
 itemsMax = extend(itemsMax,iMax);

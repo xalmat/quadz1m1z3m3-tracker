@@ -7,6 +7,7 @@ function fix_region(str) {
 					"mountain",
 					"palace",
 					"tower",
+					"power",
 					"castle",
 					"escape",
 					"mire",
@@ -19,6 +20,7 @@ function fix_region(str) {
 					"norfair",
 					"ship",
 					"portals",
+					"warps",
 					"caves",
 	];
 	for(var check in replace) {
@@ -57,7 +59,8 @@ var bosses = {
 		"Blind",
 		"Kholdstare",
 		"Vitreous",
-		"Trinexx"
+		"Trinexx",
+		"Ganon"
 	],
 	zelda1: [
 		"Aquamentus",
@@ -118,6 +121,7 @@ if(universe == "metroid") {
 	sheets.push("css/metroid/notmetroid.css");
 }
 
+sheets.push("css/portals.css");
 sheets.push("css/wrapup.css");
 scripts.push("script/classes/init.js");
 
@@ -153,6 +157,7 @@ var regionNames = {
 
 if(zeldaMode == "regions") {
 	regionNames.zelda3 = {
+		hyrulewarps:			["main"],
 		dungeons: [
 								"easternpalace",
 								"desertpalace",
@@ -167,6 +172,7 @@ if(zeldaMode == "regions") {
 								"ganonstower",
 								"hyrulecastleescape",
 								"hyrulecastletower",
+								"pyramidofpower"
 		],
 		darkworld:				["mire","northeast","northwest","south"],
 		darkworlddeathmountain:	["east","west"],

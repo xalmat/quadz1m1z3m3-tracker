@@ -6,7 +6,7 @@ class DungeonsHyruleCastleTower extends Dungeons {
 		this.locations = new LocationCollection([
 			new Location("Chest","Castle Tower - Room 03","","",regionName),
 			new Location("Chest","Castle Tower - Dark Maze","","",regionName),
-			new Location("Boss","Castle Tower - Agahnim","","",regionName)
+			new Location("Event","Castle Tower - Agahnim","23%","36%",regionName)
 		],this);
 	}
 

@@ -1,3 +1,35 @@
+.mapdiv .lonkshoose {
+
+}
+.mapdiv .bombshop {
+
+}
+.mapdiv .gt {
+  left: 77% !important;
+  top: 5.5% !important;
+}
+.mapdiv .at {
+  left: 23% !important;
+  top: 36% !important;
+}
+
+.mapvdiv .lonkshoose {
+  left: 54.8% !important;
+  top: 33.95% !important;
+}
+.mapvdiv .bombshop {
+  left: 55% !important;
+  top: 84.3% !important;
+}
+.mapvdiv .gt {
+  left: 54% !important;
+  top: 52.75% !important;
+}
+.mapvdiv .at {
+  left: 45.5% !important;
+  top: 18% !important;
+}
+
 .hidden,
 .chest.hidden,
 .chest.hidden.available,

@@ -451,9 +451,18 @@ function chestClass(x) {
 	if(chest.isOpened) {
 		className += "opened ";
 	}
-	if(chest.isPortal) {
+	if(chest.isWarp) {
+		className += "portal ";
+		className += "portal-" + selectedGame + " ";
+		if(!document.getElementById("mapWarps").checked) {
+			className += "hidden ";
+		}
+	} else if(chest.isPortal) {
 		className += "portal ";
 		className += "portal-" + altGames[selectedGame] + " ";
+		if(!document.getElementById("mapPortals").checked) {
+			className += "hidden ";
+		}
 	}
 
 	className += availability;
@@ -739,6 +748,48 @@ function showRegions(sender) {
 	saveCookie();
 }
 
+function showWarps(sender) {
+	if(selectedGame != "zelda3") { return; }
+
+	trackerData[selectedGame].showWarps = sender.checked;
+	let eles = document.querySelectorAll(".portal-" + selectedGame);
+	if(sender.checked) {
+		eles.forEach(function(userItem) {
+			userItem.classList.remove("hidden");
+		});
+	} else {
+		eles.forEach(function(userItem) {
+			userItem.classList.add("hidden");
+		});
+	}
+	saveCookie();
+}
+
+function showPortals(sender) {
+	trackerData[selectedGame].showPortals = sender.checked;
+	let portals = document.querySelectorAll(".portal-" + altGames[selectedGame]);
+	if(sender.checked) {
+		portals.forEach(function(userItem) {
+			userItem.classList.remove("hidden");
+		});
+	} else {
+		portals.forEach(function(userItem) {
+			userItem.classList.add("hidden");
+		});
+	}
+	let items = document.querySelectorAll(".item-" + altGames[selectedGame]);
+	if(sender.checked) {
+		items.forEach(function(userItem) {
+			userItem.classList.remove("hidden");
+		});
+	} else {
+		items.forEach(function(userItem) {
+			userItem.classList.add("hidden");
+		});
+	}
+	saveCookie();
+}
+
 function setOrder(mode) {
     if (mode == 1) { // Below
         document.getElementById('layoutdiv').classList.remove('flexcontainer');
@@ -824,17 +875,16 @@ function setOHKO(sender) {
 
 	trackerData[selectedGame].mapOHKO = sender.checked;
 
-	let eles = document.getElementsByClassName("tunic");
-	for (let ele in eles) {
-		ele = eles[ele];
-		if(typeof ele == "object") {
-			if(ele.classList) {
-				if(trackerData[selectedGame].mapOHKO) {
-					ele.classList.add("ohko");
-				} else {
-					ele.classList.remove("ohko");
-				}
-			}
+	let ele = document.querySelector(".tunic");
+	if(ele) {
+		if(trackerData[selectedGame].mapOHKO) {
+			ele.classList.add("ohko");
+		} else {
+			ele.classList.remove("ohko");
+		}
+		if(trackerData[selectedGame].mapState == "inverted") {
+			ele.classList.remove("okho");
+			ele.classList.add("inverted");
 		}
 	}
 
@@ -870,7 +920,21 @@ function setSwords(sender) {
 function setState(state) {
 	if(selectedGame != "zelda3") { return; }
 
-    trackerData[selectedGame].mapState = state;
+	if(state == "inverted") {
+		document.body.classList.add("inverted");
+		let ele = document.querySelector(".tunic");
+		if(ele) {
+			ele.classList.add("inverted");
+		}
+	} else {
+		document.body.classList.remove("inverted");
+		let ele = document.querySelector(".tunic");
+		if(ele) {
+			ele.classList.remove("inverted");
+		}
+	}
+
+	trackerData[selectedGame].mapState = state;
     refreshMap();
     saveCookie();
 }
@@ -961,11 +1025,11 @@ function refreshMapMedallion(d) {
 	    if(trackerData[selectedGame].dungeonchests[d] > 0)
 	        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[selectedGame][d].canGetChest().getClassName();
 	    // TRock medallion affects Mimic Cave
-	    if(d === 9){
+	    if(d === 9 && !has("state.inverted")){
 	        refreshChests();
 	    }
 	    // Change the mouseover text on the map
-		    var dungeonName;
+		var dungeonName;
 	    if(d === 8)
 	        dungeonName = "Misery Mire";
 	    else
@@ -976,9 +1040,10 @@ function refreshMapMedallion(d) {
 
 function refreshChests() {
     for(k=0; k<chests[selectedGame].length; k++){
+		let chest = chests[selectedGame][k];
 		if(roomid == "lozmx") {
 			let showAll = trackerData[selectedGame].nonVanilla;
-			let thisV = chests[selectedGame][k].isVanilla;
+			let thisV = chest.isVanilla;
 			if(!thisV) {
 				if(!showAll) {
 					document.getElementById(k).classList.add("hidden");
@@ -987,19 +1052,32 @@ function refreshChests() {
 					document.getElementById(k).classList.remove("hidden");
 				}
 			}
-		}
+		} else {
+			document.getElementById(k).className = chestClass(k);
 
-		document.getElementById(k).className = "mapspan chest";
-        if(trackerData[selectedGame].chestsopened[k]){
-			document.getElementById(k).classList.add("opened");
-        } else {
-			document.getElementById(k).className += " " + chests[selectedGame][k].isAvailable().getClassName();
-		}
-		if(chests[selectedGame][k].isImportant) {
-			document.getElementById(k).classList.add("important");
-		}
-		if(chests[selectedGame][k].isSpicy) {
-			document.getElementById(k).classList.add("spicy");
+			// Determine Lonk's Hoose
+			if(chest.name == "Link's House") {
+				if(has("state.inverted")) {			// Inverted, move to Dark World
+					document.getElementById(k).classList.add("bombshop");
+					document.getElementById(k).classList.remove("lonkshoose");
+				} else if(!has("state.inverted")) {	// Not Inverted, move to Light World
+					document.getElementById(k).classList.remove("bombshop");
+					document.getElementById(k).classList.add("lonkshoose");
+				}
+				if(!chest.opened) {
+					document.getElementById(k).classList.remove("unavailable");
+					document.getElementById(k).classList.add("available");
+				}
+			// Determine Bomb Shop
+			} else if(chest.name == "Bomb Shop") {
+				if(has("state.inverted")) {			// Inverted, move to Light World
+					document.getElementById(k).classList.remove("bombshop");
+					document.getElementById(k).classList.add("lonkshoose");
+				} else if(!has("state.inverted")) {	// Not Inverted, move to Dark World
+					document.getElementById(k).classList.add("bombshop");
+					document.getElementById(k).classList.remove("lonkshoose");
+				}
+			}
 		}
     }
 }
@@ -1009,14 +1087,51 @@ function refreshMap() {
   refreshChests();
 
   for(k=0; k<dungeons[selectedGame].length; k++){
-      if(trackerData[selectedGame].dungeonbeaten[k])
+      if(trackerData[selectedGame].dungeonbeaten[k]) {
           document.getElementById("bossMap"+k).className = "mapspan boss opened";
-      else
+      } else {
           document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[selectedGame][k].isBeatable().getClassName();
-      if(trackerData[selectedGame].dungeonchests[k])
+	  }
+
+      if(trackerData[selectedGame].dungeonchests[k]) {
           document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[selectedGame][k].canGetChest().getClassName();
-      else
+	  } else {
           document.getElementById("dungeon"+k).className = "mapspan dungeon opened";
+	  }
+
+	  // Determine Ganon's Tower
+	  if(dungeons[selectedGame][k].name.indexOf("Ganon's Tower") > -1) {
+		  if(has("state.inverted")) {			// Inverted, move to Light World
+			  document.getElementById("bossMap"+k).classList.remove("gt");
+			  document.getElementById("bossMap"+k).classList.add("at");
+
+			  document.getElementById("dungeon"+k).classList.remove("gt");
+			  document.getElementById("dungeon"+k).classList.add("at");
+
+		  } else if(!has("state.inverted")) {	// Not Inverted, move to Dark World
+			  document.getElementById("bossMap"+k).classList.add("gt");
+			  document.getElementById("bossMap"+k).classList.remove("at");
+
+			  document.getElementById("dungeon"+k).classList.add("gt");
+			  document.getElementById("dungeon"+k).classList.remove("at");
+		  }
+	  // Determine Hyrule Castle Tower
+	  } else if(dungeons[selectedGame][k].name.indexOf("Castle Tower") > -1) {
+		  if(has("state.inverted")) {			// Inverted, move to Light World
+			  document.getElementById("bossMap"+k).classList.remove("at");
+			  document.getElementById("bossMap"+k).classList.add("gt");
+
+			  document.getElementById("dungeon"+k).classList.remove("at");
+			  document.getElementById("dungeon"+k).classList.add("gt");
+
+		  } else if(!has("state.inverted")) {	// Not Inverted, move to Dark World
+			  document.getElementById("bossMap"+k).classList.add("at");
+			  document.getElementById("bossMap"+k).classList.remove("gt");
+
+			  document.getElementById("dungeon"+k).classList.add("at");
+			  document.getElementById("dungeon"+k).classList.remove("gt");
+		  }
+	  }
   }
 }
 
@@ -1386,7 +1501,17 @@ Vue.component('tracker-cell', {
       }
       return null;
     },
-    ohkoClass: function() {
+    itemClass: function() {
+	  let universe = selectedGame.substr(0,selectedGame.length - 1);
+	  let itemGame = selectedGame;
+
+	  if((gameItems[universe + "1"].indexOf(this.itemName) == -1) && (gameItems[universe + "3"].indexOf(this.itemName) == -1)) {
+		itemGame = altGames[selectedGame];
+	  }
+
+	  return "item-" + itemGame;
+	},
+	ohkoClass: function() {
 	  if(selectedGame != "zelda3") { return null; }
 	  if(this.itemLabel.toLowerCase() == "tunic" && this.trackerData[selectedGame].mapOHKO) {
 		  return "ohko";

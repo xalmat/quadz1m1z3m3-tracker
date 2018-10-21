@@ -26,6 +26,10 @@ a {
     overflow-y: auto;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 #settingsbutton{
     position: absolute;
     right:0;
@@ -142,6 +146,10 @@ input {
     background-image: url(../images/misc/swordless.png) !important;
 }
 
+.tunic.inverted .inverted {
+    background-image: url(../images/misc/ohko.png) !important;
+    filter: invert(100%) !important;
+}
 .tunic.ohko .ohko {
     background-image: url(../images/misc/ohko.png) !important;
 }

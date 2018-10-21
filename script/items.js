@@ -65,8 +65,11 @@ gameItems.zelda3 = [
     "dungeon3"
 ];
 gameItems.zelda1 = [
+	"food",
+	"recorder",
 	"ring",
 	"magicrod",
+	"magicalrod",
 	"candle",
 	"bracelet",
 	"ladder",

@@ -10,6 +10,8 @@ class LightWorld extends ALttP {
 }
 class DarkWorldDeathMountain extends DarkWorld {
 }
+class HyruleWarps extends ALttP {
+}
 class ZebesPortals extends ALttP {
 }
 class Dungeons extends ALttP {
