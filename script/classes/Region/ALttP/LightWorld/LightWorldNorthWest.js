@@ -69,7 +69,7 @@ class LightWorldNorthWest extends LightWorld {
 	}
 
 	this.canEnter.glitchless = function() {
-		return true;
+		return canAccessLightWorld();
 	}
   }
 
