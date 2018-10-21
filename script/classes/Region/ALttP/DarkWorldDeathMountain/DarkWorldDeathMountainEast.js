@@ -18,35 +18,74 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
 //		this.locations["Superbunny Cave - Top"].glitchless =
 //		this.locations["Superbunny Cave - Bottom"].glitchless = function() {
 		this.locations["Superbunny Cave"].glitchless = function() {
-			return has("moonpearl");
+			// Bunny can't move blocks
+			return !isBunny(region.name,region.subname);
 		}
 //		this.locations["Hookshot Cave - Top Right"].glitchless =
 //		this.locations["Hookshot Cave - Top Left"].glitchless =
 //		this.locations["Hookshot Cave - Bottom Left"].glitchless = function() {
 		this.locations["Hookshot Cave"].glitchless = function() {
-			return has("moonpearl") && canGrapple();
+			// Bunny can't use Hookshot
+			return (! isBunny(region.name,region.subname)) && canGrapple();
 		}
 //		this.locations["Hookshot Cave - Bottom Right"].glitchless = function() {
 		this.locations["Hookshot Cave - Bonk Chest"].glitchless = function() {
-			return has("moonpearl") && (canGrapple() || canDash());
+			// Bunny can't use Hookshot or dash
+			return (! isBunny(region.name,region.subname)) && (canGrapple() || canDash());
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		let edm = new DeathMountainEast("","",false);
-		edm.initNoMajorGlitches();
+		if(has("state.inverted")) {
+			let wdwdm = new DarkWorldDeathMountainWest("","",false);
+			wdwdm.initNoMajorGlitches();
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
 
-		return canLiftDarkRocks()
-			&& edm.canEnter.glitchless();
+			return wdwdm.canEnter.glitchless() || warps.locations["East Death Mountain Teleporter (Dark)"].glitchless();
+		} else {
+			let edm = new DeathMountainEast("","",false);
+			edm.initNoMajorGlitches();
+
+			return canLiftDarkRocks()
+				&& edm.canEnter.glitchless();
+		}
+	}
+  }
+
+  initMinorGlitches() {
+	this.initNoMajorGlitches();
+
+	this.canEnter.minorGlitches = function() {
+		if(has("state.inverted")) {
+			let wdwdm = new DarkWorldDeathMountainWest("","",false);
+			wdwdm.initMinorGlitches();
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+
+			if(wdwdm.canEnter.minorGlitches()) {
+				return wdwdm.canEnter.minorGlitches();
+			}
+			return warps.locations["East Death Mountain Teleporter (Dark)"].glitchless();
+		} else {
+			let edm = new DeathMountainEast("","",false);
+			edm.initMinorGlitches();
+
+			if(edm.canEnter.minorGlitches()) {
+				return edm.canEnter.minorGlitches();
+			}
+		}
 	}
   }
 
   initOverworldGlitches() {
-	this.initNoMajorGlitches();
+	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 //		this.locations["Hookshot Cave - Top Right"].owGlitches =

@@ -15,10 +15,19 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			let wdm = new DeathMountainWest("","",false);
 			wdm.initNoMajorGlitches();
 
-			return has("moonpearl") && has("hammer") && canLiftRocks()
+			return (! isBunny(region.name,region.subname)) && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.glitchless();
+		  }
+	  }
+
+	  this.canEnter.glitchless = function() {
+		  if(has("state.inverted")) {
+			  return canFly()							// Flute to DW 1
+			  	|| (canLiftRocks() && has("lantern"));	// Death Mountain Cave (Bumper Cave in non-inverted)
+		  } else {
+			  return true;
 		  }
 	  }
   }
@@ -37,7 +46,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			let wdm = new DeathMountainWest("","",false);
 			wdm.initMinorGlitches();
 
-			if(has("moonpearl") && has("hammer") && canLiftRocks()
+			if((!isBunny(region.name,region.subname)) && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.minorGlitches()) {
