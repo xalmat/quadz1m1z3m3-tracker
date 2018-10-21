@@ -16,12 +16,20 @@ class DarkWorldMire extends DarkWorld {
 //		this.locations["Mire Shed - Left"].glitchless =
 //		this.locations["Mire Shed - Right"].glitchless = function() {
 		this.locations["Mire Shed"].glitchless = function() {
-			return has("moonpearl");
+			// Bunny can't push blocks
+			return (! isBunny(region.name,region.subname));
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		return ((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal());
+		if(has("state.inverted")) {
+			// Mirror in from LW Desert
+			return canAccessLightWorld() && has("mirror");
+		} else {
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+			return warps.locations["Dark Desert Teleporter (Dark)"].glitchless() || canAccessMiseryMirePortal();
+		}
 	}
   }
 
