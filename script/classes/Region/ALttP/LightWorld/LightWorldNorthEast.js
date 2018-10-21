@@ -20,23 +20,28 @@ class LightWorldNorthEast extends LightWorld {
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Sahasrahla"].glitchless = function() {
 			return has("pendantgreen");
 		}
 		this.locations["King Zora"].glitchless = function() {
-			return canLiftRocks() || canSwim();
+			// Bunny can't swim
+			return (canLiftRocks() || canSwim()) && !isBunny(region.name);
 		}
 		this.locations["Potion Shop"].glitchless = function() {
 			return has("mushroom");
 		}
 		this.locations["Zora Ledge"].glitchless = function() {
-			return canSwim();
+			// Bunny can't swim
+			return canSwim() && !isBunny(region.name);
 		}
 //		this.locations["Waterfall Fairy - Left"].glitchless =
 //		this.locations["Waterfall Fairy - Right"].glitchless =
 		this.locations["Waterfall Fairy"].glitchless = function() {
-			return canSwim();
+			// Bunny can't swim
+			return canSwim() && !isBunny(region.name);
 		}
 	}
 

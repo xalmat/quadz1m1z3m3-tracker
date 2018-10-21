@@ -29,28 +29,56 @@ class LightWorldSouth extends LightWorld {
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
+		// Bunny can't push blocks
+		// Bunny can't use bombs
+		this.locations["Floodgate Chest"].glitchless =
+		this.locations["Aginah's Cave"].glitchless = function() {
+			return !isBunny(region.name);
+		}
 		this.locations["Hobo"].glitchless = function() {
-			return canSwim();
+			// Bunny can't swim
+			return !isBunny(region.name) && canSwim();
 		}
 		this.locations["Bombos Tablet"].glitchless = function() {
 			let sdw = new DarkWorldSouth("","",false);
 			sdw.initNoMajorGlitches();
 
+			// Bunny can't activate tablets
+			let mirror = has("mirror") || (has("state.inverted") && !isBunny(region.name));
+
 			return canActivateTablets()
-				&& has("mirror") && sdw.canEnter.glitchless();
+				&& mirror && sdw.canEnter.glitchless();
 		}
 		this.locations["Cave 45"].glitchless = function() {
-			let sdw = new DarkWorldSouth("","",false);
-			sdw.initNoMajorGlitches();
+			if(has("state.inverted")) {
+				return true;
+			} else {
+				let sdw = new DarkWorldSouth("","",false);
+				sdw.initNoMajorGlitches();
 
-			return has("mirror") && sdw.canEnter.glitchless();
+				return has("mirror") && sdw.canEnter.glitchless();
+			}
 		}
 		this.locations["Checkerboard Cave"].glitchless = function() {
-			return ((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal()) && has("mirror");
+			// Bunny can't push blocks
+			let mirror = has("mirror") || (has("state.inverted") && !isBunny(region.name));
+
+			return ((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal()) && mirror;
+		}
+		this.locations["Mini Moldorm Cave"].glitchless = function() {
+			// Bunny can't attack
+			return !isBunny(region.name);
 		}
 		this.locations["Library"].glitchless = function() {
-			return canDash();
+			// Bunny can't dash
+			return !isBunny(region.name) && canDash();
+		}
+		this.locations["Maze Race"].glitchless = function() {
+			// Bunny can't access race
+			return !isBunny(region.name);
 		}
 		this.locations["Desert Ledge"].glitchless = function() {
 			let dp = new DungeonsDesertPalace("","",false);
@@ -59,18 +87,28 @@ class LightWorldSouth extends LightWorld {
 			return dp.canEnter.glitchless();
 		}
 		this.locations["Lake Hylia Island"].glitchless = function() {
-			let sdw = new DarkWorldSouth("","",false);
-			sdw.initNoMajorGlitches();
+			if(has("state.inverted")) {
+				// Bunny can't swim
+				return !isBunny(region.name) && canSwim();
+			} else {
+				let sdw = new DarkWorldSouth("","",false);
+				sdw.initNoMajorGlitches();
 
-			let nedw = new DarkWorldNorthEast("","",false);
-			nedw.initNoMajorGlitches();
+				let nedw = new DarkWorldNorthEast("","",false);
+				nedw.initNoMajorGlitches();
 
-			return canSwim() && has("moonpearl") && has("mirror")
-				&& (sdw.canEnter.glitchless()
-					|| nedw.canEnter.glitchless());
+				return canSwim() && has("moonpearl") && has("mirror")
+					&& (sdw.canEnter.glitchless()
+						|| nedw.canEnter.glitchless());
+			}
+		}
+		this.locations["Sunken Treasure"].glitchless = function() {
+			// Bunny can't push blocks
+			return !isBunny(region.name);
 		}
 		this.locations["Flute Spot"].glitchless = function() {
-			return has("shovel");
+			// Bunny can't dig
+			return !isBunny(region.name) && has("shovel");
 		}
 	}
 
@@ -134,7 +172,8 @@ class LightWorldSouth extends LightWorld {
 				return sdw.canEnter.minorGlitches();
 			}
 		}
-		this.locations["Library"].minorGlitches = function() {
+		this.locations["Library"].minorGlitches =
+		this.locations["Maze Race"].minorGlitches = function() {
 			let ret = this.glitchless();
 			if(ret) {
 				return ret;

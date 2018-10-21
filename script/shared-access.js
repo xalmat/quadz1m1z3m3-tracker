@@ -363,8 +363,9 @@ function canAccessLightWorld() {
 		let south = warps.locations["South Hyrule Teleporter (Dark)"].glitchless();
 		let east = warps.locations["East Hyrule Teleporter (Dark)"].glitchless();
 		let west = warps.locations["Kakariko Teleporter (Dark)"].glitchless();
+		let gate = warps.locations["Castle Gate (Dark)"].glitchless();
 
-		return south || east || west;
+		return south || east || west || gate;
 	}
 }
 

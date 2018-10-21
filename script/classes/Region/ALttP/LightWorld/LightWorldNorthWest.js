@@ -33,6 +33,8 @@ class LightWorldNorthWest extends LightWorld {
   }
 
   initNoMajorGlitches() {
+    let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Master Sword Pedestal"].glitchless = function() {
 			return has("pendantred") && has("pendantblue") && has("pendantgreen");
@@ -41,30 +43,47 @@ class LightWorldNorthWest extends LightWorld {
 			let nwdw = new DarkWorldNorthWest("","",false);
 			nwdw.initNoMajorGlitches();
 
-			return canDash() && (canLiftDarkRocks()
+			// Bunny can't dash
+			return !isBunny(region.name) && canDash() && (canLiftDarkRocks()
 				|| (has("mirror") && has("moonpearl")
 					&& nwdw.canEnter.glitchless()));
 		}
 		this.locations["Pegasus Rocks"].glitchless = function() {
-			return canDash();
+			// Bunny can't dash
+			return !isBunny(region.name) && canDash();
 		}
 		this.locations["Magic Bat"].glitchless = function() {
+			// Bunny can't use powder
 			return has("powder")
 				&& (has("hammer")
-					|| (has("moonpearl") && has("mirror") && canLiftDarkRocks()));
+					|| (!isBunny(region.name) && has("mirror") && canLiftDarkRocks()));
 		}
 		this.locations["Sick Kid"].glitchless = function() {
 			return has("bottle");
 		}
+		this.locations["Lost Woods Hideout"].glitchless = function() {
+			// Bunny can't lift bushes
+			return !isBunny(region.name);
+		}
 		this.locations["Lumberjack Tree"].glitchless = function() {
-			return has("agahnim") && canDash();
+			// Bunny can't dash
+			return !isBunny(region.name) && has("agahnim") && canDash();
 		}
 		this.locations["Graveyard Ledge"].glitchless = function() {
-			let nwdw = new DarkWorldNorthWest("","",false);
-			nwdw.initNoMajorGlitches();
+			if(has("state.inverted")) {
+				// Bunny can't use bombs
+				return !isBunny(region.name);
+			} else {
+				let nwdw = new DarkWorldNorthWest("","",false);
+				nwdw.initNoMajorGlitches();
 
-			return has("mirror") && has("moonpearl")
-				&& nwdw.canEnter.glitchless();
+				return has("mirror") && !isBunny(region.name)
+					&& nwdw.canEnter.glitchless();
+			}
+		}
+		this.locations["Mushroom"].glitchless = function() {
+			// Bunny can't lift bushes
+			return !isBunny(region.name);
 		}
 	}
 
