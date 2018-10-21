@@ -16,9 +16,11 @@ class DarkWorldNorthEast extends DarkWorld {
   }
 
   initNoMajorGlitches() {
+    let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Catfish"].glitchless = function() {
-			return has("moonpearl") && canLiftRocks();
+			return !isBunny(region.name,region.subname) && canLiftRocks();
 		}
 //		this.locations["Pyramid Fairy - Left"].glitchless =
 //		this.locations["Pyramid Fairy - Right"].glitchless = function() {
@@ -34,10 +36,18 @@ class DarkWorldNorthEast extends DarkWorld {
 	}
 
 	this.canEnter.glitchless = function() {
-		return (has("agahnim")													// Castle Gate Warp
-			|| (has("hammer") && canLiftRocks() && has("moonpearl"))			// Swamp Warp
-			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
-			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl")));	// From Maridia, swim through lake
+		if(has("state.inverted")) {
+			return has("hammer")										// From Link's House
+				|| (canSwim() && (has("hammer") || canLiftRocks()));	// From Dark Sanctuary
+		} else {
+			let warps = new HyruleWarpsMain("","");
+			warps.initNoMajorGlitches();
+
+			return (warps.locations["Castle Gate (Dark)"].glitchless()										// Castle Gate Warp
+				|| (warps.locations["South Hyrule Teleporter (Dark)"].glitchless())							// Swamp Warp
+				|| (warps.locations["Kakariko Teleporter (Dark)"].glitchless() && canSwim())				// Kakariko Warp, swim across east river
+				|| (canAccessDarkWorldPortal() && canSwim() && (!isBunny(region.name,region.subname))));	// From Maridia, swim through lake
+		}
 	}
 
 	this.canComplete.glitchless = function() {

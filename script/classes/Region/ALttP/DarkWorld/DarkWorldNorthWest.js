@@ -30,14 +30,18 @@ class DarkWorldNorthWest extends DarkWorld {
 	}
 
 	this.canEnter.glitchless = function() {
-		let nedw = new DarkWorldNorthEast("","",false);
-		nedw.initNoMajorGlitches();
+		if(has("state.inverted")) {
+			return true;
+		} else {
+			let nedw = new DarkWorldNorthEast("","",false);
+			nedw.initNoMajorGlitches();
 
-		return has("moonpearl")
-			&& ((nedw.canEnter.glitchless()
-				&& (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
-				|| (has("hammer") && canLiftRocks())
-				|| canLiftDarkRocks());
+			return has("moonpearl")
+				&& ((nedw.canEnter.glitchless()
+					&& (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
+					|| (has("hammer") && canLiftRocks())
+					|| canLiftDarkRocks());
+		}
 	}
   }
 
@@ -52,7 +56,7 @@ class DarkWorldNorthWest extends DarkWorld {
 				return ret;
 			}
 
-			if(has("agahnim")) {
+			if(has("agahnim") || has("state.inverted")) {
 				return "viewable";
 			}
 		}

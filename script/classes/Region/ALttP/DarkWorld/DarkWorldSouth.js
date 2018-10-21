@@ -18,14 +18,18 @@ class DarkWorldSouth extends DarkWorld {
 
   initNoMajorGlitches() {
 	this.canEnter.glitchless = function() {
-		let dwne = new DarkWorldNorthEast("","",false);
-		dwne.initNoMajorGlitches();
+		if(has("state.inverted")) {
+			return true;
+		} else {
+			let dwne = new DarkWorldNorthEast("","",false);
+			dwne.initNoMajorGlitches();
 
-		return has("moonpearl")
-			&& ((dwne.canEnter.glitchless() && (has("hammer")
-				|| (canGrapple() && (canSwim() || canLiftRocks()))))
-				|| (has("hammer") && canLiftRocks())
-				|| canLiftDarkRocks());
+			return has("moonpearl")
+				&& ((dwne.canEnter.glitchless() && (has("hammer")
+					|| (canGrapple() && (canSwim() || canLiftRocks()))))
+					|| (has("hammer") && canLiftRocks())
+					|| canLiftDarkRocks());
+		}
 	}
   }
 
