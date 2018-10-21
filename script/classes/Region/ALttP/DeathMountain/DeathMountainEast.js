@@ -19,6 +19,8 @@ class DeathMountainEast extends DeathMountain {
   }
 
   initNoMajorGlitches() {
+    let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Mimic Cave"].glitchless = function() {
 			if(has("state.inverted")) {
@@ -34,7 +36,7 @@ class DeathMountainEast extends DeathMountain {
 		}
 		this.locations["Floating Island"].glitchless = function() {
 			if(has("state.inverted")) {
-				return true;
+				return !isBunny(region.name);
 			} else {
 				return has("mirror") && has("pearl")
 					&& canLiftDarkRocks();
@@ -60,6 +62,8 @@ class DeathMountainEast extends DeathMountain {
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -75,8 +79,6 @@ class DeathMountainEast extends DeathMountain {
 			if(ret) {
 				return ret;
 			}
-
-			return "glitchviewable";
 		}
 	}
 	this.canEnter.minorGlitches = function() {

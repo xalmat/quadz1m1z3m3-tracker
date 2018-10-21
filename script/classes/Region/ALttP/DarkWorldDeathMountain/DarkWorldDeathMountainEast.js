@@ -62,6 +62,18 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
   initMinorGlitches() {
 	this.initNoMajorGlitches();
 
+	if(this.buildLocations) {
+		this.locations["Superbunny Cave"].minorGlitches = function() {
+			let ret = this.glitchless();
+
+			if(ret) {
+				return ret;
+			}
+
+			return "glitchavailable";
+		}
+	}
+
 	this.canEnter.minorGlitches = function() {
 		if(has("state.inverted")) {
 			let wdwdm = new DarkWorldDeathMountainWest("","",false);

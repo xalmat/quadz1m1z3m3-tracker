@@ -55,6 +55,29 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			}
 		}
 	}
+
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+
+		if(has("state.inverted")) {
+			if(canFly()) {			// Flute to DW 1
+				return true;
+			}
+			if(canLiftRocks()) {	// Death Mountain Cave (Bumper Cave in non-inverted)
+				if(canDarkNav()) {
+					return "glitchavailable";
+				} else if(has("lantern")) {
+					return "available";
+				}
+			}
+		} else {
+			return true;
+		}
+	}
   }
 
   initMajorGlitches() {
