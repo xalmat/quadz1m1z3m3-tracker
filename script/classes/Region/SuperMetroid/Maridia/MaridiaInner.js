@@ -44,9 +44,7 @@ class MaridiaInner extends Maridia {
 	this.locations["Spring Ball"].casualLogic = function() {
 		return canUsePowerBombs() && (canGrappleSM() && (has("space") || canHiJump()));
 	}
-	this.locations["Missile (Draygon)"].casualLogic = function() {
-		return canDefeatBotwoon();
-	}
+	this.locations["Missile (Draygon)"].casualLogic =
 	this.locations["Energy Tank, Botwoon"].casualLogic = function() {
 		return canDefeatBotwoon();
 	}
@@ -85,7 +83,7 @@ class MaridiaInner extends Maridia {
 	}
 	this.locations["Plasma Beam"].tourneyLogic = function() {
 		return canDefeatDraygon()
-			&& ((has("charge") && hasEnergyReserves(3)) || has("screw") || has("plasma") || has("speed"))
+			&& ((has("charge") && hasEnergyReserves(3)) || has("screw") || has("plasma") || canDashSM())
 			&& (canHiJump() || canSpringBallJump() || canFlySM() || canDashSM());
 	}
 	this.locations["Missile (left Maridia sand pit room)"].tourneyLogic =

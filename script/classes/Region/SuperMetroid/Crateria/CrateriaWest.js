@@ -14,9 +14,7 @@ class CrateriaWest extends Crateria {
 	this.locations["Energy Tank, Gauntlet"].casualLogic = function() {
 		return canEnterAndLeaveGauntlet() && hasEnergyReserves(1);
 	}
-	this.locations["Missile (Crateria gauntlet right)"].casualLogic = function() {
-		return canEnterAndLeaveGauntlet() && canPassBombPassages() && hasEnergyReserves(2);
-	}
+	this.locations["Missile (Crateria gauntlet right)"].casualLogic =
 	this.locations["Missile (Crateria gauntlet left)"].casualLogic = function() {
 		return canEnterAndLeaveGauntlet() && canPassBombPassages() && hasEnergyReserves(2);
 	}
@@ -32,9 +30,7 @@ class CrateriaWest extends Crateria {
     this.locations["Energy Tank, Gauntlet"].tourneyLogic = function() {
 		return canEnterAndLeaveGauntlet();
 	}
-	this.locations["Missile (Crateria gauntlet right)"].tourneyLogic = function() {
-		return canEnterAndLeaveGauntlet() && canPassBombPassages();
-	}
+	this.locations["Missile (Crateria gauntlet right)"].tourneyLogic =
 	this.locations["Missile (Crateria gauntlet left)"].tourneyLogic = function () {
 		return canEnterAndLeaveGauntlet() && canPassBombPassages();
 	}

@@ -30,7 +30,7 @@ class BrinstarBlue extends Brinstar {
 		return canUsePowerBombs();
 	}
 	this.locations["Energy Tank, Brinstar Ceiling"].casualLogic = function() {
-		return canFlySM() || has("hijump") || canDashSM() || has("ice");
+		return canFlySM() || canHiJump() || canDashSM() || has("ice");
 	}
   }
 

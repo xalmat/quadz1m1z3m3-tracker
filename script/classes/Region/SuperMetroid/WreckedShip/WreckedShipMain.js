@@ -16,11 +16,6 @@ class WreckedShipMain extends WreckedShip {
   }
 
   initCasual() {
-	this.locations["Missile (Wrecked Ship top)"].casualLogic =
-	this.locations["Super Missile (Wrecked Ship left)"].casualLogic =
-	this.locations["Right Super, Wrecked Ship"].casualLogic = function() {
-		return has("phantoon");
-	}
 	this.locations["Reserve Tank, Wrecked Ship"].casualLogic = function() {
 		return has("phantoon") && (canDashSM()
 			&& canUsePowerBombs()
@@ -29,6 +24,11 @@ class WreckedShipMain extends WreckedShip {
 	this.locations["Missile (Gravity Suit)"].casualLogic =
 	this.locations["Gravity Suit"].casualLogic = function() {
 		return has("phantoon") && (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
+	}
+	this.locations["Missile (Wrecked Ship top)"].casualLogic =
+	this.locations["Super Missile (Wrecked Ship left)"].casualLogic =
+	this.locations["Right Super, Wrecked Ship"].casualLogic = function() {
+		return has("phantoon");
 	}
 	this.locations["Energy Tank (Wrecked Ship)"].casualLogic = function() {
 		return has("phantoon")

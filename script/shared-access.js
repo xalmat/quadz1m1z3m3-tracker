@@ -553,7 +553,7 @@ function canHellRun() {	// Varia or enough health
 	return heatProof() || hasEnergyReserves(5);
 }
 function canHiJump() {
-	return has("hijump") || has("space");
+	return has("hijump");
 }
 function canIbj() {	// Infinite Bomb Jump, #FIXME: Not Casual
 	return canUseMorphBombs();

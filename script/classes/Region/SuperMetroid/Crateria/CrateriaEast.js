@@ -19,7 +19,8 @@ class CrateriaEast extends Crateria {
 			&& (canHiJump() || canFlySM() || canDashSM());
 	}
 	this.locations["Missile (outside Wrecked Ship middle)"].casualLogic = function() {
-		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal()) && canOpenGreenDoors();
+		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal())
+			&& canOpenGreenDoors();
 	}
 
     this.canEnter.casualLogic = function() {
@@ -31,6 +32,10 @@ class CrateriaEast extends Crateria {
 
   initTournament() {
     this.initCasual();
+
+    this.locations["Missile (outside Wrecked Ship bottom)"].tourneyLogic = function() {
+		return true;
+	}
 
 	this.locations["Missile (outside Wrecked Ship top)"].tourneyLogic =
 	this.locations["Missile (outside Wrecked Ship middle)"].tourneyLogic = function() {

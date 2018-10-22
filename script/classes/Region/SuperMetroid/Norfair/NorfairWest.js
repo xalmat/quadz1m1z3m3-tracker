@@ -29,10 +29,10 @@ class NorfairWest extends Norfair {
 	}
 
     this.canEnter.casualLogic = function() {
-		return (canDestroyBombWalls() || canDashSM() || canAccessNorfairPortal())
-			&& (canOpenGreenDoors() && canMorph())
+		return ((canDestroyBombWalls() || canDashSM())
+			&& (canOpenGreenDoors() && canMorph()))
 			|| canAccessNorfairPortal();
-    }
+	}
   }
 
   initTournament() {
