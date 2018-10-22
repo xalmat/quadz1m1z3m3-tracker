@@ -38,7 +38,7 @@ class DungeonsTowerOfHera extends Dungeons {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initNoMajorGlitches();
 
-		return (has("mirror") || (canGrapple() && has("hammer")))
+		return (! isBunny(dungeon.subname)) && (has("mirror") || (canGrapple() && has("hammer")))
 			&& wdm.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
@@ -71,7 +71,7 @@ class DungeonsTowerOfHera extends Dungeons {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initMinorGlitches();
 
-		ret = (has("mirror") || (canGrapple() && has("hammer")));
+		ret = (! isBunny(dungeon.subname)) && (has("mirror") || (canGrapple() && has("hammer")));
 		if(ret) {
 			if(wdm.canEnter.minorGlitches()) {
 				return wdm.canEnter.minorGlitches();

@@ -35,7 +35,26 @@ class DungeonsEasternPalace extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		return true;
+		if(has("state.inverted")) {
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+
+			let desert = warps.locations["Dark Desert Teleporter (Dark)"].glitchless();
+			let south = warps.locations["South Hyrule Teleporter (Dark)"].glitchless();
+			let east = warps.locations["East Hyrule Teleporter (Dark)"].glitchless();
+			let west = warps.locations["Kakariko Teleporter (Dark)"].glitchless();
+
+			if(
+				desert ||
+				south ||
+				east ||
+				west
+			) {
+				return (! isBunny(dungeon.subname));
+			}
+		} else {
+			return true;
+		}
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Eastern Palace - Armos Knights"].glitchless();

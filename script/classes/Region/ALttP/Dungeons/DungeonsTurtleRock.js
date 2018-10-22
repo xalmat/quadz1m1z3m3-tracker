@@ -69,7 +69,7 @@ class DungeonsTurtleRock extends Dungeons {
 		edm.initNoMajorGlitches();
 
 		return (has("trockmedallion") && canActivateMedallions())
-			&& has("moonpearl") && has("somaria")
+			&& (! isBunny(dungeon.subname)) && has("somaria")
 			&& canLiftDarkRocks() && has("hammer")
 			&& edm.canEnter.glitchless();
 	}
@@ -108,8 +108,8 @@ class DungeonsTurtleRock extends Dungeons {
 	  }
 	  let upperCan = function() {
 		  let ret = dungeon.hasMedallion()
-		  	&& hasSword()
-		  	&& has("moonpearl")
+		  	&& canActivateMedallions()
+		  	&& (! isBunny(dungeon.subname))
 		  	&& has("somaria")
 		  	&& canLiftDarkRocks();
 		  let edm = new DeathMountainEast("","",false);
@@ -125,8 +125,8 @@ class DungeonsTurtleRock extends Dungeons {
 	  }
 	  let upperMay = function() {
 		  let ret = dungeon.mayHaveMedallion()
-		  	&& hasSword()
-		  	&& has("moonpearl")
+		  	&& canActivateMedallions()
+		  	&& (! isBunny(dungeon.subname))
 		  	&& has("somaria")
 		  	&& canLiftDarkRocks();
 		  let edm = new DeathMountainEast();
@@ -198,6 +198,8 @@ class DungeonsTurtleRock extends Dungeons {
   }
 
   initOverworldGlitches() {
+	let dungeon = this;
+
 	this.initMinorGlitches();
 
 	let edwdm = new DarkWorldDeathMountainEast("","",false);
@@ -207,7 +209,7 @@ class DungeonsTurtleRock extends Dungeons {
 	edm.initOverworldGlitches();
 
 	let middle = function() {
-		return (has("mirror") || (has("moonpearl") && canSpinSpeed()))
+		return (has("mirror") || ((! isBunny(dungeon.subname)) && canSpinSpeed()))
 		&& (canDash() || has("somaria") || canGrapple()
 			|| has("variation.ohko")										// FIXME: OHKO
 				&& canInvul())
@@ -216,7 +218,7 @@ class DungeonsTurtleRock extends Dungeons {
 
 	let upper = function() {
 		return has("trockmedallion")
-		&& has("moonpearl") && has("somaria")
+		&& (! isBunny(dungeon.subname)) && has("somaria")
 		&& has("hammer") && (canLiftDarkRocks() || canDash())
 		&& edm.canEnter.owGlitches();
 	};
@@ -247,6 +249,8 @@ class DungeonsTurtleRock extends Dungeons {
   }
 
   initMajorGlitches() {
+	let dungeon = this;
+
 	this.initOverworldGlitches();
 
 	let wdm = new DeathMountainWest("","",false);
@@ -259,7 +263,7 @@ class DungeonsTurtleRock extends Dungeons {
 	edm.initMajorGlitches();
 
 	let lower = function() {
-		return has("mirror") && (has("moonpearl")
+		return has("mirror") && ((! isBunny(dungeon.subname))
 			|| (has("bottle") && canDash()))
 		&& wdm.canEnter.majorGlitches();
 	};
@@ -274,7 +278,7 @@ class DungeonsTurtleRock extends Dungeons {
 
 	let upper = function() {
 		return has("trockmedallion")
-		&& (has("moonpearl") || (has("bottle") && canDash()))
+		&& ((! isBunny(dungeon.subname)) || (has("bottle") && canDash()))
 		&& has("somaria") && has("hammer")
 		&& (canLiftDarkRocks() || canDash())
 		&& edm.canEnter.majorGlitches();

@@ -14,18 +14,20 @@ class DungeonsHyruleCastleEscape extends Dungeons {
 //			new Location("Chest","Hyrule Castle - Map Chest","24.9%","44.1%",regionName),
 //			new Location("Chest","Hyrule Castle - Zelda's Cell","24.9%","44.1%",regionName),
 			new Location("Chest","Hyrule Castle (3)","24.9%","44.1%",regionName),
-//			new Location("NPC","Link's Uncle","29.8%","41.8%",regionName),
-			new Location("Chest","Secret Passage (2)","29.8%","41.8%",regionName)
+			new Location("NPC","Link's Uncle","29.8%","41.8%",regionName),
+			new Location("Chest","Secret Passage","29.8%","41.8%",regionName)
 		],this);
 	}
   }
 
   initNoMajorGlitches() {
+	let dungeon = this;
+
 	this.locations["Sanctuary"].glitchless = function() {
 		if(has("state.open")) {												// FIXME: Open State
 			return true;
 		}
-		return canKillMostThings() && has("key");
+		return (! isBunny(dungeon.subname)) && (canKillMostThings() && has("key"));
 	}
 
 	if(this.buildLocations) {
@@ -34,15 +36,15 @@ class DungeonsHyruleCastleEscape extends Dungeons {
 //		this.locations["Sewers - Secret Room - Right"].glitchless
 		this.locations["Sewers - Secret Room (3)"].glitchless = function() {
 			if(has("state.open")) {												// FIXME: Open State
-				return canLiftRocks() || (has("lantern") && has("key"));
+				return (! isBunny(dungeon.subname)) && (canLiftRocks() || (has("lantern") && has("key")));
 			}
-			return canKillMostThings() && has("key");
+			return (! isBunny(dungeon.subname)) && (canKillMostThings() && has("key"));
 		}
 		this.locations["Sewers - Dark Cross"].glitchless = function() {
 			if(has("state.open")) {												// FIXME: Open State
-				return has("lantern") && has("key");
+				return (! isBunny(dungeon.subname)) && (has("lantern") && has("key"));
 			}
-			return canKillMostThings() && has("key");
+			return (! isBunny(dungeon.subname)) && (canKillMostThings() && has("key"));
 		}
 //		this.locations["Hyrule Castle - Boomerang Chest"].glitchless =
 //		this.locations["Hyrule Castle - Map Chest"].glitchless =
@@ -52,15 +54,15 @@ class DungeonsHyruleCastleEscape extends Dungeons {
 //			}
 //			return canKillMostThings();
 //		}
-		this.locations["Secret Passage (2)"].glitchless = function() {
-			if(has("state.open")) {												// FIXME: Open State
-				return true;
-			}
-			return canKillMostThings();
+		this.locations["Link's Uncle"].glitchless = function() {
+			return (! isBunny(dungeon.subname));
 		}
-//		this.locations["Link's Uncle"].glitchless = function() {
-//			return new DungeonsHyruleCastleEscape().locations["Sanctuary"].glitchless();
-//		}
+		this.locations["Secret Passage"].glitchless = function() {
+			if(has("state.open")) {												// FIXME: Open State
+				return (! isBunny(dungeon.subname));
+			}
+			return (! isBunny(dungeon.subname)) && canKillMostThings();
+		}
 	}
 
 	this.canEnter.glitchless = function() {

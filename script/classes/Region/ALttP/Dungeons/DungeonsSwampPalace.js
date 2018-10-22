@@ -62,7 +62,7 @@ class DungeonsSwampPalace extends Dungeons {
 		let sdw = new DarkWorldSouth("","",false);
 		sdw.initNoMajorGlitches();
 
-		return has("moonpearl") && has("mirror") && canSwim()
+		return (! isBunny(dungeon.subname)) && has("mirror") && canSwim()
 			&& sdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
@@ -79,7 +79,7 @@ class DungeonsSwampPalace extends Dungeons {
 		  let sdw = new DarkWorldSouth("","",false);
 		  sdw.initMinorGlitches();
 
-		  if(has("moonpearl")
+		  if((! isBunny(dungeon.subname))
 		  	&& has("mirror")
 		  	&& canSwim()) {
 				if(sdw.canEnter.minorGlitches()) {
@@ -108,6 +108,8 @@ class DungeonsSwampPalace extends Dungeons {
   }
 
   initMajorGlitches() {
+	  let dungeon = this;
+
 	  this.initOverworldGlitches();
 
 	  let sdw = new DarkWorldSouth("","",false);
@@ -119,7 +121,7 @@ class DungeonsSwampPalace extends Dungeons {
 	  let mm = new DungeonsMiseryMire("","",false);
 	  mm.initMajorGlitches();
 
-	  let main = function() { return has("moonpearl") && has("mirror") && canSwim() && sdw.canEnter.majorGlitches(); };
+	  let main = function() { return (! isBunny(dungeon.subname)) && has("mirror") && canSwim() && sdw.canEnter.majorGlitches(); };
 	  let hera = function() { toh.locations["Tower of Hera - Big Chest"].majorGlitches(); };
 	  let mire = function() { has("key",3) && mm.canEnter.majorGlitches(); };
 

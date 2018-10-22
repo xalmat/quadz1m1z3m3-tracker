@@ -26,12 +26,12 @@ class DungeonsSkullWoods extends Dungeons {
 			return has("bigkey");
 		}
 		this.locations["Skull Woods - Bridge Room"].glitchless = function() {
-			return has("moonpearl") && has("firerod");
+			return (! isBunny(dungeon.subname)) && has("firerod");
 		}
 	}
 
 	this.locations["Skull Woods - Mothula"].glitchless = function() {
-		return has("moonpearl")
+		return (! isBunny(dungeon.subname))
 			&& has("firerod")
 			&& hasSword()
 			&& has("key",3)
@@ -42,7 +42,7 @@ class DungeonsSkullWoods extends Dungeons {
 		let nwdw = new DarkWorldNorthWest("","",false);
 		nwdw.initNoMajorGlitches();
 
-		return has("moonpearl") && nwdw.canEnter.glitchless();
+		return (! isBunny(dungeon.subname)) && nwdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Skull Woods - Mothula"].glitchless();
@@ -58,7 +58,7 @@ class DungeonsSkullWoods extends Dungeons {
 		  let nwdw = new DarkWorldNorthWest("","",false);
 		  nwdw.initMinorGlitches();
 
-		  if(has("moonpearl")) {
+		  if((! isBunny(dungeon.subname))) {
 			  if(nwdw.canEnter.minorGlitches()) {
 				  return nwdw.canEnter.minorGlitches();
 			  }
@@ -69,7 +69,7 @@ class DungeonsSkullWoods extends Dungeons {
 		  let mychests = trackerData.zelda3.dungeonchests[5];
 
 		  if(dungeon.canEnter.glitchless()) {
-			  if(has("moonpearl")
+			  if((! isBunny(dungeon.subname))
 			  	&& has("firerod")
 			  	&& (hasSword() || mychests === 2)) {
 				  return true;

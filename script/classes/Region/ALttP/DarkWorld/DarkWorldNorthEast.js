@@ -43,9 +43,13 @@ class DarkWorldNorthEast extends DarkWorld {
 			let warps = new HyruleWarpsMain("","");
 			warps.initNoMajorGlitches();
 
-			return (warps.locations["Castle Gate (Dark)"].glitchless()										// Castle Gate Warp
-				|| (warps.locations["South Hyrule Teleporter (Dark)"].glitchless())							// Swamp Warp
-				|| (warps.locations["Kakariko Teleporter (Dark)"].glitchless() && canSwim())				// Kakariko Warp, swim across east river
+			let south = warps.locations["South Hyrule Teleporter (Dark)"].glitchless();
+			let west = warps.locations["Kakariko Teleporter (Dark)"].glitchless();
+			let gate = warps.locations["Castle Gate (Dark)"].glitchless();
+
+			return (gate				// Castle Gate Warp
+				|| (south)				// Swamp Warp
+				|| (west && canSwim())	// Kakariko Warp, swim across east river
 				|| (canAccessDarkWorldPortal() && canSwim() && (!isBunny(region.name,region.subname))));	// From Maridia, swim through lake
 		}
 	}

@@ -50,8 +50,13 @@ class DungeonsIcePalace extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		return has("moonpearl") && canSwim()
-			&& canLiftDarkRocks() && canMeltThings();
+		let access = (! isBunny(dungeon.subname)) && canSwim() && canMeltThings();
+
+		if(has("state.inverted")) {
+			return access;
+		} else {
+			return access && canLiftDarkRocks();
+		}
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Ice Palace - Kholdstare"].glitchless();
@@ -70,11 +75,22 @@ class DungeonsIcePalace extends Dungeons {
 		  if(ret) {
 			  return ret;
 		  }
-		  if(canLiftDarkRocks() && canMeltThings()) {
-			  if(has("moonpearl") && canSwim()) {
-				  return true;
-			  } else {
-				  return "glitchavailable";
+
+		  if(has("state.inverted")) {
+			  if(canMeltThings()) {
+				  if(canSwim()) {
+					  return true;
+				  } else {
+					  return "glitchavailable";
+				  }
+			  }
+		  } else {
+			  if(canLiftDarkRocks && canMeltThings()) {
+				  if((! isBunny(dungeon.subname)) && canSwim()) {
+					  return true;
+				  } else {
+					  return "glitchavailable";
+				  }
 			  }
 		  }
 	  }

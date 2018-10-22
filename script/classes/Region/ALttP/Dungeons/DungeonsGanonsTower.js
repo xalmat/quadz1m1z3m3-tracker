@@ -122,10 +122,12 @@ class DungeonsGanonsTower extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		let dwdme = new DarkWorldDeathMountainEast("","",false);
-		dwdme.initNoMajorGlitches();
+		let mb = true;
+		if(trackerData.zelda3.showPortals) {
+			mb = has("motherbrain");
+		}
 
-		return has("moonpearl")
+		let access = (! isBunny(dungeon.subname))
 			&& has("crystal1")
 			&& has("crystal2")
 			&& has("crystal3")
@@ -133,8 +135,20 @@ class DungeonsGanonsTower extends Dungeons {
 			&& has("crystal5")
 			&& has("crystal6")
 			&& has("crystal7")
-			&& has("motherbrain")
-			&& dwdme.canEnter.glitchless();
+			&& mb;
+
+		if(has("state.inverted")) {
+			// Ganon's Tower has moved to top floor of Hyrule Castle
+			let lws = new LightWorldSouth("","",false);
+			lws.initNoMajorGlitches();
+
+			return access && lws.canEnter.glitchless();
+		} else {
+			let dwdme = new DarkWorldDeathMountainEast("","",false);
+			dwdme.initNoMajorGlitches();
+
+			return access && dwdme.canEnter.glitchless();
+		}
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Ganon's Tower - Moldorm Chest"].glitchless()
@@ -277,10 +291,12 @@ class DungeonsGanonsTower extends Dungeons {
   }
 
   initOverworldGlitches() {
+	  let dungeon = this;
+
 	  this.initMinorGlitches();
 
 	  this.canEnter.owGlitches = function() {
-		  return canDash() && has("moonpearl");
+		  return canDash() && (! isBunny(dungeon.subname));
 	  }
   }
 
