@@ -623,10 +623,21 @@ function canSwimZ1() {
 
 // SM Bosses
 function canDefeatBotwoon() {
-	return has("ice") || canDashSM() || canAccessMaridiaPortal();
+	switch(trackerData.metroid3.mapLogic) {
+		case "tourneyLogic":
+			return has("ice") || canDashSM() || canAccessMaridiaPortal();
+		case "casualLogic":
+			return canDashSM() || canAccessMaridiaPortal();
+	}
+
 }
 function canDefeatDraygon() {
-	return canDefeatBotwoon() && canSwimSM();
+	switch(trackerData.metroid3.mapLogic) {
+		case "tourneyLogic":
+			return canDefeatBotwoon() && canSwimSM() && ((canDashSM() && canHiJump()) || canFlySM());
+		case "casualLogic":
+			return canDefeatBotwoon() && canSwimSM();
+	}
 }
 
 // SM -> ALttP portals

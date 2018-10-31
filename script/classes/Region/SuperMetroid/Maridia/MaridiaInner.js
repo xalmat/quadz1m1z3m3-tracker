@@ -29,7 +29,7 @@ class MaridiaInner extends Maridia {
 		return canPassBombPassages();
 	}
 	this.locations["Plasma Beam"].casualLogic = function() {
-		return canDefeatDraygon()
+		return has("draygon")
 			&& (has("screw") || has("plasma"))
 			&& (canHiJump() || canFlySM());
 	}
@@ -82,7 +82,7 @@ class MaridiaInner extends Maridia {
 		return canPassBombPassages() && (canSwimSM() || has("ice") || (canHiJump() && canSpringBallJump()));
 	}
 	this.locations["Plasma Beam"].tourneyLogic = function() {
-		return canDefeatDraygon()
+		return has("draygon")
 			&& ((has("charge") && hasEnergyReserves(3)) || has("screw") || has("plasma") || canDashSM())
 			&& (canHiJump() || canSpringBallJump() || canFlySM() || canDashSM());
 	}
