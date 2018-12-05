@@ -56,6 +56,7 @@ defaultItemGrid.zelda3 = [
 		"boss3",
 	],
 	[
+		"missile",
 		"supermissile",
 		"powerbomb",
 		"grappling",
@@ -66,6 +67,7 @@ defaultItemGrid.zelda3 = [
 		"morph",
 		"bombs",
 		"hijump",
+		"screw",
 		"speed",
 		"gravity",
 	],

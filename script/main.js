@@ -448,7 +448,7 @@ function chestClass(x) {
 	if(chest.isImportant) {
 		className += "important ";
 	}
-	if(chest.isOpened) {
+	if(chest.isOpened || (chest.name == "Weathervane" && has("flute",2))) {
 		className += "opened ";
 	}
 	if(chest.isWarp) {
@@ -735,7 +735,7 @@ function showLabel(sender) {
 }
 
 function showRegions(sender) {
-	if(selectedGame != "zelda3") { return; }
+	if(selectedGame != "zelda3" && selectedGame != "metroid3") { return; }
 
 	trackerData[selectedGame].showRegions = sender.checked;
 	if(sender.checked) {

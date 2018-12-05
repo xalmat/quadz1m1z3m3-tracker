@@ -3,6 +3,7 @@ var iMin = {
     shield:0,
     tunic:1,
 
+	flute:0,
     bottle:0,
     boomerang:0,
     glove:0,
@@ -35,6 +36,7 @@ var iMax = {
     shield:3,
     tunic:3,
 
+	flute:2,
     bottle:4,
     boomerang:3,
     glove:2,

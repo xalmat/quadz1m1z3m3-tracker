@@ -173,6 +173,7 @@ function build_img_url(item) {
 		candle0:	"candle1",
 		crystal5:	"dungeon" + OJCRYSTAL,
 		crystal6:	"dungeon" + OJCRYSTAL,
+		flute:		"flute0",
 		glove0:		"glove1",
 		lamp:		"lantern",
 		medallion1:	"bombos",

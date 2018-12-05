@@ -96,25 +96,27 @@ function has(item, amount = -1) {
 		item = globalReplace[item];
 	}
 
-	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
-		ret = true;
-		val = trackerData[selectedGame].items[item];
-	} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
-		ret = true;
-		val = trackerData.zelda3.items[item];
-	} else if(trackerData.zelda1 && trackerData.zelda1.items && trackerData.zelda1.items[item]) {
-		ret = true;
-		val = trackerData.zelda1.items[item];
-	} else if(trackerData.metroid3 && trackerData.metroid3.items && trackerData.metroid3.items[item]) {
-		ret = true;
-		val = trackerData.metroid3.items[item];
-	} else if(trackerData.metroid1 && trackerData.metroid1.items && trackerData.metroid1.items[item]) {
-		ret = true;
-		val = trackerData.metroid1.items[item];
-	}
-	if(ret) {
-		if(amount > -1 && val < amount) {
-			ret = false;
+	if(item.indexOf('.') == -1) {
+		if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
+			ret = true;
+			val = trackerData[selectedGame].items[item];
+		} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
+			ret = true;
+			val = trackerData.zelda3.items[item];
+		} else if(trackerData.zelda1 && trackerData.zelda1.items && trackerData.zelda1.items[item]) {
+			ret = true;
+			val = trackerData.zelda1.items[item];
+		} else if(trackerData.metroid3 && trackerData.metroid3.items && trackerData.metroid3.items[item]) {
+			ret = true;
+			val = trackerData.metroid3.items[item];
+		} else if(trackerData.metroid1 && trackerData.metroid1.items && trackerData.metroid1.items[item]) {
+			ret = true;
+			val = trackerData.metroid1.items[item];
+		}
+		if(ret) {
+			if(amount > -1 && val < amount) {
+				ret = false;
+			}
 		}
 	}
 
@@ -270,7 +272,7 @@ function canMeltThings() {
 }
 
 function canFly() {
-    return has("flute");
+    return has("flute",2);
 }
 
 function canSpinSpeed() {

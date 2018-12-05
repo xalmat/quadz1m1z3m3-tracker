@@ -148,7 +148,7 @@ var itemsInit = {
     quake: false,
     lantern: false,
     hammer: false,
-    flute: false,
+    flute: 0,
     shovel: false,
     net: false,
     book: false,
