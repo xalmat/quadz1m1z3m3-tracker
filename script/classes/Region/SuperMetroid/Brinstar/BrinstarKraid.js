@@ -11,6 +11,7 @@ class BrinstarKraid extends Brinstar {
   }
 
   initCasual() {
+	this.locations["Energy Tank, Kraid"].casualLogic = function() {
 		return has("kraid");
 	}
 	this.locations["Missile (Kraid)"].casualLogic = function() {
