@@ -1041,6 +1041,8 @@ function refreshMapMedallion(d) {
 function refreshChests() {
     for(k=0; k<chests[selectedGame].length; k++){
 		let chest = chests[selectedGame][k];
+		document.getElementById(k).className = chestClass(k);
+
 		if(roomid == "lozmx") {
 			let showAll = trackerData[selectedGame].nonVanilla;
 			let thisV = chest.isVanilla;
@@ -1053,8 +1055,6 @@ function refreshChests() {
 				}
 			}
 		} else {
-			document.getElementById(k).className = chestClass(k);
-
 			// Determine Lonk's Hoose
 			if(chest.name == "Link's House") {
 				if(has("state.inverted")) {			// Inverted, move to Dark World

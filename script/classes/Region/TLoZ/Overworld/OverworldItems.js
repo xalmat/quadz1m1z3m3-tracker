@@ -8,7 +8,7 @@ class OverworldItems extends Overworld {
 	],this);
   }
 
-  initMinorGlitches() {
+  initNoMajorGlitches() {
 	  this.locations["Off the East Shore"].glitchless = function() {
 		  let ret = has("ladder");
 

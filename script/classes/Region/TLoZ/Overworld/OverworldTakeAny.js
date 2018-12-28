@@ -11,11 +11,11 @@ class OverworldTakeAny extends Overworld {
 	],this);
   }
 
-  initMinorGlitches() {
-	  this.locations["Spooky Island 'Take Any' Cave"].minorGlitches = function() {
+  initNoMajorGlitches() {
+	  this.locations["Spooky Island 'Take Any' Cave"].glitchless = function() {
 		  return canSwimZ1();
 	  }
-	  this.locations["Candle Row 'Take Any' Cave"].minorGlitches = function() {
+	  this.locations["Candle Row 'Take Any' Cave"].glitchless = function() {
 		  return canLightBushes();
 	  }
   }

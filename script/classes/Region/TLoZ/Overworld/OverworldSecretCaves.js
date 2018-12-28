@@ -21,14 +21,14 @@ class OverworldSecretCaves extends Overworld {
 	],this);
   }
 
-  initMinorGlitches() {
-	  this.locations["Burnable 30-Rupee Cave"].minorGlitches =
-	  this.locations["Burnable 30-Rupee Cave 2"].minorGlitches =
-	  this.locations["Burnable 10-Rupee Cave"].minorGlitches =
-	  this.locations["Burnable 10-Rupee Cave 2"].minorGlitches =
-	  this.locations["Burnable 10-Rupee Cave 3"].minorGlitches =
-	  this.locations["Burnable 100-Rupee Cave"].minorGlitches =
-	  this.locations["Burnable 100-Rupee Cave 2"].minorGlitches = function() {
+  initNoMajorGlitches() {
+	  this.locations["Burnable 30-Rupee Cave"].glitchless =
+	  this.locations["Burnable 30-Rupee Cave 2"].glitchless =
+	  this.locations["Burnable 10-Rupee Cave"].glitchless =
+	  this.locations["Burnable 10-Rupee Cave 2"].glitchless =
+	  this.locations["Burnable 10-Rupee Cave 3"].glitchless =
+	  this.locations["Burnable 100-Rupee Cave"].glitchless =
+	  this.locations["Burnable 100-Rupee Cave 2"].glitchless = function() {
 		  return canLightBushes();
 	  }
   }

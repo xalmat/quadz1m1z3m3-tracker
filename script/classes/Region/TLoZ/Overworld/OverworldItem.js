@@ -11,7 +11,7 @@ class OverworldItem extends Overworld {
 	],this);
   }
 
-  initMinorGlitches() {
+  initNoMajorGlitches() {
 	  this.locations["Magical Sword Cave"].glitchless = function() {
 		  return has("heartcontainer",3+9);
 	  }

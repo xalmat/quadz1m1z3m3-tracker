@@ -14,7 +14,7 @@ class OverworldCaves extends Overworld {
 	],this);
   }
 
-  initMinorGlitches() {
+  initNoMajorGlitches() {
 	  this.locations["White Sword Cave"].glitchless = function() {
 		  return has("heartcontainer",3+2);
 	  }
