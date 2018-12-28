@@ -37,7 +37,7 @@ class DungeonsDesertPalace extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		return (canRead()
+		return (! isBunny(dungeon.subname)) && (canRead()
 			|| (has("mirror") && canLiftDarkRocks() && canFly())
 			|| (canAccessMiseryMirePortal() && has("mirror"))
 		);

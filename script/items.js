@@ -65,8 +65,11 @@ gameItems.zelda3 = [
     "dungeon3"
 ];
 gameItems.zelda1 = [
+	"food",
+	"recorder",
 	"ring",
 	"magicrod",
+	"magicalrod",
 	"candle",
 	"bracelet",
 	"ladder",
@@ -145,7 +148,7 @@ var itemsInit = {
     quake: false,
     lantern: false,
     hammer: false,
-    flute: false,
+    flute: 0,
     shovel: false,
     net: false,
     book: false,

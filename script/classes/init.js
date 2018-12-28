@@ -87,6 +87,9 @@ function initClasses(useGame) {
 								ret = ret.substring(0,1);
 								return ret;
 							});
+							if(useGame == "zelda1") {
+								label = location.name.substring(4).split('');
+							}
 
 							var dungeon = {
 								label: label.join(''),
@@ -170,16 +173,18 @@ function initClasses(useGame) {
 								isImportant: false,
 								isOpened: false,
 								isPortal: false,
-								isVanilla: true
+								isWarp: false,
+								isVanilla: true,
+								type: location.type.toLowerCase().replace(/ /gi, "")
 							};
 
-							if(location.type == "Portal") {						// Portal
-								chest.isPortal = true;
+							if(location.type == "Portal" || location.type == "Warp") {	// Portal/Warp
+								chest.isPortal = location.type == "Portal";
+								chest.isWarp = location.type == "Warp";
 								chest.isAvailable = function() {
 									const availability = new Availability();
 									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
-										var tmp = "portal portal-";
-										tmp += altGames[selectedGame];
+										var tmp = "";
 
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = tmp + " active";
@@ -194,8 +199,7 @@ function initClasses(useGame) {
 										}
 									}
 									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
-										var tmp = "portal portal-";
-										tmp += altGames[selectedGame];
+										var tmp = "";
 
 										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
 											availability.casualLogic = tmp + " active";

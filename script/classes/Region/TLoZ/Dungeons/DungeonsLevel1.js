@@ -5,11 +5,20 @@ class DungeonsLevel1 extends Dungeons {
 	this.locations = new LocationCollection([
 		new Location("Event","The Eagle",1856/Z1FACTOR, 556/Z1FACTOR,regionName), // Aquamentus
 	],this);
+
+	this.boss = new BossAquamentus();
   }
 
-  initMinorGlitches() {
-	  this.canEnter.minorGlitches = function() {
-		  return true;
+  initNoMajorGlitches() {
+	  let boss = this.boss;
+	  let dungeon = this;
+
+	  this.locations["The Eagle"].glitchless = function() {
+		  return boss.canBeat();
+	  }
+
+	  this.canComplete.glitchless = function() {
+		  return dungeon.locations["The Eagle"].glitchless();
 	  }
   }
 }

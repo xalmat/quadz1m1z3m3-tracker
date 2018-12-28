@@ -27,53 +27,65 @@ class LightWorldNorthWest extends LightWorld {
 			new Location("Standing","Lost Woods Hideout","9.4%","13.0%",regionName),
 			new Location("Standing","Lumberjack Tree","15.1%","7.6%",regionName,{equipment:"%%agahnim%%%%boots%%"}),
 			new Location("Standing","Graveyard Ledge","28.1%","27.0%",regionName,{equipment:"%%mirror%%"}),
-			new Location("Standing","Mushroom","6.2%","8.6%",regionName)
+			new Location("Standing","Mushroom","6.2%","8.6%",regionName),
+			new Location("NPC","Weathervane","7.0%","46.8%",regionName,{equipment:"%%flute%%"})
 		],this);
 	}
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Master Sword Pedestal"].glitchless = function() {
-			return has("pendantred") && has("pendantblue") && has("pendantgreen");
+			return has("pendantred") && has("pendantblue") && has("pendantgreen") && !isBunny(region.name);
 		}
 		this.locations["King's Tomb"].glitchless = function() {
 			let nwdw = new DarkWorldNorthWest("","",false);
 			nwdw.initNoMajorGlitches();
 
-			return canDash() && (canLiftDarkRocks()
-				|| (has("mirror") && has("moonpearl")
+			return canDash() && !isBunny(region.name) && (canLiftDarkRocks()
+				|| (has("mirror")
 					&& nwdw.canEnter.glitchless()));
 		}
 		this.locations["Pegasus Rocks"].glitchless = function() {
-			return canDash();
+			return canDash() && !isBunny(region.name);
 		}
 		this.locations["Magic Bat"].glitchless = function() {
 			return has("powder")
 				&& (has("hammer")
-					|| (has("moonpearl") && has("mirror") && canLiftDarkRocks()));
+					|| ((! isBunny(region.name)) && has("mirror") && canLiftDarkRocks()));
 		}
 		this.locations["Sick Kid"].glitchless = function() {
 			return has("bottle");
 		}
+		this.locations["Lost Woods Hideout"].glitchless = function() {
+			return !isBunny(region.name);
+		}
 		this.locations["Lumberjack Tree"].glitchless = function() {
-			return has("agahnim") && canDash();
+			return has("agahnim") && canDash() && !isBunny(region.name);
 		}
 		this.locations["Graveyard Ledge"].glitchless = function() {
 			let nwdw = new DarkWorldNorthWest("","",false);
 			nwdw.initNoMajorGlitches();
 
-			return has("mirror") && has("moonpearl")
-				&& nwdw.canEnter.glitchless();
+			let canAccessLedge = (has("mirror") && nwdw.canEnter.glitchless()) || (has("state.inverted"));
+
+			return canAccessLedge && (! isBunny(region.name));
+		}
+		this.locations["Mushroom"].glitchless = function() {
+			return !isBunny(region.name);
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		return true;
+		return canAccessLightWorld();
 	}
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -97,8 +109,8 @@ class LightWorldNorthWest extends LightWorld {
 			let nwdw = new DarkWorldNorthWest("","",false);
 			nwdw.initMinorGlitches();
 
-			if(canDash() && (canLiftDarkRocks()
-				|| (has("mirror") && has("moonpearl")
+			if(canDash() && !isBunny(region.name) && (canLiftDarkRocks()
+				|| (has("mirror")
 					&& nwdw.canEnter.minorGlitches()))) {
 				return nwdw.canEnter.minorGlitches();
 			}
@@ -109,7 +121,7 @@ class LightWorldNorthWest extends LightWorld {
 			if(ret) {
 				return ret;
 			}
-			if(canFakePowder()) {
+			if(canFakePowder() && !isBunny(region.name)) {
 				return "glitchavailable";
 			}
 		}
@@ -121,7 +133,7 @@ class LightWorldNorthWest extends LightWorld {
 			}
 
 			let aga1 = canBeatAga1("minor");
-			if(aga1 && canDash()) {
+			if(aga1 && canDash() && !isBunny(region.name)) {
 				return aga1;
 			} else {
 				return "viewable";
@@ -137,8 +149,9 @@ class LightWorldNorthWest extends LightWorld {
 			let nwdw = new DarkWorldNorthWest("","",false);
 			nwdw.initMinorGlitches();
 
-			if(has("mirror") && has("moonpearl")
-				&& nwdw.canEnter.minorGlitches()) {
+			let canAccessLedge = (has("mirror") && nwdw.canEnter.minorGlitches()) || has("state.inverted");
+
+			if(canAccessLedge && (! isBunny(region.name))) {
 				return nwdw.canEnter.minorGlitches();
 			}
 		}
@@ -146,12 +159,14 @@ class LightWorldNorthWest extends LightWorld {
   }
 
   initOverworldGlitches() {
+	let region = this;
+
 	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		this.locations["King's Tomb"].owGlitches = function() {
 			return canDash() && (canLiftDarkRocks()
-				|| (has("mirror") && has("moonpearl")));
+				|| (has("mirror") && (! isBunny(region.name))));
 		}
 		this.locations["Magic Bat"].owGlitches = function() {
 			let nwdw = new DarkWorldNorthWest("","",false);
@@ -160,7 +175,7 @@ class LightWorldNorthWest extends LightWorld {
 			return has("powder")
 				&& (has("hammer")
 					|| canDash()
-					|| (has("moonpearl") && has("mirror") && canLiftDarkRocks()
+					|| ((! isBunny(region.name)) && has("mirror") && canLiftDarkRocks()
 						&& nwdw.canEnter.owGlitches()));
 		}
 		this.locations["Graveyard Ledge"].owGlitches = function() {
@@ -168,7 +183,7 @@ class LightWorldNorthWest extends LightWorld {
 			nwdw.initOverworldGlitches();
 
 			return canDash()
-				|| (has("mirror") && has("moonpearl")
+				|| (has("mirror") && (! isBunny(region.name))
 					&& nwdw.canEnter.owGlitches());
 		}
 	}

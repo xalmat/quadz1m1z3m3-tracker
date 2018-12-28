@@ -19,37 +19,52 @@ class DeathMountainEast extends DeathMountain {
   }
 
   initNoMajorGlitches() {
+	  let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Mimic Cave"].glitchless = function() {
-			let tr = new DungeonsTurtleRock("","",false);
-			tr.initNoMajorGlitches();
+			if(! has("state.inverted")) {
+				let tr = new DungeonsTurtleRock("","",false);
+				tr.initNoMajorGlitches();
 
-			return has("mirror") && has("keyd7",2)
-				&& tr.canEnter.glitchless();
+				return has("hammer") && has("mirror") && has("keyd7",2)
+					&& tr.canEnter.glitchless();
+			} else if(has("state.inverted")) {
+				return !isBunny(region.name) && has("hammer");
+			}
 		}
 		this.locations["Floating Island"].glitchless = function() {
-			return has("mirror") && has("pearl")
-				&& canLiftDarkRocks();
+			return (has("mirror") && has("pearl")
+				&& canLiftDarkRocks()) || (has("state.inverted"));
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		let wdm = new DeathMountainWest("","",false);
-		wdm.initNoMajorGlitches();
+		if(! has("state.inverted")) {
+			let wdm = new DeathMountainWest("","",false);
+			wdm.initNoMajorGlitches();
 
-		return wdm.canEnter.glitchless()
-			&& ((has("hammer") && has("mirror"))
-			|| canGrapple());
+			return wdm.canEnter.glitchless()
+				&& ((has("hammer") && has("mirror"))
+				|| canGrapple());
+		} else if(has("state.inverted")) {
+			let dwdme = new DarkWorldDeathMountainEast("","",false);
+			dwdme.initNoMajorGlitches();
+
+			return dwdme.canEnter.glitchless();
+		}
 	}
   }
 
   initMinorGlitches() {
+	  let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
 		this.locations["Spiral Cave"].minorGlitches =
 		this.locations["Paradox Cave"].minorGlitches = function() {
-			return true;
+			return !isBunny(region.name);
 		}
 		this.locations["Floating Island"].minorGlitches = function() {
 			let ret = this.glitchless();
@@ -62,22 +77,28 @@ class DeathMountainEast extends DeathMountain {
 		}
 	}
 	this.canEnter.minorGlitches = function() {
-		let ret = this.glitchless();
-		let wdm = new DeathMountainWest("","",false);
-		wdm.initMinorGlitches();
+		if(! has("state.inverted")) {
+			let ret = this.glitchless();
+			let wdm = new DeathMountainWest("","",false);
+			wdm.initMinorGlitches();
 
-		if(ret) {
-			return ret;
-		}
-		if(wdm.canEnter.minorGlitches()
-			&& ((has("hammer") && has("mirror"))
-			|| canGrapple())) {
-			return wdm.canEnter.minorGlitches();
+			if(ret) {
+				return ret;
+			}
+			if(wdm.canEnter.minorGlitches()
+				&& ((has("hammer") && has("mirror"))
+				|| canGrapple())) {
+				return wdm.canEnter.minorGlitches();
+			}
+		} else if(has("state.inverted")) {
+			return false;
 		}
 	}
   }
 
   initOverworldGlitches() {
+	let region = this;
+
     this.initMinorGlitches();
 
 	if(this.buildLocations) {
@@ -93,18 +114,20 @@ class DeathMountainEast extends DeathMountain {
 			edwdm.initOverworldGlitches();
 
 			return canDash()
-				|| (has("mirror") && has("moonpearl")
+				|| (has("mirror") && (! isBunny(region.name))
 					&& canLiftRocks() && edwdm.canEnter.owGlitches());
 		}
 	}
 
     this.canEnter.owGlitches = function() {
-		let wdm = new DeathMountainWest("","",false);
-		wdm.initOverworldGlitches();
+		if(! has("state.inverted")) {
+			let wdm = new DeathMountainWest("","",false);
+			wdm.initOverworldGlitches();
 
-		return (canDash()
-			|| ((canGrapple() || has("mirror"))
-				&& wdm.canEnter.owGlitches()));
+			return (canDash()
+				|| ((canGrapple() || has("mirror"))
+					&& wdm.canEnter.owGlitches()));
+		}
     }
   }
 

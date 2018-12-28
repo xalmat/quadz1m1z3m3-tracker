@@ -9,6 +9,7 @@ class BrinstarMain extends Brinstar {
 		new Location("Chozo","Long Beam Room",129,66,regionName),				// 0x0507
 		new Location("Chozo","Morph Bombs Room",507,66,regionName),				// 0x0519
 		new Location("","Waver Central",507,108,regionName),					// 0x0719
+		new Location("","Below First Blue Bridge",297,150,regionName),			// 0x090F
 		new Location("Chozo","Ice Beam Room - Brinstar",380,150,regionName),	// 0x0913
 		new Location("","Near Entrance to Norfair",360,192,regionName),			// 0x0B12
 		new Location("Chozo","Morph Ball Pedestal",24,297,regionName),			// 0x0E02

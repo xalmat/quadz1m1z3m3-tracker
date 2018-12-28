@@ -7,6 +7,7 @@ function fix_region(str) {
 					"mountain",
 					"palace",
 					"tower",
+					"power",
 					"castle",
 					"escape",
 					"mire",
@@ -19,7 +20,12 @@ function fix_region(str) {
 					"norfair",
 					"ship",
 					"portals",
+					"warps",
 					"caves",
+					"making",
+					"game",
+					"any",
+					"hint",
 	];
 	for(var check in replace) {
 		check = replace[check];
@@ -57,7 +63,8 @@ var bosses = {
 		"Blind",
 		"Kholdstare",
 		"Vitreous",
-		"Trinexx"
+		"Trinexx",
+		"Ganon"
 	],
 	zelda1: [
 		"Aquamentus",
@@ -118,13 +125,14 @@ if(universe == "metroid") {
 	sheets.push("css/metroid/notmetroid.css");
 }
 
+sheets.push("css/portals.css");
 sheets.push("css/wrapup.css");
 scripts.push("script/classes/init.js");
 
 var regionNames = {
 	zelda1: {
-		overworld:		["caves","secretcaves","items","shops"],
-		dungeons:		["level1","level2","level3","level4","level5","level6","level7","level8","level9"],
+		overworld:		["freehint","item","moneymakinggame","paidhint","potions","road","rupoor","secretcaves","shop","takeany"],
+		dungeons:		["level0","level1","level2","level3","level4","level5","level6","level7","level8","level9"],
 	},
 	zelda3: {
 		dungeons:		["main"],
@@ -153,6 +161,7 @@ var regionNames = {
 
 if(zeldaMode == "regions") {
 	regionNames.zelda3 = {
+		hyrulewarps:			["main"],
 		dungeons: [
 								"easternpalace",
 								"desertpalace",
@@ -167,6 +176,7 @@ if(zeldaMode == "regions") {
 								"ganonstower",
 								"hyrulecastleescape",
 								"hyrulecastletower",
+								"pyramidofpower"
 		],
 		darkworld:				["mire","northeast","northwest","south"],
 		darkworlddeathmountain:	["east","west"],

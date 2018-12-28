@@ -4,7 +4,6 @@ class BossDodongo extends Boss {
   }
 
   canBeat() {
-	  // return hasSword() && has("bomb");
-	  return hasSword() || has("magicalrod");
+	  return hasSword() && has("bomb");
   }
 }

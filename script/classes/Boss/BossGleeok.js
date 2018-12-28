@@ -4,7 +4,6 @@ class BossGleeok extends Boss {
   }
 
   canBeat() {
-	  // return hasSword();
-	  return canSwimZ1() && (hasSword() || has("magicalrod"));
+	  return hasSword();
   }
 }

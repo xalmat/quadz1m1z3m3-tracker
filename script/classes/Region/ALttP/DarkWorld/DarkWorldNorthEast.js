@@ -8,17 +8,17 @@ class DarkWorldNorthEast extends DarkWorld {
 			new Location("Standing","Pyramid","79.0%","43.5%",regionName),
 //			new Location("Chest","Pyramid Fairy - Left","73.5%","48.5%",regionName),
 //			new Location("Chest","Pyramid Fairy - Right","73.5%","48.5%",regionName),
-			new Location("Chest","Pyramid Fairy","73.5%","48.5%",regionName,{equipment:"%%crystal5%%%%crystal6%%%%bomb2%%"}),
-//			new Location("Event","Ganon","75.0%","40.0%",regionName)
-			new Location("Boss","Ganon","","",regionName)
+			new Location("Chest","Pyramid Fairy","73.5%","48.5%",regionName,{equipment:"%%crystal5%%%%crystal6%%%%bomb2%%"})
 		],this);
 	}
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Catfish"].glitchless = function() {
-			return has("moonpearl") && canLiftRocks();
+			return (! isBunny(region.name)) && canLiftRocks();
 		}
 //		this.locations["Pyramid Fairy - Left"].glitchless =
 //		this.locations["Pyramid Fairy - Right"].glitchless = function() {
@@ -26,7 +26,7 @@ class DarkWorldNorthEast extends DarkWorld {
 			let sdw = new DarkWorldSouth("","",false);
 			sdw.initNoMajorGlitches();
 
-			return has("crystal5") && has("crystal6") && has("moonpearl")	// FIXME: Need items for Crystals 5 & 6
+			return has("crystal5") && has("crystal6") && (! isBunny(region.name))
 				&& sdw.canEnter.glitchless()
 					&& (has("hammer")
 						|| (has("mirror") && has("agahnim")));
@@ -34,10 +34,18 @@ class DarkWorldNorthEast extends DarkWorld {
 	}
 
 	this.canEnter.glitchless = function() {
-		return (has("agahnim")													// Castle Gate Warp
-			|| (has("hammer") && canLiftRocks() && has("moonpearl"))			// Swamp Warp
-			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
-			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl")));	// From Maridia, swim through lake
+		if(! has("state.inverted")) {
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+
+			return (warps.locations["Castle Gate (Dark)"].glitchless()							// Castle Gate Warp
+				|| warps.locations["South Hyrule Teleporter (Dark)"].glitchless()				// Swamp Warp
+				|| (warps.locations["Kakariko Teleporter (Dark)"].glitchless() && canSwim())	// Kakariko Warp, swim across east river
+				|| (canAccessDarkWorldPortal() && canSwim() && (! isBunny(region.name))));		// From Maridia, swim through lake
+		} else if(has("state.inverted")) {
+			return has("hammer") ||									// From Link's House
+				(canSwim() && (has("hammer") || canLiftRocks()));	// From Dark Sanctuary
+		}
 	}
 
 	this.canComplete.glitchless = function() {
@@ -53,6 +61,8 @@ class DarkWorldNorthEast extends DarkWorld {
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -70,7 +80,7 @@ class DarkWorldNorthEast extends DarkWorld {
 
 			let aga1 = canBeatAga1("minor");
 
-			if(has("crystal5") && has("crystal6") && has("moonpearl")	// FIXME: Need items for Crystals 5 & 6
+			if(has("crystal5") && has("crystal6") && (! isBunny(region.name))
 				&& sdw.canEnter.minorGlitches()
 					&& (has("hammer")
 						|| (has("mirror") && aga1))) {
@@ -80,32 +90,45 @@ class DarkWorldNorthEast extends DarkWorld {
 	}
 
 	this.canEnter.minorGlitches = function() {
+		let region = this;
+
 		let ret = this.glitchless();
 
 		if(ret) {
 			return ret;
 		}
 
-		let aga1 = canBeatAga1("minor");
-		if(aga1																	// Castle Gate Warp
-			|| (has("hammer") && canLiftRocks() && has("moonpearl"))			// Swamp Warp
-			|| (canLiftDarkRocks() && canSwim() && has("moonpearl"))			// Kakariko Warp, swim across east river
-			|| (canAccessDarkWorldPortal() && canSwim() && has("moonpearl"))) {	// From Maridia, swim through lake
-			if(aga1) {
-				return aga1;
-			} else {
-				return "glitchavailable";
+		if(! has("state.inverted")) {
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+			let aga1 = canBeatAga1("minor") || warps.locations["Castle Gate (Dark)"].glitchless();
+
+			if(aga1																				// Castle Gate Warp
+				|| warps.locations["South Hyrule Teleporter (Dark)"].glitchless()				// Swamp Warp
+				|| (warps.locations["Kakariko Teleporter (Dark)"].glitchless() && canSwim())	// Kakariko Warp, swim across east river
+				|| (canAccessDarkWorldPortal() && canSwim() && (! isBunny(region.name)))) {		// From Maridia, swim through lake
+				if(aga1) {
+					return aga1;
+				} else {
+					return "glitchavailable";
+				}
 			}
+		} else if(has("state.inverted")) {
+			return canFly()												// Flute to DW 2 or DW 5
+				|| has("hammer")										// From Link's House
+				|| (canSwim() && (has("hammer") || canLiftRocks()));	// From Dark Sanctuary
 		}
 	}
   }
 
   initOverworldGlitches() {
+	let region = this;
+
 	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		  this.locations["Catfish"].owGlitches = function() {
-			  return has("moonpearl")
+			  return (! isBunny(region.name))
 			  	&& (canLiftDarkRocks() || canDash());
 		  }
 //		this.locations["Pyramid Fairy - Left"].owGlitches =
@@ -115,9 +138,9 @@ class DarkWorldNorthEast extends DarkWorld {
 			  sdw.initOverworldGlitches();
 
 			  return (has("mirror") && canSpinSpeed())
-			  	|| has("crystal5") && has("crystal6")	// FIXME: Need items for Crystals 5 & 6
+			  	|| has("crystal5") && has("crystal6")
 			  		&& sdw.canEnter.owGlitches()
-			  			&& ((has("hammer") && has("moonpearl"))
+			  			&& ((has("hammer") && (! isBunny(region.name)))
 			  				|| (has("mirror") && has("agahnim")));
 		  }
 	  }
@@ -127,16 +150,18 @@ class DarkWorldNorthEast extends DarkWorld {
 		  wdm.initOverworldGlitches();
 
 		  return (has("agahnim")
-		  	|| (has("moonpearl")
+		  	|| ((! isBunny(region.name))
 		  		&& ((canLiftDarkRocks() && (canDash() || canSwim()))
 		  			|| (has("hammer") && canLiftRocks())))
 		  	|| (((has("mirror") && canSpinSpeed())
-		  		|| (has("moonpearl") && (has("mirror") || canDash())))
+		  		|| ((! isBunny(region.name)) && (has("mirror") || canDash())))
 		  			&& wdm.canEnter.owGlitches()));
 	  }
   }
 
   initMajorGlitches() {
+	  let region = this;
+
 	  this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -163,12 +188,12 @@ class DarkWorldNorthEast extends DarkWorld {
 		  wdm.initMajorGlitches();
 
 		  return (has("agahnim")
-		  	|| (has("moonpearl")
+		  	|| ((! isBunny(region.name))
 		  		&& ((canLiftDarkRocks() && (canDash() || canSwim()))
 		  			|| (has("hammer") && canLiftRocks())))
 		  	|| ((has("bottle")
 		  		|| (has("mirror") && canSpinSpeed())
-		  		|| (has("moonpearl") && (has("mirror") || canDash())))
+		  		|| ((! isBunny(region.name)) && (has("mirror") || canDash())))
 		  			&& wdm.canEnter.majorGlitches()))
 	  }
   }

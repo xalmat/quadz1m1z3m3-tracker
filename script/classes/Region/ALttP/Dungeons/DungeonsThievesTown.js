@@ -43,7 +43,7 @@ class DungeonsThievesTown extends Dungeons {
 		let nwdw = new DarkWorldNorthWest("","",false);
 		nwdw.initNoMajorGlitches();
 
-		return has("moonpearl") && nwdw.canEnter.glitchless();
+		return (! isBunny(dungeon.subname)) && nwdw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Thieves' Town - Blind"].glitchless();
@@ -60,7 +60,7 @@ class DungeonsThievesTown extends Dungeons {
 		  let dwnw = new DarkWorldNorthWest("","",false);
 		  dwnw.initMinorGlitches();
 
-		  if(has("moonpearl")) {
+		  if((! isBunny(dungeon.subname))) {
 			  if(dwnw.canEnter.minorGlitches()) {
 				  return dwnw.canEnter.minorGlitches();
 			  }

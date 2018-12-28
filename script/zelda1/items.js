@@ -30,18 +30,18 @@ defaultItemGrid.zelda1 = [
 		"hijump"
 	],
 	[
-		"triforcepiece1",
-		"triforcepiece2",
-		"triforcepiece3",
-		"triforcepiece4",
-		"triforcepiece5",
-		"triforcepiece6",
-		"triforcepiece7",
-		"triforcepiece8",
+		"boss0",
+		"boss1",
+		"boss2",
+		"boss3",
+		"boss4",
+		"boss5",
+		"boss6",
+		"boss7",
 	]
 ];
 
-dungeonchestsInit.zelda1 = {};
+dungeonchestsInit.zelda1 = [1,1,1,1,1,1,1,1,1,1];
 dungeonbeatenInit.zelda1 = [false,false,false,false,false,false,false,false,false,false];
 prizesInit.zelda1 = [];
 medallionsInit.zelda1 = [];

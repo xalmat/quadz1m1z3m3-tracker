@@ -52,7 +52,7 @@ class DungeonsMiseryMire extends Dungeons {
 		dwm.initNoMajorGlitches();
 
 		return (has("miremedallion") && canActivateMedallions())
-			&& has("moonpearl") && (canDash() || canGrapple())
+			&& (! isBunny(dungeon.subname)) && (canDash() || canGrapple())
 			&& canKillMostThings(8)
 			&& dwm.canEnter.glitchless();
 	}
@@ -84,8 +84,8 @@ class DungeonsMiseryMire extends Dungeons {
 		  dwm.initMinorGlitches();
 
 		  if(dungeon.hasMedallion()
-		  	&& hasSword()
-		  	&& has("moonpearl")
+		  	&& canActivateMedallions()
+		  	&& (! isBunny(dungeon.subname))
 		  	&& (canDash() || canGrapple())) {
 				if(dwm.canEnter.glitchless()) {
 					return true;
@@ -99,8 +99,8 @@ class DungeonsMiseryMire extends Dungeons {
 		  dwm.initMinorGlitches();
 
 		  if(dungeon.mayHaveMedallion()
-		  	&& hasSword()
-		  	&& has("moonpearl")
+		  	&& canActivateMedallions()
+		  	&& (! isBunny(dungeon.subname))
 		  	&& (canDash() || canGrapple())) {
 			  if(dwm.canEnter.glitchless()) {
 				  return true;
@@ -139,13 +139,15 @@ class DungeonsMiseryMire extends Dungeons {
   }
 
   initMajorGlitches() {
+	  let dungeon = this;
+
 	  this.initOverworldGlitches();
 
 	  this.canEnter.majorGlitches = function() {
 		  let dwm = new DarkWorldMire("","",false);
 
 		  return (has("miremedallion") && canActivateMedallions())
-		  	&& (has("moonpearl") || (has("bottle") && canDash()))
+		  	&& ((! isBunny(dungeon.subname)) || (has("bottle") && canDash()))
 		  	&& (canDash() || canGrapple())
 		  	&& dwm.canEnter.majorGlitches();
 	  }

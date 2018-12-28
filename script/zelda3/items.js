@@ -56,6 +56,7 @@ defaultItemGrid.zelda3 = [
 		"boss3",
 	],
 	[
+		"missile",
 		"supermissile",
 		"powerbomb",
 		"grappling",
@@ -66,6 +67,7 @@ defaultItemGrid.zelda3 = [
 		"morph",
 		"bombs",
 		"hijump",
+		"screw",
 		"speed",
 		"gravity",
 	],
@@ -82,9 +84,11 @@ dungeonchestsInit.zelda3 = {
     7: 3,
     8: 2,
     9: 5,
-    10: 20
+    10: 20,
+    11: 0,
+    12: 0
 };
 
-dungeonbeatenInit.zelda3 = [false, false, false, false, false, false, false, false, false, false, false];
-prizesInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-medallionsInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+dungeonbeatenInit.zelda3 = [false, false, false, false, false, false, false, false, false, false, false, false, false];
+prizesInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+medallionsInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

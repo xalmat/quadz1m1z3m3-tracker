@@ -44,14 +44,6 @@
 .metroid1 .legend .opened {
     background-image: url(../../images/metroid3/chests/opened.png) !important;
 }
-.metroid3 .chest.portal.active, .metroid1 .chest.portal.active {
-    background-color: #aaffaa;
-    background-image: url(../../images/metroid3/chests/warp.gif) !important;
-}
-.metroid3 .chest.portal.inactive, .metroid1 .chest.portal.inactive {
-    background-color: #ffaaff;
-    background-image: url(../../images/metroid3/chests/inactivewarp.gif) !important;
-}
 .metroid3 .icons-itemball-nolights .chest.unavailable,
 .metroid3 .legend.icons-itemball-nolights .unavailable,
 .metroid1 .icons-itemball-nolights .chest.unavailable,
@@ -91,14 +83,6 @@
 .metroid1 .icons-nothing .chest.unavailable,
 .metroid1 .icons-nothing .chest.opened {
     border: 1px solid #000000;
-}
-.metroid3 .icons-nothing .chest.portal.portal-zelda3.active,
-.metroid1 .icons-nothing .chest.portal.portal-zelda3.active {
-    background-image: url(../../images/metroid3/chests/icons-noicons/warp.png) !important;
-}
-.metroid3 .icons-nothing .chest.portal.portal-zelda3.inactive,
-.metroid1 .icons-nothing .chest.portal.portal-zelda3.inactive {
-    background-image: url(../../images/metroid3/chests/icons-noicons/nowarp.png) !important;
 }
 
 .metroid3 .chest.available.spicy {

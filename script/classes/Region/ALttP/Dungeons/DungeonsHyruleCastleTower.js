@@ -6,7 +6,7 @@ class DungeonsHyruleCastleTower extends Dungeons {
 		this.locations = new LocationCollection([
 			new Location("Chest","Castle Tower - Room 03","","",regionName),
 			new Location("Chest","Castle Tower - Dark Maze","","",regionName),
-			new Location("Boss","Castle Tower - Agahnim","","",regionName)
+			new Location("Event","Castle Tower - Agahnim","23%","36%",regionName)
 		],this);
 	}
 
@@ -21,10 +21,18 @@ class DungeonsHyruleCastleTower extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		return canKillMostThings(8)
-			&& (has("cape")
-				|| hasSword(2));
+		if(! has("state.inverted")) {
+			return canKillMostThings(8)
+				&& (has("cape")
+					|| hasSword(2));
+		} else if(has("state.inverted")) {
+			let dwdmw = new DarkWorldDeathMountainWest("","",false);
+			dwdmw.initNoMajorGlitches();
+
+			return dwdmw.canEnter.glitchless();
+		}
 	}
+
 	this.canComplete.glitchless = function() {
 		return has("lantern") && (hasSword()
 				|| (has("swords.swordless") && (has("hammer") || has("net"))));		// FIXME: Swordless

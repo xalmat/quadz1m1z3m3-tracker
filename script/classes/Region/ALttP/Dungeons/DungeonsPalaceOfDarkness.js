@@ -73,7 +73,7 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 		let nedw = new DarkWorldNorthEast("","",false);
 		nedw.initNoMajorGlitches();
 
-		return has("moonpearl") && nedw.canEnter.glitchless();
+		return (! isBunny(dungeon.subname)) && nedw.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Palace of Darkness - Helmasaur King"].glitchless();
@@ -89,7 +89,7 @@ class DungeonsPalaceOfDarkness extends Dungeons {
 		  let nedw = new DarkWorldNorthEast("","",false);
 		  nedw.initMinorGlitches();
 
-		  if(has("moonpearl") && nedw.canEnter.minorGlitches()) {
+		  if((! isBunny(dungeon.subname)) && nedw.canEnter.minorGlitches()) {
 			  return nedw.canEnter.minorGlitches();
 		  }
 	  }

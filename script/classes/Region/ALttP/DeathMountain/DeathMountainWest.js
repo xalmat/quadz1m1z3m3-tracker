@@ -13,27 +13,47 @@ class DeathMountainWest extends DeathMountain {
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
 		this.locations["Old Man"].glitchless = function() {
 			return has("lantern");
 		}
 		this.locations["Ether Tablet"].glitchless = function() {
-			return canActivateTablets()
-				&& (has("mirror") || (has("hammer") && canGrapple()));
+			if(! has("state.inverted")) {
+				return !isBunny(region.name) && canActivateTablets()
+					&& (has("mirror") || (has("hammer") && canGrapple()));
+			} else if(has("state.inverted")) {
+				let warps = new HyruleWarpsMain();
+				warps.initNoMajorGlitches();
+				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless() && !isBunny(region.name) && canActivateTablets();
+			}
 		}
 		this.locations["Spectacle Rock"].glitchless = function() {
-			return has("mirror");
+			if(! has("state.inverted")) {
+				return has("mirror");
+			} else if(has("state.inverted")) {
+				let warps = new HyruleWarpsMain();
+				warps.initNoMajorGlitches();
+				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless();
+			}
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		return (canFly()
-			|| (canLiftRocks() && has("lantern"))
-			|| canAccessDeathMountainPortal());
+		if(! has("state.inverted")) {
+			return (canFly()
+				|| (canLiftRocks() && has("lantern"))
+				|| canAccessDeathMountainPortal());
+		} else if(has("state.inverted")) {
+			return has("lantern") && canLiftRocks();
+		}
 	}
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -53,12 +73,30 @@ class DeathMountainWest extends DeathMountain {
 			if(ret) {
 				return ret;
 			}
-			if(canDarkNav() && has("mirror")) {
-				if(canActivateTablets()) {
-					return "glitchavailable";
-				}
-				if(canRead()) {
-					return "glitchviewable";
+
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+
+			let isInverted = has("state.inverted");
+
+			if((! isInverted) || (isInverted && warps.locations["Turtle Rock Teleporter (Light)"].glitchless())) {
+				if(!isBunny(region.name)) {
+					if(has("mirror") || isInverted) {
+						if(canActivateTablets()) {
+							if(canDarkNav()) {
+								return "glitchavailable";
+							} else if(has("lantern")) {
+								return "available";
+							}
+						}
+						if(canRead()) {
+							if(canDarkNav()) {
+								return "glitchviewable";
+							} else if(has("lantern")) {
+								return "viewable";
+							}
+						}
+					}
 				}
 			}
 		}
@@ -67,6 +105,9 @@ class DeathMountainWest extends DeathMountain {
 
 			if(ret) {
 				return ret;
+			}
+			if(has("lantern")) {
+				return "viewable";
 			}
 			if(canDarkNav()) {
 				return "glitchviewable";
@@ -104,8 +145,10 @@ class DeathMountainWest extends DeathMountain {
 	}
 
     this.canEnter.owGlitches = function() {
-		return (canDash()
-			|| canFly() || (canLiftRocks() && has("lantern")));
+		if(! has("state.inverted")) {
+			return (canDash()
+				|| canFly() || (canLiftRocks() && has("lantern")));
+		}
     }
   }
 
@@ -113,8 +156,10 @@ class DeathMountainWest extends DeathMountain {
 	this.initOverworldGlitches();
 
 	this.canEnter.majorGlitches = function() {
-		return (canDashSM() || has("bottle")
-			|| canFly() || (canLiftRocks() && has("lantern")));
+		if(! has("state.inverted")) {
+			return (canDashSM() || has("bottle")
+				|| canFly() || (canLiftRocks() && has("lantern")));
+		}
 	}
   }
 }

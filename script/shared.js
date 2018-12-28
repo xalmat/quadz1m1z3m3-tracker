@@ -159,7 +159,7 @@ function build_img_url(item) {
             useGame = "zelda3";
         }
     }
-    if(selectedGame == "zelda1" && item == "boss52") {
+    if(selectedGame == "zelda1" && item.indexOf("boss5") > -1) {
 		filext = "gif";
 	}
 
@@ -173,6 +173,7 @@ function build_img_url(item) {
 		candle0:	"candle1",
 		crystal5:	"dungeon" + OJCRYSTAL,
 		crystal6:	"dungeon" + OJCRYSTAL,
+		flute:		"flute0",
 		glove0:		"glove1",
 		lamp:		"lantern",
 		medallion1:	"bombos",

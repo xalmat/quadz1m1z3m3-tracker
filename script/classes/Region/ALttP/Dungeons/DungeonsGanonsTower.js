@@ -125,15 +125,8 @@ class DungeonsGanonsTower extends Dungeons {
 		let dwdme = new DarkWorldDeathMountainEast("","",false);
 		dwdme.initNoMajorGlitches();
 
-		return has("moonpearl")
-			&& has("crystal1")
-			&& has("crystal2")
-			&& has("crystal3")
-			&& has("crystal4")
-			&& has("crystal5")
-			&& has("crystal6")
-			&& has("crystal7")
-			&& has("motherbrain")
+		return (! isBunny(dungeon.subname))
+			&& canOpenGT()
 			&& dwdme.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
@@ -277,10 +270,12 @@ class DungeonsGanonsTower extends Dungeons {
   }
 
   initOverworldGlitches() {
+	  let dungeon = this;
+
 	  this.initMinorGlitches();
 
 	  this.canEnter.owGlitches = function() {
-		  return canDash() && has("moonpearl");
+		  return canDash() && (! isBunny(dungeon.subname));
 	  }
   }
 

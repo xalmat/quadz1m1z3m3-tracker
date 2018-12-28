@@ -12,16 +12,25 @@ class DarkWorldMire extends DarkWorld {
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	if(this.buildLocations) {
 //		this.locations["Mire Shed - Left"].glitchless =
 //		this.locations["Mire Shed - Right"].glitchless = function() {
 		this.locations["Mire Shed"].glitchless = function() {
-			return has("moonpearl");
+			return (! isBunny(region.name));
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		return ((canFly() && canLiftDarkRocks()) || canAccessMiseryMirePortal());
+		if(! has("state.inverted")) {
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+
+			return warps.locations["Dark Desert Teleporter (Dark)"].glitchless() || canAccessMiseryMirePortal();
+		} else if(has("state.inverted")) {
+			return canAccessLightWorld() && has("mirror");
+		}
 	}
   }
 
@@ -45,13 +54,15 @@ class DarkWorldMire extends DarkWorld {
   }
 
   initOverworldGlitches() {
+	let region = this;
+
 	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 //		this.locations["Mire Shed - Left"].owGlitches =
 //		this.locations["Mire Shed - Right"].owGlitches = function() {
 		this.locations["Mire Shed"].owGlitches = function() {
-			return has("moonpearl") || has("mirror");
+			return (! isBunny(region.name)) || has("mirror");
 		}
 	}
 
@@ -60,7 +71,7 @@ class DarkWorldMire extends DarkWorld {
 		sdw.initOverworldGlitches();
 
 		return ((canLiftDarkRocks() && (canFly() || canDash()))
-			|| (has("moonpearl") && canDash()
+			|| ((! isBunny(region.name)) && canDash()
 				&& sdw.canEnter.owGlitches()));
 	}
   }

@@ -96,31 +96,38 @@ function has(item, amount = -1) {
 		item = globalReplace[item];
 	}
 
-	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
-		ret = true;
-		val = trackerData[selectedGame].items[item];
-	} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
-		ret = true;
-		val = trackerData.zelda3.items[item];
-	} else if(trackerData.zelda1 && trackerData.zelda1.items && trackerData.zelda1.items[item]) {
-		ret = true;
-		val = trackerData.zelda1.items[item];
-	} else if(trackerData.metroid3 && trackerData.metroid3.items && trackerData.metroid3.items[item]) {
-		ret = true;
-		val = trackerData.metroid3.items[item];
-	} else if(trackerData.metroid1 && trackerData.metroid1.items && trackerData.metroid1.items[item]) {
-		ret = true;
-		val = trackerData.metroid1.items[item];
-	}
-	if(ret) {
-		if(amount > -1 && val < amount) {
-			ret = false;
+	if(item.indexOf('.') == -1) {
+		if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
+			ret = true;
+			val = trackerData[selectedGame].items[item];
+		} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
+			ret = true;
+			val = trackerData.zelda3.items[item];
+		} else if(trackerData.zelda1 && trackerData.zelda1.items && trackerData.zelda1.items[item]) {
+			ret = true;
+			val = trackerData.zelda1.items[item];
+		} else if(trackerData.metroid3 && trackerData.metroid3.items && trackerData.metroid3.items[item]) {
+			ret = true;
+			val = trackerData.metroid3.items[item];
+		} else if(trackerData.metroid1 && trackerData.metroid1.items && trackerData.metroid1.items[item]) {
+			ret = true;
+			val = trackerData.metroid1.items[item];
+		}
+		if(ret) {
+			if(amount > -1 && val < amount) {
+				ret = false;
+			}
 		}
 	}
 
-	if(item.indexOf("state") > -1) {
-		if(item.indexOf("open") > -1 && trackerData.zelda3.mapState == "open") {
-			return true;
+	if((selectedGame == "zelda3" || selectedGame == "metroid3") && item.indexOf("state") > -1) {
+		let open = trackerData.zelda3.mapState == "open";
+		let inverted = trackerData.zelda3.mapState == "inverted";
+		if(item.indexOf("open") > -1) {
+			return open;
+		}
+		if(item.indexOf("inverted") > -1) {
+			return inverted;
 		}
 	}
 	if(item.indexOf("swords") > -1) {
@@ -265,7 +272,7 @@ function canMeltThings() {
 }
 
 function canFly() {
-    return has("flute");
+    return has("flute",2);
 }
 
 function canSpinSpeed() {
@@ -317,6 +324,79 @@ function canBeatAga1(logic) {
 		}
 	} else {
 		return false;
+	}
+}
+
+function canOpenGT() {
+	let ret = true;
+
+	for(i = 1; i <= 7; i++) {
+		if(! has("crystal" + i)) {
+			ret = false;
+		}
+	}
+
+	if(
+		roomname == "smalttpr"
+		&& trackerData
+		&& (
+			(
+				trackerData.zelda3
+				&& trackerData.zelda3.showPortals
+			) ||
+			(
+				trackerData.metroid3
+				&& trackerData.metroid3.showPortals
+			)
+		)
+	  ) {
+		ret = ret && has("motherbrain");
+	}
+
+	return ret;
+}
+
+function isBunny(regionName = "",regionSubname = "") {
+    let darkRegions = [
+    	"PalaceOfDarkness",
+    	"SwampPalace",
+    	"ThievesTown",
+    	"SkullWoods",
+    	"IcePalace",
+    	"MiseryMire",
+    	"TurtleRock"
+    ];
+
+    let notBunny = "light";
+    let bunny = "dark";
+
+    if(has("state.inverted")) {
+		notBunny = "dark";
+		bunny = "light";
+	} else {
+		darkRegions.push("GanonsTower");
+	}
+
+	let world = "light";
+	if(((regionName.toLowerCase().indexOf("dark")) > -1) || (darkRegions.indexOf(regionName) > -1)) {
+		world = "dark";
+	}
+
+	return (world == bunny) && !has("moonpearl");
+}
+
+function canAccessLightWorld() {
+	if(!has("state.inverted")) {
+		return true;
+	} else if(has("state.inverted")) {
+		let warps = new HyruleWarpsMain();
+		warps.initNoMajorGlitches();
+		let south = warps.locations["South Hyrule Teleporter (Dark)"].glitchless();
+		let east = warps.locations["East Hyrule Teleporter (Dark)"].glitchless();
+		let west = warps.locations["Kakariko Teleporter (Dark)"].glitchless();
+		let gate = warps.locations["Castle Gate (Dark)"].glitchless();
+
+		return south || east || west || gate;
 	}
 }
 

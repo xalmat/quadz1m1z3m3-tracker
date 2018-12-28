@@ -10,20 +10,33 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
   }
 
   initNoMajorGlitches() {
+	  let region = this;
+
 	  if(this.buildLocations) {
 		  this.locations["Spike Cave"].glitchless = function() {
 			let wdm = new DeathMountainWest("","",false);
 			wdm.initNoMajorGlitches();
 
-			return has("moonpearl") && has("hammer") && canLiftRocks()
+			return (! isBunny(region.name)) && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.glitchless();
 		  }
 	  }
+
+	  this.canEnter.glitchless = function() {
+		  if(! has("state.inverted")) {
+			  return true;
+		  } else if(has("state.inverted")) {
+			  return canFly()							// Flute to DW 1
+			  	|| (canLiftRocks() && has("lantern"));	// Death Mountain Cave (Bumper Cave in non-inverted)
+		  }
+	  }
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -37,7 +50,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			let wdm = new DeathMountainWest("","",false);
 			wdm.initMinorGlitches();
 
-			if(has("moonpearl") && has("hammer") && canLiftRocks()
+			if((! isBunny(region.name)) && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.minorGlitches()) {
@@ -46,9 +59,34 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			}
 		}
 	}
+
+	this.canEnter.minorGlitches = function() {
+		let ret = this.glitchless();
+
+		if(ret) {
+			return ret;
+		}
+
+		if(has("state.inverted")) {
+			if(canFly()) {			// Flute to DW 1
+				return true;
+			}
+			if(canLiftRocks()) {	// Death Mountain Cave (Bumper Cave in non-inverted)
+				if(canDarkNav()) {
+					return "glitchavailable";
+				} else if(has("lantern")) {
+					return "available";
+				}
+			}
+		} else {
+			return true;
+		}
+	}
   }
 
   initMajorGlitches() {
+	let region = this;
+
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -57,7 +95,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			wdm.initMajorGlitches();
 
 			return has("hammer") && canLiftRocks()
-				&& (has("moonpearl") || (has("bottle") && canDash()))
+				&& ((! isBunny(region.name)) || (has("bottle") && canDash()))
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.majorGlitches();
