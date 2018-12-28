@@ -348,7 +348,8 @@ function canOpenGT() {
 				trackerData.metroid3
 				&& trackerData.metroid3.showPortals
 			)
-		) {
+		)
+	  ) {
 		ret = ret && has("motherbrain");
 	}
 
