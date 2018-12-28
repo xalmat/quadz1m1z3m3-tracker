@@ -31,3 +31,24 @@
 .zelda1 .prizeImage {
     border-bottom-left-radius: 0;
 }
+
+.zelda1 .chest.bombablecave {
+  background-image: url(../../../images/zelda3/inventory/bomb1.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.burnablecave {
+  background-image: url(../../../images/zelda1/inventory/candle1.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.moneymakinggame {
+  background-image: url(../../../images/zelda3/inventory/20rupees.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.potions {
+  background-image: url(../../../images/zelda1/inventory/bottle0.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.rupoor {
+  background-image: url(../../../images/zelda3/inventory/rupoor.png) !important;
+  background-size: 16px 16px !important;
+}

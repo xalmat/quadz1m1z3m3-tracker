@@ -174,7 +174,8 @@ function initClasses(useGame) {
 								isOpened: false,
 								isPortal: false,
 								isWarp: false,
-								isVanilla: true
+								isVanilla: true,
+								type: location.type.toLowerCase().replace(/ /gi, "")
 							};
 
 							if(location.type == "Portal" || location.type == "Warp") {	// Portal/Warp

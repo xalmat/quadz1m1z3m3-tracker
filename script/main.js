@@ -445,6 +445,9 @@ function chestClass(x) {
 	for(let add in classNames) {
 		className += classNames[add] + " ";
 	}
+	if(chest.type) {
+		className += chest.type + " ";
+	}
 	if(chest.isImportant) {
 		className += "important ";
 	}
@@ -1044,16 +1047,16 @@ function refreshChests() {
 		document.getElementById(k).className = chestClass(k);
 
 		if(roomid == "lozmx") {
-			let showAll = trackerData[selectedGame].nonVanilla;
-			let thisV = chest.isVanilla;
-			if(!thisV) {
-				if(!showAll) {
-					document.getElementById(k).classList.add("hidden");
-					continue;
-				} else {
-					document.getElementById(k).classList.remove("hidden");
-				}
-			}
+//			let showAll = trackerData[selectedGame].nonVanilla;
+//			let thisV = chest.isVanilla;
+//			if(!thisV) {
+//				if(!showAll) {
+//					document.getElementById(k).classList.add("hidden");
+//					continue;
+//				} else {
+//					document.getElementById(k).classList.remove("hidden");
+//				}
+//			}
 		} else {
 			// Determine Lonk's Hoose
 			if(chest.name == "Link's House") {

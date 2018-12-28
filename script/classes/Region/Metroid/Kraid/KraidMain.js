@@ -22,6 +22,11 @@ class KraidMain extends Kraid {
   }
 
   initCasual() {
+	  this.locations["Upper Right Area Top Floor"].casualLogic =
+	  this.locations["Upper Right Area Middle Floor"].casualLogic =
+	  this.locations["Upper Right Area Bottom Floor"].casualLogic = function() {
+		  return canOpenRedDoors();
+	  }
 	  this.locations["Left of First Doors"].casualLogic =
 	  this.locations["Right of Second Doors"].casualLogic = function() {
 		  return canUseMorphBombs();
