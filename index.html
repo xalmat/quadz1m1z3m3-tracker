@@ -41,12 +41,14 @@
                 <legend>Item Tracker</legend>
                 <button type="button" onclick="EditMode()" style="float:right;">Edit Mode</button>
                 <span style="white-space:nowrap;">Size<input type="range" name='itemdivsize' value='100' max='200' min='1' onchange="setZoom('itemdiv', this)"><span id='itemdivsize'>100%</span></span><br />
-                <div class="zelda3-option">
+                <div class="zelda-option">
 	                <fieldset>
 	                    <legend>Dungeon Display</legend>
-	                    <input type="checkbox" name="showchest" id="showchest" checked='checked' onchange="showChest(this)"><label for="showchest">Chests</label>
-	                    <input type="checkbox" name="showcrystal" id="showcrystal" checked='checked' onchange="showCrystal(this)"><label for="showcrystal">Prizes</label>
-	                    <input type="checkbox" name="showmedallion" id="showmedallion" checked='checked' onchange="showMedallion(this)"><label for="showmedallion">Medals</label><br />
+	                    <div class="zelda3-option">
+	                    	<input type="checkbox" name="showchest" id="showchest" checked='checked' onchange="showChest(this)"><label for="showchest">Chests</label>
+	                    	<input type="checkbox" name="showcrystal" id="showcrystal" checked='checked' onchange="showCrystal(this)"><label for="showcrystal">Prizes</label>
+	                    	<input type="checkbox" name="showmedallion" id="showmedallion" checked='checked' onchange="showMedallion(this)"><label for="showmedallion">Medals</label><br />
+	                    </div>
 	                    <input type="checkbox" name="showlabel" id="showlabel" checked='checked' onchange="showLabel(this)"><label for="showlabel">Labels</label>
 	                </fieldset>
 	            </div>
@@ -56,7 +58,7 @@
                 <span style="float:right;">
                   <input type="checkbox" name="showmap" id="showmap" checked='checked' onchange="showTracker('mapdiv', this)">
                   <label for="showmap">Enabled</label><br />
-                  <span class="zelda3-option metroid3-option"><input type="checkbox" id="mapRegions" onchange="showRegions(this)" /><label for="mapRegions">Regions</label><br /></span>
+                  <span class="smalttpr-option"><input type="checkbox" id="mapRegions" onchange="showRegions(this)" /><label for="mapRegions">Regions</label><br /></span>
                   <span class="zelda3-option"><input type="checkbox" id="mapWarps" checked='checked' onchange="showWarps(this)" /><label for="mapWarps">Warps</label><br /></span>
                   <input type="checkbox" id="mapPortals" checked='checked' onchange="showPortals(this)" /><label for="mapPortals">Portals</label>
                 </span>
@@ -84,7 +86,7 @@
                     	<legend>Game State</legend>
                     	<input type='radio' name='mapstate' id="mState1" value='standard' onclick='setState("standard")'><label for="mState1">Standard</label>
                     	<input type='radio' name='mapstate' id="mState2" value='open' checked='checked' onclick='setState("open")'><label for="mState2">Open</label>
-                    	<input type='radio' name='mapstate' id="mState3" value='open' checked='checked' onclick='setState("inverted")'><label for="mState3">Inverted</label><br />
+                    	<input type='radio' name='mapstate' id="mState3" class="zelda3-regions" value='open' checked='checked' onclick='setState("inverted")'><label for="mState3" class="zelda3-regions">Inverted</label><br />
                     	<span class="zelda3-regions"><input type='checkbox' name='swordless' id="swordless" onchange='setSwords(this)'><label for="swordless">Swordless</label></span>
                     	<span class="zelda3-regions"><input type='checkbox' name='ohko' id="ohko" onchange='setOHKO(this)'><label for="ohko">OHKO</label></span>
                     </fieldset>
@@ -184,3 +186,4 @@
         </script>
     </body>
 </html>
+

@@ -4,7 +4,6 @@ class BossDigdogger extends Boss {
   }
 
   canBeat() {
-	  // return has("flute") && hasSword();
-	  return has("flute") && canSwimZ1() && (hasSword() || has("magicalrod"));
+	  return has("recorder") && hasSword();
   }
 }

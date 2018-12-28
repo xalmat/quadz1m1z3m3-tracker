@@ -20,51 +20,40 @@ class DeathMountainWest extends DeathMountain {
 			return has("lantern");
 		}
 		this.locations["Ether Tablet"].glitchless = function() {
-			if(has("state.inverted")) {
+			if(! has("state.inverted")) {
+				return !isBunny(region.name) && canActivateTablets()
+					&& (has("mirror") || (has("hammer") && canGrapple()));
+			} else if(has("state.inverted")) {
 				let warps = new HyruleWarpsMain();
 				warps.initNoMajorGlitches();
-
-				// Bunny can't activate tablets
-				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless()
-					&& !isBunny(region.name,region.subname)
-					&& canActivateTablets();
-			} else {
-				return canActivateTablets()
-					&& (has("mirror") || (has("hammer") && canGrapple()));
+				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless() && !isBunny(region.name) && canActivateTablets();
 			}
 		}
 		this.locations["Spectacle Rock"].glitchless = function() {
-			if(has("state.inverted")) {
+			if(! has("state.inverted")) {
+				return has("mirror");
+			} else if(has("state.inverted")) {
 				let warps = new HyruleWarpsMain();
 				warps.initNoMajorGlitches();
-
 				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless();
-			} else {
-				return has("mirror");
 			}
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		if(has("state.inverted")) {
-			// Entrance is at DW Bumper Cave entrance
-			// Walking in transports you to Lost Old Man's cave
-			// Picking up Lost Old Man and exiting his cave
-			//  pops you out onto DW Death Mountain
-			// Traverse DW Death Mountain to warp to
-			//  Light World Death Mountain
-			// Bring Lost Old Man to his house to
-			//  become Found Old Man
-			return has("lantern") && canLiftRocks();
-		} else {
+		if(! has("state.inverted")) {
 			return (canFly()
 				|| (canLiftRocks() && has("lantern"))
 				|| canAccessDeathMountainPortal());
+		} else if(has("state.inverted")) {
+			return has("lantern") && canLiftRocks();
 		}
 	}
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -88,20 +77,11 @@ class DeathMountainWest extends DeathMountain {
 			let warps = new HyruleWarpsMain();
 			warps.initNoMajorGlitches();
 
-			// Not Inverted
-			let notInvertedAccess = !has("state.inverted");
+			let isInverted = has("state.inverted");
 
-			// Yes Inverted
-			let invertedAccess = has("state.inverted") && warps.locations["Turtle Rock Teleporter (Light)"].glitchless();
-
-			// Mirror requirement
-			let mirror = has("mirror") || has("state.inverted");
-
-			// If we have access
-			if(notInvertedAccess || invertedAccess) {
-				// Bunny can't get here
-				if(!isBunny(region.name,region.subname)) {
-					if(mirror) {
+			if((! isInverted) || (isInverted && warps.locations["Turtle Rock Teleporter (Light)"].glitchless())) {
+				if(!isBunny(region.name)) {
+					if(has("mirror") || isInverted) {
 						if(canActivateTablets()) {
 							if(canDarkNav()) {
 								return "glitchavailable";
@@ -165,8 +145,10 @@ class DeathMountainWest extends DeathMountain {
 	}
 
     this.canEnter.owGlitches = function() {
-		return (canDash()
-			|| canFly() || (canLiftRocks() && has("lantern")));
+		if(! has("state.inverted")) {
+			return (canDash()
+				|| canFly() || (canLiftRocks() && has("lantern")));
+		}
     }
   }
 
@@ -174,8 +156,10 @@ class DeathMountainWest extends DeathMountain {
 	this.initOverworldGlitches();
 
 	this.canEnter.majorGlitches = function() {
-		return (canDashSM() || has("bottle")
-			|| canFly() || (canLiftRocks() && has("lantern")));
+		if(! has("state.inverted")) {
+			return (canDashSM() || has("bottle")
+				|| canFly() || (canLiftRocks() && has("lantern")));
+		}
 	}
   }
 }

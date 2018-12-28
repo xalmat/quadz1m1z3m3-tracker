@@ -122,33 +122,12 @@ class DungeonsGanonsTower extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		let mb = true;
-		if(trackerData.zelda3.showPortals) {
-			mb = has("motherbrain");
-		}
+		let dwdme = new DarkWorldDeathMountainEast("","",false);
+		dwdme.initNoMajorGlitches();
 
-		let access = (! isBunny(dungeon.subname))
-			&& has("crystal1")
-			&& has("crystal2")
-			&& has("crystal3")
-			&& has("crystal4")
-			&& has("crystal5")
-			&& has("crystal6")
-			&& has("crystal7")
-			&& mb;
-
-		if(has("state.inverted")) {
-			// Ganon's Tower has moved to top floor of Hyrule Castle
-			let lws = new LightWorldSouth("","",false);
-			lws.initNoMajorGlitches();
-
-			return access && lws.canEnter.glitchless();
-		} else {
-			let dwdme = new DarkWorldDeathMountainEast("","",false);
-			dwdme.initNoMajorGlitches();
-
-			return access && dwdme.canEnter.glitchless();
-		}
+		return (! isBunny(dungeon.subname))
+			&& canOpenGT()
+			&& dwdme.canEnter.glitchless();
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Ganon's Tower - Moldorm Chest"].glitchless()

@@ -27,20 +27,17 @@ class LightWorldNorthEast extends LightWorld {
 			return has("pendantgreen");
 		}
 		this.locations["King Zora"].glitchless = function() {
-			// Bunny can't swim
 			return (canLiftRocks() || canSwim()) && !isBunny(region.name);
 		}
 		this.locations["Potion Shop"].glitchless = function() {
-			return has("mushroom");
+			return has("mushroom") && !isBunny(region.name);
 		}
 		this.locations["Zora Ledge"].glitchless = function() {
-			// Bunny can't swim
 			return canSwim() && !isBunny(region.name);
 		}
 //		this.locations["Waterfall Fairy - Left"].glitchless =
 //		this.locations["Waterfall Fairy - Right"].glitchless =
 		this.locations["Waterfall Fairy"].glitchless = function() {
-			// Bunny can't swim
 			return canSwim() && !isBunny(region.name);
 		}
 	}
@@ -62,7 +59,7 @@ class LightWorldNorthEast extends LightWorld {
 			if(ret) {
 				return ret;
 			}
-			if(canFakeFlipper()) {
+			if(canFakeFlipper() && !isBunny(region.name)) {
 				return "glitchavailable";
 			}
 		}
@@ -73,7 +70,7 @@ class LightWorldNorthEast extends LightWorld {
 			if(ret) {
 				return ret;
 			}
-			if(canWaterwalkStored()) {
+			if(canWaterwalkStored() && !isBunny(region.name)) {
 				return "glitchavailable";
 			}
 			if(kz) {

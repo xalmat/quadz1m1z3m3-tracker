@@ -87,6 +87,9 @@ function initClasses(useGame) {
 								ret = ret.substring(0,1);
 								return ret;
 							});
+							if(useGame == "zelda1") {
+								label = location.name.substring(4).split('');
+							}
 
 							var dungeon = {
 								label: label.join(''),

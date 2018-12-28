@@ -35,25 +35,20 @@ class DungeonsEasternPalace extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		if(has("state.inverted")) {
-			let warps = new HyruleWarpsMain();
+		if(! has("state.inverted")) {
+			return true;
+		} else if(has("state.inverted")) {
+			let warps = new HyruleWarpsMain("","",true);
 			warps.initNoMajorGlitches();
 
-			let desert = warps.locations["Dark Desert Teleporter (Dark)"].glitchless();
-			let south = warps.locations["South Hyrule Teleporter (Dark)"].glitchless();
-			let east = warps.locations["East Hyrule Teleporter (Dark)"].glitchless();
-			let west = warps.locations["Kakariko Teleporter (Dark)"].glitchless();
-
 			if(
-				desert ||
-				south ||
-				east ||
-				west
+				warps.locations["Kakariko Teleporter (Dark)"].glitchless() ||
+				warps.locations["East Hyrule Teleporter (Dark)"].glitchless() ||
+				warps.locations["South Hyrule Teleporter (Dark)"].glitchless() ||
+				warps.locations["Dark Desert Teleporter (Dark)"].glitchless()
 			) {
-				return (! isBunny(dungeon.subname));
+				return ! isBunny(dungeon.name);
 			}
-		} else {
-			return true;
 		}
 	}
 	this.canComplete.glitchless = function() {

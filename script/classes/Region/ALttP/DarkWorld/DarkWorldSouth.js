@@ -17,23 +17,28 @@ class DarkWorldSouth extends DarkWorld {
   }
 
   initNoMajorGlitches() {
+	let region = this;
+
 	this.canEnter.glitchless = function() {
-		if(has("state.inverted")) {
-			return true;
-		} else {
+		if(! has("state.inverted")) {
 			let dwne = new DarkWorldNorthEast("","",false);
 			dwne.initNoMajorGlitches();
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
 
-			return has("moonpearl")
+			return (! isBunny(region.name))
 				&& ((dwne.canEnter.glitchless() && (has("hammer")
 					|| (canGrapple() && (canSwim() || canLiftRocks()))))
-					|| (has("hammer") && canLiftRocks())
-					|| canLiftDarkRocks());
+					|| warps.locations["Kakariko Teleporter (Dark)"].glitchless());
+		} else if(has("state.inverted")) {
+			return true;
 		}
 	}
   }
 
   initMinorGlitches() {
+    let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -44,20 +49,28 @@ class DarkWorldSouth extends DarkWorld {
 		if(ret) {
 			return ret;
 		}
-		let dwne = new DarkWorldNorthEast("","",false);
-		dwne.initMinorGlitches();
 
-		if(has("moonpearl")
-			&& ((dwne.canEnter.minorGlitches() && (has("hammer")
-				|| (canGrapple() && (canSwim() || canLiftRocks()))))
-				|| (has("hammer") && canLiftRocks())
-				|| canLiftDarkRocks())) {
-			return dwne.canEnter.minorGlitches();
+		if(! has("state.inverted")) {
+			let dwne = new DarkWorldNorthEast("","",false);
+			dwne.initMinorGlitches();
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
+
+			if((! isBunny(region.name))
+				&& ((dwne.canEnter.minorGlitches() && (has("hammer")
+					|| (canGrapple() && (canSwim() || canLiftRocks()))))
+					|| warps.locations["Kakariko Teleporter (Dark)"].glitchless())) {
+				return dwne.canEnter.minorGlitches();
+			}
+		} else if(has("state.inverted")) {
+			return true;
 		}
 	}
   }
 
   initOverworldGlitches() {
+	let region = this;
+
 	this.initMinorGlitches();
 
 	if(this.buildLocations) {
@@ -72,17 +85,19 @@ class DarkWorldSouth extends DarkWorld {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initOverworldGlitches();
 
-		return ((has("moonpearl")
+		return (((! isBunny(region.name))
 			&& (canLiftDarkRocks()
 				|| (has("hammer") && canLiftRocks())
 				|| (has("agahnim") && (has("hammer")
 					|| (canGrapple() && (canLiftRocks() || canSwim()))))))
-			|| ((has("mirror") || (canDash() && has("moonpearl")))
+			|| ((has("mirror") || (canDash() && (! isBunny(region.name))))
 				&& wdm.canEnter.owGlitches()));
 	}
   }
 
   initMajorGlitches() {
+	let region = this;
+
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -97,7 +112,7 @@ class DarkWorldSouth extends DarkWorld {
 		let wdm = new DeathMountainWest("","",false);
 		wdm.initOverworldGlitches();
 
-		return ((has("moonpearl")
+		return (((! isBunny(region.name))
 			&& (canLiftDarkRocks()
 				|| (has("hammer") && canLiftRocks())
 				|| (has("agahnim") && (has("hammer")

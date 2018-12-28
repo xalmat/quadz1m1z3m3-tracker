@@ -727,7 +727,7 @@ function showMedallion(sender) {
 }
 
 function showLabel(sender) {
-	if(selectedGame != "zelda3") { return; }
+	if(selectedGame != "zelda3" && selectedGame != "zelda1") { return; }
 
     trackerData[selectedGame].showLabels = sender.checked;
     refreshMap();
@@ -1488,10 +1488,14 @@ Vue.component('tracker-cell', {
       return null;
     },
     prizeImage: function() {
-	  if(selectedGame != "zelda3") { return null; }
-      if(this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
-        return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
-      }
+	  if(selectedGame != "zelda3" && selectedGame != "zelda1") { return null; }
+	  if(selectedGame == "zelda3") {
+        if(this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
+          return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
+        }
+      } else if(this.bossNum && selectedGame == "zelda1") {
+          return "url(" + build_img_url("boss82") + ')';
+	  }
       return null;
     },
     medallionImage: function() {

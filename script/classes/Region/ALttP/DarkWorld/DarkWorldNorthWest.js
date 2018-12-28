@@ -25,22 +25,25 @@ class DarkWorldNorthWest extends DarkWorld {
 		}
 		this.locations["Blacksmith"].glitchless =
 		this.locations["Purple Chest"].glitchless = function() {
-			return canLiftDarkRocks();
+			return !isBunny("light") && !isBunny("dark") && canLiftDarkRocks();
 		}
 	}
 
 	this.canEnter.glitchless = function() {
-		if(has("state.inverted")) {
-			return true;
-		} else {
+		let region = this;
+
+		if(! has("state.inverted")) {
 			let nedw = new DarkWorldNorthEast("","",false);
 			nedw.initNoMajorGlitches();
+			let warps = new HyruleWarpsMain();
+			warps.initNoMajorGlitches();
 
-			return has("moonpearl")
+			return (! isBunny(region.name))
 				&& ((nedw.canEnter.glitchless()
 					&& (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
-					|| (has("hammer") && canLiftRocks())
-					|| canLiftDarkRocks());
+					|| warps.locations["Kakariko Teleporter (Dark)"].glitchless());
+		} else if(has("state.inverted")) {
+			return true;
 		}
 	}
   }
@@ -63,33 +66,41 @@ class DarkWorldNorthWest extends DarkWorld {
 	}
 
 	this.canEnter.minorGlitches = function() {
-		let ret = this.glitchless();
+		let region = this;
 
-		if(ret) {
-			return ret;
-		}
+		if(! has("state.inverted")) {
+			let ret = this.glitchless();
 
-		let nedw = new DarkWorldNorthEast("","",false);
-		nedw.initMinorGlitches();
+			if(ret) {
+				return ret;
+			}
 
-		if(has("moonpearl")
-			&& ((nedw.canEnter.minorGlitches()
-				&& (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
-				|| (has("hammer") && canLiftRocks())
-				|| canLiftDarkRocks())) {
-			return nedw.canEnter.minorGlitches();
+			let nedw = new DarkWorldNorthEast("","",false);
+			nedw.initMinorGlitches();
+
+			if((! isBunny(region.name))
+				&& ((nedw.canEnter.minorGlitches()
+					&& (canGrapple() && (canSwim() || canLiftRocks() || has("hammer"))))
+					|| (has("hammer") && canLiftRocks())
+					|| canLiftDarkRocks())) {
+				return nedw.canEnter.minorGlitches();
+			}
+		} else if(has("state.inverted")) {
+			return true;
 		}
 	}
   }
 
   initOverworldGlitches() {
+	let region = this;
+
 	this.initMinorGlitches();
 
 	if(this.buildLocations) {
 		let locations = this.locations;
 
 		this.locations["Brewery"].owGlitches = function() {
-			return has("moonpearl");
+			return (! isBunny(region.name));
 		}
 		this.locations["Hammer Pegs"].owGlitches = function() {
 			let nedw = new DarkWorldNorthEast("","",false);
@@ -101,7 +112,7 @@ class DarkWorldNorthWest extends DarkWorld {
 						&& nedw.canEnter.owGlitches()));
 		}
 		this.locations["Bumper Cave"].owGlitches = function() {
-			return has("moonpearl")
+			return (! isBunny(region.name))
 				&& (canDash()
 					|| (canLiftRocks() && has("cape")));
 		}
@@ -113,7 +124,7 @@ class DarkWorldNorthWest extends DarkWorld {
 			nedw.initOverworldGlitches();
 
 			return locations["Blacksmith"].owGlitches()
-				&& (has("moonpearl")
+				&& ((! isBunny(region.name))
 					&& (canLiftDarkRocks()
 						|| (canDash()
 						&& nedw.canEnter.owGlitches())));
@@ -124,18 +135,19 @@ class DarkWorldNorthWest extends DarkWorld {
 		  let wdm = new DeathMountainWest("","",false);
 		  wdm.initOverworldGlitches();
 
-		  return ((has("moonpearl")
+		  return (((! isBunny(region.name))
 		  	&& (canLiftDarkRocks()
 		  		|| (has("hammer") && canLiftRocks())
 		  		|| (has("agahnim") && canGrapple()
 		  			&& (has("hammer") || canLiftRocks() || canSwim()))))
-		  	|| ((has("mirror") || (canDash() && has("moonpearl")))
+		  	|| ((has("mirror") || (canDash() && (! isBunny(region.name))))
 		  		&& wdm.canEnter.owGlitches()));
 	  }
   }
 
   initMajorGlitches() {
-	  this.initOverworldGlitches();
+    let region = this;
+    this.initOverworldGlitches();
 
 	if(this.buildLocations) {
 		  let locations = this.locations;
@@ -170,7 +182,7 @@ class DarkWorldNorthWest extends DarkWorld {
 		  let wdm = new DeathMountainWest("","",false);
 		  wdm.initMajorGlitches();
 
-		  return ((has("moonpearl")
+		  return (((! isBunny(region.name))
 		  	&& (canLiftDarkRocks()
 		  		|| (has("hammer") && canLiftRocks())
 		  		|| (has("agahnim") && canGrapple()

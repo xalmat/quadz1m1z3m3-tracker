@@ -116,10 +116,12 @@ class DungeonsTurtleRock extends Dungeons {
 		  edm.initMinorGlitches();
 
 		  if(ret) {
-			  if(dungeon.canEnter.glitchless()) {
+			  let TRGlitchless = dungeon.canEnter.glitchless();
+			  let TRMinors = ret && edm.canEnter.minorGlitches();
+			  if(TRGlitchless) {
 				  return ret;
-			  } else if(dungeon.canEnter.minorGlitches()) {
-				  return dungeon.canEnter.minorGlitches();
+			  } else if(TRMinors) {
+				  return TRMinors;
 			  }
 		  }
 	  }
@@ -142,7 +144,15 @@ class DungeonsTurtleRock extends Dungeons {
 	  }
 
 	  this.canEnter.minorGlitches = function() {
-		  return upperCan();
+		  return upperCan()
+		  	|| (
+				has("state.inverted")
+				&& (canLiftRocks() && canDarkNav())
+				&& (
+					dungeon.hasMedallion()
+					|| dungeon.mayHaveMedallion()
+				)
+			);
 	  }
 	  this.mayEnter.minorGlitches = function() {
 		  return upperMay();
@@ -209,7 +219,7 @@ class DungeonsTurtleRock extends Dungeons {
 	edm.initOverworldGlitches();
 
 	let middle = function() {
-		return (has("mirror") || ((! isBunny(dungeon.subname)) && canSpinSpeed()))
+		return ((! isBunny(dungeon.subname)) || (has("moonpearl") && canSpinSpeed()))
 		&& (canDash() || has("somaria") || canGrapple()
 			|| has("variation.ohko")										// FIXME: OHKO
 				&& canInvul())

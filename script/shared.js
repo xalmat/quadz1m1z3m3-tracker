@@ -159,7 +159,7 @@ function build_img_url(item) {
             useGame = "zelda3";
         }
     }
-    if(selectedGame == "zelda1" && item == "boss52") {
+    if(selectedGame == "zelda1" && item.indexOf("boss5") > -1) {
 		filext = "gif";
 	}
 

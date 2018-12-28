@@ -21,18 +21,18 @@ class DungeonsHyruleCastleTower extends Dungeons {
 	}
 
 	this.canEnter.glitchless = function() {
-		if(has("state.inverted")) {
-			// Agahnim's Castle Tower has moved to Ganon's Tower on top of Death Mountain
+		if(! has("state.inverted")) {
+			return canKillMostThings(8)
+				&& (has("cape")
+					|| hasSword(2));
+		} else if(has("state.inverted")) {
 			let dwdmw = new DarkWorldDeathMountainWest("","",false);
 			dwdmw.initNoMajorGlitches();
 
 			return dwdmw.canEnter.glitchless();
-		} else {
-			return canKillMostThings(8)
-				&& (has("cape")
-					|| hasSword(2));
 		}
 	}
+
 	this.canComplete.glitchless = function() {
 		return has("lantern") && (hasSword()
 				|| (has("swords.swordless") && (has("hammer") || has("net"))));		// FIXME: Swordless

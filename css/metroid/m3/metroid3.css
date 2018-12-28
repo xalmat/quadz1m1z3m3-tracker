@@ -19,7 +19,7 @@
     left: 0;
     position: absolute;
 }
-.metroid3 .mapdiv #mapoverlay.on, {
+.metroid3 .mapdiv #mapoverlay.on {
     background-image: url(../../../images/metroid3/maps/mapregions.png) !important;
 }
 .metroid3 .metroid1-option {

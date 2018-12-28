@@ -327,6 +327,34 @@ function canBeatAga1(logic) {
 	}
 }
 
+function canOpenGT() {
+	let ret = true;
+
+	for(i = 1; i <= 7; i++) {
+		if(! has("crystal" + i)) {
+			ret = false;
+		}
+	}
+
+	if(
+		roomname == "smalttpr"
+		&& trackerData
+		&& (
+			(
+				trackerData.zelda3
+				&& trackerData.zelda3.showPortals
+			) ||
+			(
+				trackerData.metroid3
+				&& trackerData.metroid3.showPortals
+			)
+		) {
+		ret = ret && has("motherbrain");
+	}
+
+	return ret;
+}
+
 function isBunny(regionName = "",regionSubname = "") {
     let darkRegions = [
     	"PalaceOfDarkness",

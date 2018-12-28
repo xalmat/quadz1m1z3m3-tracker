@@ -10,12 +10,14 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
   }
 
   initNoMajorGlitches() {
+	  let region = this;
+
 	  if(this.buildLocations) {
 		  this.locations["Spike Cave"].glitchless = function() {
 			let wdm = new DeathMountainWest("","",false);
 			wdm.initNoMajorGlitches();
 
-			return (! isBunny(region.name,region.subname)) && has("hammer") && canLiftRocks()
+			return (! isBunny(region.name)) && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.glitchless();
@@ -23,16 +25,18 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 	  }
 
 	  this.canEnter.glitchless = function() {
-		  if(has("state.inverted")) {
+		  if(! has("state.inverted")) {
+			  return true;
+		  } else if(has("state.inverted")) {
 			  return canFly()							// Flute to DW 1
 			  	|| (canLiftRocks() && has("lantern"));	// Death Mountain Cave (Bumper Cave in non-inverted)
-		  } else {
-			  return true;
 		  }
 	  }
   }
 
   initMinorGlitches() {
+	let region = this;
+
 	this.initNoMajorGlitches();
 
 	if(this.buildLocations) {
@@ -46,7 +50,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			let wdm = new DeathMountainWest("","",false);
 			wdm.initMinorGlitches();
 
-			if((!isBunny(region.name,region.subname)) && has("hammer") && canLiftRocks()
+			if((! isBunny(region.name)) && has("hammer") && canLiftRocks()
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.minorGlitches()) {
@@ -81,6 +85,8 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
   }
 
   initMajorGlitches() {
+	let region = this;
+
 	this.initOverworldGlitches();
 
 	if(this.buildLocations) {
@@ -89,7 +95,7 @@ class DarkWorldDeathMountainWest extends DarkWorldDeathMountain {
 			wdm.initMajorGlitches();
 
 			return has("hammer") && canLiftRocks()
-				&& (has("moonpearl") || (has("bottle") && canDash()))
+				&& ((! isBunny(region.name)) || (has("bottle") && canDash()))
 				&& ((canExtendMagic() && has("cape"))
 					|| (((! has("variation.ohko")) || canExtendMagic()) && has("byrna")))
 				&& wdm.canEnter.majorGlitches();

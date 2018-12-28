@@ -4,7 +4,6 @@ class BossGohma extends Boss {
   }
 
   canBeat() {
-	  // return canShootArrowsZ1();
-	  return canSwimZ1() && canShootArrowsZ1() && (hasSword() || has("magicalrod"));
+	  return canShootArrowsZ1();
   }
 }

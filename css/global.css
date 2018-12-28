@@ -163,25 +163,23 @@ input {
 .boss{
     width: 24px;
     height: 24px;
+    margin-left: calc(-1 * (24px / 2));
+    margin-top:  calc(-1 * (24px / 2));
 
     background: no-repeat center;
     background-size: 75% 75%;
-
     position: absolute;
-    margin-left: -12px;
-    margin-top: -12px;
-
     z-index: 2;
 }
 
 .dungeon{
     width: 48px;
     height: 48px;
-    background-size: 100% 100%;
+    margin-left: calc(-1 * (48px / 2));
+    margin-top:  calc(-1 * (48px / 2));
 
+    background-size: 100% 100%;
     position: absolute;
-    margin-left: -24px;
-    margin-top: -24px;
 }
 
 .itemdiv{
