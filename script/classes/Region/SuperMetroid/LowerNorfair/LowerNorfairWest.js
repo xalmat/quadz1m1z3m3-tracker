@@ -14,21 +14,19 @@ class LowerNorfairWest extends LowerNorfair {
 	this.locations["Missile (Gold Torizo)"].casualLogic = function() {
 		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
 	}
-	this.locations["Super Missile (Gold Torizo)"].casualLogic = function() {
-		return canDestroyBombWalls()
-			&& (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()));
-	}
+	this.locations["Super Missile (Gold Torizo)"].casualLogic =
 	this.locations["Screw Attack"].casualLogic = function() {
 		return canDestroyBombWalls()
 			&& (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()));
 	}
 	this.locations["Gold Torizo"].casualLogic = function() {
-		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
+		return this.locations["Missile (Gold Torizo)"].casualLogic();
 	}
 
     this.canEnter.casualLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initCasual();
+
 		return heatProof()
 				&& ((ne.canEnter.casualLogic()
 			&& canUsePowerBombs()
@@ -36,7 +34,7 @@ class LowerNorfairWest extends LowerNorfair {
 			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls()));
     }
     this.canComplete.casualLogic = function() {
-		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
+		return this.locations["Gold Torizo"].casualLogic();
     }
   }
 
@@ -62,18 +60,12 @@ class LowerNorfairWest extends LowerNorfair {
 	}
 
     this.locations["Gold Torizo"].tourneyLogic = function() {
-		return canUsePowerBombs()
-			&& has("space")
-			&& ((heatProof() && (canHiJump() || canSwimSM()))
-			|| (heatProof()
-				&& (canIbj()
-					|| (has("space") && (has("screw") || canPassBombPassages() || canUsePowerBombs()))
-					|| (canSpringBall() && canUsePowerBombs())
-					|| canDashSM())));
+		return this.locations["Missile (Gold Torizo)"].tourneyLogic();
 	}
 	this.canEnter.tourneyLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initTournament();
+
 		return ne.canEnter.tourneyLogic()
 			&& canUsePowerBombs()
 			&& (heatProof() && (canHiJump() || canSwimSM()))

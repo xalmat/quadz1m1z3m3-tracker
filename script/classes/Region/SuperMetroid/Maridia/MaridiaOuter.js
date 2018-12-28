@@ -21,13 +21,14 @@ class MaridiaOuter extends Maridia {
 	this.canEnter.casualLogic = function() {
 		let nw = new NorfairWest("","",false);
 		nw.initCasual();
+
 		return ((nw.canEnter.casualLogic()
 				&& canUsePowerBombs())
 				|| canAccessMaridiaPortal())
 			&& canSwimSM();
 	}
     this.canComplete.casualLogic = function() {
-		return canDefeatBotwoon() && canDefeatDraygon();
+		return canDefeatDraygon();
     }
   }
 

@@ -32,6 +32,10 @@ class CrateriaEast extends Crateria {
   initTournament() {
     this.initCasual();
 
+    this.locations["Missile (outside Wrecked Ship bottom)"].tourneyLogic = function() {
+		return true;
+	}
+
 	this.locations["Missile (outside Wrecked Ship top)"].tourneyLogic =
 	this.locations["Missile (outside Wrecked Ship middle)"].tourneyLogic = function() {
 		return canOpenGreenDoors() && canPassBombPassages() && has("phantoon");
