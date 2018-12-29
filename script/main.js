@@ -58,10 +58,6 @@ for(let key in defaultData) {
 		trackerData[selectedGame][key] = val;
 	}
 }
-if(selectedGame == "zelda1") {
-	cookieDefault.zelda1.items.bottle = false;
-	trackerData.zelda1.items.bottle = false;
-}
 
 let defaultBoth = {
 	gotprizes: [0,0,0,0],
@@ -1249,32 +1245,46 @@ function populateItemconfig() {
     var row;
 
     for (var key in trackerData[selectedGame].items) {
-        if (i % 10 === 0){
-            row = document.createElement('tr');
-            grid.appendChild(row);
-        }
-        i++;
+		let thisGame = selectedGame;
+		let altGame = altGames[selectedGame];
+		let useGame = thisGame;
 
-        var rowitem = document.createElement('td');
-        rowitem.className = 'corner editcell';
-        rowitem.id = key;
-        rowitem.title = fix_itemlabel(key);
-        rowitem.style.backgroundSize = '100% 100%';
-        rowitem.onclick = new Function('itemConfigClick(this)');
-        if((typeof trackerData[selectedGame].items[key]) === "boolean"){
-            rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
-        }
-        else if(key.indexOf('heart') === 0 || key.indexOf('missile') > -1 || key.indexOf('powerbomb') === 0 || key.indexOf('tank') > -1){
-            rowitem.style.backgroundImage = "url(" + build_img_url(key) + ")";
-        }
-		else {
-            rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
-        }
-        if(key.indexOf("boss") === 0 && dungeons[selectedGame][key.substring(4)]){
-            rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key]) + ")";
-            rowitem.innerText = dungeons[selectedGame][key.substring(4)].label;
-        }
-        row.appendChild(rowitem);
+		if(gameItems[thisGame].indexOf(key) > -1 || gameItems[altGame].indexOf(key) > -1 || key == "blank") {
+			if (key.indexOf("boss") < 0 && gameItems[altGame].indexOf(key) > -1) {
+				useGame = altGame;
+			}
+			console.log(key,useGame);
+	        if (i % 10 === 0){
+	            row = document.createElement('tr');
+	            grid.appendChild(row);
+	        }
+	        i++;
+
+	        var rowitem = document.createElement('td');
+	        rowitem.className = 'corner editcell';
+	        rowitem.id = key;
+	        rowitem.title = fix_itemlabel(key);
+	        rowitem.style.backgroundSize = '100% 100%';
+	        rowitem.onclick = new Function('itemConfigClick(this)');
+	        if((typeof trackerData[thisGame].items[key]) === "boolean"){
+	            rowitem.style.backgroundImage = "url(" + build_img_url(key,useGame) + ")";
+	        }
+	        else if(key.indexOf('heart') === 0 || key.indexOf('missile') > -1 || key.indexOf('powerbomb') === 0 || key.indexOf('tank') > -1){
+	            rowitem.style.backgroundImage = "url(" + build_img_url(key,useGame) + ")";
+	        }
+			else {
+	            rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key],useGame) + ")";
+	        }
+	        if(key.indexOf("boss") === 0 && dungeons[thisGame][key.substring(4)]){
+	            rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key],useGame) + ")";
+	            let label = dungeons[thisGame][key.substring(4)].label;
+	            if(label.length >= 4) {
+					label = label.substring(0,1);
+				}
+	            rowitem.innerText = label;
+	        }
+	        row.appendChild(rowitem);
+		}
     }
 }
 

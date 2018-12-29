@@ -134,9 +134,8 @@ function fix_itemlabel(item) {
 	return ret;
 }
 
-function build_img_url(item) {
+function build_img_url(item,useGame = selectedGame) {
     var misc = ["blank","highlighted","poi"];
-    var useGame = selectedGame;
 
     var zelda3items = gameItems.zelda3;
     var zelda1items = gameItems.zelda1;
@@ -153,7 +152,7 @@ function build_img_url(item) {
             useGame = "metroid3";
         } else if(metroid1items.indexOf(item) > -1 || metroid1items.indexOf(item.substr(0,item.length-1)) > -1) {
             useGame = "metroid1";
-        } else if(selectedGame == "zelda1") {
+        } else if(useGame == "zelda1") {
             useGame = "zelda1";
         } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
             useGame = "zelda3";

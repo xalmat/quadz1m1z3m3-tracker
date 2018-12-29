@@ -38,6 +38,11 @@
   top: 18% !important;
 }
 
+.standingHidden .chest.viewable,
+.standingHidden .chest.glitchviewable {
+  background-color: #ff0000;
+}
+
 .hidden,
 .chest.hidden,
 .chest.hidden.available,
