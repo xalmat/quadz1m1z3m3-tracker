@@ -47,7 +47,7 @@ class DungeonsEasternPalace extends Dungeons {
 				warps.locations["South Hyrule Teleporter (Dark)"].glitchless() ||
 				warps.locations["Dark Desert Teleporter (Dark)"].glitchless()
 			) {
-				return ! isBunny(dungeon.name);
+				return (! isBunny(dungeon.subname));
 			}
 		}
 	}

@@ -27,7 +27,7 @@ class DungeonsMiseryMire extends Dungeons {
 			return has("bigkey");
 		}
 		this.locations["Misery Mire - Spike Chest"].glitchless = function() {
-			return (!has("variation.ohko"))										// FIXME: OHKO
+			return (!has("variation.ohko"))
 				|| canInvul();
 		}
 		this.locations["Misery Mire - Main Lobby"].glitchless =

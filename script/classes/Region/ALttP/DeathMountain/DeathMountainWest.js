@@ -21,12 +21,12 @@ class DeathMountainWest extends DeathMountain {
 		}
 		this.locations["Ether Tablet"].glitchless = function() {
 			if(! has("state.inverted")) {
-				return !isBunny(region.name) && canActivateTablets()
+				return (! isBunny(region.name)) && canActivateTablets()
 					&& (has("mirror") || (has("hammer") && canGrapple()));
 			} else if(has("state.inverted")) {
 				let warps = new HyruleWarpsMain();
 				warps.initNoMajorGlitches();
-				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless() && !isBunny(region.name) && canActivateTablets();
+				return warps.locations["Turtle Rock Teleporter (Light)"].glitchless() && (! isBunny(region.name)) && canActivateTablets();
 			}
 		}
 		this.locations["Spectacle Rock"].glitchless = function() {
@@ -80,7 +80,7 @@ class DeathMountainWest extends DeathMountain {
 			let isInverted = has("state.inverted");
 
 			if((! isInverted) || (isInverted && warps.locations["Turtle Rock Teleporter (Light)"].glitchless())) {
-				if(!isBunny(region.name)) {
+				if((! isBunny(region.name))) {
 					if(has("mirror") || isInverted) {
 						if(canActivateTablets()) {
 							if(canDarkNav()) {

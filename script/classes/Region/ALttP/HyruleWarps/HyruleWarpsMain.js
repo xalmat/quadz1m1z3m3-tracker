@@ -29,16 +29,16 @@ class HyruleWarpsMain extends HyruleWarps {
 
   initNoMajorGlitches() {
 	this.locations["Turtle Rock Teleporter (Light)"].glitchless = function() {
-		let edmAccess = !isBunny() && ((canLiftRocks() && has("lantern")) || canFly())	// Access Death Mountain
+		let edmAccess = (! isBunny()) && ((canLiftRocks() && has("lantern")) || canFly())	// Access Death Mountain
 			&& (
 				(has("mirror") && has("hammer") && (!has("state.inverted")))				// North
 				|| (canGrapple())															// South
 			);
-		return edmAccess && !isBunny() && canLiftDarkRocks() && has("hammer");
+		return edmAccess && (! isBunny()) && canLiftDarkRocks() && has("hammer");
 	}
 	this.locations["East Death Mountain Teleporter (Light)"].glitchless =
 	this.locations["East Death Mountain Teleporter (Dark)"].glitchless = function() {
-		let edmAccess = !isBunny() && ((canLiftRocks() && has("lantern")) || canFly())	// Access Death Mountain
+		let edmAccess = (! isBunny()) && ((canLiftRocks() && has("lantern")) || canFly())	// Access Death Mountain
 			&& (
 				(has("mirror") && has("hammer") && (!has("state.inverted")))				// North
 				|| (canGrapple())															// South
@@ -47,7 +47,7 @@ class HyruleWarpsMain extends HyruleWarps {
 	}
 	this.locations["Kakariko Teleporter (Light)"].glitchless =
 	this.locations["Kakariko Teleporter (Dark)"].glitchless = function() {
-		return !isBunny()
+		return (! isBunny())
 			&& ((has("hammer") && canLiftRocks())	// From South
 			|| canLiftDarkRocks());					// From North
 	}
@@ -57,18 +57,18 @@ class HyruleWarpsMain extends HyruleWarps {
 	}
 	this.locations["East Hyrule Teleporter (Light)"].glitchless =
 	this.locations["East Hyrule Teleporter (Dark)"].glitchless = function() {
-		return !isBunny() && has("hammer") && canLiftRocks();
+		return (! isBunny()) && has("hammer") && canLiftRocks();
 	}
 	this.locations["Lake Hylia Central Island Teleporter (Light)"].glitchless = function() {
-		return !isBunny() && canSwim() && canLiftDarkRocks();
+		return (! isBunny()) && canSwim() && canLiftDarkRocks();
 	}
 	this.locations["South Hyrule Teleporter (Light)"].glitchless =
 	this.locations["South Hyrule Teleporter (Dark)"].glitchless = function() {
-		return !isBunny() && has("hammer") && canLiftRocks();
+		return (! isBunny()) && has("hammer") && canLiftRocks();
 	}
 	this.locations["Dark Desert Teleporter (Light)"].glitchless =
 	this.locations["Dark Desert Teleporter (Dark)"].glitchless = function() {
-		return !isBunny() && canFly() && canLiftDarkRocks();
+		return (! isBunny()) && canFly() && canLiftDarkRocks();
 	}
 
 	this.canEnter.glitchless = function() {

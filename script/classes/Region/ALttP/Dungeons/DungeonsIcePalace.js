@@ -27,7 +27,7 @@ class DungeonsIcePalace extends Dungeons {
 		this.locations["Ice Palace - Map Chest"].glitchless =
 		this.locations["Ice Palace - Spike Room"].glitchless = function() {
 			return has("hammer") && canLiftRocks()
-				&& (! has("variation.ohko")										// FIXME: OHKO
+				&& (! has("variation.ohko")
 					|| canInvul() || has("hookshot"))
 				&& (has("hookshot")
 					|| has("bigkey") ? has("hookshot") : has("key"));
@@ -51,7 +51,7 @@ class DungeonsIcePalace extends Dungeons {
 
 	this.canEnter.glitchless = function() {
 		let canGetToIceIsland = has("state.inverted") || canLiftDarkRocks();
-		return !isBunny(dungeon.subname) && canSwim() && canGetToIceIsland && canMeltThings();
+		return (! isBunny(dungeon.subname)) && canSwim() && canGetToIceIsland && canMeltThings();
 	}
 	this.canComplete.glitchless = function() {
 		return dungeon.locations["Ice Palace - Kholdstare"].glitchless();

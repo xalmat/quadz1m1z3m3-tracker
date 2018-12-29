@@ -24,10 +24,10 @@ class DungeonsHyruleCastleEscape extends Dungeons {
 	let region = this;
 
 	this.locations["Sanctuary"].glitchless = function() {
-		if(has("state.open")) {												// FIXME: Open State
+		if(has("state.open")) {
 			return true;
 		}
-		return !isBunny(region.subname) && canKillMostThings() && has("key");
+		return (! isBunny(region.name)) && canKillMostThings() && has("key");
 	}
 
 	if(this.buildLocations) {
@@ -35,33 +35,33 @@ class DungeonsHyruleCastleEscape extends Dungeons {
 //		this.locations["Sewers - Secret Room - Middle"].glitchless =
 //		this.locations["Sewers - Secret Room - Right"].glitchless
 		this.locations["Sewers - Secret Room (3)"].glitchless = function() {
-			if(has("state.open")) {												// FIXME: Open State
-				return !isBunny(region.name) && (canLiftRocks() || (has("lantern") && has("key")));
+			if(has("state.open")) {
+				return (! isBunny(region.name)) && (canLiftRocks() || (has("lantern") && has("key")));
 			}
-			return !isBunny(region.name) && (canKillMostThings() && has("key"));
+			return (! isBunny(region.name)) && (canKillMostThings() && has("key"));
 		}
 		this.locations["Sewers - Dark Cross"].glitchless = function() {
-			if(has("state.open")) {												// FIXME: Open State
-				return !isBunny(region.name) && (has("lantern") && has("key"));
+			if(has("state.open")) {
+				return (! isBunny(region.name)) && (has("lantern") && has("key"));
 			}
-			return !isBunny(region.name) && (canKillMostThings() && has("key"));
+			return (! isBunny(region.name)) && (canKillMostThings() && has("key"));
 		}
 //		this.locations["Hyrule Castle - Boomerang Chest"].glitchless =
 //		this.locations["Hyrule Castle - Map Chest"].glitchless =
 //		this.locations["Hyrule Castle - Zelda's Cell"].glitchless = function() {
-//			if(has("state.open")) {												// FIXME: Open State
+//			if(has("state.open")) {
 //				return has("key");
 //			}
 //			return canKillMostThings();
 //		}
 		this.locations["Link's Uncle"].glitchless = function() {
-			return !isBunny(region.subname);
+			return (! isBunny(region.name));
 		}
 		this.locations["Secret Passage"].glitchless = function() {
-			if(has("state.open")) {												// FIXME: Open State
-				return !isBunny(region.name) && true;
+			if(has("state.open")) {
+				return (! isBunny(region.name)) && true;
 			}
-			return !isBunny(region.name) && (canKillMostThings());
+			return (! isBunny(region.name)) && (canKillMostThings());
 		}
 	}
 
@@ -69,7 +69,7 @@ class DungeonsHyruleCastleEscape extends Dungeons {
 		return canAccessLightWorld();
 	}
 	this.canComplete.glitchless = function() {
-		if(has("state.open")) {												// FIXME: Open State
+		if(has("state.open")) {
 			return true;
 		}
 		return this.locations["Sanctuary"].glitchless();

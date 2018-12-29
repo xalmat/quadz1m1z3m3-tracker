@@ -35,7 +35,7 @@ class DungeonsHyruleCastleTower extends Dungeons {
 
 	this.canComplete.glitchless = function() {
 		return has("lantern") && (hasSword()
-				|| (has("swords.swordless") && (has("hammer") || has("net"))));		// FIXME: Swordless
+				|| (has("swords.swordless") && (has("hammer") || has("net"))));
 	}
   }
 }

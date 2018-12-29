@@ -221,7 +221,7 @@ class DungeonsTurtleRock extends Dungeons {
 	let middle = function() {
 		return ((! isBunny(dungeon.subname)) || (has("moonpearl") && canSpinSpeed()))
 		&& (canDash() || has("somaria") || canGrapple()
-			|| has("variation.ohko")										// FIXME: OHKO
+			|| has("variation.ohko")
 				&& canInvul())
 		&& edwdm.canEnter.owGlitches();
 	};
@@ -281,7 +281,7 @@ class DungeonsTurtleRock extends Dungeons {
 	let middle = function() {
 		return (has("mirror") || (glitchedLinkInDarkWorld() && canSpinSpeed()))
 		&& (canDash() || has("somaria") || canGrapple()
-			|| has("variation.ohko")											// FIXME: OHKO
+			|| has("variation.ohko")
 				&& canInvul())
 		&& edwdm.canEnter.majorGlitches();
 	};

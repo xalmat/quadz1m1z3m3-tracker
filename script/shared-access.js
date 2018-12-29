@@ -337,7 +337,7 @@ function canOpenGT() {
 	}
 
 	if(
-		roomname == "smalttpr"
+		roomid == "smalttpr"
 		&& trackerData
 		&& (
 			(

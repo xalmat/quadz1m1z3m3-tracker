@@ -34,10 +34,10 @@ class LightWorldSouth extends LightWorld {
 	if(this.buildLocations) {
 		this.locations["Floodgate Chest"].glitchless =
 		this.locations["Aginah's Cave"].glitchless = function() {
-			return !isBunny(region.name);
+			return (! isBunny(region.name));
 		}
 		this.locations["Hobo"].glitchless = function() {
-			return canSwim() && !isBunny(region.name);
+			return canSwim() && (! isBunny(region.name));
 		}
 		this.locations["Bombos Tablet"].glitchless = function() {
 			let sdw = new DarkWorldSouth("","",false);
@@ -46,7 +46,7 @@ class LightWorldSouth extends LightWorld {
 			let canAccessLedge = has("mirror") || has("state.inverted");
 
 			return canActivateTablets()
-				&& canAccessLedge && (!isBunny(region.name)) && sdw.canEnter.glitchless();
+				&& canAccessLedge && (! isBunny(region.name)) && sdw.canEnter.glitchless();
 		}
 		this.locations["Cave 45"].glitchless = function() {
 			if(! has("state.inverted")) {
@@ -61,7 +61,7 @@ class LightWorldSouth extends LightWorld {
 		this.locations["Checkerboard Cave"].glitchless = function() {
 			let canAccessArea = (canFly() && canLiftDarkRocks()) || (canAccessMiseryMirePortal() && canLiftRocks());
 
-			if(canAccessArea && (!isBunny(region.name))) {
+			if(canAccessArea && (! isBunny(region.name))) {
 				if(! has("state.inverted")) {
 					return has("mirror");
 				} else if(has("state.inverted")) {
@@ -70,13 +70,13 @@ class LightWorldSouth extends LightWorld {
 			}
 		}
 		this.locations["Mini Moldorm Cave"].glitchless = function() {
-			return !isBunny(region.name);
+			return (! isBunny(region.name));
 		}
 		this.locations["Library"].glitchless = function() {
-			return canDash() && !isBunny(region.name);
+			return canDash() && (! isBunny(region.name));
 		}
 		this.locations["Maze Race"].glitchless = function() {
-			return !isBunny(region.name);
+			return (! isBunny(region.name));
 		}
 		this.locations["Desert Ledge"].glitchless = function() {
 			let dp = new DungeonsDesertPalace();
@@ -95,15 +95,15 @@ class LightWorldSouth extends LightWorld {
 				return canSwim() && (! isBunny(region.name)) && has("mirror")
 					&& (sdw.canEnter.glitchless()
 						|| nedw.canEnter.glitchless());
-			} else if((has("state.inverted") && !isBunny(region.name))) {
+			} else if((has("state.inverted") && (! isBunny(region.name)))) {
 				return has("flippers");
 			}
 		}
 		this.locations["Sunken Treasure"].glitchless = function() {
-			return !isBunny(region.name);
+			return (! isBunny(region.name));
 		}
 		this.locations["Flute Spot"].glitchless = function() {
-			return has("shovel") && !isBunny(region.name);
+			return has("shovel") && (! isBunny(region.name));
 		}
 	}
 
@@ -123,7 +123,7 @@ class LightWorldSouth extends LightWorld {
 			if(ret) {
 				return ret;
 			}
-			if(canFakeFlipper() && !isBunny(region.name)) {
+			if(canFakeFlipper() && (! isBunny(region.name))) {
 				return "glitchavailable";
 			}
 		}
@@ -142,7 +142,7 @@ class LightWorldSouth extends LightWorld {
 			if(canAccessLedge && sdw.canEnter.minorGlitches()) {
 				let glitch = sdw.canEnter.minorGlitches();
 				let type = typeof glitch;
-				if(canActivateTablets() && (!isBunny(region.name))) {
+				if(canActivateTablets() && (! isBunny(region.name))) {
 					return type == "string" ? glitch : "available";
 				}
 				if(canRead()) {
@@ -151,7 +151,7 @@ class LightWorldSouth extends LightWorld {
 			}
 
 			if(canActivateTablets()
-				&& (!isBunny(region.name)) && canAccessLedge && sdw.canEnter.minorGlitches()) {
+				&& (! isBunny(region.name)) && canAccessLedge && sdw.canEnter.minorGlitches()) {
 				return sdw.canEnter.minorGlitches();
 			}
 		}
@@ -174,7 +174,7 @@ class LightWorldSouth extends LightWorld {
 			if(ret) {
 				return ret;
 			}
-			return !isBunny(region.name);
+			return (! isBunny(region.name));
 		}
 		this.locations["Library"].minorGlitches = function() {
 			let ret = this.glitchless();
@@ -210,7 +210,7 @@ class LightWorldSouth extends LightWorld {
 				if(ret) {
 					return ret;
 				}
-				if(canSwim() && (!isBunny(region.name)) && has("mirror")) {
+				if(canSwim() && (! isBunny(region.name)) && has("mirror")) {
 					let dws = new DarkWorldSouth("","",false);
 					dws.initMinorGlitches();
 
@@ -222,7 +222,7 @@ class LightWorldSouth extends LightWorld {
 					return "viewable";
 				}
 			} else if(has("state.inverted")) {
-				let ret = canSwim() && (!isBunny(region.name));
+				let ret = canSwim() && (! isBunny(region.name));
 
 				if(ret) {
 					return ret;
@@ -232,7 +232,7 @@ class LightWorldSouth extends LightWorld {
 			}
 		}
 		this.locations["Sunken Treasure"].minorGlitches = function() {
-			return !isBunny(region.name);
+			return (! isBunny(region.name));
 		}
 	}
   }
