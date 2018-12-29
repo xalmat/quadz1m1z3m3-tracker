@@ -143,9 +143,9 @@ function has(item, amount = -1) {
 
 	if(
 		item.indexOf("key") > -1 ||		// FIXME: Keys for Dungeons
-		item.indexOf("crystal") > -1 ||	// FIXME: Crystals for GT & Pyramid Fairy
-		item.indexOf("pendant") > -1 ||	// FIXME: Pendants for Saha & Pedestal
-		item.indexOf("medallion") > -1	// FIXME: Medallions for Mire & TR
+		item.indexOf("crystal") > -1 ||
+		item.indexOf("pendant") > -1 ||
+		item.indexOf("medallion") > -1
 	) {
 		let checkBK = item.indexOf("bigkey") > -1;
 		let checkKey = item.indexOf("key") > -1;
@@ -221,7 +221,7 @@ function canActivateTablets() {
 }
 
 function canActivateMedallions() {
-	return hasSword() || has("swords.swordless");	// FIXME: Swordless
+	return hasSword() || has("swords.swordless");
 }
 
 function hasSword(min_level = 1) {

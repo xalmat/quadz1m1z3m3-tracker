@@ -21,6 +21,14 @@
   left: 55% !important;
   top: 84.3% !important;
 }
+.mapvdiv .darkgate {
+  left: 50.5% !important;
+  top: 76.95% !important;
+}
+.inverted .mapvdiv .darkgate {
+  left: 50.5% !important;
+  top: 80% !important;
+}
 .mapvdiv .gt {
   left: 54% !important;
   top: 52.75% !important;

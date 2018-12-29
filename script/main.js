@@ -1044,42 +1044,35 @@ function refreshMapMedallion(d) {
 function refreshChests() {
     for(k=0; k<chests[selectedGame].length; k++){
 		let chest = chests[selectedGame][k];
-		document.getElementById(k).className = chestClass(k);
+		let chestDOM = document.getElementById(k);
+		chestDOM.className = chestClass(k);
 
-		if(roomid == "lozmx") {
-//			let showAll = trackerData[selectedGame].nonVanilla;
-//			let thisV = chest.isVanilla;
-//			if(!thisV) {
-//				if(!showAll) {
-//					document.getElementById(k).classList.add("hidden");
-//					continue;
-//				} else {
-//					document.getElementById(k).classList.remove("hidden");
-//				}
-//			}
-		} else {
+		if(roomid == "smalttpr") {
 			// Determine Lonk's Hoose
 			if(chest.name == "Link's House") {
 				if(has("state.inverted")) {			// Inverted, move to Dark World
-					document.getElementById(k).classList.add("bombshop");
-					document.getElementById(k).classList.remove("lonkshoose");
-				} else if(!has("state.inverted")) {	// Not Inverted, move to Light World
-					document.getElementById(k).classList.remove("bombshop");
-					document.getElementById(k).classList.add("lonkshoose");
+					chestDOM.classList.add("bombshop");
+					chestDOM.classList.remove("lonkshoose");
+				} else if(! has("state.inverted")) {	// Not Inverted, move to Light World
+					chestDOM.classList.remove("bombshop");
+					chestDOM.classList.add("lonkshoose");
 				}
 				if(!chest.opened) {
-					document.getElementById(k).classList.remove("unavailable");
-					document.getElementById(k).classList.add("available");
+					chestDOM.classList.remove("unavailable");
+					chestDOM.classList.add("available");
 				}
 			// Determine Bomb Shop
 			} else if(chest.name == "Bomb Shop") {
 				if(has("state.inverted")) {			// Inverted, move to Light World
-					document.getElementById(k).classList.remove("bombshop");
-					document.getElementById(k).classList.add("lonkshoose");
-				} else if(!has("state.inverted")) {	// Not Inverted, move to Dark World
-					document.getElementById(k).classList.add("bombshop");
-					document.getElementById(k).classList.remove("lonkshoose");
+					chestDOM.classList.remove("bombshop");
+					chestDOM.classList.add("lonkshoose");
+				} else if(! has("state.inverted")) {	// Not Inverted, move to Dark World
+					chestDOM.classList.add("bombshop");
+					chestDOM.classList.remove("lonkshoose");
 				}
+			// Determine Dark Castle Gate
+			} else if(chest.name == "Castle Gate (Dark)") {
+				chestDOM.classList.add("darkgate");
 			}
 		}
     }

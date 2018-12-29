@@ -8,7 +8,7 @@ class HyruleWarpsMain extends HyruleWarps {
 			new Location("Warp","Turtle Rock Teleporter (Light)","47.5%","6.0%",regionName),
 			new Location("Warp","East Death Mountain Teleporter (Light)","39.0%","22.0%",regionName),
 			new Location("Warp","Kakariko Teleporter (Light)","4.4%","35.5%",regionName),
-			new Location("Warp","Castle Gate (Light)","25.25%","54%",regionName),
+			new Location("Warp","Castle Gate (Light)","25.25%","52%",regionName),
 			new Location("Warp","East Hyrule Teleporter (Light)","48.5%","71.0%",regionName),
 			new Location("Warp","Lake Hylia Central Island Teleporter (Light)","40.1%","86.0%",regionName),
 			new Location("Warp","South Hyrule Teleporter (Light)","23.4%","79.0%",regionName),
@@ -19,7 +19,7 @@ class HyruleWarpsMain extends HyruleWarps {
 			new Location("Warp","East Death Mountain Teleporter (Dark)","89.0%","22.0%",regionName),
 			new Location("Warp","Kakariko Teleporter (Dark)","54.4%","35.5%",regionName),
 			new Location("Warp","East Hyrule Teleporter (Dark)","98.5%","71.0%",regionName),
-			new Location("Warp","Castle Gate (Dark)","75.25%","61%",regionName),
+			new Location("Warp","Castle Gate (Dark)","76.95%","54%",regionName),
 			// Lake Hylia Teleporter would be covered by Ice Palace
 			new Location("Warp","South Hyrule Teleporter (Dark)","73.4%","79.0%",regionName),
 			new Location("Warp","Dark Desert Teleporter (Dark)","52.0%","96.5%",regionName)
