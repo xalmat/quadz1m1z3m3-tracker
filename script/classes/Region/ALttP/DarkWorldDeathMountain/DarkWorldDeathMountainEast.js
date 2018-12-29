@@ -62,23 +62,25 @@ class DarkWorldDeathMountainEast extends DarkWorldDeathMountain {
 	this.initNoMajorGlitches();
 
 	this.canEnter.minorGlitches = function() {
+		let warps = new HyruleWarpsMain();
+		warps.initNoMajorGlitches();
+		let edmWarp = warps.locations["East Death Mountain Teleporter (Dark)"].glitchless();
+
 		if(! has("state.inverted")) {
 			let edm = new DeathMountainEast("","",false);
 			edm.initMinorGlitches();
 
-			if(edm.canEnter.minorGlitches()) {
+			if(edmWarp && edm.canEnter.minorGlitches()) {
 				return edm.canEnter.minorGlitches();
 			}
 		} else if(has("state.inverted")) {
 			let wdwdm = new DarkWorldDeathMountainWest("","",false);
 			wdwdm.initMinorGlitches();
-			let warps = new HyruleWarpsMain();
-			warps.initNoMajorGlitches();
 
-			if(wdwdm.canEnter.minorGlitches()) {
+			if(edmWarp && wdwdm.canEnter.minorGlitches()) {
 				return wdwdm.canEnter.minorGlitches();
 			}
-			return warps.locations["East Death Mountain Teleporter (Dark)"].glitchless();
+			return edmWarp;
 		}
 	}
   }
