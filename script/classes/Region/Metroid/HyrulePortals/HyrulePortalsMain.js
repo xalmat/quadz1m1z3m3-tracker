@@ -3,12 +3,12 @@ class HyrulePortalsMain extends HyrulePortals {
 	super(name,subname);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([
-		new Location("Portal","TLoZ Portal: Morph Ball Exit",4,297,"BrinstarMain"),	// 0x010E, Exit left
-		new Location("Portal","TLoZ Portal: Brinstar Exit",632,108,"BrinstarMain"),	// 0x1E06, Due east of Waver Central, exit Right
-		new Location("Portal","TLoZ Portal: Kraid Exit",254,612,"KraidMain"),		// 0x0C1C, Bottom-right corner, exit Right
-		new Location("Portal","TLoZ Portal: Norfair Exit",632,192,"NorfairMain"),	// 0x1E10, Due east of Upper Right Area Top Floor, exit Right
-		new Location("Portal","TLoZ Portal: Ridley Exit",632,612,"RidleyMain"),		// 0x1E1C, Due east of Ridley, exit Right
-		new Location("Portal","TLoZ Portal: Tourian Exit",3,25,"TourianMain")		// Tourian exit elevator
+		new Location("Portal","TLoZ Portal: Morph Ball Exit",18,234,"BrinstarMain"),	// 0x010E, Exit left
+		new Location("Portal","TLoZ Portal: Brinstar Exit",558,90,"BrinstarMain"),		// 0x1E06, Due east of Waver Central, exit Right
+		new Location("Portal","TLoZ Portal: Kraid Exit",234,504,"KraidMain"),			// 0x0C1C, Bottom-right corner, exit Right
+		new Location("Portal","TLoZ Portal: Norfair Exit",558,162,"NorfairMain"),		// 0x1E10, Due east of Upper Right Area Top Floor, exit Right
+		new Location("Portal","TLoZ Portal: Ridley Exit",558,486,"RidleyMain"),			// 0x1E1C, Due east of Ridley, exit Right
+		new Location("Portal","TLoZ Portal: Tourian Exit",18,18,"TourianMain")			// Tourian exit elevator
 	],this);
   }
 

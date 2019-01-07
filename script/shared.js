@@ -56,12 +56,16 @@ for(var gameName in gameNames) {
 }
 
 var roomid = getParameterByName("roomid",window.location);
+var questid = getParameterByName("questid",window.location);
 if(roomid === null) {
 	if(selectedGame == "zelda3" || selectedGame == "metroid3") {
 		roomid = "smalttpr";
 	} else if(["zelda1","metroid1"].indexOf(selectedGame) > -1) {
 		roomid = "lozmx";
 	}
+}
+if(questid === null) {
+	questid = 1;
 }
 var authAttempted = false;
 
@@ -167,7 +171,8 @@ function build_img_url(item,useGame = selectedGame) {
 		bomb:		"bomb1",
 		bomb0:		"bomb1",
 		boomerang0:	"boomerang1",
-		bottle:		"bottle0",
+		bottle:		"bottle1",
+		bottle0:	"bottle1",
 		candle:		"candle1",
 		candle0:	"candle1",
 		crystal5:	"dungeon" + OJCRYSTAL,

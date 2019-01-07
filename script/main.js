@@ -507,7 +507,7 @@ function togglePortal(x) {
 		ele.classList.remove("portal");
 		ele.classList.remove(className);
 		ele.classList.remove("active");
-		console.log(trackerData[selectedGame].mapLogic);
+		ele.className = ele.className.trim();
 
 		switch(trackerData[selectedGame].mapLogic) {
 			case "glitchless":
@@ -531,7 +531,7 @@ function togglePortal(x) {
 		}
 
 		if(add != "") {
-			ele.className += " ";
+			add = add.trim();
 			ele.classList.add(add);
 		}
 
@@ -547,7 +547,6 @@ function togglePortal(x) {
 	trackerData[selectedGame].chestsportal[x] = makePortal;
 
 	saveCookie();
-	console.log(chestClass(x));
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
@@ -1253,7 +1252,6 @@ function populateItemconfig() {
 			if (key.indexOf("boss") < 0 && gameItems[altGame].indexOf(key) > -1) {
 				useGame = altGame;
 			}
-			console.log(key,useGame);
 	        if (i % 10 === 0){
 	            row = document.createElement('tr');
 	            grid.appendChild(row);

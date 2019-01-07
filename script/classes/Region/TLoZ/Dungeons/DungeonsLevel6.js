@@ -2,8 +2,17 @@ class DungeonsLevel6 extends Dungeons {
   constructor(name = "Dungeons", subname = "Level6") {
 	super(name,subname);
 	let regionName = name + subname;
+	let x = 0;
+	let y = 0;
+	if(questid == 1) {
+		x =  572;
+		y =  372;
+	} else if(questid == 2) {
+		x =   96,
+		y =  608;
+	}
 	this.locations = new LocationCollection([
-		new Location("Event","The Dragon",572/Z1FACTOR,372/Z1FACTOR,regionName), // Gohma
+		new Location("Event","The Dragon",x/Z1FACTOR,y/Z1FACTOR,regionName), // Gohma
 	],this);
 
 	this.boss = new BossGohma();

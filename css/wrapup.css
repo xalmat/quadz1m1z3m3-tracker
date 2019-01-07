@@ -43,18 +43,18 @@
   background-color: #ff0000;
 }
 
-.hidden,
-.chest.hidden,
-.chest.hidden.available,
-.chest.hidden.glitchavailable,
-.chest.hidden.unavailable,
-.chest.hidden.possible,
-.chest.hidden.glitchpossible,
-.chest.hidden.viewable,
-.chest.hidden.glitchviewable {
+.zelda1 .hidden,
+.zelda1 .chest.hidden,
+.zelda1 .chest.hidden.available,
+.zelda1 .chest.hidden.glitchavailable,
+.zelda1 .chest.hidden.unavailable,
+.zelda1 .chest.hidden.possible,
+.zelda1 .chest.hidden.glitchpossible,
+.zelda1 .chest.hidden.viewable,
+.zelda1 .chest.hidden.glitchviewable {
   background-image: url() !important;
   background-color: #000132;
 }
-.hidden * {
+.zelda1 .hidden * {
   display: none;
 }

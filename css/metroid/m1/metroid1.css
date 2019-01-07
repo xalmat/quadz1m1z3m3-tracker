@@ -7,6 +7,14 @@
     position: absolute;
 }
 
+.metroid1 .chest {
+    background-size: 16px 16px;
+    width: 16px !important;
+    height: 16px !important;
+    margin-left: 1px !important;
+    margin-top: 1px !important;
+}
+
 .metroid1 .metroid3-option {
     display: none;
 }

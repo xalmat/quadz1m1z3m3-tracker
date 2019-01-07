@@ -3,7 +3,7 @@ class DungeonsLevel1 extends Dungeons {
 	super(name,subname);
 	let regionName = name + subname;
 	this.locations = new LocationCollection([
-		new Location("Event","The Eagle",1856/Z1FACTOR, 556/Z1FACTOR,regionName), // Aquamentus
+		new Location("Event","The Eagle",1853/Z1FACTOR, 546/Z1FACTOR,regionName), // Aquamentus
 	],this);
 
 	this.boss = new BossAquamentus();

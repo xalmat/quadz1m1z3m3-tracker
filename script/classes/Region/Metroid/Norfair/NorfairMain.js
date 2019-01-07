@@ -21,6 +21,26 @@ class NorfairMain extends Norfair {
 		new Location("","Below the Wave Beam Room - Left",380,444,regionName),					// 0x1613
 		new Location("","Below the Wave Beam Room - Right",400,444,regionName)					// 0x1614
 	],this);
+
+	this.locations = new LocationCollection([
+		new Location("","Upper Right Area Top Floor - Left",				 486,	 162,regionName),	// 0x0A1B
+		new Location("","Upper Right Area Top Floor - Right",				 504,	 162,regionName),	// 0x0A1C
+		new Location("","Upper Right Area Middle Floor - Left",				 468,	 180,regionName),	// 0x0B1A
+		new Location("","Upper Right Area Middle Floor - Middle",			 486,	 180,regionName),	// 0x0B1B
+		new Location("","Upper Right Area Middle Floor - Right",			 504,	 180,regionName),	// 0x0B1C
+		new Location("Chozo","Ice Beam Room - Norfair",						 468,	 198,regionName),	// 0x0C1A
+		new Location("","Left from Lobby",									 324,	 234,regionName),	// 0x0E12
+		new Location("","Left from Lobby, then Down, then Right",			 306,	 252,regionName),	// 0x0F11
+		new Location("","Right from Lobby, then Down, then Left - Left",	 342,	 252,regionName),	// 0x0F13
+		new Location("","Right from Lobby, then Down, then Left - Right",	 360,	 252,regionName),	// 0x0F14
+		new Location("Chozo","Screw Attack Room",							 270,	 270,regionName),	// 0x100F
+		new Location("Chozo","High Jump Boots Room",						 486,	 288,regionName),	// 0x111B
+		new Location("","Past Gumdrop Cavern, then under the Fake Lava",	 468,	 324,regionName),	// 0x131A
+		new Location("","Above Wave Beam Room to the Right",				 504,	 342,regionName),	// 0x141C
+		new Location("Chozo","Wave Beam Room",								 324,	 360,regionName),	// 0x1512
+		new Location("","Below the Wave Beam Room - Left",					 342,	 378,regionName),	// 0x1613
+		new Location("","Below the Wave Beam Room - Right",					 360,	 378,regionName)	// 0x1614
+	],this);
   }
 
   initCasual() {
@@ -43,7 +63,7 @@ class NorfairMain extends Norfair {
 	  this.locations["Right from Lobby, then Down, then Left - Right"].casualLogic =
 	  this.locations["Screw Attack Room"].casualLogic =
 	  this.locations["Past Gumdrop Cavern, then under the Fake Lava"].casualLogic =
-	  this.locations["Above Wave Beam Room, to the Right"].casualLogic =
+	  this.locations["Above Wave Beam Room to the Right"].casualLogic =
 	  this.locations["Wave Beam Room"].casualLogic =
 	  this.locations["Below the Wave Beam Room - Left"].casualLogic =
 	  this.locations["Below the Wave Beam Room - Right"].casualLogic = function() {
