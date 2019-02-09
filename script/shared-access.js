@@ -73,7 +73,7 @@ Object.defineProperty(Availability.prototype, 'majorGlitches', {
 });
 
 function getHas(item) {
-	var val = -1;
+	var val = 0;
 	if(trackerData[selectedGame] && trackerData[selectedGame].items && trackerData[selectedGame].items[item]) {
 		val = trackerData[selectedGame].items[item];
 	} else if(trackerData.zelda3 && trackerData.zelda3.items && trackerData.zelda3.items[item]) {
