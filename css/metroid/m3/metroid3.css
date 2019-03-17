@@ -13,8 +13,9 @@
 .metroid3 .mapdiv,
 .metroid3 .mapdiv #mapoverlay {
     background: url(../../../images/metroid3/maps/map.png) no-repeat;
-    width: 1200px;
-    height: 1020px;
+    background-position: 4px 4px;
+    width: 1206px;
+    height: 1025px;
     top: 0;
     left: 0;
     position: absolute;

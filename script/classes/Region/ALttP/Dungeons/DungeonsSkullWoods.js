@@ -6,6 +6,7 @@ class DungeonsSkullWoods extends Dungeons {
 		this.locations = new LocationCollection([
 			new Location("BigChest","Skull Woods - Big Chest","","",regionName),
 			new Location("Chest","Skull Woods - Big Key Chest","","",regionName),
+			new Location("Chest","Skull Woods - Compass Chest","","",regionName),
 			new Location("Chest","Skull Woods - Map Chest","","",regionName),
 			new Location("Chest","Skull Woods - Bridge Room","","",regionName),
 			new Location("Chest","Skull Woods - Pot Prison","","",regionName),
