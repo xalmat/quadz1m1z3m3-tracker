@@ -139,53 +139,52 @@ function build_img_url(item, useGame = selectedGame) {
       useGame = "zelda3";
     }
   }
-}
 
-var globalReplaceItem = {
-  agahnim:    "agahnim1",
-  bomb:       "bomb1",
-  bomb0:      "bomb1",
-  boomerang0: "boomerang1",
-  bottle:     "bottle1",
-  bottle0:    "bottle1",
-  crystal5:   "dungeon" + OJCRYSTAL,
-  crystal6:   "dungeon" + OJCRYSTAL,
-  flute:      "flute0",
-  glove0:     "glove1",
-  lamp:       "lantern",
-  medallion1: "bombos",
-  medallion2: "ether",
-  medallion3: "quake",
-  pendant0:   "dungeon" + GREENPENDANT,
-  shield0:    "shield1",
-  sword0:     "sword1"
-};
-globalReplaceItem["blueCrystal"]  = "dungeon" + CRYSTAL;
-globalReplaceItem["redCrystal"]   = "dungeon" + OJCRYSTAL;
+  var globalReplaceItem = {
+    agahnim:    "agahnim1",
+    bomb:       "bomb1",
+    bomb0:      "bomb1",
+    boomerang0: "boomerang1",
+    bottle:     "bottle1",
+    bottle0:    "bottle1",
+    crystal5:   "dungeon" + OJCRYSTAL,
+    crystal6:   "dungeon" + OJCRYSTAL,
+    flute:      "flute0",
+    glove0:     "glove1",
+    lamp:       "lantern",
+    medallion1: "bombos",
+    medallion2: "ether",
+    medallion3: "quake",
+    pendant0:   "dungeon" + GREENPENDANT,
+    shield0:    "shield1",
+    sword0:     "sword1"
+  };
+  globalReplaceItem["blueCrystal"]  = "dungeon" + CRYSTAL;
+  globalReplaceItem["redCrystal"]   = "dungeon" + OJCRYSTAL;
 
-if (globalReplaceItem[item]) {
-  item = globalReplaceItem[item];
-}
+  if (globalReplaceItem[item]) {
+    item = globalReplaceItem[item];
+  }
 
-var category = "inventory";
-if (item.indexOf("boss") === 0) {
-  category = "bosses";
-} else if (item.indexOf("chest") === 0) {
-  category = "chests";
-} else if (item.indexOf("medallion") === 0) {
-  category = "medallions";
-} else if (item.indexOf("dungeon") === 0 || item.indexOf("pendant") === 0) {
-  category = "prizes";
-} else if (misc.indexOf(item) > -1) {
-  category = "misc";
-}
+  var category = "inventory";
+  if (item.indexOf("boss") === 0) {
+    category = "bosses";
+  } else if (item.indexOf("chest") === 0) {
+    category = "chests";
+  } else if (item.indexOf("medallion") === 0) {
+    category = "medallions";
+  } else if (item.indexOf("dungeon") === 0 || item.indexOf("pendant") === 0) {
+    category = "prizes";
+  } else if (misc.indexOf(item) > -1) {
+    category = "misc";
+  }
 
-var url = "images/";
-if (category != "misc") {
-  url += useGame + '/';
-}
-url += category + '/' + item + '.' + filext;
-return url;
+  var url = "images/";
+  if (category != "misc") {
+    url += useGame + '/';
+  }
+  url += category + '/' + item + '.' + filext;
+  return url;
 }
 
 function mini(item) {
