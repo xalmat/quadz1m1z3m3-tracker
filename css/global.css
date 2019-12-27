@@ -284,7 +284,7 @@ input {
   background-color: #ffaf00;
 }
 
-.warp.hidden {
+.warp.hidden, .portal.hidden, .itemdiv .hidden {
   visibility: hidden;
 }
 
