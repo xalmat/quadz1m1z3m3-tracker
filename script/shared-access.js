@@ -762,21 +762,21 @@ function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Ro
 
 // ALttP -> SM portals
 function canAccessCrateriaPortal() { // Fortune Teller -> Crateria Map Room
-  return true;
+  return !isBunny("light");
 }
 
 function canAccessNorfairPortal() { // DM (Old Man exit) -> Norfair Map Room
   // Death Mountain Access
-  return canFly() || (canLiftRocks() && has("lantern"));
+  return !isBunny("light") && (canFly() || (canLiftRocks() && has("lantern")));
 }
 
 function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") -> Lower Norfair (Golden Torizo Energy Refill)
-  return canFly() && canLiftDarkRocks();
+  return !isBunny("dark") && (canFly() && canLiftDarkRocks());
 }
 
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
   if (trackerData.metroid3.mapLogic == "casualLogic") {
-    return has("moonpearl") &&
+    return !isBunny("dark") &&
       canSwim() &&
       canSwimSM() &&
       canMorph() &&
@@ -784,7 +784,7 @@ function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile 
         (has("hammer") && canLiftRocks()) ||
         canLiftDarkRocks());
   } else if (trackerData.metroid3.mapLogic == "tourneyLogic") {
-    return has("moonpearl") &&
+    return !isBunny("dark") &&
       canSwim() &&
       (canSpringBallJump() || canHiJump() || canSwimSM()) &&
       canMorph() &&
