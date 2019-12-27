@@ -413,6 +413,16 @@ function canAccessLightWorld() {
   }
 }
 
+function bookCheck() {
+  // Basic: Yes Book
+  return (
+    has("itemplacement.basic") &&
+    canRead()
+  ) ||
+  // Advanced: No Book
+  has("itemplacement.advanced");
+}
+
 function gapCheck() {
   // Basic: Hookshot
   return (
