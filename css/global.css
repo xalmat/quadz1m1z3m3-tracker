@@ -284,6 +284,10 @@ input {
   background-color: #ffaf00;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 #credits {
   text-align: center;
   color:      #808080;

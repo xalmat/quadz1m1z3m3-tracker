@@ -43,7 +43,7 @@ function fix_region(str) {
 var scripts = [
   "script/items.js",
   "script/shared-access.js",
-  "script/" + selectedGame + "/items.js",
+  "script/" + selectedGame + "/items.js"
 ];
 
 var sheets = [];

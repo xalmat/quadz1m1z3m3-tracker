@@ -20,7 +20,7 @@ for (var i = 0; i < chests[selectedGame].length; i++) {
   }
   chests[selectedGame][i].titleEquipment = chests[selectedGame][i].name;
   chests[selectedGame][i].titleStripped = title.trim();
-  chests[selectedGame][i].isSpicy = (selectedGame == "metroid3") && (spicyChests.indexOf(i) > -1);
+  chests[selectedGame][i].isSpicy = (["metroid3"].indexOf(selectedGame) > -1) && (spicyChests.indexOf(i) > -1);
 }
 for (var i = 0; i < dungeons[selectedGame].length; i++) {
   var d = document.createElement("div");
@@ -82,9 +82,9 @@ for (let key in defaultBoth) {
 }
 
 var bosses = 0;
-if (selectedGame == "zelda3") {
+if ((["zelda3"].indexOf(selectedGame) > -1)) {
   bosses = 11;
-} else if (selectedGame == "metroid3") {
+} else if ((["metroid3"].indexOf(selectedGame) > -1)) {
   bosses = 10;
 }
 for (var i = 0; i < bosses; i++) {
@@ -226,7 +226,7 @@ function setConfigObject(configobj) {
   var mappositions = ["Above", "Below", "Side"];
   document.getElementsByName('mapposition')[mappositions.indexOf(configobj[selectedGame].mPos)].click(); // Map Position (Above, Below, Side) (Z3 only)
 
-  if (selectedGame == "zelda3") {
+  if ((["zelda3"].indexOf(selectedGame) > -1)) {
     var mapstates = ["standard", "open"];
     document.getElementsByName('mapstate')[mapstates.indexOf(configobj[selectedGame].mapState)].click(); // Map State (Standard, Open) (Z3 only)
   }
@@ -239,7 +239,7 @@ function setConfigObject(configobj) {
   var maplogics = ["glitchless", "minorGlitches", "owGlitches", "majorGlitches", "casualLogic", "tourneyLogic"];
   document.getElementsByName('maplogic')[maplogics.indexOf(configobj[selectedGame].mapLogic)].click(); // Map Logic
 
-  if (selectedGame == "metroid3") {
+  if ((["metroid3"].indexOf(selectedGame) > -1)) {
     var chestskins = ["lights", "nolights", "nothing"];
     document.getElementsByName('chestskin')[chestskins.indexOf(configobj[selectedGame].chestSkin)].click(); // Chest Skin (Lights, No Lights, Nothing) (M3 only)
   }
@@ -314,9 +314,9 @@ function getConfigObject() {
   configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value; // Map Position (Above, Below, Side) (Z3 only)
   configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value; // Map Logic
   configobj[selectedGame].mapOHKO = document.getElementsByName('ohko')[0].checked; // OHKO? (Z3 only)
-  if (selectedGame == "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) > -1) {
     configobj[selectedGame].mapSwords = !document.getElementsByName('swordless')[0].checked; // Swords? (Z3 only)
-  } else if (selectedGame == "metroid3") {
+  } else if ((["metroid3"].indexOf(selectedGame) > -1)) {
     configobj[selectedGame].chestSkin = document.querySelector('input[name="chestskin"]:checked').value; // Chest Skin (Lights, No Lights, Nothing) (M3 only)
   }
 
@@ -654,7 +654,7 @@ function clickChest(e) {
       // MIDDLE
     case 2:
       e.preventDefault();
-      if (selectedGame == "metroid3" && wikiRoomNames[x]) {
+      if ((["metroid3"].indexOf(selectedGame) > -1) && wikiRoomNames[x]) {
         window.open("http://wiki.supermetroid.run/" + wikiRoomNames[x]);
         break;
       } else {
@@ -674,7 +674,7 @@ function clickChest(e) {
 }
 
 function showChest(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -684,7 +684,7 @@ function showChest(sender) {
 }
 
 function showCrystal(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -694,7 +694,7 @@ function showCrystal(sender) {
 }
 
 function showMedallion(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -704,7 +704,7 @@ function showMedallion(sender) {
 }
 
 function showLabel(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -714,7 +714,7 @@ function showLabel(sender) {
 }
 
 function showRegions(sender) {
-  if (selectedGame != "zelda3" && selectedGame != "metroid3") {
+  if (["metroid3","zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -730,12 +730,12 @@ function showRegions(sender) {
 }
 
 function showWarps(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
   trackerData[selectedGame].showWarps = sender.checked;
-  let eles = document.querySelectorAll(".portal-" + selectedGame);
+  let eles = document.querySelectorAll(".warp");
   if (sender.checked) {
     eles.forEach(function (userItem) {
       userItem.classList.remove("hidden");
@@ -792,7 +792,7 @@ function setZoom(target, sender) {
 
   document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
   var offset = -442 * (100 - sender.value) / 100.0;
-  if (selectedGame == "metroid3") {
+  if (["metroid3"].indexOf(selectedGame) > -1) {
     offset = 0;
     if (target == "mapdiv" && metroidMode == "accessibility") {
       document.getElementById("itemdiv").style.top = 660 * sender.value / 100;
@@ -808,7 +808,7 @@ function setZoom(target, sender) {
 var prevH = false;
 
 function setMapOrientation(H) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -856,7 +856,7 @@ function setMapOrientation(H) {
 }
 
 function setOHKO(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -880,7 +880,7 @@ function setOHKO(sender) {
 }
 
 function setSwords(sender) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -907,7 +907,7 @@ function setSwords(sender) {
 }
 
 function setState(state) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -998,7 +998,7 @@ function EditMode() {
 }
 
 function refreshMapMedallions() {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -1007,7 +1007,7 @@ function refreshMapMedallions() {
 }
 
 function refreshMapMedallion(d) {
-  if (selectedGame != "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) == -1) {
     return;
   }
 
@@ -1311,7 +1311,6 @@ function useTourneyConfig() {
   // do nothing
 }
 
-
 function initTracker() {
   var useGame = arguments[0];
   document.body.classList.add(roomid);
@@ -1330,7 +1329,7 @@ function initTracker() {
   document.title = game + " Item Tracker";
   document.getElementById("caption").innerHTML = selectGame + ' ]';
 
-  if (selectedGame == "zelda3") {
+  if (["zelda3"].indexOf(selectedGame) > -1) {
     let logics = ["glitchless", "minorGlitches", "owGlitches", "majorGlitches"];
     if (zeldaMode == "regions") {
       document.getElementsByName("maplogic")[logics.indexOf("minorGlitches")].click();
@@ -1379,7 +1378,6 @@ function initTracker() {
         }
       }
     }
-
     refreshMap();
   });
 }
@@ -1442,7 +1440,6 @@ Vue.component('tracker-cell', {
     'itemName',
     'columnIndex',
     'rowIndex',
-    'trackerData',
     'trackerData'
   ],
   computed: {
@@ -1490,7 +1487,7 @@ Vue.component('tracker-cell', {
       return this.itemName.toLowerCase() == "tunic";
     },
     chestImage: function () {
-      if (selectedGame != "zelda3") {
+      if (["zelda3"].indexOf(selectedGame) == -1) {
         return null;
       }
 
@@ -1500,18 +1497,16 @@ Vue.component('tracker-cell', {
       return null;
     },
     prizeImage: function () {
-      if (selectedGame != "zelda3") {
+      if (["zelda3"].indexOf(selectedGame) == -1) {
         return null;
       }
-      if (selectedGame == "zelda3") {
-        if (this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
-          return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
-        }
+      if (this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
+        return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
       }
       return null;
     },
     medallionImage: function () {
-      if (selectedGame != "zelda3") {
+      if (["zelda3"].indexOf(selectedGame) == -1) {
         return null;
       }
       if ((this.bossNum === "8" || this.bossNum === "9") && this.trackerData[selectedGame] && this.trackerData[selectedGame].showMedals) {
@@ -1523,14 +1518,14 @@ Vue.component('tracker-cell', {
       let universe = selectedGame.substr(0, selectedGame.length - 1);
       let itemGame = selectedGame;
 
-      if ((gameItems[universe + "1"].indexOf(this.itemName) == -1) && (gameItems[universe + "3"].indexOf(this.itemName) == -1)) {
+      if (gameItems[universe + "3"].indexOf(this.itemName) == -1) {
         itemGame = altGames[selectedGame];
       }
 
       return "item-" + itemGame;
     },
     ohkoClass: function () {
-      if (selectedGame != "zelda3") {
+      if (["zelda3"].indexOf(selectedGame) == -1) {
         return null;
       }
       if (this.itemLabel.toLowerCase() == "tunic" && this.trackerData[selectedGame].mapOHKO) {
@@ -1539,7 +1534,7 @@ Vue.component('tracker-cell', {
       return null;
     },
     swordlessClass: function () {
-      if (selectedGame != "zelda3") {
+      if (["zelda3"].indexOf(selectedGame) == -1) {
         return null;
       }
       if (this.itemLabel.toLowerCase().indexOf("sword") > -1 && !this.trackerData[selectedGame].mapSwords) {

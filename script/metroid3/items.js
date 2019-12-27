@@ -6,7 +6,7 @@ defaultItemGrid.metroid3 = [
 		"grappling",
 		"xray",
 		"hookshot",
-		"lantern",
+		"lantern"
 	],
 	[
 		"charge",
@@ -15,7 +15,7 @@ defaultItemGrid.metroid3 = [
 		"spazer",
 		"plasma",
 		"hammer",
-		"flute",
+		"flute"
 	],
 	[
 		"varia",
@@ -24,7 +24,7 @@ defaultItemGrid.metroid3 = [
 		"space",
 		"hijump",
 		"mirror",
-		"agahnim",
+		"agahnim"
 	],
 	[
 		"gravity",
@@ -33,7 +33,7 @@ defaultItemGrid.metroid3 = [
 		"speed",
 		"etank",
 		"boots",
-		"glove",
+		"glove"
 	],
 	[
 		"kraid",
@@ -42,8 +42,8 @@ defaultItemGrid.metroid3 = [
 		"ridley",
 		"rtank",
 		"flippers",
-		"moonpearl",
-	],
+		"moonpearl"
+	]
 ];
 
 dungeonchestsInit.metroid3 = {};
