@@ -407,11 +407,29 @@ function canAccessLightWorld() {
   }
 }
 
+function gapCheck() {
+  // Basic: Hookshot
+  return (
+    has("itemplacement.basic") &&
+    canGrapple()
+  ) ||
+  // Advanced: Hookshot or Boots
+  (
+    has("itemplacement.advanced") &&
+    (
+      canDash() ||
+      canGrapple()
+    )
+  );
+}
+
 function torchCheck() {
+  // Basic: Lantern
   return (
     has("itemplacement.basic") &&
     has("lantern")
   ) ||
+  // Advanced: Lantern or Fire Rod
   (
     has("itemplacement.advanced") &&
     (
