@@ -86,10 +86,6 @@ if(selectedGame == "zelda3") {
 	bosses = 11;
 } else if(selectedGame == "metroid3") {
 	bosses = 10;
-} else if(selectedGame == "zelda1") {
-	bosses = 10;
-} else if(selectedGame == "metroid1") {
-	bosses = 3;
 }
 for(var i = 0; i < bosses; i++) {
 	trackerData[selectedGame].items["boss" + i] = 1;
@@ -179,19 +175,11 @@ let defaultOptions = {
   		showPrizes: true,
   		showMedals: true,
 	},
-	zelda1: {
-		mapLogic: "minorGlitches",
-		mPos: "Above"
-	},
 	metroid3: {
 		chestSkin: "lights",
 		mapLogic: "casualLogic",
 		mPos: "Above",
 		mZoom: 100
-	},
-	metroid1: {
-		mapLogic: "casualLogic",
-		mPos: "Above"
 	}
 };
 for(let gameName in gameNames) {
@@ -249,10 +237,6 @@ function setConfigObject(configobj) {
     var maplogics = ["glitchless","minorGlitches","owGlitches","majorGlitches","casualLogic","tourneyLogic"];
     document.getElementsByName('maplogic')[maplogics.indexOf(configobj[selectedGame].mapLogic)].click();		// Map Logic
 
-	if(roomid == "lozmx") {
-		document.getElementsByName('nonvanilla')[0].checked = !!configobj[selectedGame].nonVanilla;				// Non-Vanilla slots? (LoZMx only)
-		document.getElementsByName('nonvanilla')[0].onchange();
-	}
 	if(selectedGame == "metroid3") {
 	    var chestskins = ["lights","nolights","nothing"];
 	    document.getElementsByName('chestskin')[chestskins.indexOf(configobj[selectedGame].chestSkin)].click();	// Chest Skin (Lights, No Lights, Nothing) (M3 only)
@@ -330,9 +314,6 @@ function getConfigObject() {
     configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value;			// Map Position (Above, Below, Side) (Z3 only)
     configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value;			// Map Logic
     configobj[selectedGame].mapOHKO = document.getElementsByName('ohko')[0].checked;							// OHKO? (Z3 only)
-    if(roomid == "lozmx") {
-		configobj[selectedGame].nonVanilla = !document.getElementsByName('nonvanilla')[0].checked;				// Non-vanilla slots? (LoZMx only)
-	}
     if(selectedGame == "zelda3") {
 	    configobj[selectedGame].mapSwords = !document.getElementsByName('swordless')[0].checked;				// Swords? (Z3 only)
 	} else if(selectedGame == "metroid3") {
@@ -373,14 +354,7 @@ var crumbs = {};
 if(roomid == "smalttpr") {
 	crumbs = {
 		Hyrule: "?game=zelda3",
-		Zebes: "?game=metroid3",
-		LoZMx: "?game=zelda1"
-	};
-} else if(roomid == "lozmx") {
-	crumbs = {
-		Hyrule: "?game=zelda1",
-		Zebes: "?game=metroid1",
-		SMALttPR: "?game=zelda3",
+		Zebes: "?game=metroid3"
 	};
 }
 for(let crumb in crumbs) {
@@ -725,7 +699,7 @@ function showMedallion(sender) {
 }
 
 function showLabel(sender) {
-	if(selectedGame != "zelda3" && selectedGame != "zelda1") { return; }
+	if(selectedGame != "zelda3") { return; }
 
     trackerData[selectedGame].showLabels = sender.checked;
     refreshMap();
@@ -1321,10 +1295,8 @@ function initTracker() {
     updateAll();
 
     var games = {
-		zelda1:		"TLoZ",
 		zelda3:		"ALttP",
-		metroid1:	"Metroid",
-		metroid3:	"Super Metroid",
+		metroid3:	"Super Metroid"
 	};
     var game = games[selectedGame];
     document.title = game + " Item Tracker";
@@ -1492,13 +1464,11 @@ Vue.component('tracker-cell', {
       return null;
     },
     prizeImage: function() {
-	  if(selectedGame != "zelda3" && selectedGame != "zelda1") { return null; }
+	  if(selectedGame != "zelda3") { return null; }
 	  if(selectedGame == "zelda3") {
         if(this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
           return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
         }
-      } else if(this.bossNum && selectedGame == "zelda1") {
-          return "url(" + build_img_url("boss82") + ')';
 	  }
       return null;
     },

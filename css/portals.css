@@ -1,6 +1,5 @@
 /* Portals to Zebes */
 /*  Active */
-.chest.portal-metroid1.active,
 .chest.portal-metroid3.active {
     background-image: url(../images/zelda3/chests/warp.gif) !important;
 }
@@ -11,13 +10,11 @@
 
 /* Portals to Hyrule */
 /*  Active */
-.chest.portal-zelda3.active,
-.chest.portal-zelda1.active {
+.chest.portal-zelda3.active {
     background-color: #aaffaa;
     background-image: url(../images/metroid3/chests/warp.gif) !important;
 }
 .zelda3 .chest.portal-zelda3.active,
-.icons-nothing .chest.portal-zelda1.active,
 .icons-nothing .chest.portal-zelda3.active {
     background-image: url(../images/metroid3/chests/icons-noicons/warp.png) !important;
 }

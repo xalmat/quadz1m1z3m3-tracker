@@ -26,10 +26,6 @@ a {
     overflow-y: auto;
 }
 
-.zelda1 .hidden {
-    visibility: hidden;
-}
-
 #settingsbutton{
     position: absolute;
     right:0;
@@ -275,13 +271,6 @@ input {
 
 .important {
     background-color: rgb(255,160,0);
-}
-
-.smalttpr .lozmx-option {
-    display: none;
-}
-.lozmx .smalttpr-option {
-    display: none;
 }
 
 #credits {

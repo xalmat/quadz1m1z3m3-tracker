@@ -30,15 +30,11 @@ var effectiveVersion = "";
 var gameNames = [];
 var altGames = {
 	zelda3: "metroid3",
-	zelda1: "metroid1",
-	metroid3: "zelda3",
-	metroid1: "zelda1"
+	metroid3: "zelda3"
 };
 
 if(selectedGame == "zelda3" || selectedGame == "metroid3") {
 	gameNames = ["zelda3","metroid3"];
-} else if(selectedGame == "zelda1" || selectedGame == "metroid1") {
-	gameNames = ["zelda1","metroid1"];
 }
 
 var chests = {};
@@ -60,8 +56,6 @@ var questid = getParameterByName("questid",window.location);
 if(roomid === null) {
 	if(selectedGame == "zelda3" || selectedGame == "metroid3") {
 		roomid = "smalttpr";
-	} else if(["zelda1","metroid1"].indexOf(selectedGame) > -1) {
-		roomid = "lozmx";
 	}
 }
 if(questid === null) {
@@ -142,9 +136,7 @@ function build_img_url(item,useGame = selectedGame) {
     var misc = ["blank","highlighted","poi"];
 
     var zelda3items = gameItems.zelda3;
-    var zelda1items = gameItems.zelda1;
     var metroid3items = gameItems.metroid3;
-    var metroid1items = gameItems.metroid1;
     let filext = "png";
 
     if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
@@ -154,16 +146,10 @@ function build_img_url(item,useGame = selectedGame) {
             useGame = "metroid3";
         } else if(metroid3items.indexOf(item) > -1 || metroid3items.indexOf(item.substr(0,item.length-1)) > -1) {
             useGame = "metroid3";
-        } else if(metroid1items.indexOf(item) > -1 || metroid1items.indexOf(item.substr(0,item.length-1)) > -1) {
-            useGame = "metroid1";
-        } else if(useGame == "zelda1") {
-            useGame = "zelda1";
         } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
             useGame = "zelda3";
         }
     }
-    if(selectedGame == "zelda1" && item.indexOf("boss5") > -1) {
-		filext = "gif";
 	}
 
     var globalReplaceItem = {

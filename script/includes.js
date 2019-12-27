@@ -66,14 +66,6 @@ var bosses = {
 		"Trinexx",
 		"Ganon"
 	],
-	zelda1: [
-		"Aquamentus",
-		"Digdogger",
-		"Dodongo",
-		"Gleeok",
-		"Gohma",
-		"Manhandla"
-	],
 };
 
 for(var gameName in bosses) {
@@ -88,16 +80,9 @@ scripts.push("script/classes/Location.js");
 scripts.push("script/classes/LocationCollection.js");
 scripts.push("script/classes/Region.js");
 
-let lozmx = selectedGame == "metroid1" || selectedGame == "zelda1";
 let smalttpr = selectedGame == "metroid3" || selectedGame == "zelda3";
 
-if(lozmx) {
-	scripts.push("script/classes/Region/TLoZ.js");
-	scripts.push("script/classes/Region/Metroid.js");
-	scripts.push("script/zelda3/item-limits.js");
-	scripts.push("script/metroid3/item-limits.js");
-	scripts.push("script/zelda1/item-limits.js");
-} else if(smalttpr) {
+if(smalttpr) {
 	scripts.push("script/classes/Region/ALttP.js");
 	scripts.push("script/classes/Region/SuperMetroid.js");
 	scripts.push("script/zelda3/item-limits.js");
@@ -113,9 +98,6 @@ if(selectedGame != "zelda3") {
 if(selectedGame != "metroid3") {
 	sheets.push("css/metroid/notmetroid3.css");
 }
-if(selectedGame != "metroid1") {
-	sheets.push("css/metroid/notmetroid1.css");
-}
 if(universe == "zelda") {
 	sheets.push("css/zelda/zelda.css");
 }
@@ -130,22 +112,10 @@ sheets.push("css/wrapup.css");
 scripts.push("script/classes/init.js");
 
 var regionNames = {
-	zelda1: {
-		overworld:		["freehint","item","moneymakinggame","paidhint","potions","road","rupoor","secretcaves","shop","takeany"],
-		dungeons:		["level0","level1","level2","level3","level4","level5","level6","level7","level8","level9"],
-	},
 	zelda3: {
 		dungeons:		["main"],
 		overworld:		["main"],
 		zebes:			["z3-m3"],
-	},
-	metroid1: {
-		brinstar:		["main"],
-		kraid:			["main"],
-		norfair:		["main"],
-		ridley:			["main"],
-		tourian:		["main"],
-		hyruleportals:	["main"],
 	},
 	metroid3: {
 		crateria:		["central","east","west"],
@@ -195,14 +165,12 @@ for(var gameName in regionNames) {
 				var segmentName = region[segment];
 				var url = "";
 
-				if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions") || lozmx) {
+				if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions")) {
 					url += "script/classes/Region/";
 
 					let dirs = {
 						zelda3:		"ALttP",
 						metroid3:	"SuperMetroid",
-						zelda1:		"TLoZ",
-						metroid1:	"Metroid",
 					};
 
 					url += dirs[selectedGame] + '/';
