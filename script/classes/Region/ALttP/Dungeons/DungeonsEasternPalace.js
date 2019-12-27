@@ -9,7 +9,7 @@ class DungeonsEasternPalace extends Dungeons {
         new Location("Chest", "Eastern Palace - Cannonball Chest", "", "", regionName),
         new Location("Chest", "Eastern Palace - Big Key Chest", "", "", regionName),
         new Location("Chest", "Eastern Palace - Map Chest", "", "", regionName),
-        new Location("Event", "Eastern Palace - Armos Knights", "46.8%", "38.8%", regionName, {equipment: "%%lantern%%/%%firerod%%"})
+        new Location("Event", "Eastern Palace - Boss", "46.8%", "38.8%", regionName, {equipment: "%%lantern%%/%%firerod%%"})
       ], this);
     }
 
@@ -28,7 +28,7 @@ class DungeonsEasternPalace extends Dungeons {
         return has("lantern");
       }
     }
-    this.locations["Eastern Palace - Armos Knights"].glitchless = function () {
+    this.locations["Eastern Palace - Boss"].glitchless = function () {
       return canShootArrows() &&
         torchCheck() && has("bigkeyp1") &&
         boss.canBeat();
@@ -52,7 +52,7 @@ class DungeonsEasternPalace extends Dungeons {
       }
     }
     this.canComplete.glitchless = function () {
-      return dungeon.locations["Eastern Palace - Armos Knights"].glitchless();
+      return dungeon.locations["Eastern Palace - Boss"].glitchless();
     }
     this.canGetChest.glitchless = function () {
       let mychests = trackerData.zelda3.dungeonchests[0];
@@ -83,7 +83,7 @@ class DungeonsEasternPalace extends Dungeons {
     let boss = this.boss;
     let dungeon = this;
 
-    this.locations["Eastern Palace - Armos Knights"].minorGlitches = function () {
+    this.locations["Eastern Palace - Boss"].minorGlitches = function () {
       let ret = this.glitchless();
 
       if (ret) {
@@ -94,7 +94,7 @@ class DungeonsEasternPalace extends Dungeons {
       }
     }
     this.canComplete.minorGlitches = function () {
-      return dungeon.locations["Eastern Palace - Armos Knights"].minorGlitches();
+      return dungeon.locations["Eastern Palace - Boss"].minorGlitches();
     }
   }
 }
