@@ -24,9 +24,9 @@ class DarkWorldNorthWest extends DarkWorld {
         return canLiftRocks() && has("cape");
       }
       this.locations["Blacksmith"].glitchless =
-        this.locations["Purple Chest"].glitchless = function () {
-          return (!isBunny("light")) && (!isBunny("dark")) && canLiftDarkRocks();
-        }
+      this.locations["Purple Chest"].glitchless = function () {
+        return (!isBunny("light")) && (!isBunny("dark")) && canLiftDarkRocks();
+      }
     }
 
     this.canEnter.glitchless = function () {
