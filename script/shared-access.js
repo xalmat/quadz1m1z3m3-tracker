@@ -295,14 +295,20 @@ function canExtendMagic() {
   return has("mpupgrade", 1) || has("bottle", 1);
 }
 
-function canKillMostThings(enemies = 5) {
-  return (
-    hasSword() &&
-      (has("swords.uncle") || has("swords.swordless"))
-    ) // FIXME: Swords Uncle/Swordless
-    ||
+function canKillEscapeThings() {
+  return hasSword() ||
     has("somaria") ||
-    (has("bombs") && enemies < 6) ||
+    has("bomb") ||
+    has("byrna") ||
+    canShootArrows() ||
+    has("hammer") ||
+    has("firerod");
+}
+
+function canKillMostThings(enemies = 5) {
+  return hasSword() ||
+    has("somaria") ||
+    (has("bomb") && enemies < 6) ||
     (has("byrna") && (enemies < 6 || canExtendMagic())) ||
     canShootArrows() ||
     has("hammer") ||
