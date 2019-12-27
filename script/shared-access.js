@@ -113,26 +113,35 @@ function has(item, amount = -1) {
         ret = false;
       }
     }
-  }
-
-  if ((selectedGame == "zelda3" || selectedGame == "metroid3") && item.indexOf("state") > -1) {
-    let open = trackerData.zelda3.mapState == "open";
-    let inverted = trackerData.zelda3.mapState == "inverted";
-    if (item.indexOf("open") > -1) {
-      return open;
-    }
-    if (item.indexOf("inverted") > -1) {
-      return inverted;
-    }
-  }
-  if (item.indexOf("swords") > -1) {
-    if (item.indexOf("swordless") > -1 && trackerData.zelda3.mapSwords == false) {
-      return true;
-    }
-  }
-  if (item.indexOf("variation") > -1) {
-    if (item.indexOf("ohko") > -1 && trackerData.zelda3.mapOHKO) {
-      return true;
+  } else {
+    if (["zelda3", "metroid3"].indexOf(selectedGame) > -1) {
+      if (item.indexOf("state") > -1) {
+        let open = trackerData.zelda3.mapState == "open";
+        let inverted = trackerData.zelda3.mapState == "inverted";
+        if (item.indexOf("open") > -1) {
+          return open;
+        }
+        if (item.indexOf("inverted") > -1) {
+          return inverted;
+        }
+      } else if (item.indexOf("placement") > -1) {
+        let basic = trackerData.zelda3.itemPlacement == "basic";
+        let advanced = trackerData.zelda3.itemPlacement == "advanced";
+        if (item.indexOf("basic") > -1) {
+          return basic;
+        }
+        if (item.indexOf("advanced") > -1) {
+          return advanced;
+        }
+      } else if (item.indexOf("swords") > -1) {
+        if (item.indexOf("swordless") > -1 && trackerData.zelda3.mapSwords == false) {
+          return true;
+        }
+      } else if (item.indexOf("variation") > -1) {
+        if (item.indexOf("ohko") > -1 && trackerData.zelda3.mapOHKO) {
+          return true;
+        }
+      }
     }
   }
 
@@ -396,6 +405,20 @@ function canAccessLightWorld() {
 
     return south || east || west || gate;
   }
+}
+
+function torchCheck() {
+  return (
+    has("itemplacement.basic") &&
+    has("lantern")
+  ) ||
+  (
+    has("itemplacement.advanced") &&
+    (
+      has("firerod") ||
+      has("lantern")
+    )
+  );
 }
 
 function canDarkNav() {

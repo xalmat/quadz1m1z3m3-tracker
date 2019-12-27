@@ -158,6 +158,7 @@ var cookiekeys = [
   'mapOHKO', // zelda3-only
   'mapState',
   'mapSwords',
+  'itemPlacement',
   'showChests',
   'showMedals',
   'showPrizes',
@@ -170,6 +171,7 @@ let defaultOptions = {
     mapState: "open",
     mapOHKO: false,
     mapSwords: true,
+    itemPlacement: "basic",
     mPos: "Side",
     mZoom: 80,
     showChests: true,
@@ -227,14 +229,19 @@ function setConfigObject(configobj) {
   document.getElementsByName('mapposition')[mappositions.indexOf(configobj[selectedGame].mPos)].click(); // Map Position (Above, Below, Side) (Z3 only)
 
   if ((["zelda3"].indexOf(selectedGame) > -1)) {
-    var mapstates = ["standard", "open"];
-    document.getElementsByName('mapstate')[mapstates.indexOf(configobj[selectedGame].mapState)].click(); // Map State (Standard, Open) (Z3 only)
+    var mapstates = ["standard", "open", "inverted", "retro"];
+    document.getElementsByName('mapstate')[mapstates.indexOf(configobj[selectedGame].mapState)].click(); // Map State (Standard, Open, Inverted, Retro) (Z3 only)
   }
 
   document.getElementsByName('swordless')[0].checked = !configobj[selectedGame].mapSwords; // Swordless? (Z3 only)
   document.getElementsByName('swordless')[0].onchange();
   document.getElementsByName('ohko')[0].checked = !!configobj[selectedGame].mapOHKO; // OHKO? (Z3 only)
   document.getElementsByName('ohko')[0].onchange();
+
+  if ((["zelda3"].indexOf(selectedGame) > -1)) {
+    var itemplacements = ["basic", "advanced"];
+    document.getElementsByName('itemplacement')[itemplacements.indexOf(configobj[selectedGame].itemPlacement)].click(); // Item Placement (Basic, Advanced) (Z3 only)
+  }
 
   var maplogics = ["glitchless", "minorGlitches", "owGlitches", "majorGlitches", "casualLogic", "tourneyLogic"];
   document.getElementsByName('maplogic')[maplogics.indexOf(configobj[selectedGame].mapLogic)].click(); // Map Logic
@@ -932,6 +939,12 @@ function setState(state) {
 
 function setLogic(logic) {
   trackerData[selectedGame].mapLogic = logic;
+  refreshMap();
+  saveCookie();
+}
+
+function setItemPlacement(placement) {
+  trackerData[selectedGame].itemPlacement = placement;
   refreshMap();
   saveCookie();
 }
