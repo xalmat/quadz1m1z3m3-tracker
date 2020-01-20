@@ -16,49 +16,49 @@ class BrinstarPink extends Brinstar {
   }
 
   initCasual() {
-	this.locations["Super Missile (pink Brinstar)"].casualLogic = function() {
+	this.locations["Super Missile (pink Brinstar)"].normalLogic = function() {
 		return canPassBombPassages() && canOpenGreenDoors();
 	}
-	this.locations["Charge Beam"].casualLogic = function() {
+	this.locations["Charge Beam"].normalLogic = function() {
 		return canPassBombPassages();
 	}
-	this.locations["Power Bomb (pink Brinstar)"].casualLogic = function() {
+	this.locations["Power Bomb (pink Brinstar)"].normalLogic = function() {
 		return canUsePowerBombs() && canOpenGreenDoors() && hasEnergyReserves(1);
 	}
-	this.locations["Missile (green Brinstar pipe)"].casualLogic = function() {
+	this.locations["Missile (green Brinstar pipe)"].normalLogic = function() {
 		return canMorph() && (canOpenYellowDoors() || canOpenGreenDoors() || canAccessNorfairPortal());
 	}
-	this.locations["Energy Tank, Waterway"].casualLogic = function() {
+	this.locations["Energy Tank, Waterway"].normalLogic = function() {
 		return canUsePowerBombs() && canOpenRedDoors() && canDashSM() && (hasEnergyReserves(1) || canSwimSM());
 	}
-	this.locations["Energy Tank, Brinstar Gate"].casualLogic = function() {
+	this.locations["Energy Tank, Brinstar Gate"].normalLogic = function() {
 		return canUsePowerBombs() && has("wave") && hasEnergyReserves(1);
 	}
-	this.locations["Spore Spawn"].casualLogic = function() {
+	this.locations["Spore Spawn"].normalLogic = function() {
 		return canPassBombPassages() && canOpenGreenDoors();
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
 			|| canUsePowerBombs()
 			|| (canAccessNorfairPortal() && canMorph() && has("wave") && (has("ice") || canHiJump() || has("space")));
     }
-    this.canComplete.casualLogic = function() {
-      return this.locations["Spore Spawn"].casualLogic();
+    this.canComplete.normalLogic = function() {
+      return this.locations["Spore Spawn"].normalLogic();
     }
   }
 
   initTournament() {
     this.initCasual();
 
-	this.locations["Power Bomb (pink Brinstar)"].tourneyLogic = function() {
+	this.locations["Power Bomb (pink Brinstar)"].hardLogic = function() {
 		return canUsePowerBombs() && canOpenGreenDoors();
 	}
-    this.locations["Energy Tank, Brinstar Gate"].tourneyLogic = function() {
+    this.locations["Energy Tank, Brinstar Gate"].hardLogic = function() {
 		return canUsePowerBombs() && (has("wave") || canOpenGreenDoors());
 	}
 
-	this.canEnter.tourneyLogic = function() {
+	this.canEnter.hardLogic = function() {
 		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
 			|| canUsePowerBombs()
 			|| (canAccessNorfairPortal() && canMorph() && (has("ice") || canHiJump() || canSpringBallJump() || canFlySM()));

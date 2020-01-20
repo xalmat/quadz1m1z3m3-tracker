@@ -14,22 +14,22 @@ class BrinstarBlue extends Brinstar {
   }
 
   initCasual() {
-	this.locations["Power Bomb (blue Brinstar)"].casualLogic = function() {
+	this.locations["Power Bomb (blue Brinstar)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
-	this.locations["Missile (blue Brinstar middle)"].casualLogic = function() {
+	this.locations["Missile (blue Brinstar middle)"].normalLogic = function() {
 		return canMorph();
 	}
-	this.locations["Missile (blue Brinstar bottom)"].casualLogic = function() {
+	this.locations["Missile (blue Brinstar bottom)"].normalLogic = function() {
 		return canMorph();
 	}
-	this.locations["Missile (blue Brinstar top)"].casualLogic = function() {
+	this.locations["Missile (blue Brinstar top)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
-	this.locations["Missile (blue Brinstar behind missile)"].casualLogic = function() {
+	this.locations["Missile (blue Brinstar behind missile)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
-	this.locations["Energy Tank, Brinstar Ceiling"].casualLogic = function() {
+	this.locations["Energy Tank, Brinstar Ceiling"].normalLogic = function() {
 		return canFlySM() || canHiJump() || canDashSM() || has("ice");
 	}
   }
@@ -37,7 +37,7 @@ class BrinstarBlue extends Brinstar {
   initTournament() {
     this.initCasual();
 
-	this.locations["Energy Tank, Brinstar Ceiling"].tourneyLogic = function() {
+	this.locations["Energy Tank, Brinstar Ceiling"].hardLogic = function() {
 		return true;
 	};
   }

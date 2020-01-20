@@ -13,42 +13,42 @@ class CrateriaCentral extends Crateria {
   }
 
   initCasual() {
-	this.locations["Power Bomb (Crateria surface)"].casualLogic = function() {
+	this.locations["Power Bomb (Crateria surface)"].normalLogic = function() {
 		return canUsePowerBombs() && (canDashSM() || canFlySM());
 	}
-	this.locations["Missile (Crateria middle)"].casualLogic = function() {
+	this.locations["Missile (Crateria middle)"].normalLogic = function() {
 		return canPassBombPassages();
 	}
-	this.locations["Missile (Crateria bottom)"].casualLogic = function() {
+	this.locations["Missile (Crateria bottom)"].normalLogic = function() {
 		return canDestroyBombWalls();
 	}
-	this.locations["Super Missile (Crateria)"].casualLogic = function() {
+	this.locations["Super Missile (Crateria)"].normalLogic = function() {
 		return canUsePowerBombs() && hasEnergyReserves(2) && canDashSM();
 	}
-	this.locations["Bombs"].casualLogic = function() {
+	this.locations["Bombs"].normalLogic = function() {
 		return canPassBombPassages() && canOpenRedDoors();
 	}
-	this.locations["Torizo"].casualLogic = function() {
+	this.locations["Torizo"].normalLogic = function() {
 		return canPassBombPassages() && canOpenRedDoors();
 	}
 
-    this.canComplete.casualLogic = function() {
-      return this.locations["Torizo"].casualLogic();
+    this.canComplete.normalLogic = function() {
+      return this.locations["Torizo"].normalLogic();
     }
   }
 
   initTournament() {
     this.initCasual();
 
-	this.locations["Bombs"].tourneyLogic = function() {
+	this.locations["Bombs"].hardLogic = function() {
 		return canMorph() && canOpenRedDoors();
 	}
-	this.locations["Torizo"].tourneyLogic = function() {
+	this.locations["Torizo"].hardLogic = function() {
 		return canMorph() && canOpenRedDoors();
 	}
 
-	this.canComplete.tourneyLogic = function() {
-		return this.locations["Torizo"].tourneyLogic();
+	this.canComplete.hardLogic = function() {
+		return this.locations["Torizo"].hardLogic();
 	}
   }
 }

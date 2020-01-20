@@ -11,37 +11,37 @@ class LowerNorfairWest extends LowerNorfair {
   }
 
   initCasual() {
-	this.locations["Missile (Gold Torizo)"].casualLogic = function() {
+	this.locations["Missile (Gold Torizo)"].normalLogic = function() {
 		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
 	}
-	this.locations["Super Missile (Gold Torizo)"].casualLogic =
-	this.locations["Screw Attack"].casualLogic = function() {
+	this.locations["Super Missile (Gold Torizo)"].normalLogic =
+	this.locations["Screw Attack"].normalLogic = function() {
 		return canDestroyBombWalls()
 			&& (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()));
 	}
-	this.locations["Gold Torizo"].casualLogic = function() {
-		return this.locations["Missile (Gold Torizo)"].casualLogic();
+	this.locations["Gold Torizo"].normalLogic = function() {
+		return this.locations["Missile (Gold Torizo)"].normalLogic();
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initCasual();
 
 		return heatProof()
-				&& ((ne.canEnter.casualLogic()
+				&& ((ne.canEnter.normalLogic()
 			&& canUsePowerBombs()
 			&& (canSwimSM() && has("space")))
 			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls()));
     }
-    this.canComplete.casualLogic = function() {
-		return this.locations["Gold Torizo"].casualLogic();
+    this.canComplete.normalLogic = function() {
+		return this.locations["Gold Torizo"].normalLogic();
     }
   }
 
   initTournament() {
     this.initCasual();
 
-    this.locations["Missile (Gold Torizo)"].tourneyLogic = function() {
+    this.locations["Missile (Gold Torizo)"].hardLogic = function() {
 		return canUsePowerBombs()
 			&& has("space")
 			&& heatProof()
@@ -50,23 +50,23 @@ class LowerNorfairWest extends LowerNorfair {
 					(canFlySM() || canSpringBallJump() || canDashSM())));
 	}
 
-	this.locations["Super Missile (Gold Torizo)"].tourneyLogic = function() {
+	this.locations["Super Missile (Gold Torizo)"].hardLogic = function() {
 		return canDestroyBombWalls() && heatProof();
 	}
 
-	this.locations["Screw Attack"].tourneyLogic = function() {
+	this.locations["Screw Attack"].hardLogic = function() {
 		return canDestroyBombWalls()
 			&& (heatProof() || canAccessLowerNorfairPortal());
 	}
 
-    this.locations["Gold Torizo"].tourneyLogic = function() {
-		return this.locations["Missile (Gold Torizo)"].tourneyLogic();
+    this.locations["Gold Torizo"].hardLogic = function() {
+		return this.locations["Missile (Gold Torizo)"].hardLogic();
 	}
-	this.canEnter.tourneyLogic = function() {
+	this.canEnter.hardLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initTournament();
 
-		return ne.canEnter.tourneyLogic()
+		return ne.canEnter.hardLogic()
 			&& canUsePowerBombs()
 			&& (heatProof() && (canHiJump() || canSwimSM()))
 			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls());

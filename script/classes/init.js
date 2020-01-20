@@ -57,8 +57,8 @@ function initClasses(useGame) {
 						}
 						if(useGame == "metroid3") {
 							props.canAccess = {
-								casualLogic: location.casualLogic,
-								tourneyLogic: location.tourneyLogic
+								normalLogic: location.normalLogic,
+								hardLogic: location.hardLogic
 							};
 						}
 						if(location.equipment) {
@@ -128,11 +128,11 @@ function initClasses(useGame) {
 										}
 									}
 									if(selectedGame == "metroid3") {
-										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
-											availability.casualLogic = "available";
+										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
+											availability.normalLogic = "available";
 										}
-										if(regionObjects[this.region].canEnter.tourneyLogic() && this.canAccess.tourneyLogic()) {
-											availability.tourneyLogic = "available";
+										if(regionObjects[this.region].canEnter.hardLogic() && this.canAccess.hardLogic()) {
+											availability.hardLogic = "available";
 										}
 									}
 									return availability;
@@ -198,12 +198,12 @@ function initClasses(useGame) {
 									if(selectedGame == "metroid3") {
 										var tmp = "";
 
-										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
-											availability.casualLogic = tmp + " active";
-											availability.tourneyLogic = tmp + " active";
+										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
+											availability.normalLogic = tmp + " active";
+											availability.hardLogic = tmp + " active";
 										} else {
-											availability.casualLogic = tmp + " inactive";
-											availability.tourneyLogic = tmp + " inactive";
+											availability.normalLogic = tmp + " inactive";
+											availability.hardLogic = tmp + " inactive";
 										}
 									}
 									return availability;
@@ -242,11 +242,11 @@ function initClasses(useGame) {
 										}
 									}
 									if(selectedGame == "metroid3") {
-										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
-											availability.casualLogic = "available";
+										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
+											availability.normalLogic = "available";
 										}
-										if(regionObjects[this.region].canEnter.tourneyLogic() && this.canAccess.tourneyLogic()) {
-											availability.tourneyLogic = "available";
+										if(regionObjects[this.region].canEnter.hardLogic() && this.canAccess.hardLogic()) {
+											availability.hardLogic = "available";
 										}
 									}
 									return availability;

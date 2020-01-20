@@ -15,31 +15,31 @@ class LowerNorfairEast extends LowerNorfair {
   }
 
   initCasual() {
-	this.locations["Missile (lower Norfair near Wave Beam)"].casualLogic = function() {
+	this.locations["Missile (lower Norfair near Wave Beam)"].normalLogic = function() {
 		return canMorph() && canDestroyBombWalls();
 	}
-	this.locations["Missile (Mickey Mouse room)"].casualLogic = function() {
+	this.locations["Missile (Mickey Mouse room)"].normalLogic = function() {
 		return canMorph() && canDestroyBombWalls();
 	}
-	this.locations["Power Bomb (lower Norfair above fire flea room)"].casualLogic = function() {
+	this.locations["Power Bomb (lower Norfair above fire flea room)"].normalLogic = function() {
 		return canPassBombPassages();
 	}
-	this.locations["Power Bomb (Power Bombs of shame)"].casualLogic = function() {
+	this.locations["Power Bomb (Power Bombs of shame)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
-	this.locations["Energy Tank, Ridley"].casualLogic = function() {
+	this.locations["Energy Tank, Ridley"].normalLogic = function() {
 		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
 	}
-	this.locations["Ridley"].casualLogic = function() {
+	this.locations["Ridley"].normalLogic = function() {
 		return canUsePowerBombs() && canOpenGreenDoors() && has("charge");
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initCasual();
 
 		return heatProof()
-			&& ((ne.canEnter.casualLogic()
+			&& ((ne.canEnter.normalLogic()
 					&& canUsePowerBombs()
 					&& (has("space") && canSwimSM()))
 				|| (canAccessLowerNorfairPortal()
@@ -49,20 +49,20 @@ class LowerNorfairEast extends LowerNorfair {
 					&& (canFlySM() || canDashSM())))
 			&& (canFlySM() || canHiJump());
     }
-    this.canComplete.casualLogic = function() {
-      return this.locations["Ridley"].casualLogic();
+    this.canComplete.normalLogic = function() {
+      return this.locations["Ridley"].normalLogic();
     }
   }
 
   initTournament() {
     this.initCasual();
 
-	this.canEnter.tourneyLogic = function() {
+	this.canEnter.hardLogic = function() {
 		let ne = new NorfairEast("","",false);
 		ne.initTournament();
 
 		return heatProof()
-			&& ((ne.canEnter.tourneyLogic()
+			&& ((ne.canEnter.hardLogic()
 				&& canUsePowerBombs()
 				&& (canHiJump() || canSwimSM()))
 			|| (canAccessLowerNorfairPortal()

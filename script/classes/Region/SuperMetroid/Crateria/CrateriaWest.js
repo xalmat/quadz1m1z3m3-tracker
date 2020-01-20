@@ -11,15 +11,15 @@ class CrateriaWest extends Crateria {
   }
 
   initCasual() {
-	this.locations["Energy Tank, Gauntlet"].casualLogic = function() {
+	this.locations["Energy Tank, Gauntlet"].normalLogic = function() {
 		return canEnterAndLeaveGauntlet() && hasEnergyReserves(1);
 	}
-	this.locations["Missile (Crateria gauntlet right)"].casualLogic =
-	this.locations["Missile (Crateria gauntlet left)"].casualLogic = function() {
+	this.locations["Missile (Crateria gauntlet right)"].normalLogic =
+	this.locations["Missile (Crateria gauntlet left)"].normalLogic = function() {
 		return canEnterAndLeaveGauntlet() && canPassBombPassages() && hasEnergyReserves(2);
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
       return canDestroyBombWalls() || canDashSM();
     }
   }
@@ -27,11 +27,11 @@ class CrateriaWest extends Crateria {
   initTournament() {
     this.initCasual();
 
-    this.locations["Energy Tank, Gauntlet"].tourneyLogic = function() {
+    this.locations["Energy Tank, Gauntlet"].hardLogic = function() {
 		return canEnterAndLeaveGauntlet();
 	}
-	this.locations["Missile (Crateria gauntlet right)"].tourneyLogic =
-	this.locations["Missile (Crateria gauntlet left)"].tourneyLogic = function () {
+	this.locations["Missile (Crateria gauntlet right)"].hardLogic =
+	this.locations["Missile (Crateria gauntlet left)"].hardLogic = function () {
 		return canEnterAndLeaveGauntlet() && canPassBombPassages();
 	}
   }

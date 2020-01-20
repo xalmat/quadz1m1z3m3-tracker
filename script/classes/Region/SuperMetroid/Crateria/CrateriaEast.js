@@ -11,18 +11,18 @@ class CrateriaEast extends Crateria {
   }
 
   initCasual() {
-	this.locations["Missile (outside Wrecked Ship bottom)"].casualLogic = function() {
+	this.locations["Missile (outside Wrecked Ship bottom)"].normalLogic = function() {
 		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal());
 	}
-	this.locations["Missile (outside Wrecked Ship top)"].casualLogic = function() {
+	this.locations["Missile (outside Wrecked Ship top)"].normalLogic = function() {
 		return ((canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump())) || canAccessMaridiaPortal())
 			&& (canHiJump() || canFlySM() || canDashSM()) && has("phantoon");
 	}
-	this.locations["Missile (outside Wrecked Ship middle)"].casualLogic = function() {
+	this.locations["Missile (outside Wrecked Ship middle)"].normalLogic = function() {
 		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal()) && canOpenGreenDoors() && has("phantoon");
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		return (canUsePowerBombs() && canOpenGreenDoors())
 			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canHiJump() || has("space")))
 			|| (canAccessMaridiaPortal() && canSwimSM() && canOpenGreenDoors());
@@ -32,16 +32,16 @@ class CrateriaEast extends Crateria {
   initTournament() {
     this.initCasual();
 
-    this.locations["Missile (outside Wrecked Ship bottom)"].tourneyLogic = function() {
+    this.locations["Missile (outside Wrecked Ship bottom)"].hardLogic = function() {
 		return true;
 	}
 
-	this.locations["Missile (outside Wrecked Ship top)"].tourneyLogic =
-	this.locations["Missile (outside Wrecked Ship middle)"].tourneyLogic = function() {
+	this.locations["Missile (outside Wrecked Ship top)"].hardLogic =
+	this.locations["Missile (outside Wrecked Ship middle)"].hardLogic = function() {
 		return canOpenGreenDoors() && canPassBombPassages() && has("phantoon");
 	}
 
-    this.canEnter.tourneyLogic = function() {
+    this.canEnter.hardLogic = function() {
 		return (canUsePowerBombs() && canOpenGreenDoors())
 			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()))
 			|| (canAccessMaridiaPortal() && canHiJump() && canOpenGreenDoors());

@@ -12,23 +12,23 @@ class NorfairWest extends Norfair {
   }
 
   initCasual() {
-	this.locations["Ice Beam"].casualLogic = function() {
+	this.locations["Ice Beam"].normalLogic = function() {
 		return canOpenGreenDoors() && canPassBombPassages() && heatProof() && canDashSM();
 	}
-	this.locations["Missile (below Ice Beam)"].casualLogic = function() {
+	this.locations["Missile (below Ice Beam)"].normalLogic = function() {
 		return canOpenGreenDoors() && canUsePowerBombs() && heatProof() && canDashSM();
 	}
-	this.locations["Energy Tank (Hi-Jump Boots)"].casualLogic = function() {
+	this.locations["Energy Tank (Hi-Jump Boots)"].normalLogic = function() {
 		return canOpenRedDoors();
 	}
-	this.locations["Hi-Jump Boots"].casualLogic = function() {
+	this.locations["Hi-Jump Boots"].normalLogic = function() {
 		return canOpenRedDoors() && canPassBombPassages();
 	}
-	this.locations["Missile (Hi-Jump Boots)"].casualLogic = function() {
+	this.locations["Missile (Hi-Jump Boots)"].normalLogic = function() {
 		return canOpenRedDoors() && canMorph();
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		return ((canDestroyBombWalls() || canDashSM())
 			&& (canOpenGreenDoors() && canMorph()))
 			|| canAccessNorfairPortal();
@@ -38,19 +38,19 @@ class NorfairWest extends Norfair {
   initTournament() {
     this.initCasual();
 
-    this.locations["Ice Beam"].tourneyLogic = function() {
+    this.locations["Ice Beam"].hardLogic = function() {
 		return canOpenGreenDoors() && canMorph() && (heatProof() || hasEnergyReserves(3));
 	}
-	this.locations["Missile (below Ice Beam)"].tourneyLogic = function() {
+	this.locations["Missile (below Ice Beam)"].hardLogic = function() {
 		return (canOpenGreenDoors() && canUsePowerBombs() && (hasEnergyReserves(3) || heatProof())) || (heatProof() && canDashSM() && canOpenGreenDoors());
 	}
-	this.locations["Energy Tank (Hi-Jump Boots)"].tourneyLogic = function() {
+	this.locations["Energy Tank (Hi-Jump Boots)"].hardLogic = function() {
 		return canOpenRedDoors();
 	}
-	this.locations["Hi-Jump Boots"].tourneyLogic = function() {
+	this.locations["Hi-Jump Boots"].hardLogic = function() {
 		return canOpenRedDoors() && canPassBombPassages();
 	}
-	this.locations["Missile (Hi-Jump Boots)"].tourneyLogic = function() {
+	this.locations["Missile (Hi-Jump Boots)"].hardLogic = function() {
 		return canOpenRedDoors() && canMorph();
 	}
   }

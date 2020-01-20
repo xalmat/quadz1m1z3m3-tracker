@@ -1,9 +1,9 @@
 function Availability(glitchless = 'unavailable', minorGlitches = 'unavailable', owGlitches = 'unavailable', majorGlitches = 'unavailable') {
   this._glitchless    = glitchless;
-  this._casualLogic   = glitchless;
+  this._normalLogic   = glitchless;
   this._minorGlitches = minorGlitches;
   this._owGlitches    = owGlitches;
-  this._tourneyLogic  = owGlitches;
+  this._hardLogic  = owGlitches;
   this._majorGlitches = majorGlitches;
 
   this.getClassName = function () {
@@ -11,13 +11,13 @@ function Availability(glitchless = 'unavailable', minorGlitches = 'unavailable',
   }
 }
 
-Object.defineProperty(Availability.prototype, 'casualLogic', {
+Object.defineProperty(Availability.prototype, 'normalLogic', {
   get: function () {
-    return this._casualLogic;
+    return this._normalLogic;
   },
   set: function (value) {
-    this._casualLogic   = value;
-    this._tourneyLogic  = value;
+    this._normalLogic   = value;
+    this._hardLogic  = value;
   }
 });
 
@@ -54,12 +54,12 @@ Object.defineProperty(Availability.prototype, 'owGlitches', {
   }
 });
 
-Object.defineProperty(Availability.prototype, 'tourneyLogic', {
+Object.defineProperty(Availability.prototype, 'hardLogic', {
   get: function () {
-    return this._tourneyLogic;
+    return this._hardLogic;
   },
   set: function (value) {
-    this._tourneyLogic = value;
+    this._hardLogic = value;
   }
 });
 
@@ -638,12 +638,12 @@ function canDestroyBombWalls() { // Morph Ball, Bombs || Power Bombs, Screw Atta
 }
 
 function canEnterAndLeaveGauntlet() { // Gauntlet area is complicated apparently
-  if (trackerData.metroid3.mapLogic == "casualLogic") {
+  if (trackerData.metroid3.mapLogic == "normalLogic") {
     return (canMorph() && (canFlySM() || canDashSM())) &&
       (canIbj() ||
         (canUsePowerBombs() && has("powerbomb", 2)) ||
         has("screw"));
-  } else if (trackerData.metroid3.mapLogic == "tourneyLogic") {
+  } else if (trackerData.metroid3.mapLogic == "hardLogic") {
     return (canMorph() && (canUseMorphBombs() || has("powerbomb", 2))) ||
       has("screw") ||
       (canDashSM() && canUsePowerBombs() && hasEnergyReserves(2));
@@ -764,9 +764,9 @@ function heatProof() { // Varia Suit
 // SM Bosses
 function canDefeatBotwoon() {
   switch (trackerData.metroid3.mapLogic) {
-    case "tourneyLogic":
+    case "hardLogic":
       return has("ice") || canDashSM() || canAccessMaridiaPortal();
-    case "casualLogic":
+    case "normalLogic":
       return canDashSM() || canAccessMaridiaPortal();
   }
 
@@ -774,9 +774,9 @@ function canDefeatBotwoon() {
 
 function canDefeatDraygon() {
   switch (trackerData.metroid3.mapLogic) {
-    case "tourneyLogic":
+    case "hardLogic":
       return canDefeatBotwoon() && canSwimSM() && ((canDashSM() && canHiJump()) || canFlySM());
-    case "casualLogic":
+    case "normalLogic":
       return canDefeatBotwoon() && canSwimSM();
   }
 }
@@ -792,12 +792,12 @@ function canAccessDeathMountainPortal() { // Norfair Map Room -> DM (Old Man exi
 }
 
 function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Refill) -> Mire (Great Fairy, east "Entrance")
-  if (trackerData.metroid3.mapLogic == "casualLogic") {
+  if (trackerData.metroid3.mapLogic == "normalLogic") {
     return heatProof() &&
       canOpenGreenDoors() &&
       canOpenYellowDoors() &&
       (canSwimSM() && has("space"));
-  } else if (trackerData.metroid3.mapLogic == "tourneyLogic") {
+  } else if (trackerData.metroid3.mapLogic == "hardLogic") {
     return heatProof() &&
       canOpenGreenDoors() &&
       (canHiJump() || canSwimSM()) &&
@@ -806,9 +806,9 @@ function canAccessMiseryMirePortal() { // Lower Norfair (Golden Torizo Energy Re
 }
 
 function canAccessDarkWorldPortal() { // Maridia Missile Refill -> DW (DW Ice Rod Right)
-  if (trackerData.metroid3.mapLogic == "casualLogic") {
+  if (trackerData.metroid3.mapLogic == "normalLogic") {
     return canUsePowerBombs() && canOpenGreenDoors() && canSwimSM() && canDashSM();
-  } else if (trackerData.metroid3.mapLogic == "tourneyLogic") {
+  } else if (trackerData.metroid3.mapLogic == "hardLogic") {
     return canUsePowerBombs() &&
       canOpenGreenDoors() &&
       (has("charge") || (canOpenGreenDoors() && canOpenRedDoors())) &&
@@ -832,7 +832,7 @@ function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") 
 }
 
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
-  if (trackerData.metroid3.mapLogic == "casualLogic") {
+  if (trackerData.metroid3.mapLogic == "normalLogic") {
     return !isBunny("dark") &&
       canSwim() &&
       canSwimSM() &&
@@ -840,7 +840,7 @@ function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile 
       (has("agahnim") ||
         (has("hammer") && canLiftRocks()) ||
         canLiftDarkRocks());
-  } else if (trackerData.metroid3.mapLogic == "tourneyLogic") {
+  } else if (trackerData.metroid3.mapLogic == "hardLogic") {
     return !isBunny("dark") &&
       canSwim() &&
       (canSpringBallJump() || canHiJump() || canSwimSM()) &&

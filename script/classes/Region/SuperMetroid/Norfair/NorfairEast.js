@@ -16,29 +16,29 @@ class NorfairEast extends Norfair {
   }
 
   initCasual() {
-	this.locations["Missile (lava room)"].casualLogic = function() {
+	this.locations["Missile (lava room)"].normalLogic = function() {
 		return canMorph();
 	}
-	this.locations["Reserve Tank, Norfair"].casualLogic =
-	this.locations["Missile (Norfair Reserve Tank)"].casualLogic = function() {
+	this.locations["Reserve Tank, Norfair"].normalLogic =
+	this.locations["Missile (Norfair Reserve Tank)"].normalLogic = function() {
 		return canMorph()
 			&& (canFlySM() || (canGrappleSM() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));
 	}
-	this.locations["Missile (bubble Norfair green door)"].casualLogic = function() {
+	this.locations["Missile (bubble Norfair green door)"].normalLogic = function() {
 		return canFlySM() || (canGrappleSM() && canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
 	}
-	this.locations["Missile (Speed Booster)"].casualLogic =
-	this.locations["Speed Booster"].casualLogic = function() {
+	this.locations["Missile (Speed Booster)"].normalLogic =
+	this.locations["Speed Booster"].normalLogic = function() {
 		return canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice");
 	}
-	this.locations["Wave Beam"].casualLogic = function() {
+	this.locations["Wave Beam"].normalLogic = function() {
 		return canMorph() && (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));
 	}
-	this.locations["Missile (Wave Beam)"].casualLogic = function() {
+	this.locations["Missile (Wave Beam)"].normalLogic = function() {
 		return (canFlySM() || (canMorph() && (canDashSM() || canPassBombPassages())) || canHiJump() || has("ice"));
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		return (((canDestroyBombWalls() || canDashSM())
 			&& (canOpenGreenDoors() && canMorph()))
 			|| canAccessNorfairPortal())
@@ -51,20 +51,20 @@ class NorfairEast extends Norfair {
   initTournament() {
     this.initCasual();
 
-    this.locations["Reserve Tank, Norfair"].tourneyLogic =
-    this.locations["Missile (Norfair Reserve Tank)"].tourneyLogic = function() {
+    this.locations["Reserve Tank, Norfair"].hardLogic =
+    this.locations["Missile (Norfair Reserve Tank)"].hardLogic = function() {
 		return canMorph() && canOpenGreenDoors();
 	}
-	this.locations["Missile (bubble Norfair green door)"].tourneyLogic =
-	this.locations["Missile (Speed Booster)"].tourneyLogic =
-	this.locations["Speed Booster"].tourneyLogic = function() {
+	this.locations["Missile (bubble Norfair green door)"].hardLogic =
+	this.locations["Missile (Speed Booster)"].hardLogic =
+	this.locations["Speed Booster"].hardLogic = function() {
 		return canOpenGreenDoors();
 	}
-    this.locations["Wave Beam"].tourneyLogic = function() {
+    this.locations["Wave Beam"].hardLogic = function() {
 		return canOpenRedDoors() && (canMorph() || canGrappleSM() || (canHiJump() && heatProof()) || has("space"));
 	}
 
-	this.canEnter.tourneyLogic = function() {
+	this.canEnter.hardLogic = function() {
 		return (((canDestroyBombWalls() || canDashSM())
 			&& (canOpenGreenDoors() && canMorph()))
 			|| canAccessNorfairPortal())

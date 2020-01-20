@@ -12,25 +12,25 @@ class BrinstarRed extends Brinstar {
   }
 
   initCasual() {
-	this.locations["X-Ray Scope"].casualLogic = function() {
+	this.locations["X-Ray Scope"].normalLogic = function() {
 		return canUsePowerBombs()
 			&& canOpenRedDoors()
 			&& (canGrappleSM() || has("space"));
 	}
-	this.locations["Power Bomb (red Brinstar sidehopper room)"].casualLogic = function() {
+	this.locations["Power Bomb (red Brinstar sidehopper room)"].normalLogic = function() {
 		return canUsePowerBombs() && canOpenGreenDoors();
 	}
-	this.locations["Power Bomb (red Brinstar spike room)"].casualLogic = function() {
+	this.locations["Power Bomb (red Brinstar spike room)"].normalLogic = function() {
 		return (canUsePowerBombs() || has("ice")) && canOpenGreenDoors();
 	}
-	this.locations["Missile (red Brinstar spike room)"].casualLogic = function() {
+	this.locations["Missile (red Brinstar spike room)"].normalLogic = function() {
 		return canUsePowerBombs() && canOpenGreenDoors();
 	}
-	this.locations["Spazer"].casualLogic = function() {
+	this.locations["Spazer"].normalLogic = function() {
 		return canPassBombPassages() && canOpenGreenDoors();
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
       return (canDestroyBombWalls() || canDashSM())
       	&& (canOpenGreenDoors() && canMorph())
       	|| (canAccessNorfairPortal() && (has("ice") || canHiJump() || has("space")));
@@ -40,7 +40,7 @@ class BrinstarRed extends Brinstar {
   initTournament() {
     this.initCasual();
 
-	this.locations["X-Ray Scope"].tourneyLogic = function() {
+	this.locations["X-Ray Scope"].hardLogic = function() {
 		return canUsePowerBombs()
 			&& canOpenRedDoors()
 			&& (canGrappleSM()
@@ -48,11 +48,11 @@ class BrinstarRed extends Brinstar {
 				|| (heatProof() && hasEnergyReserves(3) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump()))
 				|| (hasEnergyReserves(5) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump())));
 	}
-	this.locations["Power Bomb (red Brinstar spike room)"].tourneyLogic = function() {
+	this.locations["Power Bomb (red Brinstar spike room)"].hardLogic = function() {
 		return canOpenGreenDoors();
 	}
 
-	this.canEnter.tourneyLogic = function() {
+	this.canEnter.hardLogic = function() {
 		return ((canDestroyBombWalls() || canDashSM())
 			&& (canOpenGreenDoors() && canMorph()))
 			|| (canAccessNorfairPortal() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()));

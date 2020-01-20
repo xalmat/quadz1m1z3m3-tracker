@@ -180,7 +180,7 @@ let defaultOptions = {
   },
   metroid3: {
     chestSkin: "lights",
-    mapLogic: "casualLogic",
+    mapLogic: "normalLogic",
     mPos: "Above",
     mZoom: 100
   }
@@ -243,7 +243,16 @@ function setConfigObject(configobj) {
     document.getElementsByName('itemplacement')[itemplacements.indexOf(configobj[selectedGame].itemPlacement)].click(); // Item Placement (Basic, Advanced) (Z3 only)
   }
 
-  var maplogics = ["glitchless", "minorGlitches", "owGlitches", "majorGlitches", "casualLogic", "tourneyLogic"];
+  var maplogics = [
+    // zelda3
+    "glitchless",
+    "minorGlitches",
+    "owGlitches",
+    "majorGlitches",
+    // metroid3
+    "normalLogic",
+    "hardLogic"
+  ];
   document.getElementsByName('maplogic')[maplogics.indexOf(configobj[selectedGame].mapLogic)].click(); // Map Logic
 
   if ((["metroid3"].indexOf(selectedGame) > -1)) {
@@ -397,6 +406,7 @@ function chestClass(x) {
   let availability = "";
 
   switch (trackerData[selectedGame].mapLogic) {
+    // zelda3
     case "glitchless":
       availability = chest.isAvailable().glitchless;
       break;
@@ -409,11 +419,12 @@ function chestClass(x) {
     case "majorGlitches":
       availability = chest.isAvailable().majorGlitches;
       break;
-    case "casualLogic":
-      availability = chest.isAvailable().casualLogic;
+    // metroid3
+    case "normalLogic":
+      availability = chest.isAvailable().normalLogic;
       break;
-    case "tourneyLogic":
-      availability = chest.isAvailable().tourneyLogic;
+    case "hardLogic":
+      availability = chest.isAvailable().hardLogic;
       break;
   }
 
@@ -491,6 +502,7 @@ function togglePortal(x) {
     ele.className = ele.className.trim();
 
     switch (trackerData[selectedGame].mapLogic) {
+      // zelda3
       case "glitchless":
         add = chest.isAvailable().glitchless;
         break;
@@ -503,11 +515,12 @@ function togglePortal(x) {
       case "majorGlitches":
         add = chest.isAvailable().majorGlitches;
         break;
-      case "casualLogic":
-        add = chest.isAvailable().casualLogic;
+      // metroid3
+      case "normalLogic":
+        add = chest.isAvailable().normalLogic;
         break;
-      case "tourneyLogic":
-        add = chest.isAvailable().tourneyLogic;
+      case "hardLogic":
+        add = chest.isAvailable().hardLogic;
         break;
     }
 

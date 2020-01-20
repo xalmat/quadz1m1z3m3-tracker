@@ -7,12 +7,12 @@ class Location {
     this.name = name;
     this.x = x;
     this.y = y;
-    this.casualLogic = function() { return true; },
-    this.tourneyLogic = function() { return this.casualLogic(); },
-    this.glitchless = function() { return true; },
-    this.minorGlitches = function() { return this.glitchless(); },
-    this.owGlitches = function() { return this.minorGlitches(); },
-    this.majorGlitches = function() { return this.owGlitches(); },
+    this.normalLogic = function() { return true; },                 // metroid3
+    this.hardLogic = function() { return this.normalLogic(); },     // metroid3
+    this.glitchless = function() { return true; },                  // zelda3
+    this.minorGlitches = function() { return this.glitchless(); },  // zelda3
+    this.owGlitches = function() { return this.minorGlitches(); },  // zelda3
+    this.majorGlitches = function() { return this.owGlitches(); },  // zelda3
     this.region = region;
     this.spicy = typeof extra.spicy !== "undefined";
     this.equipment = typeof extra.equipment !== "undefined" ? extra.equipment : "";

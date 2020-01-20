@@ -11,23 +11,23 @@ class MaridiaOuter extends Maridia {
   }
 
   initCasual() {
-	this.locations["Missile (green Maridia shinespark)"].casualLogic = function() {
+	this.locations["Missile (green Maridia shinespark)"].normalLogic = function() {
 		return canDashSM();
 	}
-	this.locations["Energy Tank, Mama turtle"].casualLogic = function() {
+	this.locations["Energy Tank, Mama turtle"].normalLogic = function() {
 		return canFlySM() || canDashSM() || canGrappleSM();
 	}
 
-	this.canEnter.casualLogic = function() {
+	this.canEnter.normalLogic = function() {
 		let nw = new NorfairWest("","",false);
 		nw.initCasual();
 
-		return ((nw.canEnter.casualLogic()
+		return ((nw.canEnter.normalLogic()
 				&& canUsePowerBombs())
 				|| canAccessMaridiaPortal())
 			&& canSwimSM();
 	}
-    this.canComplete.casualLogic = function() {
+    this.canComplete.normalLogic = function() {
 		return canDefeatDraygon();
     }
   }
@@ -35,18 +35,18 @@ class MaridiaOuter extends Maridia {
   initTournament() {
 	this.initCasual();
 
-	this.locations["Missile (green Maridia shinespark)"].tourneyLogic = function() {
+	this.locations["Missile (green Maridia shinespark)"].hardLogic = function() {
 		return canSwimSM() && canDashSM();
 	}
-    this.locations["Energy Tank, Mama turtle"].tourneyLogic = function() {
+    this.locations["Energy Tank, Mama turtle"].hardLogic = function() {
 		return canFlySM() || canDashSM() || canGrappleSM() || canSpringBallJump();
 	}
 
-	this.canEnter.tourneyLogic = function() {
+	this.canEnter.hardLogic = function() {
 		let nw = new NorfairWest("","",false);
 		nw.initTournament();
 
-		return (nw.canEnter.tourneyLogic()
+		return (nw.canEnter.hardLogic()
 			&& canUsePowerBombs()
 			&& (canDashSM()
 				|| (canHiJump() && (canSpringBallJump() || has("ice")))))

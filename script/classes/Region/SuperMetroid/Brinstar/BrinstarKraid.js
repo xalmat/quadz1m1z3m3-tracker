@@ -11,23 +11,23 @@ class BrinstarKraid extends Brinstar {
   }
 
   initCasual() {
-	this.locations["Energy Tank, Kraid"].casualLogic = function() {
+	this.locations["Energy Tank, Kraid"].normalLogic = function() {
 		return has("kraid");
 	}
-	this.locations["Missile (Kraid)"].casualLogic = function() {
+	this.locations["Missile (Kraid)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
-	this.locations["Varia Suit"].casualLogic = function() {
+	this.locations["Varia Suit"].normalLogic = function() {
 		return has("kraid");
 	}
 
-    this.canEnter.casualLogic = function() {
+    this.canEnter.normalLogic = function() {
 		return (canDestroyBombWalls() || canDashSM() || canAccessNorfairPortal())
 			&& (canOpenGreenDoors() && canMorph())
 			&& canPassBombPassages();
     }
-    this.canComplete.casualLogic = function() {
-      return this.locations["Kraid"].casualLogic();
+    this.canComplete.normalLogic = function() {
+      return this.locations["Kraid"].normalLogic();
     }
   }
 
