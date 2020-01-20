@@ -13,7 +13,7 @@ class BrinstarBlue extends Brinstar {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Power Bomb (blue Brinstar)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
@@ -34,8 +34,8 @@ class BrinstarBlue extends Brinstar {
 	}
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
 	this.locations["Energy Tank, Brinstar Ceiling"].hardLogic = function() {
 		return true;

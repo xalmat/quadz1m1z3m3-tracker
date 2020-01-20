@@ -10,7 +10,7 @@ class BrinstarKraid extends Brinstar {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Energy Tank, Kraid"].normalLogic = function() {
 		return has("kraid");
 	}
@@ -31,7 +31,7 @@ class BrinstarKraid extends Brinstar {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
   }
 }

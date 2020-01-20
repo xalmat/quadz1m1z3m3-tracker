@@ -15,7 +15,7 @@ class WreckedShipMain extends WreckedShip {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Reserve Tank, Wrecked Ship"].normalLogic = function() {
 		return has("phantoon") && (canDashSM()
 			&& canUsePowerBombs()
@@ -50,8 +50,8 @@ class WreckedShipMain extends WreckedShip {
     }
   }
 
-  initTournament() {
-	this.initCasual();
+  initHard() {
+	this.initNormal();
 
 	this.locations["Reserve Tank, Wrecked Ship"].hardLogic = function() {
 		return has("phantoon") && (canUsePowerBombs() && canDashSM() && (heatProof() || hasEnergyReserves(2)));

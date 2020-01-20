@@ -13,7 +13,7 @@ class NorfairCrocomire extends Norfair {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Energy Tank, Crocomire"].normalLogic = function() {
 		return hasEnergyReserves(1) || has("space") || canGrappleSM();
 	}
@@ -44,8 +44,8 @@ class NorfairCrocomire extends Norfair {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
     this.locations["Missile (above Crocomire)"].hardLogic = function() {
 		return (canFlySM() || canGrappleSM() || (canHiJump() && (canDashSM() || canSpringBallJump() || (heatProof() && has("ice"))))) && canHellRun();

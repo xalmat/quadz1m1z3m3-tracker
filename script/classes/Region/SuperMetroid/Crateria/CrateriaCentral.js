@@ -12,7 +12,7 @@ class CrateriaCentral extends Crateria {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Power Bomb (Crateria surface)"].normalLogic = function() {
 		return canUsePowerBombs() && (canDashSM() || canFlySM());
 	}
@@ -37,8 +37,8 @@ class CrateriaCentral extends Crateria {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
 	this.locations["Bombs"].hardLogic = function() {
 		return canMorph() && canOpenRedDoors();

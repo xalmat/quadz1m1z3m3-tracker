@@ -14,7 +14,7 @@ class LowerNorfairEast extends LowerNorfair {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Missile (lower Norfair near Wave Beam)"].normalLogic = function() {
 		return canMorph() && canDestroyBombWalls();
 	}
@@ -36,7 +36,7 @@ class LowerNorfairEast extends LowerNorfair {
 
     this.canEnter.normalLogic = function() {
 		let ne = new NorfairEast("","",false);
-		ne.initCasual();
+		ne.initNormal();
 
 		return heatProof()
 			&& ((ne.canEnter.normalLogic()
@@ -54,12 +54,12 @@ class LowerNorfairEast extends LowerNorfair {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
 	this.canEnter.hardLogic = function() {
 		let ne = new NorfairEast("","",false);
-		ne.initTournament();
+		ne.initHard();
 
 		return heatProof()
 			&& ((ne.canEnter.hardLogic()

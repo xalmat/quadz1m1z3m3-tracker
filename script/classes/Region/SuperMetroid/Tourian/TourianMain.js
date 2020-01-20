@@ -7,7 +7,7 @@ class TourianMain extends Tourian {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
     this.canEnter.normalLogic = function() {
       return has("phantoon")
       	&& has("draygon")
@@ -16,7 +16,7 @@ class TourianMain extends Tourian {
     }
   }
 
-  initTournament() {
-	this.initCasual();
+  initHard() {
+	this.initNormal();
   }
 }

@@ -14,7 +14,7 @@ class BrinstarGreen extends Brinstar {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Power Bomb (green Brinstar bottom)"].normalLogic = function() {
 		return canUsePowerBombs();
 	}
@@ -45,8 +45,8 @@ class BrinstarGreen extends Brinstar {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
 	this.locations["Super Missile (green Brinstar top)"].hardLogic = function() {
 		return canOpenRedDoors()

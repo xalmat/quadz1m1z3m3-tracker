@@ -22,7 +22,7 @@ class MaridiaInner extends Maridia {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Super Missile (yellow Maridia)"].normalLogic =
 	this.locations["Missile (yellow Maridia super missile)"].normalLogic =
 	this.locations["Missile (yellow Maridia false wall)"].normalLogic = function() {
@@ -60,7 +60,7 @@ class MaridiaInner extends Maridia {
 
     this.canEnter.normalLogic = function() {
 		let nw = new NorfairWest("","",false);
-		nw.initCasual();
+		nw.initNormal();
 
 		return ((nw.canEnter.normalLogic()
 				&& canUsePowerBombs()
@@ -73,8 +73,8 @@ class MaridiaInner extends Maridia {
     }
   }
 
-  initTournament() {
-	this.initCasual();
+  initHard() {
+	this.initNormal();
 
 	this.locations["Super Missile (yellow Maridia)"].hardLogic =
 	this.locations["Missile (yellow Maridia super missile)"].hardLogic =
@@ -115,7 +115,7 @@ class MaridiaInner extends Maridia {
 
 	this.canEnter.hardLogic = function() {
 		let nw = new NorfairWest("","",false);
-		nw.initTournament();
+		nw.initHard();
 
 		return nw.canEnter.hardLogic()
 			&& canUsePowerBombs()

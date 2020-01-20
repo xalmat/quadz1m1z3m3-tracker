@@ -10,7 +10,7 @@ class LowerNorfairWest extends LowerNorfair {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Missile (Gold Torizo)"].normalLogic = function() {
 		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
 	}
@@ -25,7 +25,7 @@ class LowerNorfairWest extends LowerNorfair {
 
     this.canEnter.normalLogic = function() {
 		let ne = new NorfairEast("","",false);
-		ne.initCasual();
+		ne.initNormal();
 
 		return heatProof()
 				&& ((ne.canEnter.normalLogic()
@@ -38,8 +38,8 @@ class LowerNorfairWest extends LowerNorfair {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
     this.locations["Missile (Gold Torizo)"].hardLogic = function() {
 		return canUsePowerBombs()
@@ -64,7 +64,7 @@ class LowerNorfairWest extends LowerNorfair {
 	}
 	this.canEnter.hardLogic = function() {
 		let ne = new NorfairEast("","",false);
-		ne.initTournament();
+		ne.initHard();
 
 		return ne.canEnter.hardLogic()
 			&& canUsePowerBombs()

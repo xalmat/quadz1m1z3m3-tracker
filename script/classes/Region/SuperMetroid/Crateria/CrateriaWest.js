@@ -10,7 +10,7 @@ class CrateriaWest extends Crateria {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Energy Tank, Gauntlet"].normalLogic = function() {
 		return canEnterAndLeaveGauntlet() && hasEnergyReserves(1);
 	}
@@ -24,8 +24,8 @@ class CrateriaWest extends Crateria {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
     this.locations["Energy Tank, Gauntlet"].hardLogic = function() {
 		return canEnterAndLeaveGauntlet();

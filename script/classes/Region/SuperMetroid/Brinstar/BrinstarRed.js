@@ -11,7 +11,7 @@ class BrinstarRed extends Brinstar {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["X-Ray Scope"].normalLogic = function() {
 		return canUsePowerBombs()
 			&& canOpenRedDoors()
@@ -37,8 +37,8 @@ class BrinstarRed extends Brinstar {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
 	this.locations["X-Ray Scope"].hardLogic = function() {
 		return canUsePowerBombs()

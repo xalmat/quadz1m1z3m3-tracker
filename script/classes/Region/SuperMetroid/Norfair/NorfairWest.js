@@ -11,7 +11,7 @@ class NorfairWest extends Norfair {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Ice Beam"].normalLogic = function() {
 		return canOpenGreenDoors() && canPassBombPassages() && heatProof() && canDashSM();
 	}
@@ -35,8 +35,8 @@ class NorfairWest extends Norfair {
 	}
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
     this.locations["Ice Beam"].hardLogic = function() {
 		return canOpenGreenDoors() && canMorph() && (heatProof() || hasEnergyReserves(3));

@@ -10,7 +10,7 @@ class CrateriaEast extends Crateria {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Missile (outside Wrecked Ship bottom)"].normalLogic = function() {
 		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal());
 	}
@@ -29,8 +29,8 @@ class CrateriaEast extends Crateria {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
     this.locations["Missile (outside Wrecked Ship bottom)"].hardLogic = function() {
 		return true;

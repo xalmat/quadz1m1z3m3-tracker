@@ -15,7 +15,7 @@ class BrinstarPink extends Brinstar {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Super Missile (pink Brinstar)"].normalLogic = function() {
 		return canPassBombPassages() && canOpenGreenDoors();
 	}
@@ -48,8 +48,8 @@ class BrinstarPink extends Brinstar {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
 	this.locations["Power Bomb (pink Brinstar)"].hardLogic = function() {
 		return canUsePowerBombs() && canOpenGreenDoors();

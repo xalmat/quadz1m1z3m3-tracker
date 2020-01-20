@@ -15,7 +15,7 @@ class NorfairEast extends Norfair {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["Missile (lava room)"].normalLogic = function() {
 		return canMorph();
 	}
@@ -48,8 +48,8 @@ class NorfairEast extends Norfair {
     }
   }
 
-  initTournament() {
-    this.initCasual();
+  initHard() {
+    this.initNormal();
 
     this.locations["Reserve Tank, Norfair"].hardLogic =
     this.locations["Missile (Norfair Reserve Tank)"].hardLogic = function() {

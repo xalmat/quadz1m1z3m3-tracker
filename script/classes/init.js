@@ -19,7 +19,7 @@ function initClasses(useGame) {
 						regionObject.initMajorGlitches();
 					}
 					if(useGame == "metroid3") {
-						regionObject.initTournament();
+						regionObject.initHard();
 					}
 
 					regionObjects[regionClassName] = regionObject;

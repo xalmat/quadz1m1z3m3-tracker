@@ -10,30 +10,30 @@ class HyrulePortalsMain extends HyrulePortals {
 	],this);
   }
 
-  initCasual() {
+  initNormal() {
 	this.locations["ALttPR Portal: Link's Fortune Teller"].normalLogic = function() {
 		let cc = new CrateriaCentral("","",false);
-		cc.initCasual();
+		cc.initNormal();
 		return (cc.canEnter.normalLogic() && canAccessLightWorldPortal()) || canAccessCrateriaPortal();
 	}
 	this.locations["ALttPR Portal: Death Mountain Cave"].normalLogic = function() {
 		let nw = new NorfairWest("","",false);
-		nw.initCasual();
+		nw.initNormal();
 		return (nw.canEnter.normalLogic() && canAccessDeathMountainPortal()) || canAccessNorfairPortal();
 	}
 	this.locations["ALttPR Portal: Dark World Ice Cave Right"].normalLogic = function() {
 		let mi = new MaridiaInner("","",false);
-		mi.initCasual();
+		mi.initNormal();
 		return (mi.canEnter.normalLogic() && canAccessDarkWorldPortal()) || canAccessMaridiaPortal();
 	}
 	this.locations["ALttPR Portal: Misery Mire East 'Entrance'"].normalLogic = function() {
 		let lnw = new LowerNorfairWest("","",false);
-		lnw.initCasual();
+		lnw.initNormal();
 		return (lnw.canEnter.normalLogic() && canAccessMiseryMirePortal()) || canAccessLowerNorfairPortal();
 	}
   }
 
-  initTournament() {
-	this.initCasual();
+  initHard() {
+	this.initNormal();
   }
 }
