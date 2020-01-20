@@ -21,6 +21,8 @@ class DeathMountainWest extends DeathMountain {
       }
       this.locations["Ether Tablet"].glitchless = function () {
         if (!has("state.inverted")) {
+          // Mirror from Spec Rock
+          // Hookshot across the bottom, climb up, Hammer back to Hera
           return (!isBunny(region.name)) && canActivateTablets() &&
             (has("mirror") || (has("hammer") && canGrapple()));
         } else if (has("state.inverted")) {
@@ -42,10 +44,14 @@ class DeathMountainWest extends DeathMountain {
 
     this.canEnter.glitchless = function () {
       if (!has("state.inverted")) {
+        // Flute 1
+        // Old Man Cave
+        // M3->Z3 portal from Norfair
         return (canFly() ||
           (canLiftRocks() && has("lantern")) ||
           canAccessDeathMountainPortal());
       } else if (has("state.inverted")) {
+        // Old Man Cave
         return has("lantern") && canLiftRocks();
       }
     }
@@ -79,17 +85,25 @@ class DeathMountainWest extends DeathMountain {
 
         let isInverted = has("state.inverted");
 
+        // If it's not Inverted
+        // If it is Inverted and we can get to the Light TR Teleporter
         if ((!isInverted) || (isInverted && warps.locations["Turtle Rock Teleporter (Light)"].glitchless())) {
+          // If we're not a Bunny
           if ((!isBunny(region.name))) {
+            // Need Mirror if not Inverted
             if (has("mirror") || isInverted) {
+              // Can Activate Tablets
               if (canActivateTablets()) {
+                // Dark Nav requirement?
                 if (canDarkNav()) {
                   return "glitchavailable";
                 } else if (has("lantern")) {
                   return "available";
                 }
               }
+              // Can't activate but can Read Tablets
               if (canRead()) {
+                // Dark Nav requirement?
                 if (canDarkNav()) {
                   return "glitchviewable";
                 } else if (has("lantern")) {

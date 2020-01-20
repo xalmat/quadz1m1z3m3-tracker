@@ -22,6 +22,7 @@ class DungeonsHyruleCastleTower extends Dungeons {
 
     this.canEnter.glitchless = function () {
       if (!has("state.inverted")) {
+        // Cape or Master Sword to pass barrier
         return canKillMostThings(8) &&
           (has("cape") || hasSword(2));
       } else if (has("state.inverted")) {
@@ -33,6 +34,10 @@ class DungeonsHyruleCastleTower extends Dungeons {
     }
 
     this.canComplete.glitchless = function () {
+      // Lantern for Dark Nav
+      // Sword || (Swordless && (Hammer || Net))
+      // Sword for curtain, open in Swordless
+      // Swordless needs Hammer or SwagAhnim strats
       return has("lantern") && (hasSword() ||
         (has("swords.swordless") && (has("hammer") || has("net"))));
     }
@@ -48,6 +53,9 @@ class DungeonsHyruleCastleTower extends Dungeons {
     }
 
     this.canComplete.minorGlitches = function () {
+      // Sword || (Swordless && (Hammer || Net))
+      // Sword for curtain, open in Swordless
+      // Swordless needs Hammer or SwagAhnim strats
       return canDarkNav() && (hasSword() ||
         (has("swords.swordless") && (has("hammer") || has("net"))));
     }

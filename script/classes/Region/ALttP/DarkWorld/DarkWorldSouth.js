@@ -26,6 +26,10 @@ class DarkWorldSouth extends DarkWorld {
         let warps = new HyruleWarpsMain();
         warps.initNoMajorGlitches();
 
+        // NE DW: The Long Way 'Round
+        //  Grapple
+        //   Glove || Hammer  // Go by land
+        //   Swim             // Go by sea
         return (!isBunny(region.name)) &&
           ((dwne.canEnter.glitchless() && (has("hammer") ||
               (canGrapple() && (canSwim() || canLiftRocks())))) ||
@@ -55,6 +59,10 @@ class DarkWorldSouth extends DarkWorld {
         let warps = new HyruleWarpsMain();
         warps.initNoMajorGlitches();
 
+        // NE DW: The Long Way 'Round
+        //  Grapple
+        //   Glove || Hammer  // Go by land
+        //   Swim             // Go by sea
         if ((!isBunny(region.name)) &&
           ((dwne.canEnter.minorGlitches() && (has("hammer") ||
               (canGrapple() && (canSwim() || canLiftRocks())))) ||

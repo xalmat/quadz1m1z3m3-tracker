@@ -41,6 +41,7 @@ class DeathMountainEast extends DeathMountain {
 
     this.canEnter.glitchless = function () {
       if (!has("state.inverted")) {
+        // Hera, across the top
         let toh = new DungeonsTowerOfHera("", "", false);
         toh.initNoMajorGlitches();
 
@@ -85,6 +86,8 @@ class DeathMountainEast extends DeathMountain {
         if (ret) {
           return ret;
         }
+        // Hera, across the top
+        // Hookshot across the bottom
         if (wdm.canEnter.minorGlitches() &&
           ((has("hammer") && has("mirror")) ||
             canGrapple())) {

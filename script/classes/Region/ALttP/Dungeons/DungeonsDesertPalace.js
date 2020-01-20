@@ -31,6 +31,9 @@ class DungeonsDesertPalace extends Dungeons {
       }
     }
     this.locations["Desert Palace - Boss"].glitchless = function () {
+      // Lift rocks into entrance
+      // Mirror from Mire into rocks
+      // Need torches to move wall
       return (canLiftRocks() || (canAccessMiseryMirePortal() && has("mirror"))) && canLightTorches() &&
         has("bigkeyp2") && has("keyp2") &&
         boss.canBeat();
@@ -39,7 +42,10 @@ class DungeonsDesertPalace extends Dungeons {
     this.canEnter.glitchless = function () {
       let lws = new LightWorldSouth("", "", false);
       lws.initNoMajorGlitches();
-      return canRead() && lws.canEnter();
+      let mire = new DarkWorldMire("", "", false);
+      mire.initNoMajorGlitches();
+      return (canRead() && lws.canEnter.glitchless()) || // Vanilla entry
+        mire.canEnter.glitchless() && has("mirror"); // Desert Palace backdoor
     }
     this.canComplete.glitchless = function () {
       return dungeon.locations["Desert Palace - Boss"].glitchless();

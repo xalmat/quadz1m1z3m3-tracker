@@ -38,6 +38,10 @@ class DarkWorldNorthWest extends DarkWorld {
         let warps = new HyruleWarpsMain();
         warps.initNoMajorGlitches();
 
+        // NE DW
+        //  Grapple
+        //   Glove || Hammer  // Go by land
+        //   Swim             // Go by sea
         return (!isBunny(region.name)) &&
           ((nedw.canEnter.glitchless() &&
               (canGrapple() && (canLiftRocks() || has("hammer") || canSwim()))) ||
@@ -78,6 +82,10 @@ class DarkWorldNorthWest extends DarkWorld {
         let nedw = new DarkWorldNorthEast("", "", false);
         nedw.initMinorGlitches();
 
+        // NE DW
+        //  Grapple
+        //   Glove || Hammer  // Go by land
+        //   Swim             // Go by sea
         if ((!isBunny(region.name)) &&
           ((nedw.canEnter.minorGlitches() &&
               (canGrapple() && (canSwim() || canLiftRocks() || has("hammer")))) ||

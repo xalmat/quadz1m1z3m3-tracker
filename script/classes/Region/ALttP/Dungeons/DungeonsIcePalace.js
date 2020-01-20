@@ -33,6 +33,7 @@ class DungeonsIcePalace extends Dungeons {
             has("bigkeyd5") ? canGrapple() : has("keyd5"));
       }
       this.locations["Ice Palace - Freezor Chest"].glitchless = function () {
+        // Melt Freezors
         return canMeltThings();
       }
       this.locations["Ice Palace - Big Chest"].glitchless = function () {

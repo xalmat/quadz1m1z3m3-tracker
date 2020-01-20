@@ -41,6 +41,8 @@ class DungeonsHyruleCastleEscape extends Dungeons {
       //		this.locations["Sewers - Secret Room - Right"].glitchless
       this.locations["Sewers - Secret Room (3)"].glitchless = function () {
         if (has("state.open")) {
+          // Gloves: Fall from Graveyard
+          // Torches along the way, need key for Dark Cross door
           return (!isBunny(region.name)) && (canLiftRocks() || (torchCheck() && has("keyh1")));
         }
         return (!isBunny(region.name)) && (canKillEscapeThings() && has("keyh1"));
