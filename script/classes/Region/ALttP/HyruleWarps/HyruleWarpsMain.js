@@ -73,7 +73,7 @@ class HyruleWarpsMain extends HyruleWarps {
     }
     this.locations["Dark Desert Teleporter (Light)"].glitchless =
     this.locations["Dark Desert Teleporter (Dark)"].glitchless = function () {
-      return (!isBunny()) && canFly() && canLiftDarkRocks();
+      return (!isBunny("light")) && canFly() && canLiftDarkRocks();
     }
 
     this.canEnter.glitchless = function () {

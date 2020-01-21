@@ -37,7 +37,7 @@ class BrinstarRed extends Brinstar {
   	}
   	this.locations["Spazer"].normalLogic = function() {
       // Bomb passage to get toward room
-      // Red Door to open room
+      // Green Door to open room
   		return canPassBombPassages() && canOpenGreenDoors();
   	}
 

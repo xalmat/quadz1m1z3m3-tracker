@@ -22,14 +22,14 @@ class LowerNorfairWest extends LowerNorfair {
   	}
 
     this.canEnter.normalLogic = function() {
-		let ne = new NorfairEast("","",false);
-		ne.initNormal();
+  		let ne = new NorfairEast("","",false);
+  		ne.initNormal();
 
-		return heatProof()
-				&& ((ne.canEnter.normalLogic()
-			&& canUsePowerBombs()
-			&& (canSwimSM() && has("space")))
-			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls()));
+  		return heatProof()
+    		&& ((ne.canEnter.normalLogic()
+  			&& canUsePowerBombs()
+  			&& (canSwimSM() && has("space")))
+  			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls()));
     }
     this.canComplete.normalLogic = function() {
   		return this.locations["Gold Torizo"].normalLogic();

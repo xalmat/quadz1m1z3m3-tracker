@@ -22,7 +22,7 @@ class LightWorldNorthWest extends LightWorld {
         new Location("Chest", "Blind's Hideout", "6.4%", "41.0%", regionName, {equipment: "(4 + %%bomb%%)"}),
         new Location("Chest", "Pegasus Rocks", "19.5%", "29.3%", regionName, {equipment: "%%boots%%"}),
         new Location("NPC", "Bottle Merchant", "4.5%", "46.8%", regionName, {equipment: "100 Rupees"}),
-        new Location("NPC", "Magic Bat", "16.0%", "58.0%", regionName, {equipment: "%%hammer%%/%%boots%% + %%powder%%"}),
+        new Location("NPC", "Magic Bat", "16.0%", "58.0%", regionName, {equipment: "%%hammer%% + %%powder%%"}),
         new Location("NPC", "Sick Kid", "7.8%", "52.1%", regionName, {equipment: "%%bottle%%"}),
         new Location("Standing", "Lost Woods Hideout", "9.4%", "13.0%", regionName),
         new Location("Standing", "Lumberjack Tree", "15.1%", "7.6%", regionName, {equipment: "%%agahnim%%%%boots%%"}),

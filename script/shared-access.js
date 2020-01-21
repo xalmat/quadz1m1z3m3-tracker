@@ -828,7 +828,7 @@ function canAccessNorfairPortal() { // DM (Old Man exit) -> Norfair Map Room
 }
 
 function canAccessLowerNorfairPortal() { // Mire (Great Fairy, east "Entrance") -> Lower Norfair (Golden Torizo Energy Refill)
-  return !isBunny("dark") && (canFly() && canLiftDarkRocks());
+  return !isBunny("light") && (canFly() && canLiftDarkRocks());
 }
 
 function canAccessMaridiaPortal() { // DW (DW Ice Rod Right) -> Maridia Missile Refill
