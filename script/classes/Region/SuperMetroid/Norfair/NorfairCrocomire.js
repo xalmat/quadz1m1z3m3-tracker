@@ -14,30 +14,32 @@ class NorfairCrocomire extends Norfair {
   }
 
   initNormal() {
-	this.locations["Energy Tank, Crocomire"].normalLogic = function() {
-		return hasEnergyReserves(1) || has("space") || canGrappleSM();
-	}
-	this.locations["Missile (above Crocomire)"].normalLogic = function() {
-		return (canFlySM() || canGrappleSM() || (canHiJump() && canDashSM()));
-	}
-	this.locations["Missile (below Crocomire)"].normalLogic = function() {
-		return canMorph();
-	}
-	this.locations["Missile (Grapple Beam)"].normalLogic =
-	this.locations["Grapple Beam"].normalLogic = function() {
-		return canMorph() && (canFlySM() || (canDashSM() && canUsePowerBombs()));
-	}
-	this.locations["Power Bomb (Crocomire)"].normalLogic = function() {
-		return (canFlySM() || canHiJump() || canGrappleSM());
-	}
+  	this.locations["Energy Tank, Crocomire"].normalLogic = function() {
+  		return hasEnergyReserves(1) || has("space") || canGrappleSM();
+  	}
+  	this.locations["Missile (above Crocomire)"].normalLogic = function() {
+  		return (canFlySM() || canGrappleSM() || (canHiJump() && canDashSM()));
+  	}
+  	this.locations["Power Bomb (Crocomire)"].normalLogic = function() {
+  		return (canFlySM() || canHiJump() || canGrappleSM());
+  	}
+  	this.locations["Missile (below Crocomire)"].normalLogic = function() {
+  		return canMorph();
+  	}
+  	this.locations["Missile (Grapple Beam)"].normalLogic =
+  	this.locations["Grapple Beam"].normalLogic = function() {
+  		return canMorph() && (canFlySM() || (canDashSM() && canUsePowerBombs()));
+  	}
 
     this.canEnter.normalLogic = function() {
-		return (((canDestroyBombWalls() || canDashSM())
-			&& (canOpenGreenDoors() && canMorph()))
-			|| canAccessNorfairPortal())
-			&& heatProof()
-				&& canOpenGreenDoors()
-				&& ((canUsePowerBombs() && canDashSM()) || (canDashSM() && has("wave")) || (canMorph() && (canFlySM() || canHiJump()) && has("wave")));
+  		return (((canDestroyBombWalls() || canDashSM())
+  			&& (canOpenGreenDoors() && canMorph()))
+  			|| canAccessNorfairPortal())
+  			&& heatProof()
+  				&& canOpenGreenDoors()
+  				&& ((canUsePowerBombs() && canDashSM())
+          || (canDashSM() && has("wave"))
+          || (canMorph() && (canFlySM() || canHiJump()) && canSwimSM() && has("wave")));
     }
     this.canComplete.normalLogic = function() {
       return this.locations["Crocomire"].normalLogic();
@@ -48,24 +50,24 @@ class NorfairCrocomire extends Norfair {
     this.initNormal();
 
     this.locations["Missile (above Crocomire)"].hardLogic = function() {
-		return (canFlySM() || canGrappleSM() || (canHiJump() && (canDashSM() || canSpringBallJump() || (heatProof() && has("ice"))))) && canHellRun();
-	}
-	this.locations["Missile (Grapple Beam)"].hardLogic = function() {
-		return canDashSM() || (canMorph() && (canFlySM() || canGrappleSM()));
-	}
-	this.locations["Grapple Beam"].hardLogic = function() {
-		return (has("space") || canMorph() || canGrappleSM() || (canHiJump() && canDashSM()));
-	}
+  		return (canFlySM() || canGrappleSM() || (canHiJump() && (canDashSM() || canSpringBallJump() || (heatProof() && has("ice"))))) && canHellRun();
+  	}
+  	this.locations["Missile (Grapple Beam)"].hardLogic = function() {
+  		return canDashSM() || (canMorph() && (canFlySM() || canGrappleSM()));
+  	}
+  	this.locations["Grapple Beam"].hardLogic = function() {
+  		return (has("space") || canMorph() || canGrappleSM() || (canHiJump() && canDashSM()));
+  	}
 
-	this.canEnter.hardLogic = function() {
-		return (((canDestroyBombWalls() || canDashSM())
-			&& (canOpenGreenDoors() && canMorph()))
-			|| canAccessNorfairPortal())
-			&& canOpenGreenDoors()
-			&& (hasEnergyReserves(2) && canDashSM() || canHellRun())
-			&& ((canFlySM() || canHiJump() || canSpringBallJump() || (heatProof() && has("ice"))) || canDashSM())
-			&& (canPassBombPassages() || canDashSM() || (heatProof() && canMorph()))
-		|| (canAccessLowerNorfairPortal() && has("screw") && has("space") && heatProof() && canOpenGreenDoors() && hasEnergyReserves(2));
-	}
+  	this.canEnter.hardLogic = function() {
+  		return (((canDestroyBombWalls() || canDashSM())
+  			&& (canOpenGreenDoors() && canMorph()))
+  			|| canAccessNorfairPortal())
+  			&& canOpenGreenDoors()
+  			&& (hasEnergyReserves(2) && canDashSM() || canHellRun())
+  			&& ((canFlySM() || canHiJump() || canSpringBallJump() || (heatProof() && has("ice"))) || canDashSM())
+  			&& (canPassBombPassages() || canDashSM() || (heatProof() && canMorph()))
+  		|| (canAccessLowerNorfairPortal() && has("screw") && has("space") && heatProof() && canOpenGreenDoors() && hasEnergyReserves(2));
+  	}
   }
 }

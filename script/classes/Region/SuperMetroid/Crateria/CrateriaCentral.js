@@ -13,24 +13,24 @@ class CrateriaCentral extends Crateria {
   }
 
   initNormal() {
-	this.locations["Power Bomb (Crateria surface)"].normalLogic = function() {
-		return canUsePowerBombs() && (canDashSM() || canFlySM());
-	}
-	this.locations["Missile (Crateria middle)"].normalLogic = function() {
-		return canPassBombPassages();
-	}
-	this.locations["Missile (Crateria bottom)"].normalLogic = function() {
-		return canDestroyBombWalls();
-	}
-	this.locations["Super Missile (Crateria)"].normalLogic = function() {
-		return canUsePowerBombs() && hasEnergyReserves(2) && canDashSM();
-	}
-	this.locations["Bombs"].normalLogic = function() {
-		return canPassBombPassages() && canOpenRedDoors();
-	}
-	this.locations["Torizo"].normalLogic = function() {
-		return canPassBombPassages() && canOpenRedDoors();
-	}
+  	this.locations["Power Bomb (Crateria surface)"].normalLogic = function() {
+  		return canUsePowerBombs() && (canDashSM() || canFlySM());
+  	}
+  	this.locations["Missile (Crateria middle)"].normalLogic = function() {
+  		return canPassBombPassages();
+  	}
+  	this.locations["Missile (Crateria bottom)"].normalLogic = function() {
+  		return canDestroyBombWalls();
+  	}
+  	this.locations["Super Missile (Crateria)"].normalLogic = function() {
+  		return canUsePowerBombs() && hasEnergyReserves(2) && canDashSM();
+  	}
+  	this.locations["Bombs"].normalLogic = function() { // Different for Hard Logic
+  		return canPassBombPassages() && canOpenRedDoors();
+  	}
+  	this.locations["Torizo"].normalLogic = function() { // Different for Hard Logic
+  		return canPassBombPassages() && canOpenRedDoors();
+  	}
 
     this.canComplete.normalLogic = function() {
       return this.locations["Torizo"].normalLogic();
@@ -40,15 +40,17 @@ class CrateriaCentral extends Crateria {
   initHard() {
     this.initNormal();
 
-	this.locations["Bombs"].hardLogic = function() {
-		return canMorph() && canOpenRedDoors();
-	}
-	this.locations["Torizo"].hardLogic = function() {
-		return canMorph() && canOpenRedDoors();
-	}
+    // Alcatraz Escape
+  	this.locations["Bombs"].hardLogic = function() {
+  		return canMorph() && canOpenRedDoors();
+  	}
+    // Alcatraz Escape
+  	this.locations["Torizo"].hardLogic = function() {
+  		return canMorph() && canOpenRedDoors();
+  	}
 
-	this.canComplete.hardLogic = function() {
-		return this.locations["Torizo"].hardLogic();
-	}
+  	this.canComplete.hardLogic = function() {
+  		return this.locations["Torizo"].hardLogic();
+  	}
   }
 }

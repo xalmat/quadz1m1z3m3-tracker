@@ -14,31 +14,32 @@ class BrinstarBlue extends Brinstar {
   }
 
   initNormal() {
-	this.locations["Power Bomb (blue Brinstar)"].normalLogic = function() {
-		return canUsePowerBombs();
-	}
-	this.locations["Missile (blue Brinstar middle)"].normalLogic = function() {
-		return canMorph();
-	}
-	this.locations["Missile (blue Brinstar bottom)"].normalLogic = function() {
-		return canMorph();
-	}
-	this.locations["Missile (blue Brinstar top)"].normalLogic = function() {
-		return canUsePowerBombs();
-	}
-	this.locations["Missile (blue Brinstar behind missile)"].normalLogic = function() {
-		return canUsePowerBombs();
-	}
-	this.locations["Energy Tank, Brinstar Ceiling"].normalLogic = function() {
-		return canFlySM() || canHiJump() || canDashSM() || has("ice");
-	}
+  	this.locations["Power Bomb (blue Brinstar)"].normalLogic = function() {
+  		return canUsePowerBombs();
+  	}
+  	this.locations["Missile (blue Brinstar middle)"].normalLogic = function() {
+  		return canMorph();
+  	}
+  	this.locations["Energy Tank, Brinstar Ceiling"].normalLogic = function() { // Different for Hard Logic
+  		return canFlySM() || canHiJump() || canDashSM() || has("ice");
+  	}
+  	this.locations["Missile (blue Brinstar bottom)"].normalLogic = function() {
+  		return canMorph();
+  	}
+  	this.locations["Missile (blue Brinstar top)"].normalLogic = function() {
+  		return canUsePowerBombs();
+  	}
+  	this.locations["Missile (blue Brinstar behind missile)"].normalLogic = function() {
+  		return canUsePowerBombs();
+  	}
   }
 
   initHard() {
     this.initNormal();
 
-	this.locations["Energy Tank, Brinstar Ceiling"].hardLogic = function() {
-		return true;
-	};
+  	this.locations["Energy Tank, Brinstar Ceiling"].hardLogic = function() {
+      // DBoost
+  		return true;
+  	};
   }
 }

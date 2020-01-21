@@ -11,13 +11,13 @@ class CrateriaWest extends Crateria {
   }
 
   initNormal() {
-	this.locations["Energy Tank, Gauntlet"].normalLogic = function() {
-		return canEnterAndLeaveGauntlet() && hasEnergyReserves(1);
-	}
-	this.locations["Missile (Crateria gauntlet right)"].normalLogic =
-	this.locations["Missile (Crateria gauntlet left)"].normalLogic = function() {
-		return canEnterAndLeaveGauntlet() && canPassBombPassages() && hasEnergyReserves(2);
-	}
+  	this.locations["Energy Tank, Gauntlet"].normalLogic = function() { // Different for Hard Logic
+  		return canEnterAndLeaveGauntlet() && hasEnergyReserves(1);
+  	}
+  	this.locations["Missile (Crateria gauntlet right)"].normalLogic =
+  	this.locations["Missile (Crateria gauntlet left)"].normalLogic = function() { // Different for Hard Logic
+  		return canEnterAndLeaveGauntlet() && canPassBombPassages() && hasEnergyReserves(2);
+  	}
 
     this.canEnter.normalLogic = function() {
       return canDestroyBombWalls() || canDashSM();
@@ -28,11 +28,11 @@ class CrateriaWest extends Crateria {
     this.initNormal();
 
     this.locations["Energy Tank, Gauntlet"].hardLogic = function() {
-		return canEnterAndLeaveGauntlet();
-	}
-	this.locations["Missile (Crateria gauntlet right)"].hardLogic =
-	this.locations["Missile (Crateria gauntlet left)"].hardLogic = function () {
-		return canEnterAndLeaveGauntlet() && canPassBombPassages();
-	}
+  		return canEnterAndLeaveGauntlet();
+  	}
+  	this.locations["Missile (Crateria gauntlet right)"].hardLogic =
+  	this.locations["Missile (Crateria gauntlet left)"].hardLogic = function () {
+  		return canEnterAndLeaveGauntlet() && canPassBombPassages();
+  	}
   }
 }

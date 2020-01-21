@@ -16,33 +16,32 @@ class WreckedShipMain extends WreckedShip {
   }
 
   initNormal() {
-	this.locations["Reserve Tank, Wrecked Ship"].normalLogic = function() {
-		return has("phantoon") && (canDashSM()
-			&& canUsePowerBombs()
-			&& (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3)));
-	}
-	this.locations["Missile (Gravity Suit)"].normalLogic =
-	this.locations["Gravity Suit"].normalLogic = function() {
-		return has("phantoon") && (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
-	}
-	this.locations["Missile (Wrecked Ship top)"].normalLogic =
-	this.locations["Super Missile (Wrecked Ship left)"].normalLogic =
-	this.locations["Right Super, Wrecked Ship"].normalLogic = function() {
-		return has("phantoon");
-	}
-	this.locations["Energy Tank (Wrecked Ship)"].normalLogic = function() {
-		return has("phantoon")
-			&& (
-				canHiJump()
-				|| has("space")
-				|| canDashSM()
-				|| canSwimSM()
-			);
-	}
+  	this.locations["Reserve Tank, Wrecked Ship"].normalLogic = function() {
+  		return has("phantoon") && (canDashSM() && canUsePowerBombs()
+  			&& (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3)));
+  	}
+  	this.locations["Missile (Gravity Suit)"].normalLogic =
+  	this.locations["Gravity Suit"].normalLogic = function() {
+  		return has("phantoon") && (canGrappleSM() || has("space") || (heatProof() && hasEnergyReserves(2)) || hasEnergyReserves(3));
+  	}
+  	this.locations["Missile (Wrecked Ship top)"].normalLogic =
+  	this.locations["Super Missile (Wrecked Ship left)"].normalLogic =
+  	this.locations["Right Super, Wrecked Ship"].normalLogic = function() {
+  		return has("phantoon");
+  	}
+  	this.locations["Energy Tank (Wrecked Ship)"].normalLogic = function() {
+  		return has("phantoon")
+  			&& (
+  				canHiJump()
+  				|| has("space")
+  				|| canDashSM()
+  				|| canSwimSM()
+  			);
+  	}
 
     this.canEnter.normalLogic = function() {
-		return canOpenGreenDoors() &&
-			((canUsePowerBombs() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump()))
+		  return canOpenGreenDoors()
+        && ((canUsePowerBombs() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump()))
 				|| (canAccessMaridiaPortal() && canSwimSM() && canPassBombPassages()));
     }
     this.canComplete.normalLogic = function() {
@@ -51,32 +50,34 @@ class WreckedShipMain extends WreckedShip {
   }
 
   initHard() {
-	this.initNormal();
+  	this.initNormal();
 
-	this.locations["Reserve Tank, Wrecked Ship"].hardLogic = function() {
-		return has("phantoon") && (canUsePowerBombs() && canDashSM() && (heatProof() || hasEnergyReserves(2)));
-	}
-	this.locations["Missile (Gravity Suit)"].hardLogic = function() {
-		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
-	}
-	this.locations["Gravity Suit"].hardLogic = function() {
-		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
-	}
-	this.locations["Energy Tank (Wrecked Ship)"].hardLogic = function() {
-		return has("phantoon")
-		&& (
-			canUseMorphBombs()
-			|| canUsePowerBombs()
-			|| canHiJump()
-			|| has("space")
-			|| canDashSM()
-			|| canSpringBallJump()
-			|| canSwimSM()
-		);
-	}
+  	this.locations["Reserve Tank, Wrecked Ship"].hardLogic = function() {
+  		return has("phantoon") && (canUsePowerBombs() && canDashSM() && (heatProof() || hasEnergyReserves(2)));
+  	}
+  	this.locations["Missile (Gravity Suit)"].hardLogic = function() {
+  		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
+  	}
+  	this.locations["Gravity Suit"].hardLogic = function() {
+  		return has("phantoon") && (heatProof() || hasEnergyReserves(1));
+  	}
+  	this.locations["Energy Tank (Wrecked Ship)"].hardLogic = function() {
+  		return has("phantoon")
+  		&& (
+  			canUseMorphBombs()
+  			|| canUsePowerBombs()
+  			|| canHiJump()
+  			|| has("space")
+  			|| canDashSM()
+  			|| canSpringBallJump()
+  			|| canSwimSM()
+  		);
+  	}
 
-	this.canEnter.hardLogic = function() {
-		return canOpenGreenDoors() && (canUsePowerBombs() || (canAccessMaridiaPortal() && (canHiJump() || canSwimSM()) && canPassBombPassages()));
-	}
+  	this.canEnter.hardLogic = function() {
+  		return canOpenGreenDoors() &&
+        (canUsePowerBombs() ||
+        (canAccessMaridiaPortal() && (canHiJump() || canSwimSM()) && canPassBombPassages()));
+  	}
   }
 }

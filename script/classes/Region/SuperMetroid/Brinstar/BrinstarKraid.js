@@ -11,20 +11,22 @@ class BrinstarKraid extends Brinstar {
   }
 
   initNormal() {
-	this.locations["Energy Tank, Kraid"].normalLogic = function() {
-		return has("kraid");
-	}
-	this.locations["Missile (Kraid)"].normalLogic = function() {
-		return canUsePowerBombs();
-	}
-	this.locations["Varia Suit"].normalLogic = function() {
-		return has("kraid");
-	}
+  	this.locations["Energy Tank, Kraid"].normalLogic = function() {
+  		return has("kraid");
+  	}
+  	this.locations["Varia Suit"].normalLogic = function() {
+  		return has("kraid");
+  	}
+  	this.locations["Missile (Kraid)"].normalLogic = function() {
+  		return canUsePowerBombs();
+  	}
 
     this.canEnter.normalLogic = function() {
-		return (canDestroyBombWalls() || canDashSM() || canAccessNorfairPortal())
-			&& (canOpenGreenDoors() && canMorph())
-			&& canPassBombPassages();
+      // Crateria:West -> Brinstar:Green -> Brinstar:Pink -> Brinstar:Red -> Brinstar:Kraid
+      // Z3->M3 portal from Death Mountain
+      //  Super Blocks, Morph Passage, Bomb Passage
+  		return (canDestroyBombWalls() || canDashSM() || canAccessNorfairPortal())
+  			&& canOpenGreenDoors() && canMorph() && canPassBombPassages();
     }
     this.canComplete.normalLogic = function() {
       return this.locations["Kraid"].normalLogic();

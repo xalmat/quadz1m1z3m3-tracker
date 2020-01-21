@@ -12,46 +12,36 @@ class NorfairWest extends Norfair {
   }
 
   initNormal() {
-	this.locations["Ice Beam"].normalLogic = function() {
-		return canOpenGreenDoors() && canPassBombPassages() && heatProof() && canDashSM();
-	}
-	this.locations["Missile (below Ice Beam)"].normalLogic = function() {
-		return canOpenGreenDoors() && canUsePowerBombs() && heatProof() && canDashSM();
-	}
-	this.locations["Energy Tank (Hi-Jump Boots)"].normalLogic = function() {
-		return canOpenRedDoors();
-	}
-	this.locations["Hi-Jump Boots"].normalLogic = function() {
-		return canOpenRedDoors() && canPassBombPassages();
-	}
-	this.locations["Missile (Hi-Jump Boots)"].normalLogic = function() {
-		return canOpenRedDoors() && canMorph();
-	}
+  	this.locations["Ice Beam"].normalLogic = function() {
+  		return canOpenGreenDoors() && canPassBombPassages() && heatProof() && canDashSM();
+  	}
+  	this.locations["Missile (below Ice Beam)"].normalLogic = function() {
+  		return canOpenGreenDoors() && canUsePowerBombs() && heatProof() && canDashSM();
+  	}
+  	this.locations["Hi-Jump Boots"].normalLogic = function() {
+  		return canOpenRedDoors() && canPassBombPassages();
+  	}
+  	this.locations["Missile (Hi-Jump Boots)"].normalLogic = function() {
+  		return canOpenRedDoors() && canMorph();
+  	}
+  	this.locations["Energy Tank (Hi-Jump Boots)"].normalLogic = function() {
+  		return canOpenRedDoors();
+  	}
 
     this.canEnter.normalLogic = function() {
-		return ((canDestroyBombWalls() || canDashSM())
-			&& (canOpenGreenDoors() && canMorph()))
-			|| canAccessNorfairPortal();
-	}
+  		return ((canDestroyBombWalls() || canDashSM()) && (canOpenGreenDoors() && canMorph()))
+  			|| canAccessNorfairPortal();
+  	}
   }
 
   initHard() {
     this.initNormal();
 
     this.locations["Ice Beam"].hardLogic = function() {
-		return canOpenGreenDoors() && canMorph() && (heatProof() || hasEnergyReserves(3));
-	}
-	this.locations["Missile (below Ice Beam)"].hardLogic = function() {
-		return (canOpenGreenDoors() && canUsePowerBombs() && (hasEnergyReserves(3) || heatProof())) || (heatProof() && canDashSM() && canOpenGreenDoors());
-	}
-	this.locations["Energy Tank (Hi-Jump Boots)"].hardLogic = function() {
-		return canOpenRedDoors();
-	}
-	this.locations["Hi-Jump Boots"].hardLogic = function() {
-		return canOpenRedDoors() && canPassBombPassages();
-	}
-	this.locations["Missile (Hi-Jump Boots)"].hardLogic = function() {
-		return canOpenRedDoors() && canMorph();
-	}
+	  	return canOpenGreenDoors() && canMorph() && (heatProof() || hasEnergyReserves(3));
+  	}
+  	this.locations["Missile (below Ice Beam)"].hardLogic = function() {
+  		return (canOpenGreenDoors() && canUsePowerBombs() && (hasEnergyReserves(3) || heatProof())) || (heatProof() && canDashSM() && canOpenGreenDoors());
+  	}
   }
 }

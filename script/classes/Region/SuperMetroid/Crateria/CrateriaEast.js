@@ -11,21 +11,47 @@ class CrateriaEast extends Crateria {
   }
 
   initNormal() {
-	this.locations["Missile (outside Wrecked Ship bottom)"].normalLogic = function() {
-		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal());
-	}
-	this.locations["Missile (outside Wrecked Ship top)"].normalLogic = function() {
-		return ((canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump())) || canAccessMaridiaPortal())
-			&& (canHiJump() || canFlySM() || canDashSM()) && has("phantoon");
-	}
-	this.locations["Missile (outside Wrecked Ship middle)"].normalLogic = function() {
-		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal()) && canOpenGreenDoors() && has("phantoon");
-	}
+  	this.locations["Missile (outside Wrecked Ship bottom)"].normalLogic = function() { // Different for Hard Logic
+      // Speed
+      // Grapple
+      // Space Jump
+      // Gravity && (IBJ || HiJumps)
+      // From Z3->M3 portal from Dark Ice Cave
+  		return (canDashSM() || canGrappleSM() || has("space") || (canSwimSM() && (canFlySM() || canHiJump())) || canAccessMaridiaPortal());
+  	}
+  	this.locations["Missile (outside Wrecked Ship top)"].normalLogic = function() { // Different for Hard Logic
+      // Bomb Passage in Wrecked Ship
+      // Phantoon dead
+      // Green Door to get into Wrecked Ship
+      //  Speed
+      //  Grapple
+      //  Space Jump
+      //  Gravity && (IBJ || HiJumps)
+      //  From Z3->M3 portal from Dark Ice Cave
+      return canPassBombPassages() && has("phantoon")
+        && ((canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || (canSwim() && (canFlySM() || canHiJump())))) || canAccessMaridiaPortal());
+  	}
+  	this.locations["Missile (outside Wrecked Ship middle)"].normalLogic = function() { // Different for Hard Logic
+      // Bomb Passage in Wrecked Ship
+      // Phantoon dead
+      // Green Door to get into Wrecked Ship
+      //  Speed
+      //  Grapple
+      //  Space Jump
+      //  Gravity && (IBJ || HiJumps)
+      //  From Z3->M3 portal from Dark Ice Cave
+      return canPassBombPassages() && has("phantoon")
+        && ((canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || (canSwim() && (canFlySM() || canHiJump())))) || canAccessMaridiaPortal());
+  	}
 
     this.canEnter.normalLogic = function() {
-		return (canUsePowerBombs() && canOpenGreenDoors())
-			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canHiJump() || has("space")))
-			|| (canAccessMaridiaPortal() && canSwimSM() && canOpenGreenDoors());
+      // From Crateria:Central
+      // From Z3->M3 portal from Death Mountain
+      //  Through Brinstar:Red, Crateria:Central
+      // From Z3->M3 portal from Dark Ice Cave
+  		return (canUsePowerBombs() && canOpenGreenDoors())
+  			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canHiJump() || has("space")))
+  			|| (canAccessMaridiaPortal() && canSwimSM() && canOpenGreenDoors() && (canDestroyBombWalls() || canDefeatDraygon()));
     }
   }
 
@@ -33,18 +59,22 @@ class CrateriaEast extends Crateria {
     this.initNormal();
 
     this.locations["Missile (outside Wrecked Ship bottom)"].hardLogic = function() {
-		return true;
-	}
+  		return true;
+  	}
 
-	this.locations["Missile (outside Wrecked Ship top)"].hardLogic =
-	this.locations["Missile (outside Wrecked Ship middle)"].hardLogic = function() {
-		return canOpenGreenDoors() && canPassBombPassages() && has("phantoon");
-	}
+  	this.locations["Missile (outside Wrecked Ship top)"].hardLogic =
+  	this.locations["Missile (outside Wrecked Ship middle)"].hardLogic = function() {
+  		return canOpenGreenDoors() && canPassBombPassages() && has("phantoon");
+  	}
 
     this.canEnter.hardLogic = function() {
-		return (canUsePowerBombs() && canOpenGreenDoors())
-			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()))
-			|| (canAccessMaridiaPortal() && canHiJump() && canOpenGreenDoors());
-	}
+      // From Crateria:Central
+      // From Z3->M3 portal from Death Mountain
+      //  Through Brinstar:Red, Crateria:Central
+      // From Z3->M3 portal from Dark Ice Cave
+  		return (canUsePowerBombs() && canOpenGreenDoors())
+  			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()))
+  			|| (canAccessMaridiaPortal() && canHiJump() && canOpenGreenDoors());
+  	}
   }
 }

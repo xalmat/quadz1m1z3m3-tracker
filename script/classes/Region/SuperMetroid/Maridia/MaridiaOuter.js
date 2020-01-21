@@ -11,46 +11,46 @@ class MaridiaOuter extends Maridia {
   }
 
   initNormal() {
-	this.locations["Missile (green Maridia shinespark)"].normalLogic = function() {
-		return canDashSM();
-	}
-	this.locations["Energy Tank, Mama turtle"].normalLogic = function() {
-		return canFlySM() || canDashSM() || canGrappleSM();
-	}
+  	this.locations["Missile (green Maridia shinespark)"].normalLogic = function() {
+  		return canDashSM();
+  	}
+  	this.locations["Energy Tank, Mama turtle"].normalLogic = function() {
+  		return canFlySM() || canDashSM() || canGrappleSM();
+  	}
 
-	this.canEnter.normalLogic = function() {
-		let nw = new NorfairWest("","",false);
-		nw.initNormal();
+  	this.canEnter.normalLogic = function() {
+  		let nw = new NorfairWest("","",false);
+  		nw.initNormal();
 
-		return ((nw.canEnter.normalLogic()
-				&& canUsePowerBombs())
-				|| canAccessMaridiaPortal())
-			&& canSwimSM();
-	}
+  		return ((nw.canEnter.normalLogic()
+  				&& canUsePowerBombs())
+  				|| canAccessMaridiaPortal())
+  			&& canSwimSM();
+  	}
     this.canComplete.normalLogic = function() {
-		return canDefeatDraygon();
+  		return canDefeatDraygon();
     }
   }
 
   initHard() {
-	this.initNormal();
+  	this.initNormal();
 
-	this.locations["Missile (green Maridia shinespark)"].hardLogic = function() {
-		return canSwimSM() && canDashSM();
-	}
+  	this.locations["Missile (green Maridia shinespark)"].hardLogic = function() {
+  		return canSwimSM() && canDashSM();
+  	}
     this.locations["Energy Tank, Mama turtle"].hardLogic = function() {
-		return canFlySM() || canDashSM() || canGrappleSM() || canSpringBallJump();
-	}
+  		return canFlySM() || canDashSM() || canGrappleSM() || canSpringBallJump();
+  	}
 
-	this.canEnter.hardLogic = function() {
-		let nw = new NorfairWest("","",false);
-		nw.initHard();
+  	this.canEnter.hardLogic = function() {
+  		let nw = new NorfairWest("","",false);
+  		nw.initHard();
 
-		return (nw.canEnter.hardLogic()
-			&& canUsePowerBombs()
-			&& (canDashSM()
-				|| (canHiJump() && (canSpringBallJump() || has("ice")))))
-			|| canAccessMaridiaPortal();
-	}
+  		return (nw.canEnter.hardLogic()
+  			&& canUsePowerBombs()
+  			&& (canDashSM()
+  				|| (canHiJump() && (canSpringBallJump() || has("ice")))))
+  			|| canAccessMaridiaPortal();
+  	}
   }
 }

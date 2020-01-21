@@ -16,32 +16,33 @@ class BrinstarPink extends Brinstar {
   }
 
   initNormal() {
-	this.locations["Super Missile (pink Brinstar)"].normalLogic = function() {
-		return canPassBombPassages() && canOpenGreenDoors();
-	}
-	this.locations["Charge Beam"].normalLogic = function() {
-		return canPassBombPassages();
-	}
-	this.locations["Power Bomb (pink Brinstar)"].normalLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors() && hasEnergyReserves(1);
-	}
-	this.locations["Missile (green Brinstar pipe)"].normalLogic = function() {
-		return canMorph() && (canOpenYellowDoors() || canOpenGreenDoors() || canAccessNorfairPortal());
-	}
-	this.locations["Energy Tank, Waterway"].normalLogic = function() {
-		return canUsePowerBombs() && canOpenRedDoors() && canDashSM() && (hasEnergyReserves(1) || canSwimSM());
-	}
-	this.locations["Energy Tank, Brinstar Gate"].normalLogic = function() {
-		return canUsePowerBombs() && has("wave") && hasEnergyReserves(1);
-	}
-	this.locations["Spore Spawn"].normalLogic = function() {
-		return canPassBombPassages() && canOpenGreenDoors();
-	}
+  	this.locations["Super Missile (pink Brinstar)"].normalLogic = function() {
+  		return canPassBombPassages() && canOpenGreenDoors();
+  	}
+  	this.locations["Charge Beam"].normalLogic = function() {
+  		return canPassBombPassages();
+  	}
+  	this.locations["Power Bomb (pink Brinstar)"].normalLogic = function() { // Different for Hard Logic
+  		return canUsePowerBombs() && canOpenGreenDoors() && hasEnergyReserves(1);
+  	}
+  	this.locations["Missile (green Brinstar pipe)"].normalLogic = function() {
+  		return canMorph() && (canOpenYellowDoors() || canOpenGreenDoors() || canAccessNorfairPortal());
+  	}
+  	this.locations["Energy Tank, Waterway"].normalLogic = function() {
+  		return canUsePowerBombs() && canOpenRedDoors() && canDashSM() && (hasEnergyReserves(1) || canSwimSM());
+  	}
+  	this.locations["Energy Tank, Brinstar Gate"].normalLogic = function() { // Different for Hard Logic
+  		return canUsePowerBombs() && has("wave") && hasEnergyReserves(1);
+  	}
+  	this.locations["Spore Spawn"].normalLogic = function() {
+  		return canPassBombPassages() && canOpenGreenDoors();
+  	}
 
     this.canEnter.normalLogic = function() {
-		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
-			|| canUsePowerBombs()
-			|| (canAccessNorfairPortal() && canMorph() && has("wave") && (has("ice") || canHiJump() || has("space")));
+  		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
+  			|| canUsePowerBombs()
+  			|| (canAccessNorfairPortal() && canMorph() && has("wave") &&
+           (has("ice") || canHiJump() || has("space")));
     }
     this.canComplete.normalLogic = function() {
       return this.locations["Spore Spawn"].normalLogic();
@@ -51,17 +52,24 @@ class BrinstarPink extends Brinstar {
   initHard() {
     this.initNormal();
 
-	this.locations["Power Bomb (pink Brinstar)"].hardLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors();
-	}
+  	this.locations["Power Bomb (pink Brinstar)"].hardLogic = function() {
+  		return canUsePowerBombs() && canOpenGreenDoors();
+  	}
     this.locations["Energy Tank, Brinstar Gate"].hardLogic = function() {
-		return canUsePowerBombs() && (has("wave") || canOpenGreenDoors());
-	}
+      // GGG
+  		return canUsePowerBombs() && (has("wave") || canOpenGreenDoors());
+  	}
 
-	this.canEnter.hardLogic = function() {
-		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
-			|| canUsePowerBombs()
-			|| (canAccessNorfairPortal() && canMorph() && (has("ice") || canHiJump() || canSpringBallJump() || canFlySM()));
-	}
+  	this.canEnter.hardLogic = function() {
+      // Door in Brinstar:Green && From Crateria:West
+      // From Brinstar:Blue
+      // From Z3->M3 portal from Death Mountain
+      //  Through Brinstar:Red: Ice || HiJumps || Springball || IBJ
+      //  Through Brinstar:Green: Mockball
+  		return (canOpenRedDoors() && (canDestroyBombWalls() || canDashSM()))
+  			|| canUsePowerBombs()
+  			|| (canAccessNorfairPortal() && canMorph() &&
+           (has("ice") || canHiJump() || canSpringBallJump() || canFlySM()));
+  	}
   }
 }

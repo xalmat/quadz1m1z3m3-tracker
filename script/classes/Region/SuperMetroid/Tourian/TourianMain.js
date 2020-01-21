@@ -17,6 +17,6 @@ class TourianMain extends Tourian {
   }
 
   initHard() {
-	this.initNormal();
+	  this.initNormal();
   }
 }

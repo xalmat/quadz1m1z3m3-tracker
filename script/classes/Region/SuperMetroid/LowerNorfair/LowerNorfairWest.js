@@ -11,17 +11,17 @@ class LowerNorfairWest extends LowerNorfair {
   }
 
   initNormal() {
-	this.locations["Missile (Gold Torizo)"].normalLogic = function() {
-		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
-	}
-	this.locations["Super Missile (Gold Torizo)"].normalLogic =
-	this.locations["Screw Attack"].normalLogic = function() {
-		return canDestroyBombWalls()
-			&& (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()));
-	}
-	this.locations["Gold Torizo"].normalLogic = function() {
-		return this.locations["Missile (Gold Torizo)"].normalLogic();
-	}
+  	this.locations["Missile (Gold Torizo)"].normalLogic = function() {
+  		return canUsePowerBombs() && has("space") && canOpenGreenDoors();
+  	}
+  	this.locations["Super Missile (Gold Torizo)"].normalLogic =
+  	this.locations["Screw Attack"].normalLogic = function() {
+  		return canDestroyBombWalls()
+  			&& (canAccessLowerNorfairPortal() || (has("space") && canUsePowerBombs()));
+  	}
+  	this.locations["Gold Torizo"].normalLogic = function() {
+  		return this.locations["Missile (Gold Torizo)"].normalLogic();
+  	}
 
     this.canEnter.normalLogic = function() {
 		let ne = new NorfairEast("","",false);
@@ -34,7 +34,7 @@ class LowerNorfairWest extends LowerNorfair {
 			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls()));
     }
     this.canComplete.normalLogic = function() {
-		return this.locations["Gold Torizo"].normalLogic();
+  		return this.locations["Gold Torizo"].normalLogic();
     }
   }
 
@@ -42,34 +42,34 @@ class LowerNorfairWest extends LowerNorfair {
     this.initNormal();
 
     this.locations["Missile (Gold Torizo)"].hardLogic = function() {
-		return canUsePowerBombs()
-			&& has("space")
-			&& heatProof()
-			&& (canHiJump() || canSwimSM()
-				|| (canAccessLowerNorfairPortal() &&
-					(canFlySM() || canSpringBallJump() || canDashSM())));
-	}
+  		return canUsePowerBombs()
+  			&& has("space")
+  			&& heatProof()
+  			&& (canHiJump() || canSwimSM()
+  				|| (canAccessLowerNorfairPortal() &&
+  					(canFlySM() || canSpringBallJump() || canDashSM())));
+  	}
 
-	this.locations["Super Missile (Gold Torizo)"].hardLogic = function() {
-		return canDestroyBombWalls() && heatProof();
-	}
+  	this.locations["Super Missile (Gold Torizo)"].hardLogic = function() {
+  		return canDestroyBombWalls() && heatProof();
+  	}
 
-	this.locations["Screw Attack"].hardLogic = function() {
-		return canDestroyBombWalls()
-			&& (heatProof() || canAccessLowerNorfairPortal());
-	}
+  	this.locations["Screw Attack"].hardLogic = function() {
+  		return canDestroyBombWalls()
+  			&& (heatProof() || canAccessLowerNorfairPortal());
+  	}
 
     this.locations["Gold Torizo"].hardLogic = function() {
-		return this.locations["Missile (Gold Torizo)"].hardLogic();
-	}
-	this.canEnter.hardLogic = function() {
-		let ne = new NorfairEast("","",false);
-		ne.initHard();
+  		return this.locations["Missile (Gold Torizo)"].hardLogic();
+  	}
+  	this.canEnter.hardLogic = function() {
+  		let ne = new NorfairEast("","",false);
+  		ne.initHard();
 
-		return ne.canEnter.hardLogic()
-			&& canUsePowerBombs()
-			&& (heatProof() && (canHiJump() || canSwimSM()))
-			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls());
-	}
+  		return ne.canEnter.hardLogic()
+  			&& canUsePowerBombs()
+  			&& (heatProof() && (canHiJump() || canSwimSM()))
+  			|| (canAccessLowerNorfairPortal() && canDestroyBombWalls());
+  	}
   }
 }

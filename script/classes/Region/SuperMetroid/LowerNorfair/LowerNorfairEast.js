@@ -15,39 +15,39 @@ class LowerNorfairEast extends LowerNorfair {
   }
 
   initNormal() {
-	this.locations["Missile (lower Norfair near Wave Beam)"].normalLogic = function() {
-		return canMorph() && canDestroyBombWalls();
-	}
-	this.locations["Missile (Mickey Mouse room)"].normalLogic = function() {
-		return canMorph() && canDestroyBombWalls();
-	}
-	this.locations["Power Bomb (lower Norfair above fire flea room)"].normalLogic = function() {
-		return canPassBombPassages();
-	}
-	this.locations["Power Bomb (Power Bombs of shame)"].normalLogic = function() {
-		return canUsePowerBombs();
-	}
-	this.locations["Energy Tank, Ridley"].normalLogic = function() {
-		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
-	}
-	this.locations["Ridley"].normalLogic = function() {
-		return canUsePowerBombs() && canOpenGreenDoors() && has("charge");
-	}
+  	this.locations["Missile (Mickey Mouse room)"].normalLogic = function() { // Different for Hard Logic
+  		return canMorph() && canDestroyBombWalls();
+  	}
+  	this.locations["Power Bomb (lower Norfair above fire flea room)"].normalLogic = function() { // Different for Hard Logic
+  		return canPassBombPassages();
+  	}
+  	this.locations["Power Bomb (Power Bombs of shame)"].normalLogic = function() {
+  		return canUsePowerBombs();
+  	}
+  	this.locations["Missile (lower Norfair near Wave Beam)"].normalLogic = function() { // Different for Hard Logic
+  		return canMorph() && canDestroyBombWalls();
+  	}
+  	this.locations["Energy Tank, Ridley"].normalLogic = function() {
+  		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
+  	}
+  	this.locations["Ridley"].normalLogic = function() {
+  		return canUsePowerBombs() && canOpenGreenDoors() && has("charge");
+  	}
 
     this.canEnter.normalLogic = function() {
-		let ne = new NorfairEast("","",false);
-		ne.initNormal();
+  		let ne = new NorfairEast("","",false);
+  		ne.initNormal();
 
-		return heatProof()
-			&& ((ne.canEnter.normalLogic()
-					&& canUsePowerBombs()
-					&& (has("space") && canSwimSM()))
-				|| (canAccessLowerNorfairPortal()
-					&& canDestroyBombWalls()
-					&& canOpenGreenDoors()
-					&& canUsePowerBombs()
-					&& (canFlySM() || canDashSM())))
-			&& (canFlySM() || canHiJump());
+  		return heatProof()
+  			&& ((ne.canEnter.normalLogic()
+  					&& canUsePowerBombs()
+  					&& (has("space") && canSwimSM()))
+  				|| (canAccessLowerNorfairPortal()
+  					&& canDestroyBombWalls()
+  					&& canOpenGreenDoors()
+  					&& canUsePowerBombs()
+  					&& (canFlySM() || canDashSM())))
+  			&& (canFlySM() || canHiJump());
     }
     this.canComplete.normalLogic = function() {
       return this.locations["Ridley"].normalLogic();
@@ -57,21 +57,21 @@ class LowerNorfairEast extends LowerNorfair {
   initHard() {
     this.initNormal();
 
-	this.canEnter.hardLogic = function() {
-		let ne = new NorfairEast("","",false);
-		ne.initHard();
+  	this.canEnter.hardLogic = function() {
+  		let ne = new NorfairEast("","",false);
+  		ne.initHard();
 
-		return heatProof()
-			&& ((ne.canEnter.hardLogic()
-				&& canUsePowerBombs()
-				&& (canHiJump() || canSwimSM()))
-			|| (canAccessLowerNorfairPortal()
-				&& canDestroyBombWalls()
-				&& canOpenGreenDoors()
-				&& (canFlySM() || canSpringBallJump() || canDashSM())))
-			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
-			&& (canPassBombPassages() || (has("screw") && has("space")))
-			&& (canMorph() || hasEnergyReserves(5));
-	}
+  		return heatProof()
+  			&& ((ne.canEnter.hardLogic()
+  				&& canUsePowerBombs()
+  				&& (canHiJump() || canSwimSM()))
+  			|| (canAccessLowerNorfairPortal()
+  				&& canDestroyBombWalls()
+  				&& canOpenGreenDoors()
+  				&& (canFlySM() || canSpringBallJump() || canDashSM())))
+  			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
+  			&& (canPassBombPassages() || (has("screw") && has("space")))
+  			&& (canMorph() || hasEnergyReserves(5));
+  	}
   }
 }
