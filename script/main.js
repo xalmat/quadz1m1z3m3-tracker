@@ -378,9 +378,6 @@ for (let crumb in crumbs) {
   let url = crumbs[crumb];
 
   selectGame += '<a href="' + url + '">' + title + '</a>';
-  if (roomid == "smalttpr" && title == "Hyrule") {
-    selectGame += '<a href="?game=zelda3&zeldaMode=regions">*</a>';
-  }
 
   selectGame += ' | ';
 }

@@ -42,7 +42,7 @@ var dungeons = {};
 var cookieDefault = {};
 var regionObjects = {};
 var regionNames = {};
-var zeldaMode = (getParameterByName("zeldaMode", window.location) != null) ? getParameterByName("zeldaMode", window.location) : "oldstyle";
+var zeldaMode = "regions";
 var metroidMode = (getParameterByName("metroidMode", window.location) != null) ? getParameterByName("metroidMode", window.location) : "";
 for (var gameName in gameNames) {
   gameName                = gameNames[gameName];
