@@ -92,7 +92,7 @@ for (var i = 0; i < bosses; i++) {
 }
 
 function isCounter(key) {
-  let searches = ["heart", "missile", "powerbomb", "tank"];
+  let searches = ["heart", "missile", "powerbomb", "tank", "node"];
   for (let search in searches) {
     search = searches[search];
     if (key.indexOf(search) > -1) {
@@ -166,6 +166,11 @@ var cookiekeys = [
 ];
 
 let defaultOptions = {
+  averge1: {
+    mapLogic: "glitchless",
+    mPos: "Above",
+    mZoom: 100
+  },
   zelda3: {
     mapLogic: (zeldaMode == "regions") ? "minorGlitches" : "glitchless",
     mapState: "open",
@@ -1345,6 +1350,7 @@ function initTracker() {
   updateAll();
 
   var games = {
+    averge1: "Axiom Verge",
     zelda3: "ALttP",
     metroid3: "Super Metroid"
   };
@@ -1483,7 +1489,12 @@ Vue.component('tracker-cell', {
     },
     textCounter: function () {
       var itemValue = this.trackerData[selectedGame].items[this.itemName];
-      if (this.itemName.indexOf('heart') === 0 || this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') === 0 || this.itemName.indexOf('tank') > -1) {
+      if (
+          this.itemName.indexOf('heart') === 0 ||
+          this.itemName.indexOf('missile') > -1 ||
+          this.itemName.indexOf('powerbomb') === 0 ||
+          this.itemName.indexOf('tank') > -1 ||
+          this.itemName.indexOf('node') > -1) {
         if (this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') > -1) {
           itemValue *= 5;
         }
@@ -1541,7 +1552,7 @@ Vue.component('tracker-cell', {
       let universe = selectedGame.substr(0, selectedGame.length - 1);
       let itemGame = selectedGame;
 
-      if (gameItems[universe + "3"].indexOf(this.itemName) == -1) {
+      if (itemGame != "averge1" && gameItems[universe + "3"].indexOf(this.itemName) == -1) {
         itemGame = altGames[selectedGame];
       }
 

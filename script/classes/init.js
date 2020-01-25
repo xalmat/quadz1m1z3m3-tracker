@@ -13,10 +13,11 @@ function initClasses(useGame) {
 
 					if(useGame == "zelda3") {
 						regionObject.initMajorGlitches();
-					}
-					if(useGame == "metroid3") {
+					} else if(useGame == "metroid3") {
 						regionObject.initHard();
-					}
+					} else if(useGame == "averge1") {
+            regionObject.initNoMajorGlitches();
+          }
 
 					regionObjects[regionClassName] = regionObject;
 
@@ -50,13 +51,16 @@ function initClasses(useGame) {
 								owGlitches: location.owGlitches,
 								majorGlitches: location.majorGlitches
 							};
-						}
-						if(useGame == "metroid3") {
+						} else if(useGame == "metroid3") {
 							props.canAccess = {
 								normalLogic: location.normalLogic,
 								hardLogic: location.hardLogic
 							};
-						}
+						} else if(useGame == "averge1") {
+              props.canAccess = {
+                glitchless: location.glitchless
+              }
+            }
 						if(location.equipment) {
 							var regex = /%%([\w]+)%%/g;
 							var equip = location.equipment;
@@ -122,15 +126,18 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
 											availability.majorGlitches = "available";
 										}
-									}
-									if(selectedGame == "metroid3") {
+									} else if(selectedGame == "metroid3") {
 										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
 											availability.normalLogic = "available";
 										}
 										if(regionObjects[this.region].canEnter.hardLogic() && this.canAccess.hardLogic()) {
 											availability.hardLogic = "available";
 										}
-									}
+									} else if(selectedGame == "averge1") {
+										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
+											availability.glitchless = "available";
+										}
+                  }
 									return availability;
 								},
 								canGetChest: function() {
@@ -190,8 +197,7 @@ function initClasses(useGame) {
 											availability.owGlitches = tmp + " inactive";
 											availability.majorGlitches = tmp + " inactive";
 										}
-									}
-									if(selectedGame == "metroid3") {
+									} else if(selectedGame == "metroid3") {
 										var tmp = "";
 
 										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
@@ -201,7 +207,15 @@ function initClasses(useGame) {
 											availability.normalLogic = tmp + " inactive";
 											availability.hardLogic = tmp + " inactive";
 										}
-									}
+									} else if(selectedGame == "averge1") {
+										var tmp = "";
+
+										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
+											availability.glitchless = tmp + " active";
+										} else {
+											availability.glitchless = tmp + " inactive";
+                    }
+                  }
 									return availability;
 								};
 							} else {											// Chest
@@ -236,15 +250,18 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
 											availability.majorGlitches = "available";
 										}
-									}
-									if(selectedGame == "metroid3") {
+									} else if(selectedGame == "metroid3") {
 										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
 											availability.normalLogic = "available";
 										}
 										if(regionObjects[this.region].canEnter.hardLogic() && this.canAccess.hardLogic()) {
 											availability.hardLogic = "available";
 										}
-									}
+									} else if(selectedGame == "averge1") {
+										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
+											availability.glitchless = "available";
+										}
+                  }
 									return availability;
 								}
 							}

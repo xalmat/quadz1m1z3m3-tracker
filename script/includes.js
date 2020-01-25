@@ -48,33 +48,6 @@ var scripts = [
 
 var sheets = [];
 
-scripts.push("script/classes/Boss.js");
-
-var bosses = {
-  zelda3: [
-    "ArmosKnights",
-    "Lanmolas",
-    "Moldorm",
-    "Agahnim",
-    "HelmasaurKing",
-    "Arrghus",
-    "Mothula",
-    "Blind",
-    "Kholdstare",
-    "Vitreous",
-    "Trinexx",
-    "Ganon"
-  ]
-};
-
-for (var gameName in bosses) {
-  list = bosses[gameName];
-  for (var boss in list) {
-    boss = list[boss];
-    scripts.push("script/classes/Boss/Boss" + boss + ".js");
-  }
-}
-
 scripts.push("script/classes/Location.js");
 scripts.push("script/classes/LocationCollection.js");
 scripts.push("script/classes/Region.js");
@@ -82,10 +55,40 @@ scripts.push("script/classes/Region.js");
 let smalttpr = selectedGame == "metroid3" || selectedGame == "zelda3";
 
 if (smalttpr) {
+  scripts.push("script/classes/Boss.js");
+
+  var bosses = {
+    zelda3: [
+      "ArmosKnights",
+      "Lanmolas",
+      "Moldorm",
+      "Agahnim",
+      "HelmasaurKing",
+      "Arrghus",
+      "Mothula",
+      "Blind",
+      "Kholdstare",
+      "Vitreous",
+      "Trinexx",
+      "Ganon"
+    ]
+  };
+
+  for (var gameName in bosses) {
+    list = bosses[gameName];
+    for (var boss in list) {
+      boss = list[boss];
+      scripts.push("script/classes/Boss/Boss" + boss + ".js");
+    }
+  }
+
   scripts.push("script/classes/Region/ALttP.js");
   scripts.push("script/classes/Region/SuperMetroid.js");
   scripts.push("script/zelda3/item-limits.js");
   scripts.push("script/metroid3/item-limits.js");
+} else if(selectedGame == "averge1") {
+  scripts.push("script/classes/Region/AxiomVerge.js");
+  scripts.push("script/averge1/item-limits.js");
 }
 
 let universe = selectedGame.substr(0, selectedGame.length - 1);
@@ -96,6 +99,9 @@ if (selectedGame != "zelda3") {
 }
 if (selectedGame != "metroid3") {
   sheets.push("css/metroid/notmetroid3.css");
+}
+if (universe == "averge") {
+  sheets.push("css/averge/averge.css");
 }
 if (universe == "zelda") {
   sheets.push("css/zelda/zelda.css");
@@ -125,6 +131,17 @@ var regionNames = {
     lowernorfair:   ["west", "east"],
     tourian:        ["main"],
     hyruleportals:  ["main"]
+  },
+  averge1: {
+    "absu":     ["main"],
+    "edin":     ["main"],
+    "eKurMah":  ["main"],
+    "eribu":    ["main"],
+    "kur":      ["main"],
+    "indi":     ["main"],
+    "marUru":   ["main"],
+    "ukkinNa":  ["main"],
+    "zi":       ["main"]
   }
 };
 
@@ -164,10 +181,11 @@ for (var gameName in regionNames) {
         var segmentName = region[segment];
         var url = "";
 
-        if (gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions")) {
+        if (gameName == "averge1" || gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions")) {
           url += "script/classes/Region/";
 
           let dirs = {
+            averge1: "AxiomVerge",
             zelda3: "ALttP",
             metroid3: "SuperMetroid",
           };
@@ -187,7 +205,6 @@ for (var gameName in regionNames) {
 
 scripts.push("script/vue/vue-2.5.16-min.js");
 scripts.push("script/main.js");
-
 LazyLoad.css(sheets, function () {});
 
 LazyLoad.js(scripts, function () {

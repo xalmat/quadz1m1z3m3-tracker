@@ -29,12 +29,15 @@ var selectedGame = (getParameterByName("game", window.location) != null) ? getPa
 var effectiveVersion = "";
 var gameNames = [];
 var altGames = {
+  averge1:  "averge1",
   zelda3:   "metroid3",
   metroid3: "zelda3"
 };
 
 if (selectedGame == "zelda3" || selectedGame == "metroid3") {
   gameNames = ["zelda3", "metroid3"];
+} else if(selectedGame == "averge1") {
+  gameNames = [ "averge1" ];
 }
 
 var chests = {};
@@ -55,6 +58,8 @@ var roomid = getParameterByName("roomid", window.location);
 if (roomid === null) {
   if (selectedGame == "zelda3" || selectedGame == "metroid3") {
     roomid = "smalttpr";
+  } else if(selectedGame == "averge1") {
+    roomid = selectedGame;
   }
 }
 var authAttempted = false;
