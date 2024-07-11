@@ -230,9 +230,6 @@ function setConfigObject(configobj) {
     //while(itemLayout.length > 0) {itemLayout.length.pop();}
     //itemLayout = configobj.items;
     //Array.prototype.push.apply(itemLayout, configobj.items);
-    if(!(selectedGame in configobj)) {
-        console.log("GAME NOT FOUND!");
-    }
     window.vm.itemRows = configobj[selectedGame].items;
 
     document.getElementsByName('showmap')[0].checked = !!configobj[selectedGame].map;                            // Map Enabled?

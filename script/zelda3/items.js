@@ -73,6 +73,27 @@ defaultItemGrid.zelda3 = [
         "speed",
         "gravity",
     ],
+    // Z1
+    [
+        "bow",
+        "silvers",
+        "recorder",
+        "magicalrod",
+    ],
+    [
+        "sword",
+        "raft",
+        "ladder",
+        "bracelet",
+    ],
+    // M1
+    [
+        "morph",
+        "bombs",
+        "ice",
+        "missile",
+        "hijump",
+    ],
 ];
 
 dungeonchestsInit.zelda3 = {

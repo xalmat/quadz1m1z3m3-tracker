@@ -166,6 +166,7 @@ function build_img_url(item,useGame = selectedGame) {
     var metroid1items = gameItems.metroid1;
     let filext = "png";
 
+    // Not Boss & not Chest
     if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
         if(item == "bomb") {
             useGame = "zelda3";
@@ -235,6 +236,9 @@ function build_img_url(item,useGame = selectedGame) {
         url += useGame + '/';
     }
     url += category + '/' + item + '.' + filext;
+
+    console.log(selectedGame,item,url);
+
     return url;
 }
 

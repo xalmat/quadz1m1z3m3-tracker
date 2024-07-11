@@ -233,10 +233,10 @@ for(var gameName in regionNames) {
                     url += "script/classes/Region/";
 
                     let dirs = {
-                        zelda3:        "ALttP",
-                        metroid3:    "SuperMetroid",
-                        zelda1:        "TLoZ",
-                        metroid1:    "Metroid",
+                        zelda3:     "ALttP",
+                        metroid3:   "SuperMetroid",
+                        zelda1:     "TLoZ",
+                        metroid1:   "Metroid",
                     };
 
                     url += dirs[selectedGame] + '/';
@@ -254,8 +254,6 @@ for(var gameName in regionNames) {
 
 scripts.push("script/vue/vue-2.5.16-min.js");
 scripts.push("script/main.js");
-
-console.log(scripts);
 
 LazyLoad.css(sheets, function () {
 });
