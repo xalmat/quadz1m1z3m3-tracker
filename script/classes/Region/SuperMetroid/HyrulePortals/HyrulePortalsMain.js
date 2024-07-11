@@ -10,30 +10,30 @@ class HyrulePortalsMain extends HyrulePortals {
 	],this);
   }
 
-  initNormal() {
-  	this.locations["ALttPR Portal: Link's Fortune Teller"].normalLogic = function() {
-  		let cc = new CrateriaCentral("","",false);
-  		cc.initNormal();
-  		return (cc.canEnter.normalLogic() && canAccessLightWorldPortal()) || canAccessCrateriaPortal();
-  	}
-  	this.locations["ALttPR Portal: Death Mountain Cave"].normalLogic = function() {
-  		let nw = new NorfairWest("","",false);
-  		nw.initNormal();
-  		return (nw.canEnter.normalLogic() && canAccessDeathMountainPortal()) || canAccessNorfairPortal();
-  	}
-  	this.locations["ALttPR Portal: Dark World Ice Cave Right"].normalLogic = function() {
-  		let mi = new MaridiaInner("","",false);
-  		mi.initNormal();
-  		return (mi.canEnter.normalLogic() && canAccessDarkWorldPortal()) || canAccessMaridiaPortal();
-  	}
-  	this.locations["ALttPR Portal: Misery Mire East 'Entrance'"].normalLogic = function() {
-  		let lnw = new LowerNorfairWest("","",false);
-  		lnw.initNormal();
-  		return (lnw.canEnter.normalLogic() && canAccessMiseryMirePortal()) || canAccessLowerNorfairPortal();
-  	}
+  initCasual() {
+	this.locations["ALttPR Portal: Link's Fortune Teller"].casualLogic = function() {
+		let cc = new CrateriaCentral("","",false);
+		cc.initCasual();
+		return (cc.canEnter.casualLogic() && canAccessLightWorldPortal()) || canAccessCrateriaPortal();
+	}
+	this.locations["ALttPR Portal: Death Mountain Cave"].casualLogic = function() {
+		let nw = new NorfairWest("","",false);
+		nw.initCasual();
+		return (nw.canEnter.casualLogic() && canAccessDeathMountainPortal()) || canAccessNorfairPortal();
+	}
+	this.locations["ALttPR Portal: Dark World Ice Cave Right"].casualLogic = function() {
+		let mi = new MaridiaInner("","",false);
+		mi.initCasual();
+		return (mi.canEnter.casualLogic() && canAccessDarkWorldPortal()) || canAccessMaridiaPortal();
+	}
+	this.locations["ALttPR Portal: Misery Mire East 'Entrance'"].casualLogic = function() {
+		let lnw = new LowerNorfairWest("","",false);
+		lnw.initCasual();
+		return (lnw.canEnter.casualLogic() && canAccessMiseryMirePortal()) || canAccessLowerNorfairPortal();
+	}
   }
 
-  initHard() {
-  	this.initNormal();
+  initTournament() {
+	this.initCasual();
   }
 }

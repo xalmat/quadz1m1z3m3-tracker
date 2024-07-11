@@ -10,30 +10,28 @@ class BrinstarKraid extends Brinstar {
 	],this);
   }
 
-  initNormal() {
-  	this.locations["Energy Tank, Kraid"].normalLogic = function() {
-  		return has("kraid");
-  	}
-  	this.locations["Varia Suit"].normalLogic = function() {
-  		return has("kraid");
-  	}
-  	this.locations["Missile (Kraid)"].normalLogic = function() {
-  		return canUsePowerBombs();
-  	}
+  initCasual() {
+	this.locations["Energy Tank, Kraid"].casualLogic = function() {
+		return has("kraid");
+	}
+	this.locations["Missile (Kraid)"].casualLogic = function() {
+		return canUsePowerBombs();
+	}
+	this.locations["Varia Suit"].casualLogic = function() {
+		return has("kraid");
+	}
 
-    this.canEnter.normalLogic = function() {
-      // Crateria:West -> Brinstar:Green -> Brinstar:Pink -> Brinstar:Red -> Brinstar:Kraid
-      // Z3->M3 portal from Death Mountain
-      //  Super Blocks, Morph Passage, Bomb Passage
-  		return (canDestroyBombWalls() || canDashSM() || canAccessNorfairPortal())
-  			&& canOpenGreenDoors() && canMorph() && canPassBombPassages();
+    this.canEnter.casualLogic = function() {
+		return (canDestroyBombWalls() || canDashSM() || canAccessNorfairPortal())
+			&& (canOpenGreenDoors() && canMorph())
+			&& canPassBombPassages();
     }
-    this.canComplete.normalLogic = function() {
-      return this.locations["Kraid"].normalLogic();
+    this.canComplete.casualLogic = function() {
+      return this.locations["Kraid"].casualLogic();
     }
   }
 
-  initHard() {
-    this.initNormal();
+  initTournament() {
+    this.initCasual();
   }
 }

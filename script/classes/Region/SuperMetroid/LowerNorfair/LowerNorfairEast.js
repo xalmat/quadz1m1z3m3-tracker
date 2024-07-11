@@ -14,64 +14,64 @@ class LowerNorfairEast extends LowerNorfair {
 	],this);
   }
 
-  initNormal() {
-  	this.locations["Missile (Mickey Mouse room)"].normalLogic = function() { // Different for Hard Logic
-  		return canMorph() && canDestroyBombWalls();
-  	}
-  	this.locations["Power Bomb (lower Norfair above fire flea room)"].normalLogic = function() { // Different for Hard Logic
-  		return canPassBombPassages();
-  	}
-  	this.locations["Power Bomb (Power Bombs of shame)"].normalLogic = function() {
-  		return canUsePowerBombs();
-  	}
-  	this.locations["Missile (lower Norfair near Wave Beam)"].normalLogic = function() { // Different for Hard Logic
-  		return canMorph() && canDestroyBombWalls();
-  	}
-  	this.locations["Energy Tank, Ridley"].normalLogic = function() {
-  		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
-  	}
-  	this.locations["Ridley"].normalLogic = function() {
-  		return canUsePowerBombs() && canOpenGreenDoors() && has("charge");
-  	}
+  initCasual() {
+	this.locations["Missile (lower Norfair near Wave Beam)"].casualLogic = function() {
+		return canMorph() && canDestroyBombWalls();
+	}
+	this.locations["Missile (Mickey Mouse room)"].casualLogic = function() {
+		return canMorph() && canDestroyBombWalls();
+	}
+	this.locations["Power Bomb (lower Norfair above fire flea room)"].casualLogic = function() {
+		return canPassBombPassages();
+	}
+	this.locations["Power Bomb (Power Bombs of shame)"].casualLogic = function() {
+		return canUsePowerBombs();
+	}
+	this.locations["Energy Tank, Ridley"].casualLogic = function() {
+		return has("ridley") && canUsePowerBombs() && canOpenGreenDoors() && has("charge");
+	}
+	this.locations["Ridley"].casualLogic = function() {
+		return canUsePowerBombs() && canOpenGreenDoors() && has("charge");
+	}
 
-    this.canEnter.normalLogic = function() {
-  		let ne = new NorfairEast("","",false);
-  		ne.initNormal();
+    this.canEnter.casualLogic = function() {
+		let ne = new NorfairEast("","",false);
+		ne.initCasual();
 
-  		return heatProof()
-  			&& ((ne.canEnter.normalLogic()
-  					&& canUsePowerBombs()
-  					&& (has("space") && canSwimSM()))
-  				|| (canAccessLowerNorfairPortal()
-  					&& canDestroyBombWalls()
-  					&& canOpenGreenDoors()
-  					&& canUsePowerBombs()
-  					&& (canFlySM() || canDashSM())))
-  			&& (canFlySM() || canHiJump());
+		return heatProof()
+			&& ((ne.canEnter.casualLogic()
+					&& canUsePowerBombs()
+					&& (has("space") && canSwimSM()))
+				|| (canAccessLowerNorfairPortal()
+					&& canDestroyBombWalls()
+					&& canOpenGreenDoors()
+					&& canUsePowerBombs()
+					&& (canFlySM() || canDashSM())))
+			&& (canFlySM() || canHiJump());
     }
-    this.canComplete.normalLogic = function() {
-      return this.locations["Ridley"].normalLogic();
+    this.canComplete.casualLogic = function() {
+      return this.locations["Ridley"].casualLogic();
     }
   }
 
-  initHard() {
-    this.initNormal();
+  initTournament() {
+    this.initCasual();
 
-  	this.canEnter.hardLogic = function() {
-  		let ne = new NorfairEast("","",false);
-  		ne.initHard();
+	this.canEnter.tourneyLogic = function() {
+		let ne = new NorfairEast("","",false);
+		ne.initTournament();
 
-  		return heatProof()
-  			&& ((ne.canEnter.hardLogic()
-  				&& canUsePowerBombs()
-  				&& (canHiJump() || canSwimSM()))
-  			|| (canAccessLowerNorfairPortal()
-  				&& canDestroyBombWalls()
-  				&& canOpenGreenDoors()
-  				&& (canFlySM() || canSpringBallJump() || canDashSM())))
-  			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
-  			&& (canPassBombPassages() || (has("screw") && has("space")))
-  			&& (canMorph() || hasEnergyReserves(5));
-  	}
+		return heatProof()
+			&& ((ne.canEnter.tourneyLogic()
+				&& canUsePowerBombs()
+				&& (canHiJump() || canSwimSM()))
+			|| (canAccessLowerNorfairPortal()
+				&& canDestroyBombWalls()
+				&& canOpenGreenDoors()
+				&& (canFlySM() || canSpringBallJump() || canDashSM())))
+			&& (canFlySM() || canHiJump() || canSpringBallJump() || (has("ice") && has("charge")))
+			&& (canPassBombPassages() || (has("screw") && has("space")))
+			&& (canMorph() || hasEnergyReserves(5));
+	}
   }
 }

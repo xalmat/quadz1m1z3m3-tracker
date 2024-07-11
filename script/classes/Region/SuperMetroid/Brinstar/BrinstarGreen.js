@@ -14,58 +14,53 @@ class BrinstarGreen extends Brinstar {
 	],this);
   }
 
-  initNormal() {
-  	this.locations["Power Bomb (green Brinstar bottom)"].normalLogic = function() {
-  		return canUsePowerBombs();
-  	}
-  	this.locations["Missile (green Brinstar below super missile)"].normalLogic = function() {
-  		return canPassBombPassages() && canOpenRedDoors();
-  	}
-  	this.locations["Super Missile (green Brinstar top)"].normalLogic = function() { // Different for Hard Logic
-  		return canOpenRedDoors() && canDashSM();
-  	}
-  	this.locations["Reserve Tank, Brinstar"].normalLogic = function() { // Different for Hard Logic
-  		return canOpenRedDoors() && canDashSM();
-  	}
-  	this.locations["Missile (green Brinstar behind missile)"].normalLogic = function() { // Different for Hard Logic
-  		return canDashSM() && canPassBombPassages() && canOpenRedDoors();
-  	}
-  	this.locations["Missile (green Brinstar behind reserve tank)"].normalLogic = function() { // Different for Hard Logic
-  		return canDashSM() && canOpenRedDoors() && canMorph();
-  	}
-  	this.locations["Energy Tank, Etecoons"].normalLogic = function() {
-  		return canUsePowerBombs();
-  	}
-  	this.locations["Super Missile (green Brinstar bottom)"].normalLogic = function() {
-  		return canUsePowerBombs() && canOpenGreenDoors();
-  	}
+  initCasual() {
+	this.locations["Power Bomb (green Brinstar bottom)"].casualLogic = function() {
+		return canUsePowerBombs();
+	}
+	this.locations["Missile (green Brinstar below super missile)"].casualLogic = function() {
+		return canPassBombPassages() && canOpenRedDoors();
+	}
+	this.locations["Super Missile (green Brinstar top)"].casualLogic = function() {
+		return canDashSM() && canOpenRedDoors();
+	}
+	this.locations["Reserve Tank, Brinstar"].casualLogic = function() {
+		return canDashSM() && canOpenRedDoors();
+	}
+	this.locations["Missile (green Brinstar behind missile)"].casualLogic = function() {
+		return canDashSM() && canPassBombPassages() && canOpenRedDoors();
+	}
+	this.locations["Missile (green Brinstar behind reserve tank)"].casualLogic = function() {
+		return canDashSM() && canOpenRedDoors() && canMorph();
+	}
+	this.locations["Energy Tank, Etecoons"].casualLogic = function() {
+		return canUsePowerBombs();
+	}
+	this.locations["Super Missile (green Brinstar bottom)"].casualLogic = function() {
+		return canUsePowerBombs() && canOpenGreenDoors();
+	}
 
-    this.canEnter.normalLogic = function() {
-      // From Crateria:West
+    this.canEnter.casualLogic = function() {
       return canDestroyBombWalls() || canDashSM();
     }
   }
 
-  initHard() {
-    this.initNormal();
+  initTournament() {
+    this.initCasual();
 
-  	this.locations["Super Missile (green Brinstar top)"].hardLogic = function() {
-      // Mockball
-  		return canOpenRedDoors()
-  			&& (canMorph() || canDashSM());
-  	}
-  	this.locations["Reserve Tank, Brinstar"].hardLogic = function() {
-      // Mockball
-  		return canOpenRedDoors()
-  			&& (canMorph() || canDashSM());
-  	}
-  	this.locations["Missile (green Brinstar behind missile)"].hardLogic = function() {
-      // Mockball
-  		return (canPassBombPassages() || (canMorph() && has("screw")) && canOpenRedDoors());
-  	}
-  	this.locations["Missile (green Brinstar behind reserve tank)"].hardLogic = function() {
-      // Mockball
-  		return canOpenRedDoors() && canMorph();
-  	}
+	this.locations["Super Missile (green Brinstar top)"].tourneyLogic = function() {
+		return canOpenRedDoors()
+			&& (canMorph() || canDashSM());
+	}
+	this.locations["Reserve Tank, Brinstar"].tourneyLogic = function() {
+		return canOpenRedDoors()
+			&& (canMorph() || canDashSM());
+	}
+	this.locations["Missile (green Brinstar behind missile)"].tourneyLogic = function() {
+		return (canPassBombPassages() || (canMorph() && has("screw")) && canOpenRedDoors());
+	}
+	this.locations["Missile (green Brinstar behind reserve tank)"].tourneyLogic = function() {
+		return canOpenRedDoors() && canMorph();
+	}
   }
 }

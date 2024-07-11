@@ -11,70 +11,51 @@ class BrinstarRed extends Brinstar {
 	],this);
   }
 
-  initNormal() {
-  	this.locations["X-Ray Scope"].normalLogic = function() { // Different for Hard Logic
-      // Open Door from Red Tower
-      // Open Door inside to X-Ray Scope
-      // Traverse room
-  		return canUsePowerBombs()
-  			&& canOpenRedDoors()
-  			&& (canGrappleSM() || has("space"));
-  	}
-  	this.locations["Power Bomb (red Brinstar sidehopper room)"].normalLogic = function() {
-      // Green Door from Short Red Tower
-      // Power Bombs to open floor
-  		return canUsePowerBombs() && canOpenGreenDoors();
-  	}
-  	this.locations["Power Bomb (red Brinstar spike room)"].normalLogic = function() { // Different for Hard Logic
-      // Green Door from Short Red Tower
-      // Powers || Ice to defeat enemies
-  		return (canUsePowerBombs() || has("ice")) && canOpenGreenDoors();
-  	}
-  	this.locations["Missile (red Brinstar spike room)"].normalLogic = function() {
-      // Green Door from Short Red Tower
-      // Powers to access Missile
-  		return canUsePowerBombs() && canOpenGreenDoors();
-  	}
-  	this.locations["Spazer"].normalLogic = function() {
-      // Bomb passage to get toward room
-      // Green Door to open room
-  		return canPassBombPassages() && canOpenGreenDoors();
-  	}
+  initCasual() {
+	this.locations["X-Ray Scope"].casualLogic = function() {
+		return canUsePowerBombs()
+			&& canOpenRedDoors()
+			&& (canGrappleSM() || has("space"));
+	}
+	this.locations["Power Bomb (red Brinstar sidehopper room)"].casualLogic = function() {
+		return canUsePowerBombs() && canOpenGreenDoors();
+	}
+	this.locations["Power Bomb (red Brinstar spike room)"].casualLogic = function() {
+		return (canUsePowerBombs() || has("ice")) && canOpenGreenDoors();
+	}
+	this.locations["Missile (red Brinstar spike room)"].casualLogic = function() {
+		return canUsePowerBombs() && canOpenGreenDoors();
+	}
+	this.locations["Spazer"].casualLogic = function() {
+		return canPassBombPassages() && canOpenGreenDoors();
+	}
 
-    this.canEnter.normalLogic = function() {
-      // From Crateria:West and Brinstar:Green
-      // From Z3->M3 portal from Death Mountain
-      //  Through Brinstar:Red: Ice || HiJumps || Springball || IBJ
+    this.canEnter.casualLogic = function() {
       return (canDestroyBombWalls() || canDashSM())
       	&& (canOpenGreenDoors() && canMorph())
       	|| (canAccessNorfairPortal() && (has("ice") || canHiJump() || has("space")));
     }
   }
 
-  initHard() {
-    this.initNormal();
+  initTournament() {
+    this.initCasual();
 
-  	this.locations["X-Ray Scope"].hardLogic = function() {
-      // Tons of strange strats to preserve health
-  		return canUsePowerBombs()
-  			&& canOpenRedDoors()
-  			&& (canGrappleSM()
-  				|| has("space")
-  				|| (heatProof() && hasEnergyReserves(3) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump()))
-  				|| (hasEnergyReserves(5) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump())));
-  	}
-  	this.locations["Power Bomb (red Brinstar spike room)"].hardLogic = function() {
-      // Skip defeating enemies
-  		return canOpenGreenDoors();
-  	}
+	this.locations["X-Ray Scope"].tourneyLogic = function() {
+		return canUsePowerBombs()
+			&& canOpenRedDoors()
+			&& (canGrappleSM()
+				|| has("space")
+				|| (heatProof() && hasEnergyReserves(3) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump()))
+				|| (hasEnergyReserves(5) && (canIbj() || (canHiJump() && canDashSM()) || canSpringBallJump())));
+	}
+	this.locations["Power Bomb (red Brinstar spike room)"].tourneyLogic = function() {
+		return canOpenGreenDoors();
+	}
 
-  	this.canEnter.hardLogic = function() {
-      // From Crateria:West and Brinstar:Green
-      // From Z3->M3 portal from Death Mountain
-      //  Through Brinstar:Red: Ice || HiJumps || Springball || IBJ
-  		return ((canDestroyBombWalls() || canDashSM())
-  			&& (canOpenGreenDoors() && canMorph()))
-  			|| (canAccessNorfairPortal() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()));
-  	}
+	this.canEnter.tourneyLogic = function() {
+		return ((canDestroyBombWalls() || canDashSM())
+			&& (canOpenGreenDoors() && canMorph()))
+			|| (canAccessNorfairPortal() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()));
+	}
   }
 }
