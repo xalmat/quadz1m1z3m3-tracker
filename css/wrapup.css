@@ -1,44 +1,60 @@
+.mapdiv .lonkshoose {
+
+}
+.mapdiv .bombshop {
+
+}
 .mapdiv .gt {
   left: 77% !important;
-  top:   5.5% !important;
+  top: 5.5% !important;
 }
-
 .mapdiv .at {
   left: 23% !important;
-  top:  36% !important;
+  top: 36% !important;
 }
 
 .mapvdiv .lonkshoose {
   left: 54.8% !important;
-  top:  33.95% !important;
+  top: 33.95% !important;
 }
-
 .mapvdiv .bombshop {
   left: 55% !important;
-  top:  84.3% !important;
+  top: 84.3% !important;
 }
-
 .mapvdiv .darkgate {
   left: 50.5% !important;
-  top:  76.95% !important;
+  top: 76.95% !important;
 }
-
 .inverted .mapvdiv .darkgate {
   left: 50.5% !important;
-  top:  80% !important;
+  top: 80% !important;
 }
-
 .mapvdiv .gt {
   left: 54% !important;
-  top:  52.75% !important;
+  top: 52.75% !important;
 }
-
 .mapvdiv .at {
   left: 45.5% !important;
-  top:  18% !important;
+  top: 18% !important;
 }
 
 .standingHidden .chest.viewable,
 .standingHidden .chest.glitchviewable {
   background-color: #ff0000;
+}
+
+.zelda1 .hidden,
+.zelda1 .chest.hidden,
+.zelda1 .chest.hidden.available,
+.zelda1 .chest.hidden.glitchavailable,
+.zelda1 .chest.hidden.unavailable,
+.zelda1 .chest.hidden.possible,
+.zelda1 .chest.hidden.glitchpossible,
+.zelda1 .chest.hidden.viewable,
+.zelda1 .chest.hidden.glitchviewable {
+  background-image: url() !important;
+  background-color: #000132;
+}
+.zelda1 .hidden * {
+  display: none;
 }
