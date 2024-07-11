@@ -16,9 +16,19 @@ class OverworldShop extends Overworld {
         new Location("Shop","Shop South of Desert",                2736/Z1FACTOR,  720/Z1FACTOR,regionName),                            // 0x4A    // shop08/shop10
         new Location("Shop","Unnamed Shop 4",                    3456/Z1FACTOR,  792/Z1FACTOR,regionName,{equipment:"%%candle%%"}),    // 0x4D    // shop09/shop11
         new Location("Shop","Shop Northeast of Level 8",        3696/Z1FACTOR,  896/Z1FACTOR,regionName),                            // 0x5E    // shop10/shop12
-        new Location("Shop","Shop Northwest of Start",            1648/Z1FACTOR, 1072/Z1FACTOR,regionName),                            // 0x66    // shop11/shop13
         new Location("Shop","East Shore Shop",                    3888/Z1FACTOR, 1072/Z1FACTOR,regionName)                            // 0x6F    // shop12/shop14
     ];
+    if(true) {
+        // Quad
+        locCollection.push(
+            new Location("Portal","ALttP Portal: Kakariko Fortune Teller",1648/Z1FACTOR, 1072/Z1FACTOR,regionName),// 0x66    // shop11/shop13
+        );
+    } else {
+        // Z1M1
+        locCollection.push(
+            new Location("Shop","Shop Northwest of Start",            1648/Z1FACTOR, 1072/Z1FACTOR,regionName),                            // 0x66    // shop11/shop13
+        );
+    }
 
     // Only First Quest
     if(questid == 1) {

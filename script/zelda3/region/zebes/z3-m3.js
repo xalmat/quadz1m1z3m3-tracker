@@ -55,3 +55,31 @@ chests.zelda3[68] = {
         return availability;
     }
 };
+chests.zelda3[69] = {
+    name: "Z1 Portal: NW of Start",
+    x: "9.3%",
+    y: "31.36%",
+    isAvailable: function() {
+        const availability = new Availability();
+        if(canAccessLightWorldPortal() || canAccessZ1Portal()) {
+            availability.glitchless = "portal portal-zelda1 active";
+        } else {
+            availability.glitchless = "portal portal-zelda1 inactive";
+        }
+        return availability;
+    }
+};
+chests.zelda3[70] = {
+    name: "M1 Portal: E of Start",
+    x: "16.6%",
+    y: "5.2%",
+    isAvailable: function() {
+        const availability = new Availability();
+        if(canAccessLightWorldPortal() || canAccessZ1Portal()) {
+            availability.glitchless = "portal portal-metroid1 active";
+        } else {
+            availability.glitchless = "portal portal-metroid1 inactive";
+        }
+        return availability;
+    }
+};
