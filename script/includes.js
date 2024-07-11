@@ -88,16 +88,13 @@ scripts.push("script/classes/Location.js");
 scripts.push("script/classes/LocationCollection.js");
 scripts.push("script/classes/Region.js");
 
-let lozmx = selectedGame == "metroid1" || selectedGame == "zelda1";
-let smalttpr = selectedGame == "metroid3" || selectedGame == "zelda3";
-
-if(lozmx) {
+if(gameSet == "lozmx") {
     scripts.push("script/classes/Region/TLoZ.js");
     scripts.push("script/classes/Region/Metroid.js");
     scripts.push("script/zelda3/item-limits.js");
     scripts.push("script/metroid3/item-limits.js");
     scripts.push("script/zelda1/item-limits.js");
-} else if(smalttpr) {
+} else if(gameSet == "smalttpr") {
     scripts.push("script/classes/Region/ALttP.js");
     scripts.push("script/classes/Region/SuperMetroid.js");
     scripts.push("script/zelda3/item-limits.js");
@@ -131,58 +128,95 @@ scripts.push("script/classes/init.js");
 
 var regionNames = {
     zelda1: {
-        overworld:        ["freehint","item","moneymakinggame","paidhint","potions","road","rupoor","secretcaves","shop","takeany"],
-        dungeons:        ["level0","level1","level2","level3","level4","level5","level6","level7","level8","level9"],
+        overworld: [
+            "freehint",
+            "item",
+            "moneymakinggame",
+            "paidhint",
+            "potions",
+            "road",
+            "rupoor",
+            "secretcaves",
+            "shop",
+            "takeany"
+        ],
+        dungeons: [
+            "level0",
+            "level1",
+            "level2",
+            "level3",
+            "level4",
+            "level5",
+            "level6",
+            "level7",
+            "level8",
+            "level9"
+        ],
     },
     zelda3: {
-        dungeons:        ["main"],
-        overworld:        ["main"],
-        zebes:            ["z3-m3"],
+        dungeons:   ["main"],
+        overworld:  ["main"],
+        zebes:      ["z3-m3"],
     },
     metroid1: {
-        brinstar:        ["main"],
-        kraid:            ["main"],
+        brinstar:       ["main"],
+        kraid:          ["main"],
         norfair:        ["main"],
-        ridley:            ["main"],
+        ridley:         ["main"],
         tourian:        ["main"],
-        hyruleportals:    ["main"],
+        hyruleportals:  ["main"],
     },
     metroid3: {
-        crateria:        ["central","east","west"],
-        brinstar:        ["blue","green","pink","red","kraid"],
+        crateria:       ["central","east","west"],
+        brinstar:       ["blue","green","pink","red","kraid"],
         norfair:        ["crocomire","east","west"],
         wreckedship:    ["main"],
         maridia:        ["inner","outer"],
-        lowernorfair:    ["west","east"],
+        lowernorfair:   ["west","east"],
         tourian:        ["main"],
-        hyruleportals:    ["main"],
+        hyruleportals:  ["main"],
     }
 };
 
 if(zeldaMode == "regions") {
     regionNames.zelda3 = {
-        hyrulewarps:            ["main"],
+        hyrulewarps: ["main"],
         dungeons: [
-                                "easternpalace",
-                                "desertpalace",
-                                "towerofhera",
-                                "palaceofdarkness",
-                                "swamppalace",
-                                "skullwoods",
-                                "thievestown",
-                                "icepalace",
-                                "miserymire",
-                                "turtlerock",
-                                "ganonstower",
-                                "hyrulecastleescape",
-                                "hyrulecastletower",
-                                "pyramidofpower"
+            "easternpalace",
+            "desertpalace",
+            "towerofhera",
+            "palaceofdarkness",
+            "swamppalace",
+            "skullwoods",
+            "thievestown",
+            "icepalace",
+            "miserymire",
+            "turtlerock",
+            "ganonstower",
+            "hyrulecastleescape",
+            "hyrulecastletower",
+            "pyramidofpower"
         ],
-        darkworld:                ["mire","northeast","northwest","south"],
-        darkworlddeathmountain:    ["east","west"],
-        deathmountain:            ["east","west"],
-        lightworld:                ["northeast","northwest","south"],
-        zebesportals:            ["main"],
+        darkworld: [
+            "mire",
+            "northeast",
+            "northwest",
+            "south"
+        ],
+        darkworlddeathmountain: [
+            "east",
+            "west"
+        ],
+        deathmountain: [
+            "east",
+            "west"
+        ],
+        lightworld: [
+            "northeast",
+            "northwest",
+            "south"
+        ],
+        zebesportals: ["main"],
     }
 }
 
@@ -195,7 +229,7 @@ for(var gameName in regionNames) {
                 var segmentName = region[segment];
                 var url = "";
 
-                if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions") || lozmx) {
+                if(gameName == "metroid3" || (gameName == "zelda3" && zeldaMode == "regions") || gameSet == "lozmx") {
                     url += "script/classes/Region/";
 
                     let dirs = {
@@ -220,6 +254,8 @@ for(var gameName in regionNames) {
 
 scripts.push("script/vue/vue-2.5.16-min.js");
 scripts.push("script/main.js");
+
+console.log(scripts);
 
 LazyLoad.css(sheets, function () {
 });

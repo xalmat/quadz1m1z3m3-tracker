@@ -120,7 +120,7 @@ function has(item, amount = -1) {
         }
     }
 
-    if((selectedGame == "zelda3" || selectedGame == "metroid3") && item.indexOf("state") > -1) {
+    if(gameSet == "smalttpr" && item.indexOf("state") > -1) {
         let open = trackerData.zelda3.mapState == "open";
         let inverted = trackerData.zelda3.mapState == "inverted";
         if(item.indexOf("open") > -1) {

@@ -1,4 +1,5 @@
 defaultItemGrid.zelda3 = [
+    // Z3
     [
         "tunic",
         "bow",
@@ -55,6 +56,7 @@ defaultItemGrid.zelda3 = [
         "boss7",
         "boss3",
     ],
+    // M3
     [
         "missile",
         "supermissile",

@@ -1,4 +1,5 @@
 var iMin = {
+    // Z3
     sword:0,
     shield:0,
     tunic:1,
@@ -32,6 +33,7 @@ var iMin = {
 itemsMin = extend(itemsMin,iMin);
 
 var iMax = {
+    // Z3
     sword:4,
     shield:3,
     tunic:3,

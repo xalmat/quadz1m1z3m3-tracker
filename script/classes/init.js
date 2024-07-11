@@ -14,11 +14,12 @@ function initClasses(useGame) {
                     var segmentName = region[segment];
                     var regionClassName = fix_region(regionName) + fix_region(segmentName);
                     var regionObject = eval("new " + regionClassName + "()");
+                    var universe = useGame.replace(/[^A-Za-z]/g, '');
 
-                    if(useGame == "zelda3" || useGame == "zelda1") {
+                    if(universe == "zelda") {
                         regionObject.initMajorGlitches();
                     }
-                    if(useGame == "metroid3" || useGame == "metroid1") {
+                    if(universe == "metroid") {
                         regionObject.initTournament();
                     }
 
@@ -47,7 +48,7 @@ function initClasses(useGame) {
                             type: location.type,
                             region: location.region,
                         };
-                        if(useGame == "zelda3" || useGame == "zelda1") {
+                        if(universe == "zelda") {
                             props.canAccess = {
                                 glitchless: location.glitchless,
                                 minorGlitches: location.minorGlitches,
@@ -55,7 +56,7 @@ function initClasses(useGame) {
                                 majorGlitches: location.majorGlitches
                             };
                         }
-                        if(useGame == "metroid3" || useGame == "metroid1") {
+                        if(universe == "metroid") {
                             props.canAccess = {
                                 casualLogic: location.casualLogic,
                                 tourneyLogic: location.tourneyLogic
@@ -95,7 +96,7 @@ function initClasses(useGame) {
                                 label: label.join(''),
                                 isBeatable: function() {
                                     const availability = new Availability();
-                                    if(selectedGame == "zelda3" || selectedGame == "zelda1") {
+                                    if(universe == "zelda") {
                                         // No Glitches
                                         if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
                                             availability.glitchless = "available";
@@ -130,7 +131,7 @@ function initClasses(useGame) {
                                             availability.majorGlitches = "available";
                                         }
                                     }
-                                    if(selectedGame == "metroid3" || selectedGame == "metroid1") {
+                                    if(universe == "metroid") {
                                         if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
                                             availability.casualLogic = "available";
                                         }
@@ -142,7 +143,7 @@ function initClasses(useGame) {
                                 },
                                 canGetChest: function() {
                                     const availability = new Availability();
-                                    if(selectedGame == "zelda3" || selectedGame == "zelda1") {
+                                    if(universe == "zelda") {
                                         let regionAccess = regionObjects[this.region].canEnter.minorGlitches();
                                         let localAccess = regionObjects[this.region].canGetChest.minorGlitches();
                                         if(regionAccess && localAccess) {
@@ -183,7 +184,7 @@ function initClasses(useGame) {
                                 chest.isWarp = location.type == "Warp";
                                 chest.isAvailable = function() {
                                     const availability = new Availability();
-                                    if(selectedGame == "zelda3" || selectedGame == "zelda1") {
+                                    if(universe == "zelda") {
                                         var tmp = "";
 
                                         if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
@@ -198,7 +199,7 @@ function initClasses(useGame) {
                                             availability.majorGlitches = tmp + " inactive";
                                         }
                                     }
-                                    if(selectedGame == "metroid3" || selectedGame == "metroid1") {
+                                    if(universe == "metroid") {
                                         var tmp = "";
 
                                         if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
@@ -216,7 +217,7 @@ function initClasses(useGame) {
                                 chest.isVanilla = location.vanilla;
                                 chest.isAvailable = function() {
                                     const availability = new Availability();
-                                    if(selectedGame == "zelda3" || selectedGame == "zelda1") {
+                                    if(universe == "zelda") {
                                         if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
                                             availability.glitchless = "available";
                                         }
@@ -244,7 +245,7 @@ function initClasses(useGame) {
                                             availability.majorGlitches = "available";
                                         }
                                     }
-                                    if(selectedGame == "metroid3" || selectedGame == "metroid1") {
+                                    if(universe == "metroid") {
                                         if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
                                             availability.casualLogic = "available";
                                         }

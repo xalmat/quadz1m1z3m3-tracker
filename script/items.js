@@ -66,21 +66,21 @@ gameItems.zelda3 = [
 ];
 gameItems.zelda1 = [
     "boomerang",        // Z3
-    "bomb",                // Z3
-    "bow",                // Z3
+    "bomb",             // Z3
+    "bow",              // Z3
     "woods",            // Z3
-    "silvers",            // Z3
+    "silvers",          // Z3
     "candle",
     "recorder",
     "food",
-    "bottle",            // Z3
+    "bottle",           // Z3
     "magicrod",
     "magicalrod",
     "sword",            // Z3
-    "shield",            // Z3
-    "heartcontainer",    // Z3
+    "shield",           // Z3
+    "heartcontainer",   // Z3
     "raft",
-    "book",                // Z3
+    "book",             // Z3
     "ring",
     "ladder",
     "magicalkey",
@@ -93,7 +93,7 @@ gameItems.zelda1 = [
     "boss4",            // Z3
     "boss5",            // Z3
     "boss6",            // Z3
-    "boss7"                // Z3
+    "boss7"             // Z3
 ];
 gameItems.metroid3 = [
     "charge",
@@ -137,14 +137,14 @@ gameItems.metroid1 = [
     "morph",        // M3
     "bombs",        // M3
     "long",
-    "ice",            // M3
-    "wave",            // M3
-    "missile",        // M3
+    "ice",          // M3
+    "wave",         // M3
+    "missile",      // M3
     "varia",        // M3
-    "hijump",        // M3
+    "hijump",       // M3
     "screw",        // M3
     "kraid",        // M3
-    "ridley",        // M3
+    "ridley",       // M3
     "kraidtotem",
     "ridleytotem"
 ];
@@ -152,6 +152,7 @@ gameItems.metroid1 = [
 var itemsInit = {
     blank: false,
 
+    // Zelda & Z3-specific
     tunic: 1,
     sword: 0,
     shield: 0,
@@ -191,6 +192,7 @@ var itemsInit = {
 
     agahnim: 0,
 
+    // Z1-specific
     bracelet: false,
     candle: 0,
     food: false,
@@ -210,6 +212,7 @@ var itemsInit = {
     triforcepiece7: false,
     triforcepiece8: false,
 
+    // Metroid & M3-specific
     charge: false,
     ice: false,
     wave: false,
@@ -236,6 +239,7 @@ var itemsInit = {
     etank: 0,
     rtank: 0,
 
+    // M1-specific
     long: false,
     kraidtotem: false,
     ridleytotem: false

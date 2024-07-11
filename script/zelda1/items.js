@@ -1,4 +1,5 @@
 defaultItemGrid.zelda1 = [
+    // Z1
     [
         "boomerang",
         "bomb",

@@ -8,13 +8,14 @@ const OFFPENDANT = 2;
 const GREENPENDANT = 3;
 const Z1FACTOR = 4;
 
-function getParameterByName(name, url) {
+function getParameterByName(name, url, defaultVal) {
     if (!url) url = window.location.href;
+    if (!defaultVal && defaultVal !== null) defaultVal = "";
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
+    if (!results) return defaultVal;
+    if (!results[2]) return defaultVal;
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
@@ -25,29 +26,34 @@ function extend(obj, src) {
     return obj;
 }
 
-var selectedGame = (getParameterByName("game",window.location) != null) ? getParameterByName("game",window.location) : "zelda3";
+var selectedGame = getParameterByName("game",window.location,"zelda3");
 var effectiveVersion = "";
-var gameNames = [];
-var altGames = {
-    zelda3: "metroid3",
-    zelda1: "metroid1",
-    metroid3: "zelda3",
-    metroid1: "zelda1"
+var gameSets = {
+    "smalttpr": ["zelda3","metroid3"],
+    "lozmx":    ["zelda1","metroid1"]
 };
 
-if(selectedGame == "zelda3" || selectedGame == "metroid3") {
-    gameNames = ["zelda3","metroid3"];
-} else if(selectedGame == "zelda1" || selectedGame == "metroid1") {
-    gameNames = ["zelda1","metroid1"];
+var altGames = {};
+var allGameNames = {};
+for([setID,group] of Object.entries(gameSets)) {
+    for(gameIDa of group) {
+        allGameNames[gameIDa] = group;
+        for(gameIDb of group) {
+            if(gameIDa != gameIDb) {
+                altGames[gameIDa] = gameIDb;
+            }
+        }
+    }
 }
+var gameNames = allGameNames[selectedGame];
 
 var chests = {};
 var dungeons = {};
 var cookieDefault = {};
 var regionObjects = {};
 var regionNames = {};
-var zeldaMode = (getParameterByName("zeldaMode",window.location) != null) ? getParameterByName("zeldaMode",window.location) : "oldstyle";
-var metroidMode = (getParameterByName("metroidMode",window.location) != null) ? getParameterByName("metroidMode",window.location) : "";
+var zeldaMode = getParameterByName("zeldaMode",window.location,"oldstyle");
+var metroidMode = getParameterByName("metroidMode",window.location,"");
 for(var gameName in gameNames) {
     gameName = gameNames[gameName];
     chests[gameName] = [];
@@ -55,18 +61,17 @@ for(var gameName in gameNames) {
     cookieDefault[gameName] = {};
 }
 
-var roomid = getParameterByName("roomid",window.location);
-var questid = getParameterByName("questid",window.location);
-if(roomid === null) {
-    if(selectedGame == "zelda3" || selectedGame == "metroid3") {
-        roomid = "smalttpr";
-    } else if(["zelda1","metroid1"].indexOf(selectedGame) > -1) {
-        roomid = "lozmx";
+var roomid = getParameterByName("roomid",window.location,null);
+var gameSet = "";
+for([setID,group] of Object.entries(gameSets)) {
+    if(group.indexOf(selectedGame) > -1) {
+        gameSet = setID;
     }
 }
-if(questid === null) {
-    questid = 1;
+if(roomid === null) {
+    roomdid = gameSet;
 }
+var questid = getParameterByName("questid",window.location,1);
 var authAttempted = false;
 
 function destroyFirebase() {
@@ -89,23 +94,23 @@ function tokenize(input) {
 function fix_itemlabel(item) {
     var ret = item;
     var names = {
-        "firerod":        "Fire Rod",
-        "icerod":        "Ice Rod",
+        "firerod":      "Fire Rod",
+        "icerod":       "Ice Rod",
         "moonpearl":    "Moon Pearl",
         "mpupgrade":    "Magic Upgrade",
         "etank":        "Energy Tank",
-        "hijump":        "Hi-Jump Boots",
+        "hijump":       "Hi-Jump Boots",
         "morph":        "Morph Ball",
         "powerbomb":    "Power Bomb",
         "rtank":        "Reserve Tank",
         "screw":        "Screw Attack",
         "space":        "Space Jump",
         "speed":        "Speed Booster",
-        "springball":    "Spring Ball",
+        "springball":   "Spring Ball",
         "supermissile": "Super Missile",
-        "xray":            "X-Ray Scope",
-        "kraidtotem":    "Kraid Totem",
-        "ridleytotem":    "Ridley Totem",
+        "xray":         "X-Ray Scope",
+        "kraidtotem":   "Kraid Totem",
+        "ridleytotem":  "Ridley Totem",
         "triforcepiece":"Triforce Piece",
     };
     if(names[ret]) {
@@ -118,11 +123,21 @@ function fix_itemlabel(item) {
             ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
         }
     }
-    var beams = ["charge","ice","wave","plasma","grappling","long"];
+    var beams = [
+        "charge",
+        "ice",
+        "wave",
+        "plasma",
+        "grappling",
+        "long"
+    ];
     if(beams.indexOf(ret) > -1) {
         ret += " Beam";
     }
-    if(ret == "varia" || ret == "gravity") {
+    if([
+        "varia",
+        "gravity"
+    ].indexOf(ret) > -1) {
         ret += " Suit";
     }
     if(ret.indexOf("heart") === 0) {
@@ -139,7 +154,11 @@ function fix_itemlabel(item) {
 }
 
 function build_img_url(item,useGame = selectedGame) {
-    var misc = ["blank","highlighted","poi"];
+    var misc = [
+        "blank",
+        "highlighted",
+        "poi"
+    ];
 
     var zelda3items = gameItems.zelda3;
     var zelda1items = gameItems.zelda1;
@@ -168,25 +187,25 @@ function build_img_url(item,useGame = selectedGame) {
 
     var globalReplaceItem = {
         agahnim:    "agahnim1",
-        bomb:        "bomb1",
-        bomb0:        "bomb1",
-        boomerang0:    "boomerang1",
-        bottle:        "bottle1",
+        bomb:       "bomb1",
+        bomb0:      "bomb1",
+        boomerang0: "boomerang1",
+        bottle:     "bottle1",
         bottle0:    "bottle1",
-        candle:        "candle1",
+        candle:     "candle1",
         candle0:    "candle1",
-        crystal5:    "dungeon" + OJCRYSTAL,
-        crystal6:    "dungeon" + OJCRYSTAL,
-        flute:        "flute0",
-        glove0:        "glove1",
-        lamp:        "lantern",
-        medallion1:    "bombos",
-        medallion2:    "ether",
-        medallion3:    "quake",
-        pendant0:    "dungeon" + GREENPENDANT,
-        ring0:        "ring1",
+        crystal5:   "dungeon" + OJCRYSTAL,
+        crystal6:   "dungeon" + OJCRYSTAL,
+        flute:      "flute0",
+        glove0:     "glove1",
+        lamp:       "lantern",
+        medallion1: "bombos",
+        medallion2: "ether",
+        medallion3: "quake",
+        pendant0:   "dungeon" + GREENPENDANT,
+        ring0:      "ring1",
         shield0:    "shield1",
-        sword0:        "sword1",
+        sword0:     "sword1",
     };
     globalReplaceItem["blueCrystal"] = "dungeon" + CRYSTAL;
     globalReplaceItem["redCrystal"] = "dungeon" + OJCRYSTAL;
@@ -196,15 +215,18 @@ function build_img_url(item,useGame = selectedGame) {
     }
 
     var category = "inventory";
-    if(item.indexOf("boss") === 0) {
-        category = "bosses";
-    } else if(item.indexOf("chest") === 0) {
-        category = "chests";
-    } else if(item.indexOf("medallion") === 0) {
-        category = "medallions";
-    } else if(item.indexOf("dungeon") === 0 || item.indexOf("pendant") === 0) {
-        category = "prizes";
-    } else if(misc.indexOf(item) > -1) {
+    for([start,cat] of Object.entries({
+        "boss": "bosses",
+        "chest": "chests",
+        "medallion": "medallions",
+        "dungeon": "prizes",
+        "pendant": "prizes"
+    })) {
+        if(item.startsWith(start)) {
+            category = cat;
+        }
+    }
+    if(misc.indexOf(item) > -1) {
         category = "misc";
     }
 
@@ -223,9 +245,9 @@ function mini(item) {
         pendant1:    "Pendant of Power",
         pendant2:    "Pendant of Wisdom",
     };
-    globalReplaceTitle["dungeon" + GREENPENDANT] = "Pendant of Courage";
-    globalReplaceTitle["dungeon" + CRYSTAL] = "Blue Crystal";
-    globalReplaceTitle["dungeon" + OJCRYSTAL] = "Red Crystal";
+    globalReplaceTitle["dungeon" + GREENPENDANT]    = "Pendant of Courage";
+    globalReplaceTitle["dungeon" + CRYSTAL]         = "Blue Crystal";
+    globalReplaceTitle["dungeon" + OJCRYSTAL]       = "Red Crystal";
 
     if(globalReplaceTitle[item]) {
         title = globalReplaceTitle[item].ucfirst();

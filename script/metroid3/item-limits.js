@@ -1,4 +1,5 @@
 var iMin = {
+    // M3
     boss0:1,
     boss1:1,
     boss2:1,
@@ -18,6 +19,7 @@ var iMin = {
 itemsMin = extend(itemsMin,iMin);
 
 var iMax = {
+    // M3
     boss0:2,
     boss1:2,
     boss2:2,

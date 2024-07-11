@@ -96,7 +96,12 @@ for(var i = 0; i < bosses; i++) {
 }
 
 function isCounter(key) {
-    let searches = ["heart","missile","powerbomb","tank"];
+    let searches = [
+        "heart",
+        "missile",
+        "powerbomb",
+        "tank"
+    ];
     for(let search in searches) {
         search = searches[search];
         if(key.indexOf(search) > -1) {
@@ -105,7 +110,10 @@ function isCounter(key) {
     }
 }
 function isAmmo(key) {
-      let searches = ["missile","powerbomb"];
+      let searches = [
+          "missile",
+          "powerbomb"
+      ];
       for(let search in searches) {
           search = searches[search];
           if(key.indexOf(search) > -1) {
@@ -116,7 +124,7 @@ function isAmmo(key) {
 
 function setCookie(obj) {
     try {
-        window.localStorage.setItem(roomid, JSON.stringify(obj));
+        window.localStorage.setItem(gameSet, JSON.stringify(obj));
     } catch (e) {
         // do nothing
     }
@@ -125,7 +133,7 @@ function setCookie(obj) {
 function getCookie() {
     var str = null;
     try {
-        str = window.localStorage.getItem(roomid);
+        str = window.localStorage.getItem(gameSet);
     } catch (e) {
         // do nothing
     }
@@ -141,9 +149,9 @@ function getCookie() {
 }
 
 var cookiekeys = [
-    'ts',        // global
+    'ts',               // global
     'itemValues',
-    'gameName',    // both games
+    'gameName',         // both games
     'chestsImportant',
     'chestsOpened',
     'chestsPortal',
@@ -158,13 +166,13 @@ var cookiekeys = [
     'mZoom',
     "nonVanilla",
     'showLabels',
-    'mapOHKO',    // zelda3-only
+    'mapOHKO',          // zelda3-only
     'mapState',
     'mapSwords',
     'showChests',
     'showMedals',
     'showPrizes',
-    'chestSkin'    // metroid3-only
+    'chestSkin'         // metroid3-only
 ];
 
 let defaultOptions = {
@@ -222,19 +230,22 @@ function setConfigObject(configobj) {
     //while(itemLayout.length > 0) {itemLayout.length.pop();}
     //itemLayout = configobj.items;
     //Array.prototype.push.apply(itemLayout, configobj.items);
+    if(!(selectedGame in configobj)) {
+        console.log("GAME NOT FOUND!");
+    }
     window.vm.itemRows = configobj[selectedGame].items;
 
     document.getElementsByName('showmap')[0].checked = !!configobj[selectedGame].map;                            // Map Enabled?
     document.getElementsByName('showmap')[0].onchange();
-    document.getElementsByName('itemdivsize')[0].value = configobj[selectedGame].iZoom;                            // Inventory Scale
+    document.getElementsByName('itemdivsize')[0].value = configobj[selectedGame].iZoom;                         // Inventory Scale
     document.getElementsByName('itemdivsize')[0].onchange();
-    document.getElementsByName('mapdivsize')[0].value = configobj[selectedGame].mZoom;                            // Map Scale (Z3 only)
+    document.getElementsByName('mapdivsize')[0].value = configobj[selectedGame].mZoom;                          // Map Scale (Z3 only)
     document.getElementsByName('mapdivsize')[0].onchange();
 
-    document.getElementsByName('maporientation')[configobj[selectedGame].mOrien].click();                        // Map Orientation (Horizontal, Vertical) (Z3 only)
+    document.getElementsByName('maporientation')[configobj[selectedGame].mOrien].click();                       // Map Orientation (Horizontal, Vertical) (Z3 only)
 
     var mappositions = ["Above","Below","Side"];
-    document.getElementsByName('mapposition')[mappositions.indexOf(configobj[selectedGame].mPos)].click();        // Map Position (Above, Below, Side) (Z3 only)
+    document.getElementsByName('mapposition')[mappositions.indexOf(configobj[selectedGame].mPos)].click();      // Map Position (Above, Below, Side) (Z3 only)
 
     if(selectedGame == "zelda3") {
         var mapstates = ["standard","open"];
@@ -243,28 +254,28 @@ function setConfigObject(configobj) {
 
     document.getElementsByName('swordless')[0].checked = !configobj[selectedGame].mapSwords;                    // Swordless? (Z3 only)
     document.getElementsByName('swordless')[0].onchange();
-    document.getElementsByName('ohko')[0].checked = !!configobj[selectedGame].mapOHKO;                            // OHKO? (Z3 only)
+    document.getElementsByName('ohko')[0].checked = !!configobj[selectedGame].mapOHKO;                          // OHKO? (Z3 only)
     document.getElementsByName('ohko')[0].onchange();
 
     var maplogics = ["glitchless","minorGlitches","owGlitches","majorGlitches","casualLogic","tourneyLogic"];
     document.getElementsByName('maplogic')[maplogics.indexOf(configobj[selectedGame].mapLogic)].click();        // Map Logic
 
     if(roomid == "lozmx") {
-        document.getElementsByName('nonvanilla')[0].checked = !!configobj[selectedGame].nonVanilla;                // Non-Vanilla slots? (LoZMx only)
+        document.getElementsByName('nonvanilla')[0].checked = !!configobj[selectedGame].nonVanilla;             // Non-Vanilla slots? (LoZMx only)
         document.getElementsByName('nonvanilla')[0].onchange();
     }
     if(selectedGame == "metroid3") {
         var chestskins = ["lights","nolights","nothing"];
-        document.getElementsByName('chestskin')[chestskins.indexOf(configobj[selectedGame].chestSkin)].click();    // Chest Skin (Lights, No Lights, Nothing) (M3 only)
+        document.getElementsByName('chestskin')[chestskins.indexOf(configobj[selectedGame].chestSkin)].click(); // Chest Skin (Lights, No Lights, Nothing) (M3 only)
     }
 
-    document.getElementsByName('showchest')[0].checked = !!configobj[selectedGame].showChests;                    // Show Chests on Dungeon squares (Z3 only)
+    document.getElementsByName('showchest')[0].checked = !!configobj[selectedGame].showChests;                  // Show Chests on Dungeon squares (Z3 only)
     document.getElementsByName('showchest')[0].onchange();
     document.getElementsByName('showcrystal')[0].checked = !!configobj[selectedGame].showPrizes;                // Show Prizes on Dungeon squares (Z3 only)
     document.getElementsByName('showcrystal')[0].onchange();
-    document.getElementsByName('showmedallion')[0].checked = !!configobj[selectedGame].showMedals;                // Show Medallions on Dungeon squares (Z3 only)
+    document.getElementsByName('showmedallion')[0].checked = !!configobj[selectedGame].showMedals;              // Show Medallions on Dungeon squares (Z3 only)
     document.getElementsByName('showmedallion')[0].onchange();
-    document.getElementsByName('showlabel')[0].checked = !!configobj[selectedGame].showLabels;                    // Show Labels on Dungeon/Boss squares
+    document.getElementsByName('showlabel')[0].checked = !!configobj[selectedGame].showLabels;                  // Show Labels on Dungeon/Boss squares
     document.getElementsByName('showlabel')[0].onchange();
 }
 
@@ -322,16 +333,16 @@ function getConfigObject() {
     configobj[selectedGame] = {};
     configobj[selectedGame].gameName = selectedGame;
 
-    configobj[selectedGame].map = document.getElementsByName('showmap')[0].checked;                                // Map Enabled?
-    configobj[selectedGame].iZoom = document.getElementsByName('itemdivsize')[0].value;                            // Inventory Scale
-    configobj[selectedGame].mZoom = document.getElementsByName('mapdivsize')[0].value;                            // Map Scale (Z3 only)
+    configobj[selectedGame].map = document.getElementsByName('showmap')[0].checked;                             // Map Enabled?
+    configobj[selectedGame].iZoom = document.getElementsByName('itemdivsize')[0].value;                         // Inventory Scale
+    configobj[selectedGame].mZoom = document.getElementsByName('mapdivsize')[0].value;                          // Map Scale (Z3 only)
 
-    configobj[selectedGame].mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;            // Map Orientation (Horizontal, Vertical) (Z3 only)
-    configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value;            // Map Position (Above, Below, Side) (Z3 only)
-    configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value;            // Map Logic
+    configobj[selectedGame].mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;           // Map Orientation (Horizontal, Vertical) (Z3 only)
+    configobj[selectedGame].mPos = document.querySelector('input[name="mapposition"]:checked').value;           // Map Position (Above, Below, Side) (Z3 only)
+    configobj[selectedGame].mapLogic = document.querySelector('input[name="maplogic"]:checked').value;          // Map Logic
     configobj[selectedGame].mapOHKO = document.getElementsByName('ohko')[0].checked;                            // OHKO? (Z3 only)
     if(roomid == "lozmx") {
-        configobj[selectedGame].nonVanilla = !document.getElementsByName('nonvanilla')[0].checked;                // Non-vanilla slots? (LoZMx only)
+        configobj[selectedGame].nonVanilla = !document.getElementsByName('nonvanilla')[0].checked;              // Non-vanilla slots? (LoZMx only)
     }
     if(selectedGame == "zelda3") {
         configobj[selectedGame].mapSwords = !document.getElementsByName('swordless')[0].checked;                // Swords? (Z3 only)
@@ -339,9 +350,9 @@ function getConfigObject() {
         configobj[selectedGame].chestSkin = document.querySelector('input[name="chestskin"]:checked').value;    // Chest Skin (Lights, No Lights, Nothing) (M3 only)
     }
 
-    configobj[selectedGame].mapState = document.querySelector('input[name="mapstate"]:checked').value;            // Map State (Standard, Open) (Z3 only)
+    configobj[selectedGame].mapState = document.querySelector('input[name="mapstate"]:checked').value;          // Map State (Standard, Open) (Z3 only)
     configobj[selectedGame].showChests = document.getElementsByName('showchest')[0].checked;                    // Show Chests on Dungeon squares (Z3 only)
-    configobj[selectedGame].showPrizes = document.getElementsByName('showcrystal')[0].checked;                    // Show Prizes on Dungeon squares (Z3 only)
+    configobj[selectedGame].showPrizes = document.getElementsByName('showcrystal')[0].checked;                  // Show Prizes on Dungeon squares (Z3 only)
     configobj[selectedGame].showMedals = document.getElementsByName('showmedallion')[0].checked;                // Show Medallions on Dungeon squares (Z3 only)
     configobj[selectedGame].showLabels = document.getElementsByName('showlabel')[0].checked;                    // Show Labels on Dungeon/Boss squares
 
@@ -370,13 +381,13 @@ function toggleChest(x){
 var selectGame = '<span id="selectGame">[ ';
 
 var crumbs = {};
-if(roomid == "smalttpr") {
+if(gameSet == "smalttpr") {
     crumbs = {
         Hyrule: "?game=zelda3",
         Zebes: "?game=metroid3",
         LoZMx: "?game=zelda1"
     };
-} else if(roomid == "lozmx") {
+} else if(gameSet == "lozmx") {
     crumbs = {
         Hyrule: "?game=zelda1",
         Zebes: "?game=metroid1",
@@ -495,7 +506,12 @@ function togglePortal(x) {
 
     chest.isPortal = makePortal;
 
-    let classNames = ["mapspan","chest","portal","active"];
+    let classNames = [
+        "mapspan",
+        "chest",
+        "portal",
+        "active"
+    ];
     if(makePortal) {
         ele.className = "";
         for(let add in classNames) {
@@ -725,7 +741,7 @@ function showMedallion(sender) {
 }
 
 function showLabel(sender) {
-    if(selectedGame != "zelda3" && selectedGame != "zelda1") { return; }
+    if(universe != "zelda") { return; }
 
     trackerData[selectedGame].showLabels = sender.checked;
     refreshMap();
@@ -733,7 +749,7 @@ function showLabel(sender) {
 }
 
 function showRegions(sender) {
-    if(selectedGame != "zelda3" && selectedGame != "metroid3") { return; }
+    if(gameSet != "smalttpr") { return; }
 
     trackerData[selectedGame].showRegions = sender.checked;
     if(sender.checked) {
@@ -1042,7 +1058,7 @@ function refreshChests() {
         let chestDOM = document.getElementById(k);
         chestDOM.className = chestClass(k);
 
-        if(roomid == "smalttpr") {
+        if(gameSet == "smalttpr") {
             // Determine Lonk's Hoose
             if(chest.name == "Link's House") {
                 if(has("state.inverted")) {            // Inverted, move to Dark World
@@ -1321,10 +1337,10 @@ function initTracker() {
     updateAll();
 
     var games = {
-        zelda1:        "TLoZ",
-        zelda3:        "ALttP",
-        metroid1:    "Metroid",
-        metroid3:    "Super Metroid",
+        zelda1:     "TLoZ",
+        zelda3:     "ALttP",
+        metroid1:   "Metroid",
+        metroid3:   "Super Metroid",
     };
     var game = games[selectedGame];
     document.title = game + " Item Tracker";
@@ -1492,7 +1508,7 @@ Vue.component('tracker-cell', {
       return null;
     },
     prizeImage: function() {
-      if(selectedGame != "zelda3" && selectedGame != "zelda1") { return null; }
+      if(universe != "zelda") { return null; }
       if(selectedGame == "zelda3") {
         if(this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
           return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
