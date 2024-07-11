@@ -25,21 +25,14 @@ button {
 <script>
 function clearStorage() {
   localStorage.removeItem("smalttpr");
+  localStorage.removeItem("lozmx");
 }
 </script>
 </head>
 <body>
-<div class="findrom">
-  <a href="https://itemrando.supermetroid.run/"><img src="http://alttp.mymm1.com/game/findrom-metroid3.png" /></a><a href="http://alttpr.com/"><img src="http://alttp.mymm1.com/game/findrom.png" /></a>
-</div>
+<div class="findrom"><a href="https://itemrando.supermetroid.run/"><img src="http://alttp.mymm1.com/game/findrom-metroid3.png" /></a><a href="http://alttpr.com/"><img src="http://alttp.mymm1.com/game/findrom.png" /></a><br /><a href="http://www.romhacking.net/utilities/1257/"><img src="http://alttp.mymm1.com/game/findrom-m1r.gif" /></a><a href="https://sites.google.com/site/zeldarandomizer/"><img src="http://alttp.mymm1.com/game/findrom-z1r.png" /></a></div>
 
-<div id="selectGame">
-  [
-  SMALttPR<a href="index.html?game=zelda3" class="bare">*</a> |
-  <a href="faq.html">FAQ</a> |
-  <a href="https://github.com/miketrethewey/smalttpr-tracker/">GitHub</a>
-  ]
-</div>
+<div id="selectGame">[ SMALttPR<a href="index.html?game=zelda3" class="bare">*</a> | LoZMx<a href="index.html?game=zelda1" class="bare">*</a> | <a href="faq.html">FAQ</a> | <a href="https://github.com/miketrethewey/smalttpr-tracker/">GitHub</a> ]</div>
 
 <h1>SMALttPR Tracker FAQ</h1>
 
@@ -52,7 +45,7 @@ function clearStorage() {
     <dd>If I've pushed an update to the scripts, there are over 50 individual files and if any of the ones that you're loading from cache are out of date, it won't work as expected.</dd>
   </dt>
   <dt>Clear your <code>localstorage</code>
-    <dd>If you've got stale data in your <code>localstorage</code>, it can be throwing it off. <button onclick="clearStorage()">This button</button> will try to clear it for SMALttPR.</dd>
+    <dd>If you've got stale data in your <code>localstorage</code>, it can be throwing it off. <button onclick="clearStorage()">This button</button> will try to clear it for both SMALttPR & LoZMx.</dd>
   </dt>
 </dl>
 
@@ -67,6 +60,9 @@ Check to see if the GitHub page for my tracker has a <a href="https://github.com
 <dl>
   <dt><a href="http://smalttp.speedga.me/">SMALttPR</a>
     <dd>Super Metroid/A Link to the Past Randomizer</dd>
+  </dt>
+  <dt><a href="http://www.metalmachine.info/home/lozmx">LoZMx</a>
+    <dd>Legend of Zelda/Metroid Randomizer</dd>
   </dt>
 </dl>
 <h2>Can it support the individual games from the above Randomizers?</h2>

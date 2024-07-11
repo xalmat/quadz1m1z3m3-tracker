@@ -1,0 +1,54 @@
+.zelda1 .mapdiv{
+    background: url(../../../images/zelda1/maps/map.png) no-repeat;
+    width: calc(4096px / 4);
+    height: calc(1408px / 4);
+    background-size: calc(4096px / 4) calc(1408px / 4);
+    image-rendering: pixelated;
+}
+.zelda1 .boss, .zelda1 .boss {
+    width: 24px;
+    height: 24px;
+    margin-left: calc(-1 * (24px / 2));
+    margin-top:  calc(-1 * (24px / 2));
+
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.zelda1 .dungeon, .zelda1 .dungeon {
+    width: 38px;
+    height: 38px;
+    margin-left: -2px;
+    margin-top:  -2px;
+}
+.zelda1 .chest, .zelda1 .chest {
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.zelda1 .prizeImage {
+    border-bottom-left-radius: 0;
+}
+
+.zelda1 .chest.bombablecave {
+  background-image: url(../../../images/zelda3/inventory/bomb1.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.burnablecave {
+  background-image: url(../../../images/zelda1/inventory/candle1.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.moneymakinggame {
+  background-image: url(../../../images/zelda3/inventory/20rupees.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.potions {
+  background-image: url(../../../images/zelda1/inventory/bottle1.png) !important;
+  background-size: 16px 16px !important;
+}
+.zelda1 .chest.rupoor {
+  background-image: url(../../../images/zelda3/inventory/rupoor.png) !important;
+  background-size: 16px 16px !important;
+}

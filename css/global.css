@@ -1,303 +1,299 @@
-body {
-  background-color: #000000;
-  margin:           0;
-  margin-top:       20px;
-  color:            #ffffff;
+body{
+    background-color: rgb(0,0,0);
+    margin: 0;
+    margin-top: 20px;
+    color: white;
 }
 
 a {
-  color: #aaaaff;
+    color: #aaaaff;
 }
 
 .flexcontainer {
-  display: flex;
+    display: flex;
 }
-
 .flexreverse {
-  flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+.settings{
+    background-color: rgb(0,0,0);
+    position: absolute;
+    right:0;
+    bottom:0;
+    z-index : 10;
+    display: none;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
-.settings {
-  background-color: #000000;
-  position:         absolute;
-  right:            0;
-  bottom:           0;
-  z-index:          10;
-  display:          none;
-  max-height:       100vh;
-  overflow-y:       auto;
+.zelda1 .hidden {
+    visibility: hidden;
 }
 
-#settingsbutton {
-  position:         absolute;
-  right:            0;
-  bottom:           0;
-  z-index:          11;
-  background-color: #000000;
-  color:            #ff0000;
+#settingsbutton{
+    position: absolute;
+    right:0;
+    bottom:0;
+    z-index : 11;
+    background-color: rgb(0,0,0);
+    color: red;
 }
 
-.tracker {
-  background-color: #000000;
-  position:         relative;
-  left:             0;
-  top:              0;
-  empty-cells:      show;
-  border-spacing:   0;
-  border:           0;
+.tracker{
+    background-color: rgb(0,0,0);
+    position: relative;
+    left: 0;
+    top: 0;
+    empty-cells: show;
+    border-spacing: 0;
+    border: 0;
 }
 
-.tracker td {
-  width:             64px;
-  height:            64px;
-  padding:           0;
-  background-repeat: no-repeat;
+.tracker td{
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    background-repeat: no-repeat;
 }
 
 .tracker .halfcell {
-  width:  32px;
-  height: 64px;
+    width: 32px;
+    height: 64px;
 }
 
 .itemconfig {
-  border-spacing: 0;
-  border:         1px solid #ffffff;
-  margin-top:     5px;
+    border-spacing: 0;
+    border: 1px solid white;
+    margin-top: 5px;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.stoops {
-  width:           128px;
-  height:          128px;
-  background-size: 200% 200%;
+.stoops{
+    width: 128px;
+    height: 128px;
+    background-size: 200% 200%;
 }
 
 input {
-  margin-top:     5px;
-  margin-bottom:  5px;
-  display:        inline-block;
-  *display:       inline;
-  /* for IE7*/
-  zoom: 1;
-  /* for IE7*/
-  vertical-align: middle;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display:inline-block;
+    *display: inline;     /* for IE7*/
+    zoom:1;              /* for IE7*/
+    vertical-align:middle;
 }
 
-.lonk {
-  width:          64px;
-  height:         64px;
-  border-spacing: 0;
-  border:         0;
+.lonk{
+    width: 64px;
+    height: 64px;
+    border-spacing: 0;
+    border: 0;
 }
 
-.corner {
-  width:               32px;
-  height:              32px;
-  color:               #d3d3d3;
-  font:                26px 'VT323', monospace;
-  cursor:              default;
-  text-shadow:         0 0 3px #000000;
-  -moz-user-select:    none;
-  -khtml-user-select:  none;
-  -webkit-user-select: none;
-  -ms-user-select:     none;
-  user-select:         none;
+.corner{
+    width: 32px;
+    height: 32px;
+    color: lightgray;
+    font: 26px 'VT323', monospace;
+    cursor: default;
+    text-shadow: 0 0 3px black;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .editcell {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .textCounter {
-  display:     block;
-  position:    absolute;
-  right:       0;
-  bottom:      0;
-  font:        40px 'VT323', monospace;
-  cursor:      default;
-  color:       #fdd549;
-  user-select: none;
-  text-shadow: -2px -2px 1px #000000;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font: 40px 'VT323', monospace;
+    cursor: default;
+    color: #fdd549;
+    user-select: none;
+    text-shadow: -2px -2px 1px black;
 }
-
-.medallionImage,
-.prizeImage {
-  background-color: #000000;
-  border-radius:    50%;
+.medallionImage, .prizeImage {
+    background-color: rgb(0,0,0);
+    border-radius: 50%;
 }
-
 .medallionImage {
-  border-top-right-radius: 0;
+    border-top-right-radius: 0;
 }
-
 .prizeImage {
-  border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
-.true {
-  opacity: 1;
+.true{
+    opacity: 1;
 }
 
-.false {
-  opacity: 0.25;
+.false{
+    opacity: 0.25;
 }
 
 .swordless {
-  opacity:          1;
-  background-image: url(../images/misc/swordless.png) !important;
+    opacity: 1;
+    background-image: url(../images/misc/swordless.png) !important;
 }
 
 .tunic.inverted .inverted {
-  background-image: url(../images/misc/ohko.png) !important;
-  filter:           invert(100%) !important;
+    background-image: url(../images/misc/ohko.png) !important;
+    filter: invert(100%) !important;
 }
-
 .tunic.ohko .ohko {
-  background-image: url(../images/misc/ohko.png) !important;
+    background-image: url(../images/misc/ohko.png) !important;
 }
 
-.mini {
-  width:          16px;
-  height:         16px;
-  vertical-align: text-bottom;
+.mini{
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
 }
 
-.boss {
-  width:           24px;
-  height:          24px;
-  margin-left:     calc(-1 * (24px / 2));
-  margin-top:      calc(-1 * (24px / 2));
-  background:      no-repeat center;
-  background-size: 75% 75%;
-  position:        absolute;
-  z-index:         2;
+.boss{
+    width: 24px;
+    height: 24px;
+    margin-left: calc(-1 * (24px / 2));
+    margin-top:  calc(-1 * (24px / 2));
+
+    background: no-repeat center;
+    background-size: 75% 75%;
+    position: absolute;
+    z-index: 2;
 }
 
-.dungeon {
-  width:           48px;
-  height:          48px;
-  margin-left:     calc(-1 * (48px / 2));
-  margin-top:      calc(-1 * (48px / 2));
-  background-size: 100% 100%;
-  position:        absolute;
+.dungeon{
+    width: 48px;
+    height: 48px;
+    margin-left: calc(-1 * (48px / 2));
+    margin-top:  calc(-1 * (48px / 2));
+
+    background-size: 100% 100%;
+    position: absolute;
 }
 
-.itemdiv {
-  position:         relative;
-  transform-origin: top left;
-  left:             0;
-  top:              0;
+.itemdiv{
+    position: relative;
+    transform-origin: top left;
+    left: 0;
+    top: 0;
 }
 
-.mapdiv {
-  background-size:  100% 100%;
-  transform-origin: top left;
-  position:         relative;
-  left:             0;
-  top:              0;
+.mapdiv{
+    background-size: 100% 100%;
+    transform-origin: top left;
+
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
-.mapvdiv {
-  background-size:  cover;
-  transform-origin: top left;
-  position:         relative;
-  left:             0;
-  top:              0;
+.mapvdiv{
+    background-size: cover;
+    transform-origin: top left;
+
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
 #note {
-  text-align: right;
-  float:      right;
-  top:        0;
-  right:      0;
-  position:   fixed;
-  z-index:    100;
+    text-align: right;
+    float: right;
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+}
+#beta, #version {
+    background-color: #000000;
+}
+.chest{
+    width: 24px;
+    height: 24px;
+    background-size: 100% 100%;
+
+    position: absolute;
+    margin-left: -12px;
+    margin-top: -12px;
 }
 
-#beta,
-#version {
-  background-color: #000000;
+.unavailable{
+    background-color: rgb(255,0,0);
 }
 
-.chest {
-  width:           24px;
-  height:          24px;
-  background-size: 100% 100%;
-  position:        absolute;
-  margin-left:     -12px;
-  margin-top:      -12px;
+.available{
+    background-color: rgb(0,255,0);
+    color: rgb(0,0,0);
 }
 
-.unavailable {
-  background-color: #ff0000;
+.viewable, .possible{
+    background-color: rgb(255,255,0);
+    color: rgb(0,0,0);
 }
 
-.available {
-  background-color: #00ff00;
-  color:            #000000;
+.partial{
+    background-color: rgb(255,255,0);
+    color: rgb(0,0,0);
 }
 
-.viewable,
-.possible {
-  background-color: #ffff00;
-  color:            #000000;
+.chest.agahnim, .dungeon.agahnim, .legend .agahnim{
+    background-color: rgb(0,255,255);
+    color: rgb(0,0,0);
 }
 
-.partial {
-  background-color: #ffff00;
-  color:            #000000;
+.glitchavailable{
+    background-color: rgb(0,127,0);
 }
 
-.chest.agahnim,
-.dungeon.agahnim,
-.legend .agahnim {
-  background-color: #00ffff;
-  color:            #000000;
-}
-
-.glitchavailable {
-  background-color: #007f00;
-}
-
-.glitchviewable,
-.glitchpossible {
-  background-color: #c0c000;
+.glitchviewable, .glitchpossible{
+    background-color: rgb(192,192,0);
 }
 
 .glitchpartial{
-  background-color: #7f7f00;
-  color:            #000000;
+    background-color: rgb(127,127,0);
+    color: rgb(0,0,0);
 }
 
 .glitchagahnim {
-  background-color: #00a0a0;
+    background-color: rgb(0,160,160);
 }
 
-.opened {
-  background-color: #7f7f7f;
+.opened{
+    background-color: rgb(127,127,127);
 }
 
 .important {
-  background-color: #ffaf00;
+    background-color: rgb(255,160,0);
 }
 
-.warp.hidden, .portal.hidden, .itemdiv .hidden {
-  visibility: hidden;
+.smalttpr .lozmx-option {
+    display: none;
+}
+.lozmx .smalttpr-option {
+    display: none;
 }
 
 #credits {
-  text-align: center;
-  color:      #808080;
-  width:      300px;
+    text-align: center;
+    color:grey;
+    width:300px;
 }
 
 #caption {
-  background-color: #000000;
-  position:         fixed;
-  top:              0 !important;
-  text-align:       left;
-  z-index:          100;
+    background-color: rgb(0,0,0);
+    position: fixed;
+    top: 0 !important;
+    text-align: left;
+    z-index: 100;
 }
