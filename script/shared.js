@@ -117,8 +117,8 @@ function fix_itemlabel(item) {
         ret = names[ret];
     }
 
-    if((ret.indexOf("boss") === 0) || (ret.indexOf("chest") === 0)) {
-        var start = ret.indexOf("boss") === 0 ? 4 : 5;
+    if((ret.indexOf("boss") === 2) || (ret.indexOf("chest") === 0)) {
+        var start = ret.indexOf("boss") === 2 ? 6 : 7;
         if(dungeons[selectedGame][ret.slice(start)]) {
             ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
         }
@@ -140,13 +140,13 @@ function fix_itemlabel(item) {
     ].indexOf(ret) > -1) {
         ret += " Suit";
     }
-    if(ret.indexOf("heart") === 0) {
+    if(ret.indexOf("heart") === 2) {
         ret = ret.replace("heart","Heart ");
         ret = ret.split(" ");
         ret[1] = ret[1].ucfirst();
         ret = ret.join(" ");
     }
-    if(ret.indexOf("triforcepiece") === 0) {
+    if(ret.indexOf("triforcepiece") === 2) {
         ret = "Triforce Piece " + ret.substr(-1);
     }
     ret = ret.ucfirst();
@@ -166,19 +166,22 @@ function build_img_url(item,useGame = selectedGame) {
     var metroid1items = gameItems.metroid1;
     let filext = "png";
 
+    let itemKey = item;
+    if(item.substring(1,2) == "1" || item.substring(1,2) == "3") {
+        item = item.substring(2);
+    }
+
     // Not Boss & not Chest
     if((item.indexOf("boss") == -1) && (item.indexOf("chest") == -1)) {
         if(item == "bomb") {
             useGame = "zelda3";
-        } else if(item == "bombs") {
+        } else if(metroid3items.indexOf(itemKey) > -1 || metroid3items.indexOf(itemKey.substr(0,itemKey.length-1)) > -1) {
             useGame = "metroid3";
-        } else if(metroid3items.indexOf(item) > -1 || metroid3items.indexOf(item.substr(0,item.length-1)) > -1) {
-            useGame = "metroid3";
-        } else if(metroid1items.indexOf(item) > -1 || metroid1items.indexOf(item.substr(0,item.length-1)) > -1) {
+        } else if(metroid1items.indexOf(itemKey) > -1 || metroid1items.indexOf(itemKey.substr(0,itemKey.length-1)) > -1) {
             useGame = "metroid1";
-        } else if(useGame == "zelda1") {
+        } else if(zelda1items.indexOf(itemKey) > -1 || zelda1items.indexOf(itemKey.substr(0,itemKey.length-1)) > -1) {
             useGame = "zelda1";
-        } else if(zelda3items.indexOf(item) > -1 || zelda3items.indexOf(item.substr(0,item.length-1)) > -1) {
+        } else if(zelda3items.indexOf(itemKey) > -1 || zelda3items.indexOf(itemKey.substr(0,itemKey.length-1)) > -1) {
             useGame = "zelda3";
         }
     }
@@ -237,12 +240,13 @@ function build_img_url(item,useGame = selectedGame) {
     }
     url += category + '/' + item + '.' + filext;
 
-    console.log(selectedGame,item,url);
-
     return url;
 }
 
 function mini(item) {
+    if(item.substring(1,2) == "1" || item.substring(1,2) == "3") {
+        item = item.substring(2);
+    }
     var title    = item.ucfirst();
 
     var globalReplaceTitle = {

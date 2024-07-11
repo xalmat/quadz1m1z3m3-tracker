@@ -168,7 +168,7 @@ function has(item, amount = -1) {
                         trackerData.zelda3 &&
                         trackerData.zelda3.prizes &&
                         trackerData.zelda3.prizes[k] == j &&
-                        trackerData.zelda3.items["boss" + k] === 2
+                        trackerData.zelda3.items["z3" + "boss" + k] === 2
                     ) {
                         trackerData.zelda3.gotprizes[j] += 1;
                     }

@@ -1,22 +1,22 @@
 defaultItemGrid.metroid1 = [
     [
-        "morph",
-        "bombs",
-        "long",
-        "ice",
-        "wave"
+        "m1morph",
+        "m1bombs",
+        "m1long",
+        "m1ice",
+        "m1wave"
     ],
     [
-        "missile",
-        "varia",
-        "hijump",
-        "screw",
+        "m1missile",
+        "m1varia",
+        "m1hijump",
+        "m1screw",
     ],
     [
-        "kraid",
-        "ridley",
-        "kraidtotem",
-        "ridleytotem"
+        "m1kraid",
+        "m1ridley",
+        "m1kraidtotem",
+        "m1ridleytotem"
     ],
 ];
 

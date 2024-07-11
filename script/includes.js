@@ -94,6 +94,7 @@ if(gameSet == "lozmx") {
     scripts.push("script/zelda3/item-limits.js");
     scripts.push("script/metroid3/item-limits.js");
     scripts.push("script/zelda1/item-limits.js");
+    scripts.push("script/metroid1/item-limits.js");
 } else if(gameSet == "smalttpr") {
     scripts.push("script/classes/Region/ALttP.js");
     scripts.push("script/classes/Region/SuperMetroid.js");

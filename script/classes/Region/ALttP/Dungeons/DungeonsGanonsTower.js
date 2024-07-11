@@ -143,7 +143,13 @@ class DungeonsGanonsTower extends Dungeons {
       this.canEnter.minorGlitches = function() {
           let crystalCount = 0;
           for(let k = 0; k < 10; k++) {
-              if(((trackerData.zelda3.prizes[k] === OJCRYSTAL) || (trackerData.zelda3.prizes[k] === CRYSTAL)) && trackerData.zelda3.items["boss" + k] === 2) {
+              if(
+                (
+                    (trackerData.zelda3.prizes[k] === OJCRYSTAL) ||
+                    (trackerData.zelda3.prizes[k] === CRYSTAL)
+                ) &&
+                trackerData.zelda3.items["z3" + "boss" + k] === 2
+            ) {
                   crystalCount++;
                   if(crystalCount === 7) {
                       break;

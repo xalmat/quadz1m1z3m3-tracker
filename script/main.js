@@ -82,17 +82,22 @@ for(let key in defaultBoth) {
 }
 
 var bosses = 0;
+var gameAbbr = "";
 if(selectedGame == "zelda3") {
+    gameAbbr = "z3";
     bosses = 11;
 } else if(selectedGame == "metroid3") {
+    gameAbbr = "m3";
     bosses = 10;
 } else if(selectedGame == "zelda1") {
+    gameAbbr = "z1";
     bosses = 10;
 } else if(selectedGame == "metroid1") {
+    gameAbbr = "m1";
     bosses = 3;
 }
 for(var i = 0; i < bosses; i++) {
-    trackerData[selectedGame].items["boss" + i] = 1;
+    trackerData[selectedGame].items[gameAbbr + "boss" + i] = 1;
 }
 
 function isCounter(key) {
@@ -1220,7 +1225,7 @@ function populateMapdiv(useGame = "zelda3") {
     // Dungeon bosses & chests
     for(k=0; k<dungeons[useGame].length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax["boss" + k]) + ')';
+        s.style.backgroundImage = 'url(' + build_img_url("boss" + k + itemsMax[gameAbbr + "boss" + k]) + ')';
         s.id = 'bossMap' + k;
         s.title = dungeons[useGame][k].titleStripped;
         s.onmouseover = new Function('highlightDungeon('+k+')');
@@ -1280,13 +1285,18 @@ function populateItemconfig() {
             if((typeof trackerData[thisGame].items[key]) === "boolean"){
                 rowitem.style.backgroundImage = "url(" + build_img_url(key,useGame) + ")";
             }
-            else if(key.indexOf('heart') === 0 || key.indexOf('missile') > -1 || key.indexOf('powerbomb') === 0 || key.indexOf('tank') > -1){
+            else if(
+                key.indexOf('heart') === 2 ||
+                key.indexOf('missile') > -1 ||
+                key.indexOf('powerbomb') > -1 ||
+                key.indexOf('tank') > -1
+            ) {
                 rowitem.style.backgroundImage = "url(" + build_img_url(key,useGame) + ")";
             }
             else {
                 rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key],useGame) + ")";
             }
-            if(key.indexOf("boss") === 0 && dungeons[thisGame][key.substring(4)]){
+            if(key.indexOf("boss") === 2 && dungeons[thisGame][key.substring(4)]){
                 rowitem.style.backgroundImage = "url(" + build_img_url(key + itemsMax[key],useGame) + ")";
                 let label = dungeons[thisGame][key.substring(4)].label;
                 if(label.length >= 4) {
@@ -1455,7 +1465,7 @@ Vue.component('tracker-cell', {
   computed: {
     bossNum: function() {
       if(this.itemName.indexOf("boss") === -1) { return null; }
-      return this.itemName.substring(4);
+      return this.itemName.substring(6);
     },
     dungeonLabel: function() {
       if(this.bossNum && this.trackerData[selectedGame] && this.trackerData[selectedGame].showLabels && dungeons[selectedGame][this.bossNum]) {
@@ -1468,8 +1478,16 @@ Vue.component('tracker-cell', {
     },
     textCounter: function() {
       var itemValue = this.trackerData[selectedGame].items[this.itemName];
-      if(this.itemName.indexOf('heart') === 0 || this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') === 0 || this.itemName.indexOf('tank') > -1) {
-        if(this.itemName.indexOf('missile') > -1 || this.itemName.indexOf('powerbomb') > -1) {
+      if(
+        this.itemName.indexOf('heart') === 2 ||
+        this.itemName.indexOf('missile') > -1 ||
+        this.itemName.indexOf('powerbomb') > -1 ||
+        this.itemName.indexOf('tank') > -1
+      ) {
+        if(
+            this.itemName.indexOf('missile') > -1 ||
+            this.itemName.indexOf('powerbomb') > -1
+        ) {
             itemValue *= 5;
         }
         return itemValue;
