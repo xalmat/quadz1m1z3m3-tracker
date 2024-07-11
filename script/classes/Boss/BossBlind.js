@@ -4,7 +4,7 @@ class BossBlind extends Boss {
   }
 
   canBeat() {
-	  return hasSword() || has("hammer")
-	  	|| has("somaria") || has("byrna");
+      return hasSword() || has("hammer")
+          || has("somaria") || has("byrna");
   }
 }

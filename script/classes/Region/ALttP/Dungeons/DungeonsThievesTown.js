@@ -1,97 +1,97 @@
 class DungeonsThievesTown extends Dungeons {
   constructor(name = "Dungeons", subname = "ThievesTown", buildLocations = true) {
-	super(name,subname,buildLocations);
-	let regionName = name + subname;
-	if(this.buildLocations) {
-		this.locations = new LocationCollection([
-			new Location("Chest","Thieves' Town - Attic","","",regionName),
-			new Location("Chest","Thieves' Town - Big Key Chest","","",regionName),
-			new Location("Chest","Thieves' Town - Map Chest","","",regionName),
-			new Location("Chest","Thieves' Town - Compass Chest","","",regionName),
-			new Location("Chest","Thieves' Town - Ambush Chest","","",regionName),
-			new Location("BigChest","Thieves' Town - Big Chest","","",regionName),
-			new Location("Chest","Thieves' Town - Blind's Cell","","",regionName),
-			new Location("Event","Thieves' Town - Blind","56.4%","47.9%",regionName)
-		],this);
-	}
+    super(name,subname,buildLocations);
+    let regionName = name + subname;
+    if(this.buildLocations) {
+        this.locations = new LocationCollection([
+            new Location("Chest","Thieves' Town - Attic","","",regionName),
+            new Location("Chest","Thieves' Town - Big Key Chest","","",regionName),
+            new Location("Chest","Thieves' Town - Map Chest","","",regionName),
+            new Location("Chest","Thieves' Town - Compass Chest","","",regionName),
+            new Location("Chest","Thieves' Town - Ambush Chest","","",regionName),
+            new Location("BigChest","Thieves' Town - Big Chest","","",regionName),
+            new Location("Chest","Thieves' Town - Blind's Cell","","",regionName),
+            new Location("Event","Thieves' Town - Blind","56.4%","47.9%",regionName)
+        ],this);
+    }
 
-	this.boss = new BossBlind();
+    this.boss = new BossBlind();
   }
 
   initNoMajorGlitches() {
-	let boss = this.boss;
-	let dungeon = this;
+    let boss = this.boss;
+    let dungeon = this;
 
-	if(this.buildLocations) {
-		this.locations["Thieves' Town - Attic"].glitchless = function() {
-			return has("key") && has("bigkey");
-		}
-		this.locations["Thieves' Town - Big Chest"].glitchless = function() {
-			return has("hammer") && has("key") && has("bigkey");
-		}
-		this.locations["Thieves' Town - Blind's Cell"].glitchless = function() {
-			return has("bigkey");
-		}
-	}
+    if(this.buildLocations) {
+        this.locations["Thieves' Town - Attic"].glitchless = function() {
+            return has("key") && has("bigkey");
+        }
+        this.locations["Thieves' Town - Big Chest"].glitchless = function() {
+            return has("hammer") && has("key") && has("bigkey");
+        }
+        this.locations["Thieves' Town - Blind's Cell"].glitchless = function() {
+            return has("bigkey");
+        }
+    }
 
-	this.locations["Thieves' Town - Blind"].glitchless = function() {
-		return has("key") && has("bigkey")
-			&& boss.canBeat();
-	}
+    this.locations["Thieves' Town - Blind"].glitchless = function() {
+        return has("key") && has("bigkey")
+            && boss.canBeat();
+    }
 
-	this.canEnter.glitchless = function() {
-		let nwdw = new DarkWorldNorthWest("","",false);
-		nwdw.initNoMajorGlitches();
+    this.canEnter.glitchless = function() {
+        let nwdw = new DarkWorldNorthWest("","",false);
+        nwdw.initNoMajorGlitches();
 
-		return (! isBunny(dungeon.subname)) && nwdw.canEnter.glitchless();
-	}
-	this.canComplete.glitchless = function() {
-		return dungeon.locations["Thieves' Town - Blind"].glitchless();
-	}
+        return (! isBunny(dungeon.subname)) && nwdw.canEnter.glitchless();
+    }
+    this.canComplete.glitchless = function() {
+        return dungeon.locations["Thieves' Town - Blind"].glitchless();
+    }
   }
 
   initMinorGlitches() {
-	  this.initNoMajorGlitches();
+      this.initNoMajorGlitches();
 
-	  let boss = this.boss;
-	  let dungeon = this;
+      let boss = this.boss;
+      let dungeon = this;
 
-	  this.canEnter.minorGlitches = function() {
-		  let dwnw = new DarkWorldNorthWest("","",false);
-		  dwnw.initMinorGlitches();
+      this.canEnter.minorGlitches = function() {
+          let dwnw = new DarkWorldNorthWest("","",false);
+          dwnw.initMinorGlitches();
 
-		  if((! isBunny(dungeon.subname))) {
-			  if(dwnw.canEnter.minorGlitches()) {
-				  return dwnw.canEnter.minorGlitches();
-			  }
-		  }
-	  }
-	  this.canGetChest.minorGlitches = function() {
-		  let mychests = trackerData.zelda3.dungeonchests[6];
+          if((! isBunny(dungeon.subname))) {
+              if(dwnw.canEnter.minorGlitches()) {
+                  return dwnw.canEnter.minorGlitches();
+              }
+          }
+      }
+      this.canGetChest.minorGlitches = function() {
+          let mychests = trackerData.zelda3.dungeonchests[6];
 
-		  if(dungeon.canEnter.glitchless()) {
-			  if(has("hammer")
-			  	|| mychests >= 3
-			  	|| (boss.canBeat() && mychests >= 2)) {
-				  return true;
-			  } else {
-				  return "partial";
-			  }
-		  } else if(dungeon.canEnter.minorGlitches()) {
-			  return dungeon.canEnter.minorGlitches();
-		  }
-	  }
+          if(dungeon.canEnter.glitchless()) {
+              if(has("hammer")
+                  || mychests >= 3
+                  || (boss.canBeat() && mychests >= 2)) {
+                  return true;
+              } else {
+                  return "partial";
+              }
+          } else if(dungeon.canEnter.minorGlitches()) {
+              return dungeon.canEnter.minorGlitches();
+          }
+      }
   }
 
   initMajorGlitches() {
-	  this.initOverworldGlitches();
+      this.initOverworldGlitches();
 
-	  this.canEnter.majorGlitches = function() {
-		  let nwdw = new DarkWorldNorthWest("","",false);
-		  nwdw.initMajorGlitches();
+      this.canEnter.majorGlitches = function() {
+          let nwdw = new DarkWorldNorthWest("","",false);
+          nwdw.initMajorGlitches();
 
-		  return glitchedLinkInDarkWorld()
-		  	&& nwdw.canEnter.majorGlitches();
-	  }
+          return glitchedLinkInDarkWorld()
+              && nwdw.canEnter.majorGlitches();
+      }
   }
 }

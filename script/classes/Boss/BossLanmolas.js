@@ -4,8 +4,8 @@ class BossLanmolas extends Boss {
   }
 
   canBeat() {
-	  return hasSword() || has("hammer")
-	  	|| canShootArrows() || has("firerod") || has("icerod")
-	  	|| has("byrna") || has("somaria");
+      return hasSword() || has("hammer")
+          || canShootArrows() || has("firerod") || has("icerod")
+          || has("byrna") || has("somaria");
   }
 }

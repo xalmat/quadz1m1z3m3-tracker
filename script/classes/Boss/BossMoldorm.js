@@ -4,6 +4,6 @@ class BossMoldorm extends Boss {
   }
 
   canBeat() {
-	  return hasSword() || has("hammer");
+      return hasSword() || has("hammer");
   }
 }

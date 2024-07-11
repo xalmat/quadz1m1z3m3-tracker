@@ -4,9 +4,9 @@ class BossTrinexx extends Boss {
   }
 
   canBeat() {
-	  return has("firerod") && has("icerod")
-	  	&& (hasSword(3) || has("hammer")
-	  		|| (canExtendMagic(2) && hasSword(2))
-	  		|| (canExtendMagic(4) && hasSword()));
+      return has("firerod") && has("icerod")
+          && (hasSword(3) || has("hammer")
+              || (canExtendMagic(2) && hasSword(2))
+              || (canExtendMagic(4) && hasSword()));
   }
 }

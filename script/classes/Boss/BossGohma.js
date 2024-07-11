@@ -4,6 +4,6 @@ class BossGohma extends Boss {
   }
 
   canBeat() {
-	  return canShootArrowsZ1();
+      return canShootArrowsZ1();
   }
 }
