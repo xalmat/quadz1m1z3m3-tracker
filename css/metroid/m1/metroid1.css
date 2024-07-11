@@ -1,0 +1,20 @@
+.metroid1 .mapdiv {
+    background: url(../../../images/metroid1/maps/map.png) no-repeat;
+    width: 630px;
+    height: 651px;
+    top: 20px;
+    left: 350px;
+    position: absolute;
+}
+
+.metroid1 .chest {
+    background-size: 16px 16px;
+    width: 16px !important;
+    height: 16px !important;
+    margin-left: 1px !important;
+    margin-top: 1px !important;
+}
+
+.metroid1 .metroid3-option {
+    display: none;
+}

@@ -10,47 +10,47 @@ class MaridiaOuter extends Maridia {
 	],this);
   }
 
-  initNormal() {
-  	this.locations["Missile (green Maridia shinespark)"].normalLogic = function() {
-  		return canDashSM();
-  	}
-  	this.locations["Energy Tank, Mama turtle"].normalLogic = function() {
-  		return canFlySM() || canDashSM() || canGrappleSM();
-  	}
+  initCasual() {
+	this.locations["Missile (green Maridia shinespark)"].casualLogic = function() {
+		return canDashSM();
+	}
+	this.locations["Energy Tank, Mama turtle"].casualLogic = function() {
+		return canFlySM() || canDashSM() || canGrappleSM();
+	}
 
-  	this.canEnter.normalLogic = function() {
-  		let nw = new NorfairWest("","",false);
-  		nw.initNormal();
+	this.canEnter.casualLogic = function() {
+		let nw = new NorfairWest("","",false);
+		nw.initCasual();
 
-  		return ((nw.canEnter.normalLogic()
-  				&& canUsePowerBombs())
-  				|| canAccessMaridiaPortal())
-  			&& canSwimSM();
-  	}
-    this.canComplete.normalLogic = function() {
-  		return canDefeatDraygon();
+		return ((nw.canEnter.casualLogic()
+				&& canUsePowerBombs())
+				|| canAccessMaridiaPortal())
+			&& canSwimSM();
+	}
+    this.canComplete.casualLogic = function() {
+		return canDefeatDraygon();
     }
   }
 
-  initHard() {
-  	this.initNormal();
+  initTournament() {
+	this.initCasual();
 
-  	this.locations["Missile (green Maridia shinespark)"].hardLogic = function() {
-  		return canSwimSM() && canDashSM();
-  	}
-    this.locations["Energy Tank, Mama turtle"].hardLogic = function() {
-  		return canFlySM() || canDashSM() || canGrappleSM() || canSpringBallJump();
-  	}
+	this.locations["Missile (green Maridia shinespark)"].tourneyLogic = function() {
+		return canSwimSM() && canDashSM();
+	}
+    this.locations["Energy Tank, Mama turtle"].tourneyLogic = function() {
+		return canFlySM() || canDashSM() || canGrappleSM() || canSpringBallJump();
+	}
 
-  	this.canEnter.hardLogic = function() {
-  		let nw = new NorfairWest("","",false);
-  		nw.initHard();
+	this.canEnter.tourneyLogic = function() {
+		let nw = new NorfairWest("","",false);
+		nw.initTournament();
 
-  		return (nw.canEnter.hardLogic()
-  			&& canUsePowerBombs()
-  			&& (canDashSM()
-  				|| (canHiJump() && (canSpringBallJump() || has("ice")))))
-  			|| canAccessMaridiaPortal();
-  	}
+		return (nw.canEnter.tourneyLogic()
+			&& canUsePowerBombs()
+			&& (canDashSM()
+				|| (canHiJump() && (canSpringBallJump() || has("ice")))))
+			|| canAccessMaridiaPortal();
+	}
   }
 }
