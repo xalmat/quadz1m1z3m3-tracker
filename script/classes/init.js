@@ -1,6 +1,10 @@
 function initClasses(useGame) {
 	var boss = 0;
 	for(var gameName in regionNames) {
+		// GTFO if we're using the oldstyle database
+		if(gameName == "zelda3" && zeldaMode == "oldstyle") {
+			continue;
+		}
 		if(gameName == useGame) {
 			game = regionNames[gameName];
 			var i = 1;
@@ -11,13 +15,12 @@ function initClasses(useGame) {
 					var regionClassName = fix_region(regionName) + fix_region(segmentName);
 					var regionObject = eval("new " + regionClassName + "()");
 
-					if(useGame == "zelda3") {
+					if(useGame == "zelda3" || useGame == "zelda1") {
 						regionObject.initMajorGlitches();
-					} else if(useGame == "metroid3") {
-						regionObject.initHard();
-					} else if(useGame == "averge1") {
-            regionObject.initNoMajorGlitches();
-          }
+					}
+					if(useGame == "metroid3" || useGame == "metroid1") {
+						regionObject.initTournament();
+					}
 
 					regionObjects[regionClassName] = regionObject;
 
@@ -44,23 +47,20 @@ function initClasses(useGame) {
 							type: location.type,
 							region: location.region,
 						};
-						if(useGame == "zelda3") {
+						if(useGame == "zelda3" || useGame == "zelda1") {
 							props.canAccess = {
 								glitchless: location.glitchless,
 								minorGlitches: location.minorGlitches,
 								owGlitches: location.owGlitches,
 								majorGlitches: location.majorGlitches
 							};
-						} else if(useGame == "metroid3") {
+						}
+						if(useGame == "metroid3" || useGame == "metroid1") {
 							props.canAccess = {
-								normalLogic: location.normalLogic,
-								hardLogic: location.hardLogic
+								casualLogic: location.casualLogic,
+								tourneyLogic: location.tourneyLogic
 							};
-						} else if(useGame == "averge1") {
-              props.canAccess = {
-                glitchless: location.glitchless
-              }
-            }
+						}
 						if(location.equipment) {
 							var regex = /%%([\w]+)%%/g;
 							var equip = location.equipment;
@@ -87,12 +87,15 @@ function initClasses(useGame) {
 								ret = ret.substring(0,1);
 								return ret;
 							});
+							if(useGame == "zelda1") {
+								label = location.name.substring(4).split('');
+							}
 
 							var dungeon = {
 								label: label.join(''),
 								isBeatable: function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										// No Glitches
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
@@ -126,23 +129,20 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
 											availability.majorGlitches = "available";
 										}
-									} else if(selectedGame == "metroid3") {
-										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
-											availability.normalLogic = "available";
+									}
+									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
+										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
+											availability.casualLogic = "available";
 										}
-										if(regionObjects[this.region].canEnter.hardLogic() && this.canAccess.hardLogic()) {
-											availability.hardLogic = "available";
+										if(regionObjects[this.region].canEnter.tourneyLogic() && this.canAccess.tourneyLogic()) {
+											availability.tourneyLogic = "available";
 										}
-									} else if(selectedGame == "averge1") {
-										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
-											availability.glitchless = "available";
-										}
-                  }
+									}
 									return availability;
 								},
 								canGetChest: function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										let regionAccess = regionObjects[this.region].canEnter.minorGlitches();
 										let localAccess = regionObjects[this.region].canGetChest.minorGlitches();
 										if(regionAccess && localAccess) {
@@ -183,7 +183,7 @@ function initClasses(useGame) {
 								chest.isWarp = location.type == "Warp";
 								chest.isAvailable = function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										var tmp = "";
 
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
@@ -197,25 +197,18 @@ function initClasses(useGame) {
 											availability.owGlitches = tmp + " inactive";
 											availability.majorGlitches = tmp + " inactive";
 										}
-									} else if(selectedGame == "metroid3") {
+									}
+									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
 										var tmp = "";
 
-										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
-											availability.normalLogic = tmp + " active";
-											availability.hardLogic = tmp + " active";
+										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
+											availability.casualLogic = tmp + " active";
+											availability.tourneyLogic = tmp + " active";
 										} else {
-											availability.normalLogic = tmp + " inactive";
-											availability.hardLogic = tmp + " inactive";
+											availability.casualLogic = tmp + " inactive";
+											availability.tourneyLogic = tmp + " inactive";
 										}
-									} else if(selectedGame == "averge1") {
-										var tmp = "";
-
-										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
-											availability.glitchless = tmp + " active";
-										} else {
-											availability.glitchless = tmp + " inactive";
-                    }
-                  }
+									}
 									return availability;
 								};
 							} else {											// Chest
@@ -223,7 +216,7 @@ function initClasses(useGame) {
 								chest.isVanilla = location.vanilla;
 								chest.isAvailable = function() {
 									const availability = new Availability();
-									if(selectedGame == "zelda3") {
+									if(selectedGame == "zelda3" || selectedGame == "zelda1") {
 										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
 											availability.glitchless = "available";
 										}
@@ -250,18 +243,15 @@ function initClasses(useGame) {
 										if(regionObjects[this.region].canEnter.majorGlitches() && this.canAccess.majorGlitches()) {
 											availability.majorGlitches = "available";
 										}
-									} else if(selectedGame == "metroid3") {
-										if(regionObjects[this.region].canEnter.normalLogic() && this.canAccess.normalLogic()) {
-											availability.normalLogic = "available";
+									}
+									if(selectedGame == "metroid3" || selectedGame == "metroid1") {
+										if(regionObjects[this.region].canEnter.casualLogic() && this.canAccess.casualLogic()) {
+											availability.casualLogic = "available";
 										}
-										if(regionObjects[this.region].canEnter.hardLogic() && this.canAccess.hardLogic()) {
-											availability.hardLogic = "available";
+										if(regionObjects[this.region].canEnter.tourneyLogic() && this.canAccess.tourneyLogic()) {
+											availability.tourneyLogic = "available";
 										}
-									} else if(selectedGame == "averge1") {
-										if(regionObjects[this.region].canEnter.glitchless() && this.canAccess.glitchless()) {
-											availability.glitchless = "available";
-										}
-                  }
+									}
 									return availability;
 								}
 							}
