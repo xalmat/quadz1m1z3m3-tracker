@@ -1529,7 +1529,7 @@ dungeons.zelda3[9] = {
                 availability.glitchless = 'possible';
             }
             else if (this.canEnter('glitchless', true)) {
-				availability.glitchless = 'glitchavailable';
+                availability.glitchless = 'glitchavailable';
             }
             else if (this.mayEnter('glitchless', true)) {
                 availability.glitchless = 'glitchpossible';

@@ -1,23 +1,23 @@
 defaultItemGrid.metroid1 = [
-	[
-		"morph",
-		"bombs",
-		"long",
-		"ice",
-		"wave"
-	],
-	[
-		"missile",
-		"varia",
-		"hijump",
-		"screw",
-	],
-	[
-		"kraid",
-		"ridley",
-		"kraidtotem",
-		"ridleytotem"
-	],
+    [
+        "morph",
+        "bombs",
+        "long",
+        "ice",
+        "wave"
+    ],
+    [
+        "missile",
+        "varia",
+        "hijump",
+        "screw",
+    ],
+    [
+        "kraid",
+        "ridley",
+        "kraidtotem",
+        "ridleytotem"
+    ],
 ];
 
 dungeonchestsInit.metroid1 = {};

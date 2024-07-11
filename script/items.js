@@ -65,35 +65,35 @@ gameItems.zelda3 = [
     "dungeon3"
 ];
 gameItems.zelda1 = [
-	"boomerang",		// Z3
-	"bomb",				// Z3
-	"bow",				// Z3
-	"woods",			// Z3
-	"silvers",			// Z3
-	"candle",
-	"recorder",
-	"food",
-	"bottle",			// Z3
-	"magicrod",
-	"magicalrod",
-	"sword",			// Z3
-	"shield",			// Z3
-	"heartcontainer",	// Z3
-	"raft",
-	"book",				// Z3
-	"ring",
-	"ladder",
-	"magicalkey",
-	"bracelet",
-	"letter",
-	"boss0",			// Z3
-	"boss1",			// Z3
-	"boss2",			// Z3
-	"boss3",			// Z3
-	"boss4",			// Z3
-	"boss5",			// Z3
-	"boss6",			// Z3
-	"boss7"				// Z3
+    "boomerang",        // Z3
+    "bomb",                // Z3
+    "bow",                // Z3
+    "woods",            // Z3
+    "silvers",            // Z3
+    "candle",
+    "recorder",
+    "food",
+    "bottle",            // Z3
+    "magicrod",
+    "magicalrod",
+    "sword",            // Z3
+    "shield",            // Z3
+    "heartcontainer",    // Z3
+    "raft",
+    "book",                // Z3
+    "ring",
+    "ladder",
+    "magicalkey",
+    "bracelet",
+    "letter",
+    "boss0",            // Z3
+    "boss1",            // Z3
+    "boss2",            // Z3
+    "boss3",            // Z3
+    "boss4",            // Z3
+    "boss5",            // Z3
+    "boss6",            // Z3
+    "boss7"                // Z3
 ];
 gameItems.metroid3 = [
     "charge",
@@ -134,19 +134,19 @@ gameItems.metroid3 = [
     "boss9"
 ];
 gameItems.metroid1 = [
-	"morph",		// M3
-	"bombs",		// M3
-	"long",
-	"ice",			// M3
-	"wave",			// M3
-	"missile",		// M3
-	"varia",		// M3
-	"hijump",		// M3
-	"screw",		// M3
-	"kraid",		// M3
-	"ridley",		// M3
-	"kraidtotem",
-	"ridleytotem"
+    "morph",        // M3
+    "bombs",        // M3
+    "long",
+    "ice",            // M3
+    "wave",            // M3
+    "missile",        // M3
+    "varia",        // M3
+    "hijump",        // M3
+    "screw",        // M3
+    "kraid",        // M3
+    "ridley",        // M3
+    "kraidtotem",
+    "ridleytotem"
 ];
 
 var itemsInit = {
@@ -191,7 +191,7 @@ var itemsInit = {
 
     agahnim: 0,
 
-	bracelet: false,
+    bracelet: false,
     candle: 0,
     food: false,
     ladder: false,

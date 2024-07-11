@@ -19,11 +19,11 @@ class Location {
     this.quest = 1;
     this.vanilla = true;
 
-	if(typeof extra.quest !== "undefined") {
-		this.quest = extra.quest;
-	}
+    if(typeof extra.quest !== "undefined") {
+        this.quest = extra.quest;
+    }
     if(typeof extra.vanilla !== "undefined") {
-		this.vanilla = extra.vanilla;
-	}
+        this.vanilla = extra.vanilla;
+    }
   }
 }

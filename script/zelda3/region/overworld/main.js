@@ -332,7 +332,7 @@ chests.zelda3[13] = {
         const availability = new Availability();
         if (canLiftRocks() && has("hammer") && has("moonpearl")) {
             if (canEnterWestDeathMountain('glitchless', true)) {
-				if (canEnterWestDeathMountain('glitchless', false) && canExtendMagic() && (canInvul())) {
+                if (canEnterWestDeathMountain('glitchless', false) && canExtendMagic() && (canInvul())) {
                     if (canEnterWestDeathMountain('glitchless', false)) {
                         availability.glitchless = 'available';
                     }

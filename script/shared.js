@@ -1,5 +1,5 @@
 String.prototype.ucfirst = function () {
-	return this.substr(0,1).toUpperCase() + this.slice(1);
+    return this.substr(0,1).toUpperCase() + this.slice(1);
 }
 
 const CRYSTAL = 0;
@@ -29,16 +29,16 @@ var selectedGame = (getParameterByName("game",window.location) != null) ? getPar
 var effectiveVersion = "";
 var gameNames = [];
 var altGames = {
-	zelda3: "metroid3",
-	zelda1: "metroid1",
-	metroid3: "zelda3",
-	metroid1: "zelda1"
+    zelda3: "metroid3",
+    zelda1: "metroid1",
+    metroid3: "zelda3",
+    metroid1: "zelda1"
 };
 
 if(selectedGame == "zelda3" || selectedGame == "metroid3") {
-	gameNames = ["zelda3","metroid3"];
+    gameNames = ["zelda3","metroid3"];
 } else if(selectedGame == "zelda1" || selectedGame == "metroid1") {
-	gameNames = ["zelda1","metroid1"];
+    gameNames = ["zelda1","metroid1"];
 }
 
 var chests = {};
@@ -49,23 +49,23 @@ var regionNames = {};
 var zeldaMode = (getParameterByName("zeldaMode",window.location) != null) ? getParameterByName("zeldaMode",window.location) : "oldstyle";
 var metroidMode = (getParameterByName("metroidMode",window.location) != null) ? getParameterByName("metroidMode",window.location) : "";
 for(var gameName in gameNames) {
-	gameName = gameNames[gameName];
-	chests[gameName] = [];
-	dungeons[gameName] = [];
-	cookieDefault[gameName] = {};
+    gameName = gameNames[gameName];
+    chests[gameName] = [];
+    dungeons[gameName] = [];
+    cookieDefault[gameName] = {};
 }
 
 var roomid = getParameterByName("roomid",window.location);
 var questid = getParameterByName("questid",window.location);
 if(roomid === null) {
-	if(selectedGame == "zelda3" || selectedGame == "metroid3") {
-		roomid = "smalttpr";
-	} else if(["zelda1","metroid1"].indexOf(selectedGame) > -1) {
-		roomid = "lozmx";
-	}
+    if(selectedGame == "zelda3" || selectedGame == "metroid3") {
+        roomid = "smalttpr";
+    } else if(["zelda1","metroid1"].indexOf(selectedGame) > -1) {
+        roomid = "lozmx";
+    }
 }
 if(questid === null) {
-	questid = 1;
+    questid = 1;
 }
 var authAttempted = false;
 
@@ -73,69 +73,69 @@ function destroyFirebase() {
 }
 
 function tokenize(input) {
-	let output = input;
-	let replacements = {
-		' ': '-',
-		'"': '',
-		"'": ''
-	};
-	for(let search in replacements) {
-		let replace = replacements[search];
-		output = output.replace(search,replace);
-	}
-	return output.toLowerCase();
+    let output = input;
+    let replacements = {
+        ' ': '-',
+        '"': '',
+        "'": ''
+    };
+    for(let search in replacements) {
+        let replace = replacements[search];
+        output = output.replace(search,replace);
+    }
+    return output.toLowerCase();
 }
 
 function fix_itemlabel(item) {
-	var ret = item;
-	var names = {
-		"firerod":		"Fire Rod",
-		"icerod":		"Ice Rod",
-		"moonpearl":	"Moon Pearl",
-		"mpupgrade":	"Magic Upgrade",
-		"etank":		"Energy Tank",
-		"hijump":		"Hi-Jump Boots",
-		"morph":		"Morph Ball",
-		"powerbomb":	"Power Bomb",
-		"rtank":		"Reserve Tank",
-		"screw":		"Screw Attack",
-		"space":		"Space Jump",
-		"speed":		"Speed Booster",
-		"springball":	"Spring Ball",
-		"supermissile": "Super Missile",
-		"xray":			"X-Ray Scope",
-		"kraidtotem":	"Kraid Totem",
-		"ridleytotem":	"Ridley Totem",
-		"triforcepiece":"Triforce Piece",
-	};
-	if(names[ret]) {
-		ret = names[ret];
-	}
+    var ret = item;
+    var names = {
+        "firerod":        "Fire Rod",
+        "icerod":        "Ice Rod",
+        "moonpearl":    "Moon Pearl",
+        "mpupgrade":    "Magic Upgrade",
+        "etank":        "Energy Tank",
+        "hijump":        "Hi-Jump Boots",
+        "morph":        "Morph Ball",
+        "powerbomb":    "Power Bomb",
+        "rtank":        "Reserve Tank",
+        "screw":        "Screw Attack",
+        "space":        "Space Jump",
+        "speed":        "Speed Booster",
+        "springball":    "Spring Ball",
+        "supermissile": "Super Missile",
+        "xray":            "X-Ray Scope",
+        "kraidtotem":    "Kraid Totem",
+        "ridleytotem":    "Ridley Totem",
+        "triforcepiece":"Triforce Piece",
+    };
+    if(names[ret]) {
+        ret = names[ret];
+    }
 
-	if((ret.indexOf("boss") === 0) || (ret.indexOf("chest") === 0)) {
-		var start = ret.indexOf("boss") === 0 ? 4 : 5;
-		if(dungeons[selectedGame][ret.slice(start)]) {
-			ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
-		}
-	}
-	var beams = ["charge","ice","wave","plasma","grappling","long"];
-	if(beams.indexOf(ret) > -1) {
-		ret += " Beam";
-	}
-	if(ret == "varia" || ret == "gravity") {
-		ret += " Suit";
-	}
-	if(ret.indexOf("heart") === 0) {
-		ret = ret.replace("heart","Heart ");
-		ret = ret.split(" ");
-		ret[1] = ret[1].ucfirst();
-		ret = ret.join(" ");
-	}
-	if(ret.indexOf("triforcepiece") === 0) {
-		ret = "Triforce Piece " + ret.substr(-1);
-	}
-	ret = ret.ucfirst();
-	return ret;
+    if((ret.indexOf("boss") === 0) || (ret.indexOf("chest") === 0)) {
+        var start = ret.indexOf("boss") === 0 ? 4 : 5;
+        if(dungeons[selectedGame][ret.slice(start)]) {
+            ret = dungeons[selectedGame][ret.slice(start)].titleStripped;
+        }
+    }
+    var beams = ["charge","ice","wave","plasma","grappling","long"];
+    if(beams.indexOf(ret) > -1) {
+        ret += " Beam";
+    }
+    if(ret == "varia" || ret == "gravity") {
+        ret += " Suit";
+    }
+    if(ret.indexOf("heart") === 0) {
+        ret = ret.replace("heart","Heart ");
+        ret = ret.split(" ");
+        ret[1] = ret[1].ucfirst();
+        ret = ret.join(" ");
+    }
+    if(ret.indexOf("triforcepiece") === 0) {
+        ret = "Triforce Piece " + ret.substr(-1);
+    }
+    ret = ret.ucfirst();
+    return ret;
 }
 
 function build_img_url(item,useGame = selectedGame) {
@@ -163,78 +163,78 @@ function build_img_url(item,useGame = selectedGame) {
         }
     }
     if(selectedGame == "zelda1" && item.indexOf("boss5") > -1) {
-		filext = "gif";
-	}
+        filext = "gif";
+    }
 
     var globalReplaceItem = {
-		agahnim:	"agahnim1",
-		bomb:		"bomb1",
-		bomb0:		"bomb1",
-		boomerang0:	"boomerang1",
-		bottle:		"bottle1",
-		bottle0:	"bottle1",
-		candle:		"candle1",
-		candle0:	"candle1",
-		crystal5:	"dungeon" + OJCRYSTAL,
-		crystal6:	"dungeon" + OJCRYSTAL,
-		flute:		"flute0",
-		glove0:		"glove1",
-		lamp:		"lantern",
-		medallion1:	"bombos",
-		medallion2:	"ether",
-		medallion3:	"quake",
-		pendant0:	"dungeon" + GREENPENDANT,
-		ring0:		"ring1",
-		shield0:	"shield1",
-		sword0:		"sword1",
-	};
-	globalReplaceItem["blueCrystal"] = "dungeon" + CRYSTAL;
-	globalReplaceItem["redCrystal"] = "dungeon" + OJCRYSTAL;
+        agahnim:    "agahnim1",
+        bomb:        "bomb1",
+        bomb0:        "bomb1",
+        boomerang0:    "boomerang1",
+        bottle:        "bottle1",
+        bottle0:    "bottle1",
+        candle:        "candle1",
+        candle0:    "candle1",
+        crystal5:    "dungeon" + OJCRYSTAL,
+        crystal6:    "dungeon" + OJCRYSTAL,
+        flute:        "flute0",
+        glove0:        "glove1",
+        lamp:        "lantern",
+        medallion1:    "bombos",
+        medallion2:    "ether",
+        medallion3:    "quake",
+        pendant0:    "dungeon" + GREENPENDANT,
+        ring0:        "ring1",
+        shield0:    "shield1",
+        sword0:        "sword1",
+    };
+    globalReplaceItem["blueCrystal"] = "dungeon" + CRYSTAL;
+    globalReplaceItem["redCrystal"] = "dungeon" + OJCRYSTAL;
 
-	if(globalReplaceItem[item]) {
-		item = globalReplaceItem[item];
-	}
+    if(globalReplaceItem[item]) {
+        item = globalReplaceItem[item];
+    }
 
-	var category = "inventory";
-	if(item.indexOf("boss") === 0) {
-		category = "bosses";
-	} else if(item.indexOf("chest") === 0) {
-		category = "chests";
-	} else if(item.indexOf("medallion") === 0) {
-		category = "medallions";
-	} else if(item.indexOf("dungeon") === 0 || item.indexOf("pendant") === 0) {
-		category = "prizes";
-	} else if(misc.indexOf(item) > -1) {
-		category = "misc";
-	}
+    var category = "inventory";
+    if(item.indexOf("boss") === 0) {
+        category = "bosses";
+    } else if(item.indexOf("chest") === 0) {
+        category = "chests";
+    } else if(item.indexOf("medallion") === 0) {
+        category = "medallions";
+    } else if(item.indexOf("dungeon") === 0 || item.indexOf("pendant") === 0) {
+        category = "prizes";
+    } else if(misc.indexOf(item) > -1) {
+        category = "misc";
+    }
 
-	var url = "images/";
-	if(category != "misc") {
-		url += useGame + '/';
-	}
-	url += category + '/' + item + '.' + filext;
+    var url = "images/";
+    if(category != "misc") {
+        url += useGame + '/';
+    }
+    url += category + '/' + item + '.' + filext;
     return url;
 }
 
 function mini(item) {
-	var title	= item.ucfirst();
+    var title    = item.ucfirst();
 
-	var globalReplaceTitle = {
-		pendant1:	"Pendant of Power",
-		pendant2:	"Pendant of Wisdom",
-	};
-	globalReplaceTitle["dungeon" + GREENPENDANT] = "Pendant of Courage";
-	globalReplaceTitle["dungeon" + CRYSTAL] = "Blue Crystal";
-	globalReplaceTitle["dungeon" + OJCRYSTAL] = "Red Crystal";
+    var globalReplaceTitle = {
+        pendant1:    "Pendant of Power",
+        pendant2:    "Pendant of Wisdom",
+    };
+    globalReplaceTitle["dungeon" + GREENPENDANT] = "Pendant of Courage";
+    globalReplaceTitle["dungeon" + CRYSTAL] = "Blue Crystal";
+    globalReplaceTitle["dungeon" + OJCRYSTAL] = "Red Crystal";
 
-	if(globalReplaceTitle[item]) {
-		title = globalReplaceTitle[item].ucfirst();
-	}
+    if(globalReplaceTitle[item]) {
+        title = globalReplaceTitle[item].ucfirst();
+    }
 
-	for(var i = 0; i < 10; i++) {
-		title = title.replace(i,"");
-	}
-	return '<img src="' + build_img_url(item) + '" title="' + title + '" class="mini" />';
+    for(var i = 0; i < 10; i++) {
+        title = title.replace(i,"");
+    }
+    return '<img src="' + build_img_url(item) + '" title="' + title + '" class="mini" />';
 }
 
 function init(callback,arguments) {
