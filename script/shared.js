@@ -117,7 +117,7 @@ function fix_itemlabel(item) {
         ret = names[ret];
     }
 
-    if((ret.indexOf("boss") === 2) || (ret.indexOf("chest") === 0)) {
+    if((ret.indexOf("boss") === 2) || (ret.indexOf("chest") === 2)) {
         var start = ret.indexOf("boss") === 2 ? 6 : 7;
         if(dungeons[selectedGame][ret.slice(start)]) {
             ret = dungeons[selectedGame][ret.slice(start)].titleStripped;

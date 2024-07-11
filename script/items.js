@@ -212,6 +212,11 @@ var itemsInit = {
     z1woods: false,
     z1silvers: false,
     z1book: false,
+    z1boomerang: 0,
+    z1bomb: 0,
+    z1bottle: 0,
+    z1sword: 0,
+    z1shield: 0,
 
     z1bracelet: false,
     z1candle: 0,

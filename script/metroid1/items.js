@@ -13,10 +13,13 @@ defaultItemGrid.metroid1 = [
         "m1screw",
     ],
     [
-        "m1kraid",
-        "m1ridley",
+        "m1boss0",
+        "m1boss1",
         "m1kraidtotem",
-        "m1ridleytotem"
+        "m1ridleytotem",
+    ],
+    [
+        "m1boss2",
     ],
 ];
 

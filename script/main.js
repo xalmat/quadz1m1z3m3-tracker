@@ -1581,6 +1581,14 @@ Vue.component('tracker-cell', {
         this.trackerData[selectedGame].dungeonbeaten[this.bossNum] = !this.trackerData[selectedGame].dungeonbeaten[this.bossNum];
         updateAll();
       }
+      // M1 Bosses
+      if(["m1kraid","m1ridley","m1kraidtotem","m1ridleytotem"].indexOf(this.itemName) > -1) {
+        for(let [idx, boss] of Object.entries(["kraid","ridley"])) {
+            if(this.itemName.indexOf(boss) > -1) {
+                this.trackerData[selectedGame].dungeonbeaten[idx] = !this.trackerData[selectedGame].dungeonbeaten[idx];
+            }
+        }
+      }
       if((typeof itemValue) === "boolean"){
         this.trackerData[selectedGame].items[this.itemName] = !itemValue;
         updateAll();
@@ -1616,7 +1624,7 @@ Vue.component('tracker-cell', {
       this.clickMedallion(-1);
     },
     clickChest: function(amt) {
-      var chestitem = 'chest' + this.bossNum;
+      var chestitem = gameAbbr + 'chest' + this.bossNum;
       var modamt = itemsMax[chestitem] + 1;
       var newVal = (this.trackerData[selectedGame].dungeonchests[this.bossNum] + amt + modamt) % modamt;
       this.trackerData[selectedGame].dungeonchests[this.bossNum] = newVal;
