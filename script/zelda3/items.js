@@ -5,7 +5,7 @@ defaultItemGrid.zelda3 = [
 		"boomerang",
 		"hookshot",
 		"bomb",
-		"powder"
+		"powder",
 	],
 	[
 		"sword",
@@ -13,7 +13,7 @@ defaultItemGrid.zelda3 = [
 		"icerod",
 		"bombos",
 		"ether",
-		"quake"
+		"quake",
 	],
 	[
 		"shield",
@@ -21,7 +21,7 @@ defaultItemGrid.zelda3 = [
 		"hammer",
 		"flute",
 		"net",
-		"book"
+		"book",
 	],
 	[
 		"mushroom",
@@ -29,7 +29,7 @@ defaultItemGrid.zelda3 = [
 		"somaria",
 		"byrna",
 		"cape",
-		"mirror"
+		"mirror",
 	],
 	[
 		"shovel",
@@ -37,7 +37,7 @@ defaultItemGrid.zelda3 = [
 		"glove",
 		"flippers",
 		"moonpearl",
-		"agahnim"
+		"agahnim",
 	],
 	[
 		"silvers",
@@ -45,7 +45,7 @@ defaultItemGrid.zelda3 = [
 		"boss1",
 		"boss2",
 		"boss0",
-		"boss9"
+		"boss9",
 	],
 	[
 		"mpupgrade",
@@ -53,7 +53,7 @@ defaultItemGrid.zelda3 = [
 		"boss8",
 		"boss4",
 		"boss7",
-		"boss3"
+		"boss3",
 	],
 	[
 		"missile",
@@ -61,7 +61,7 @@ defaultItemGrid.zelda3 = [
 		"powerbomb",
 		"grappling",
 		"ice",
-		"varia"
+		"varia",
 	],
 	[
 		"morph",
@@ -69,8 +69,8 @@ defaultItemGrid.zelda3 = [
 		"hijump",
 		"screw",
 		"speed",
-		"gravity"
-	]
+		"gravity",
+	],
 ];
 
 dungeonchestsInit.zelda3 = {
