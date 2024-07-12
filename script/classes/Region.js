@@ -4,21 +4,21 @@ class Region {
     this.subname = subname;
     this.buildLocations = buildLocations;
     this.canEnter = {
-		glitchless: function() { return true; },
-		minorGlitches: function() { return this.glitchless(); },
-		owGlitches: function() { return this.minorGlitches(); },
-		majorGlitches: function() { return this.owGlitches(); },
-		casualLogic: function() { return true; },
-		tourneyLogic: function() { return this.casualLogic(); }
-	};
+        glitchless: function() { return true; },
+        minorGlitches: function() { return this.glitchless(); },
+        owGlitches: function() { return this.minorGlitches(); },
+        majorGlitches: function() { return this.owGlitches(); },
+        casualLogic: function() { return true; },
+        tourneyLogic: function() { return this.casualLogic(); }
+    };
     this.canComplete = {
-		glitchless: function() { return false; },
-		minorGlitches: function() { return this.glitchless(); },
-		owGlitches: function() { return this.minorGlitches(); },
-		majorGlitches: function() { return this.owGlitches(); },
-		casualLogic: function() { return canEnter.casualLogic(); },
-		tourneyLogic: function() { return this.casualLogic(); }
-	};
+        glitchless: function() { return false; },
+        minorGlitches: function() { return this.glitchless(); },
+        owGlitches: function() { return this.minorGlitches(); },
+        majorGlitches: function() { return this.owGlitches(); },
+        casualLogic: function() { return canEnter.casualLogic(); },
+        tourneyLogic: function() { return this.casualLogic(); }
+    };
     Region.prototype.initNone = function() { };
     Region.prototype.initNoMajorGlitches = function() { };
     Region.prototype.initMinorGlitches = function() { this.initNoMajorGlitches(); };

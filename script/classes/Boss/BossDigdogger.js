@@ -4,6 +4,6 @@ class BossDigdogger extends Boss {
   }
 
   canBeat() {
-	  return has("recorder") && hasSword();
+      return has("recorder") && hasSword();
   }
 }

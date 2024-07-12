@@ -1529,7 +1529,7 @@ dungeons.zelda3[9] = {
                 availability.glitchless = 'possible';
             }
             else if (this.canEnter('glitchless', true)) {
-				availability.glitchless = 'glitchavailable';
+                availability.glitchless = 'glitchavailable';
             }
             else if (this.mayEnter('glitchless', true)) {
                 availability.glitchless = 'glitchpossible';
@@ -1820,7 +1820,13 @@ dungeons.zelda3[10] = {
         else if (logic === 'glitchless') {
             let crystalCount = 0;
             for (let k = 0; k < 10; k++) {
-                if (((trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === OJCRYSTAL) || (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === CRYSTAL)) && trackerData.zelda3.items["boss" + k] === 2) {
+                if (
+                       (
+                           (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === OJCRYSTAL) ||
+                           (trackerData.zelda3 && trackerData.zelda3.prizes && trackerData.zelda3.prizes[k] === CRYSTAL)
+                       ) &&
+                       trackerData.zelda3.items["z3" + "boss" + k] === 2
+                ) {
                     crystalCount++;
                     if (crystalCount === 7) {
                         break;

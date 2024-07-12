@@ -4,6 +4,6 @@ class BossManhandla extends Boss {
   }
 
   canBeat() {
-	  return hasSword() || has("bomb");
+      return hasSword() || has("bomb");
   }
 }

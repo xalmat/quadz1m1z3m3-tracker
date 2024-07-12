@@ -4,6 +4,6 @@ class BossVitreous extends Boss {
   }
 
   canBeat() {
-	  return has("hammer") || hasSword() || canShootArrows();
+      return has("hammer") || hasSword() || canShootArrows();
   }
 }

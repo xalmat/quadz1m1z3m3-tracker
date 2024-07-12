@@ -4,7 +4,7 @@ class BossArrghus extends Boss {
   }
 
   canBeat() {
-	  return has("hookshot") && (has("hammer") || hasSword()
-	  	|| ((canExtendMagic(2) || canShootArrows()) && (has("firerod") || has("icerod"))));
+      return has("hookshot") && (has("hammer") || hasSword()
+          || ((canExtendMagic(2) || canShootArrows()) && (has("firerod") || has("icerod"))));
   }
 }

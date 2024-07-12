@@ -4,6 +4,6 @@ class BossGleeok extends Boss {
   }
 
   canBeat() {
-	  return hasSword();
+      return hasSword();
   }
 }

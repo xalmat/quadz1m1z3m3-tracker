@@ -4,6 +4,6 @@ class BossAgahnim extends Boss {
   }
 
   canBeat() {
-	  return hasSword() || has("hammer") || has("net");
+      return hasSword() || has("hammer") || has("net");
   }
 }

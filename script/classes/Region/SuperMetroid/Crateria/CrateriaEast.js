@@ -1,31 +1,31 @@
 class CrateriaEast extends Crateria {
   constructor(name = "Crateria", subname = "East") {
-	super(name,subname);
-	let regionName = name + subname;
-	this.locations = new LocationCollection([
-		new Location("","Missile (outside Wrecked Ship bottom)",655,97,regionName),
-		new Location("","Missile (outside Wrecked Ship top)",671,7,regionName),
-		new Location("","Missile (outside Wrecked Ship middle)",655,42,regionName),
-		new Location("","Missile (Crateria Moat)",619,79,regionName)
-	],this);
+    super(name,subname);
+    let regionName = name + subname;
+    this.locations = new LocationCollection([
+        new Location("","Missile (outside Wrecked Ship bottom)",655,97,regionName),
+        new Location("","Missile (outside Wrecked Ship top)",671,7,regionName),
+        new Location("","Missile (outside Wrecked Ship middle)",655,42,regionName),
+        new Location("","Missile (Crateria Moat)",619,79,regionName)
+    ],this);
   }
 
   initCasual() {
-	this.locations["Missile (outside Wrecked Ship bottom)"].casualLogic = function() {
-		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal());
-	}
-	this.locations["Missile (outside Wrecked Ship top)"].casualLogic = function() {
-		return ((canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump())) || canAccessMaridiaPortal())
-			&& (canHiJump() || canFlySM() || canDashSM()) && has("phantoon");
-	}
-	this.locations["Missile (outside Wrecked Ship middle)"].casualLogic = function() {
-		return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal()) && canOpenGreenDoors() && has("phantoon");
-	}
+    this.locations["Missile (outside Wrecked Ship bottom)"].casualLogic = function() {
+        return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal());
+    }
+    this.locations["Missile (outside Wrecked Ship top)"].casualLogic = function() {
+        return ((canOpenGreenDoors() && (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump())) || canAccessMaridiaPortal())
+            && (canHiJump() || canFlySM() || canDashSM()) && has("phantoon");
+    }
+    this.locations["Missile (outside Wrecked Ship middle)"].casualLogic = function() {
+        return (canDashSM() || canGrappleSM() || has("space") || canSpringBallJump() || canAccessMaridiaPortal()) && canOpenGreenDoors() && has("phantoon");
+    }
 
     this.canEnter.casualLogic = function() {
-		return (canUsePowerBombs() && canOpenGreenDoors())
-			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canHiJump() || has("space")))
-			|| (canAccessMaridiaPortal() && canSwimSM() && canOpenGreenDoors());
+        return (canUsePowerBombs() && canOpenGreenDoors())
+            || (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canHiJump() || has("space")))
+            || (canAccessMaridiaPortal() && canSwimSM() && canOpenGreenDoors());
     }
   }
 
@@ -33,18 +33,18 @@ class CrateriaEast extends Crateria {
     this.initCasual();
 
     this.locations["Missile (outside Wrecked Ship bottom)"].tourneyLogic = function() {
-		return true;
-	}
+        return true;
+    }
 
-	this.locations["Missile (outside Wrecked Ship top)"].tourneyLogic =
-	this.locations["Missile (outside Wrecked Ship middle)"].tourneyLogic = function() {
-		return canOpenGreenDoors() && canPassBombPassages() && has("phantoon");
-	}
+    this.locations["Missile (outside Wrecked Ship top)"].tourneyLogic =
+    this.locations["Missile (outside Wrecked Ship middle)"].tourneyLogic = function() {
+        return canOpenGreenDoors() && canPassBombPassages() && has("phantoon");
+    }
 
     this.canEnter.tourneyLogic = function() {
-		return (canUsePowerBombs() && canOpenGreenDoors())
-			|| (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()))
-			|| (canAccessMaridiaPortal() && canHiJump() && canOpenGreenDoors());
-	}
+        return (canUsePowerBombs() && canOpenGreenDoors())
+            || (canAccessNorfairPortal() && canUsePowerBombs() && (has("ice") || canSpringBallJump() || canHiJump() || canFlySM()))
+            || (canAccessMaridiaPortal() && canHiJump() && canOpenGreenDoors());
+    }
   }
 }

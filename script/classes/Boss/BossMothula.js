@@ -4,9 +4,9 @@ class BossMothula extends Boss {
   }
 
   canBeat() {
-	  return hasSword() || has("hammer")
-	  	|| (canExtendMagic(2) && (has("firerod") || has("somaria")
-	  		|| has("byrna")))
-	  	|| canGetGoodBee();
+      return hasSword() || has("hammer")
+          || (canExtendMagic(2) && (has("firerod") || has("somaria")
+              || has("byrna")))
+          || canGetGoodBee();
   }
 }

@@ -4,6 +4,6 @@ class BossHelmasaurKing extends Boss {
   }
 
   canBeat() {
-  	return hasSword() || has("hammer") || canShootArrows();
+      return hasSword() || has("hammer") || canShootArrows();
   }
 }
